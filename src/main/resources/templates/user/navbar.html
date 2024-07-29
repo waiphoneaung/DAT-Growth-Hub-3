@@ -13,8 +13,8 @@
         <div class="container-fluid px-3 px-xl-5">
             <!-- Logo START -->
             <a class="navbar-brand" th:href="@{/home}">
-                <img class="light-mode-item navbar-brand-item" th:src="@{/assets/images/DAT Logo.png}" alt="logo">
-                <img class="dark-mode-item navbar-brand-item" th:src="@{/assets/images/DAT Logo.png}" alt="logo">
+                <img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+                <img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
             </a>
             <!-- Logo END -->
 
@@ -31,20 +31,20 @@
             <div class="navbar-collapse w-100 collapse" id="navbarCollapse">
                 <!-- Nav Main menu START -->
                 <ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${content} == 'home' ? 'active':''" th:href="@{/home}">Home</a>
+                    <li class="nav-item"  th:classappend="${content} == 'main' ? 'active':''">
+                        <a class="nav-link" th:href="@{/home}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${content} == 'course' ? 'active':''" th:href="@{/course}">Courses</a>
+                    <li class="nav-item" th:classappend="${content} == 'course' ? 'active':''">
+                        <a class="nav-link"  th:href="@{/course}">Courses</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/blogs}">Blogs</a>
+                    <li class="nav-item" th:classappend="${content} == 'blogs' ? 'active':''">
+                        <a class="nav-link"  th:href="@{/blogs}">Blogs</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${content} == 'contactus' ? 'active':''" th:href="@{/contactus}">Contact Us</a>
+                    <li class="nav-item" th:classappend="${content} == 'contactus' ? 'active':''">
+                        <a class="nav-link"  th:href="@{/contactus}">Contact Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${content} == 'about' ? 'active':''" th:href="@{/about}">About</a>
+                    <li class="nav-item" th:classappend="${content} == 'about' ? 'active':''">
+                        <a class="nav-link"  th:href="@{/about}">About</a>
                     </li>
                 </ul>
                 <!-- Nav Main menu END -->
