@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <th:block th:fragment="scripts">
+        <!-- Bootstrap JS -->
+        <script th:src="@{/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+        <!-- Vendors -->
+        <script th:src="@{/assets/vendor/aos/aos.js}"></script>
+        <script th:src="@{/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+        <!-- Template Functions -->
+        <script th:src="@{/assets/js/functions.js}"></script>
+    </th:block>
+</body>
+</html>
