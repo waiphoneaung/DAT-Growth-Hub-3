@@ -62,8 +62,8 @@ public class SecurityConfig {
                 .logout(logout -> logout.logoutUrl("/signOut").logoutSuccessUrl("/auth/login")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.sendRedirect("/auth/login");
-                        }).
-                        invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").permitAll());
+                        })
+                        .invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").permitAll());
 
         return httpSecurity.build();
     }
