@@ -1,5 +1,6 @@
 package com.g3.elis.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,13 +21,14 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	
+	private Date createdAt;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-		name = "user_role",
-		joinColumns = @JoinColumn(name = "role_id"),
-		inverseJoinColumns = @JoinColumn(name = "user_id")
-			)
+			name = "user_role", 
+			joinColumns = @JoinColumn(name = "role_id"), 
+			inverseJoinColumns = @JoinColumn(name = "user_id")
+	)
 	private Set<User> users = new HashSet<>();
 
 	public int getId() {
@@ -45,6 +47,14 @@ public class Role {
 		this.name = name;
 	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -53,15 +63,16 @@ public class Role {
 		this.users = users;
 	}
 
-	public Role(int id, String name, Set<User> users) {
+	public Role() {
+		
+	}
+	
+	public Role(int id, String name, Date createdAt, Set<User> users) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.createdAt = createdAt;
 		this.users = users;
 	}
-
-	public Role()
-	{
-		
-	}
+	
 }
