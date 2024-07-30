@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from diracetechnology.com/instructor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:22:57 GMT -->
+<head>
+	<title>DAT - Elearning Hub</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="diracetechnology.com">
+	<meta name="description" content="DAT - Elearning Hub">
+
+	<!-- Dark mode -->
+	<script>
+		const storedTheme = localStorage.getItem('theme')
+ 
+		const getPreferredTheme = () => {
+			if (storedTheme) {
+				return storedTheme
+			}
+			return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light'
+		}
+
+		const setTheme = function (theme) {
+			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				document.documentElement.setAttribute('data-bs-theme', 'dark')
+			} else {
+				document.documentElement.setAttribute('data-bs-theme', theme)
+			}
+		}
+
+		setTheme(getPreferredTheme())
+
+		window.addEventListener('DOMContentLoaded', () => {
+		    var el = document.querySelector('.theme-icon-active');
+			if(el != 'undefined' && el != null) {
+				const showActiveTheme = theme => {
+				const activeThemeIcon = document.querySelector('.theme-icon-active use')
+				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+					element.classList.remove('active')
+				})
+
+				btnToActive.classList.add('active')
+				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+			}
+
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+				if (storedTheme !== 'light' || storedTheme !== 'dark') {
+					setTheme(getPreferredTheme())
+				}
+			})
+
+			showActiveTheme(getPreferredTheme())
+
+			document.querySelectorAll('[data-bs-theme-value]')
+				.forEach(toggle => {
+					toggle.addEventListener('click', () => {
+						const theme = toggle.getAttribute('data-bs-theme-value')
+						localStorage.setItem('theme', theme)
+						setTheme(theme)
+						showActiveTheme(theme)
+					})
+				})
+
+			}
+		})
+		
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/apexcharts/css/apexcharts.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container-fluid px-3 px-xl-5">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="index.html">
+				<img class="light-mode-item navbar-brand-item" src="assets/images/DAT Logo.png" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="assets/images/DAT Logo.png" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
+				<!-- Nav Main menu START -->
+				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
+
+					<a class="nav-link active" href="instructor-dashboard.html" id="demoMenu" aria-haspopup="true" aria-expanded="false">Dashboard</a>
+					<a class="nav-link" href="instructor-manage-course.html" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
+					<a class="nav-link" href="blog-grid.html" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
+					<a class="nav-link" href="forum.html" id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+					
+				</ul>
+				<!-- Nav Main menu END -->
+
+				<!-- Nav Search START -->
+				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+					<div class="nav-item w-100">
+						<form class="position-relative">
+							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+						</form>
+					</div>
+				</div>
+				<!-- Nav Search END -->
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile START -->
+			<div class="dropdown ms-1 ms-lg-0">
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+					<img class="avatar-img rounded-circle" src="assets/images/avatar/01.jpg" alt="avatar">
+				</a>
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+							</div>
+							<div>
+								<a class="h6" href="instructor-dashboard.html">Instructor</a>
+								<p class="small m-0"> dathr@diracetechnology.com</p>
+							</div>
+						</div>
+					</li>
+          <li> <hr class="dropdown-divider"></li>
+					<!-- Links -->
+					<li><a class="dropdown-item" href="instructor-edit-profile.html"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item" href="instructor-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="sign-in.html"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li> <hr class="dropdown-divider"></li>
+					<!-- Dark mode options START -->
+					<li>
+						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+									<use href="#"></use>
+								</svg> Light
+							</button>
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+									<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+									<use href="#"></use>
+								</svg> Dark
+							</button>
+							<button type="button" class="btn btn-sm mb-0 active" data-bs-theme-value="auto">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+									<use href="#"></use>
+								</svg> Auto
+							</button>
+						</div>
+					</li> 
+					<!-- Dark mode options END-->
+				</ul>
+			</div>
+			<!-- Profile START -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+	
+<!-- =======================
+Page Banner START -->
+<section class="pt-0">
+	<!-- Main banner background image -->
+	<div class="container-fluid px-0">
+		<div class="bg-blue h-100px h-md-200px rounded-0" style="background:url(assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+		</div>
+	</div>
+	<div class="container mt-n4">
+		<div class="row">
+			<!-- Profile banner START -->
+			<div class="col-12">
+				<div class="card bg-transparent card-body p-0">
+					<div class="row d-flex justify-content-between">
+						<!-- Avatar -->
+						<div class="col-auto mt-4 mt-md-0">
+							<div class="avatar avatar-xxl mt-n3">
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/01.jpg" alt="">
+							</div>
+						</div>
+						<!-- Profile info -->
+						<div class="col d-md-flex justify-content-between align-items-center mt-4">
+							<div>
+								<h1 class="my-1 fs-4">Instructors <i class="bi bi-patch-check-fill text-info small"></i></h1>
+								<ul class="list-inline mb-0">
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate text-orange me-2"></i>12k Enrolled Students</li>
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>25 Courses</li>
+								</ul>
+							</div>
+							<!-- Button -->
+							<div class="d-flex align-items-center mt-2 mt-md-0">
+								<a href="instructor-create-course.html" class="btn btn-success mb-0">Create a course</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Profile banner END -->
+
+				<!-- Advanced filter responsive toggler START -->
+				<!-- Divider -->
+				<hr class="d-xl-none">
+				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+					<a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+					<button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+						<i class="fas fa-sliders-h"></i>
+					</button>
+				</div>
+				<!-- Advanced filter responsive toggler END -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+		<div class="row">
+			<!-- Left sidebar START -->
+			<div class="col-xl-3">
+				<!-- Responsive offcanvas body START -->
+				<div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+					<!-- Offcanvas header -->
+					<div class="offcanvas-header bg-light">
+						<h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+						<button  type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+					</div>
+					<!-- Offcanvas body -->
+					<div class="offcanvas-body p-3 p-xl-0">
+						<div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+							<!-- Dashboard menu -->
+							<div class="list-group list-group-dark list-group-borderless">
+								<a class="list-group-item active" href="instructor-dashboard.html"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								<a class="list-group-item" href="instructor-manage-course.html"><i class="bi bi-basket fa-fw me-2"></i>My Courses</a>
+								<a class="list-group-item" href="instructor-quiz-result.html"><i class="bi bi-journal-check fa-fw me-2"></i>Student Quiz Results</a>
+								<a class="list-group-item" href="instructor-studentlist.html"><i class="bi bi-people fa-fw me-2"></i>Students</a>
+								<a class="list-group-item" href="forum.html"><i class="bi bi-chat-dots fa-fw me-2"></i>Forum</a>
+								<a class="list-group-item" href="instructor-view-blog.html"><i class="fas fa-blog fa-fw me-2"></i>Blogs</a>
+                                <a class="list-group-item" href="instructor-edit-profile.html"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+								
+                                <a class="list-group-item text-danger bg-danger-soft-hover" href="sign-in.html"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Responsive offcanvas body END -->
+			</div>
+			<!-- Left sidebar END -->
+
+			<!-- Main content START -->
+			<div class="col-xl-9">
+
+				<!-- Counter boxes START -->
+				<div class="row g-4">
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-6">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
+							<span class="display-6 text-warning mb-0"><i class="fas fa-tv fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+								</div>
+								<span class="mb-0 h6 fw-light">Total Courses</span>
+							</div>
+						</div>
+					</div>
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-6">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
+							<span class="display-6 text-info mb-0"><i class="fas fa-user-graduate fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">0</h5>
+									<span class="mb-0 h5">K</span>
+								</div>
+								<span class="mb-0 h6 fw-light">Enrolled Students</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Counter boxes END -->
+
+				<!-- Chart START -->
+				<div class="row mt-5">
+					<div class="col-12">
+						<div class="card card-body bg-transparent border p-4 h-100">
+							<div class="row g-4">
+								<!-- Content -->
+								<div class="col-sm-6 col-md-4">
+									<span class="badge text-bg-dark">Current Month</span>
+									<h4 class="text-primary my-2">350 Students</h4>
+									<p class="mb-0"><span class="text-success me-1">0.20%<i class="bi bi-arrow-up"></i></span>vs last month</p>
+								</div>
+								<!-- Content -->
+								<div class="col-sm-6 col-md-4">
+									<span class="badge text-bg-dark">Last Month</span>
+									<h4 class="my-2">250 Students</h4>
+									<p class="mb-0"><span class="text-danger me-1">0.10%<i class="bi bi-arrow-down"></i></span>Then last month</p>
+								</div>
+							</div>
+
+							<!-- Apex chart -->
+							<div id="ChartPayout"></div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Chart END -->
+
+				
+			</div>
+			<!-- Main content END -->
+		</div><!-- Row END -->
+		<!-- Report Table Row Starts Here-->
+		<div class="container mt-5">
+			<div class="row justify-content-between mb-5">
+				<div class="col-6">
+					<h5>Report</h5>
+				</div>
+				<div class="col-6">
+					<select class="form-control" id="reportSelect">
+						<option value="">Select Report</option>
+						<optgroup label="User Activity Report">
+							<option value="active-daily">Active Users (Daily)</option>
+							<option value="active-weekly">Active Users (Weekly)</option>
+							<option value="active-monthly">Active Users (Monthly)</option>
+						</optgroup>
+						<option value="course-performance">Course Performance Report</option>
+						<option value="enrollment-numbers">Enrollment Numbers per Course</option>
+						<option value="popular-courses">Popular Courses</option>
+						<option value="assessment-analytics">Assessment Analytics Report</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped table-bordered" id="reportTable">
+						<thead class="thead-dark">
+							<tr id="tableHeader">
+								<th>Header 1</th>
+								<th>Header 2</th>
+								<th>Header 3</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+							<!-- Data will be inserted here by JavaScript -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<form>
+					<div class="col-4">
+						<button>Export Data.</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Report Table Row Ends Here-->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark p-3">
+	<div class="container">
+		<div class="row align-items-center">
+			<!-- Widget -->
+			<div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+				<!-- Logo START -->
+				<a href="index.html"> <img class="h-20px" src="assets/images/DAT Logo.png" alt="logo"> </a>
+			</div>
+			
+			<!-- Widget -->
+			<div class="col-md-4 mb-3 mb-md-0">
+				<div class="text-center text-white text-primary-hover">
+					Copyrights ©2024 DAT . Build by <a href="https://www.diracetechnology.com/" target="_blank" class="text-white">DAT - Elearning Hub</a>.
+				</div>
+			</div>
+			<!-- Widget -->
+			<div class="col-md-4">
+				<!-- Rating -->
+				<ul class="list-inline mb-0 text-center text-md-end">
+					<li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-facebook"></i></a></li>
+					<li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-instagram"></i></a></li>
+					<li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-linkedin-in"></i></a></li>
+					<li class="list-inline-item ms-2"><a href="#"><i class="text-white fab fa-twitter"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/purecounterjs/dist/purecounter_vanilla.js"></script>
+<script src="assets/vendor/apexcharts/js/apexcharts.min.js"></script>
+
+<!-- Template Functions -->
+<script src="assets/js/functions.js"></script>
+<!-- Script Table starts here-->
+<script>
+	document.getElementById('reportSelect').addEventListener('change', function() {
+		const reportType = this.value;
+		const tableBody = document.getElementById('tableBody');
+		const tableHeader = document.getElementById('tableHeader');
+		
+		tableBody.innerHTML = '';  // Clear existing table data
+	
+		let headers = [];
+		let data = [];
+	
+		switch (reportType) {
+			case 'active-daily':
+				headers = ['User ID', 'Name', 'Last Active'];
+				data = [
+					['1', 'Alice', '2024-07-25'],
+					['2', 'Bob', '2024-07-25'],
+					['3', 'Charlie', '2024-07-25']
+				];
+				break;
+			case 'active-weekly':
+				headers = ['User ID', 'Name', 'Weekly Activity'];
+				data = [
+					['1', 'Alice', '5 days'],
+					['2', 'Bob', '4 days'],
+					['3', 'Charlie', '6 days']
+				];
+				break;
+			case 'active-monthly':
+				headers = ['User ID', 'Name', 'Monthly Activity'];
+				data = [
+					['1', 'Alice', '20 days'],
+					['2', 'Bob', '18 days'],
+					['3', 'Charlie', '25 days']
+				];
+				break;
+			case 'course-performance':
+				headers = ['Course ID', 'Course Name', 'Average Score'];
+				data = [
+					['101', 'Math', '85'],
+					['102', 'Science', '90'],
+					['103', 'History', '78']
+				];
+				break;
+			case 'enrollment-numbers':
+				headers = ['Course ID', 'Course Name', 'Enrollment Numbers'];
+				data = [
+					['101', 'Math', '200'],
+					['102', 'Science', '150'],
+					['103', 'History', '180']
+				];
+				break;
+			case 'popular-courses':
+				headers = ['Course ID', 'Course Name', 'Popularity Index'];
+				data = [
+					['101', 'Math', '98'],
+					['102', 'Science', '95'],
+					['103', 'History', '90']
+				];
+				break;
+			case 'assessment-analytics':
+				headers = ['Assessment ID', 'Assessment Name', 'Average Score'];
+				data = [
+					['201', 'Midterm Exam', '80'],
+					['202', 'Final Exam', '85'],
+					['203', 'Quiz 1', '78']
+				];
+				break;
+			default:
+				headers = ['Header 1', 'Header 2', 'Header 3'];
+				data = [
+					['Data 1', 'Data 2', 'Data 3'],
+					['Data 4', 'Data 5', 'Data 6'],
+					['Data 7', 'Data 8', 'Data 9']
+				];
+		}
+	
+		tableHeader.innerHTML = headers.map(header => `<th>${header}</th>`).join('');
+		tableBody.innerHTML = data.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('');
+	});
+	</script>
+	<!-- Script Table ends here-->
+
+</body>
+
+<!-- Mirrored from diracetechnology.com/instructor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:22:58 GMT -->
+</html>
