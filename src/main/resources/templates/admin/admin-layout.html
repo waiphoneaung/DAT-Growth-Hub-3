@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <!-- Stylesheets -->
+    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+
+    <!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+</head>
+<body>
+    
+   <!-- Admin Side Bar And Nav Bar -->
+   <div th:replace="admin/admin-sidebar :: admin-sidebar"></div>
+   
+
+	<div th:replace="admin/admin-dashboard :: admin-main"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments/scripts :: scripts"></th:block>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Mirrored from diracetechnology.com/admin-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:23:01 GMT -->
 <head>
@@ -195,6 +195,7 @@
 <!-- Sidebar END -->
 
 <!-- Page content START -->
+<th:block th:fragment="admin-main">
 <div class="page-content">
 
 	<!-- Top bar START -->
@@ -943,7 +944,7 @@
 	<!-- Page main content END -->
 </div>
 <!-- Page content END -->
-
+</th:block>
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
