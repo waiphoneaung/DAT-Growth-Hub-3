@@ -12,4 +12,5 @@ public class UserController {
 		model.addAttribute("content","user/main");
 		return "/user/layout";
 	}
+	
 }
