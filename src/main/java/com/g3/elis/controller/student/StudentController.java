@@ -1,4 +1,4 @@
-package com.g3.elis.student;
+package com.g3.elis.controller.student;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
