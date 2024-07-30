@@ -1,8 +1,10 @@
 package com.g3.elis.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,33 +19,47 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String roleName;
+	private String name;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-		name = "user_roles",
+		name = "user_role",
 		joinColumns = @JoinColumn(name = "role_id"),
 		inverseJoinColumns = @JoinColumn(name = "user_id")
 			)
-	private Set<User> userRoles;
+	private Set<User> users = new HashSet<>();
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRoleName() {
-		return roleName;
+
+	public String getName() {
+		return name;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Role(int id, String roleName) {
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Role(int id, String name, Set<User> users) {
 		super();
 		this.id = id;
-		this.roleName = roleName;
+		this.name = name;
+		this.users = users;
 	}
-	
+
 	public Role()
 	{
 		
