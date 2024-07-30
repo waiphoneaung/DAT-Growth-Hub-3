@@ -45,12 +45,15 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).cors(Customizer.withDefaults())
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/login").permitAll()
-                		.requestMatchers("/register").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                		.requestMatchers("/user/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/static/upload-resources/**").permitAll()
+                        .requestMatchers("/static/public/**").permitAll()
+                        .requestMatchers("/static/private/profiles/**").permitAll()
+                        .requestMatchers("/static/private/blog/**","/static/private/course/**")
+                        				.hasAnyAuthority("STUDENT","INSTRUCTOR","ADMIN")
                         .requestMatchers("/api/public/**").permitAll().anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/auth/accessDenied"))
                 .formLogin(form -> form.loginPage("/auth/login").loginProcessingUrl("/signIn")

@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 		}
 		else
 		{ 	
-			user.setPassword(passwordEncoder.encode("password"));
+			user.setPassword(passwordEncoder.encode("dirace@1234"));
 		}
 		
 //		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
