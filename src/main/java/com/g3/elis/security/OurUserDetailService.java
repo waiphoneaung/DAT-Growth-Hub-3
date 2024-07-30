@@ -1,5 +1,8 @@
 package com.g3.elis.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class OurUserDetailService implements UserDetailsService {
 	
