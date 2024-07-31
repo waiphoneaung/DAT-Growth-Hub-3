@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <!-- Stylesheets -->
+    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+
+    <!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+</head>
+<body>
+	<!-- Sidebar -->
+	   <div th:replace="admin/admin-sidebar :: admin-sidebar"></div>
+	   
+    <!-- Include navbar -->
+    
+    <div th:replace="admin/admin-navbar :: admin-navbar"></div>
+
+    <!-- Main content -->
+    <main>
+        <th:block th:replace="${content}"></th:block>
+    </main>
+	<!-- Back to top -->
+	<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+	
+    
+    <!-- Scripts -->
+    <th:block th:replace="fragments/scripts :: scripts"></th:block>
+</body>
+</html>
