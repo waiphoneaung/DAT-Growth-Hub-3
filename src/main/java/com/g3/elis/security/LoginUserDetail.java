@@ -9,6 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.g3.elis.model.Role;
+import com.g3.elis.model.User;
+
 public class LoginUserDetail implements UserDetails {
 
 	/**
@@ -53,7 +56,7 @@ public class LoginUserDetail implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return user.getEmail();
+		return user.getStaffId();
 	}
 
 	public boolean isEnabled() {
