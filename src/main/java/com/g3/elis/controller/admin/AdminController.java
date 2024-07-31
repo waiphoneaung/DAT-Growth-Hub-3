@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminController{
 	@GetMapping("/admin-dashboard")
 	public String home(Model model) {
-		model.addAttribute("content","admin/admin-main");
+		model.addAttribute("content","admin/admin-dashboard");
 		return "/admin/admin-layout";
 	}
 }
