@@ -1,5 +1,5 @@
 package com.g3.elis.dto.auth;
 
-public class UserDto {
+public class UserAuthDto {
 
 }
