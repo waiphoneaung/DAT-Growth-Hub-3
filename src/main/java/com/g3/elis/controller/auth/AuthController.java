@@ -10,12 +10,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "sign-in";
+        return "user/sign-in";
     }
 
     @GetMapping("/accessDenied")
     public String accessDeniedPage() {
-        return "error404";
+        return "user/error404";
     }
 
 }

@@ -47,7 +47,8 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                 		.requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/student/**").hasAuthority("STUDENT")
+                		.requestMatchers("/fragments/**").permitAll()
+                		.requestMatchers("/student/**").hasAuthority("STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/static/public/**").permitAll()
@@ -114,13 +115,13 @@ public class SecurityConfig {
                                                 Authentication authentication) throws IOException, ServletException {
                 Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                 if (authorities.contains("ADMIN")) {
-                	response.sendRedirect("/admin/admin-dashboard");
+                	response.sendRedirect("/admin-dashboard");
                 }
                 else if (authorities.contains("STUDENT")) {
-                	response.sendRedirect("/student/student-dashboard");
+                	response.sendRedirect("/student-dashboard");
                 }
                 else if (authorities.contains("INSTRUCTOR")) {
-                	response.sendRedirect("/instructor/instructor-dashboard");
+                	response.sendRedirect("/instructor-dashboard");
                 } else {
                     response.sendRedirect("/home");
                 }
