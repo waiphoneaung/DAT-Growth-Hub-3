@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <title>Layout</title>
 <!-- Stylesheets -->
-<th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
 
 <!-- Dark Mode Script -->
-<th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
 </head>
 <body>
 	<!-- Sidebar -->
-	<div th:replace="admin/admin-sidebar :: admin-sidebar"></div>
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
 
 	<!-- Include navbar -->
 
-	<div th:replace="admin/admin-navbar :: admin-navbar"></div>
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
 
 	<!-- Main content -->
 	<main>
@@ -29,10 +29,10 @@
 
 
 	<!-- Scripts -->
-	<th:block th:replace="fragments/scripts :: scripts"></th:block>
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 	<!-- Template Functions -->
-	<script src="assets/js/functions.js"></script>
-
+	<script th:src="@{public/assets/js/functions.js}"></script>
+	
 	<!-- Script Table starts here-->
 	<script>
 	document.getElementById('reportSelect').addEventListener('change', function() {
