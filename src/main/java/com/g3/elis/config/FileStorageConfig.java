@@ -11,23 +11,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Configuration
 public class FileStorageConfig {
-	
-	@Value("${file.upload-dir}")
-	private String uploadDir;
-	
-	public Path getUploadDir()
-	{
-		return Paths.get(uploadDir).toAbsolutePath().normalize();
+
+	public void saveFile(MultipartFile file, String originalFilename) {
+		// TODO Auto-generated method stub
+		
 	}
-	
-	public void saveFile(MultipartFile file,String fileName) throws IOException
-	{
-		Path targetLocation = getUploadDir().resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
-	}
-	public void deleteFile(String fileName) throws IOException
-	{
-		Path targetLocation = getUploadDir().resolve(fileName);
-		Files.delete(targetLocation);
-	}
+//	
+//	@Value("${file.upload-dir}")
+//	private String uploadDir;
+//	
+//	public Path getUploadDir()
+//	{
+//		return Paths.get(uploadDir).toAbsolutePath().normalize();
+//	}
+//	
+//	public void saveFile(MultipartFile file,String fileName) throws IOException
+//	{
+//		Path targetLocation = getUploadDir().resolve(fileName);
+//		Files.copy(file.getInputStream(), targetLocation);
+//	}
+//	public void deleteFile(String fileName) throws IOException
+//	{
+//		Path targetLocation = getUploadDir().resolve(fileName);
+//		Files.delete(targetLocation);
+//	}
 }

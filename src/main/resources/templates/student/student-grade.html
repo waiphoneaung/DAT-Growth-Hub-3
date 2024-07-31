@@ -1,0 +1,261 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head >
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+ <th:block th:fragment="student-grade">
+ <!-- Main content START -->
+			<div class="col-xl-9">
+
+				<!-- Student quiz result START -->
+				<div class="card border bg-transparent rounded-3 ">
+					<!-- Card header START -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="mb-0">Student Grade Result</h3>
+					
+
+					<!-- Card body START -->
+					<div class="card-body">
+
+						<!-- Search and select START -->
+						<div class="row g-3 align-items-center justify-content-between mb-4">
+							<!-- Search -->
+							<div class="col-md-12">
+								<form class="rounded position-relative">
+									<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+									<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+								</form>
+							</div>
+
+							<!-- Select option -->
+							<div class="col-md-3">
+								<!-- Short by filter -->
+								<form>
+									
+								</form>
+							</div>
+						</div>
+						<!-- Search and select END -->
+
+						<!-- Student list table START -->
+						<div class="table-responsive border-0">
+							<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Course Name</th>
+										<th scope="col" class="border-0">Grade</th>
+										<th scope="col" class="border-0">Date</th>
+										<th scope="col" class="border-0">Score</th>
+									
+									</tr>
+								</thead>
+
+								<!-- Table body START -->
+								<tbody>
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">Java</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">A</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>7/1/2023</td>
+										
+										<!-- Table data -->
+										<td>450/500</td>
+
+										
+									</tr>
+
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">Python</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">B</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>6/1/2023</td>
+										
+										<!-- Table data -->
+										<td>425/500</td>
+
+										<!-- Table data -->
+										
+									</tr>
+
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">PHP</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">A</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>5/1/2023</td>
+										
+										<!-- Table data -->
+										<td>385/500</td>
+
+										<!-- Table data -->
+										
+									</tr>
+
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">Swift</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">B</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>5/1/2023</td>
+										
+										<!-- Table data -->
+										<td>398/500</td>
+
+										<!-- Table data -->
+										
+									</tr>
+
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">CSS</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">C</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>4/1/2023</td>
+										
+										<!-- Table data -->
+										<td>428/500</td>
+
+										<!-- Table data -->
+										
+									</tr>
+
+									<!-- Table item -->
+									<tr>
+										<!-- Table data -->
+										<td>
+											<div class="d-flex align-items-center">
+												<!-- Image -->
+												
+												<div>
+													<!-- Title -->
+													<h6 class="mb-0"><a href="#">Digital Marketing</a></h6>
+												</div>
+											</div>
+										</td>
+
+										<!-- Table data -->
+										<td>
+											<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">B</a></h6>
+										</td>
+
+										<!-- Table data -->
+										<td>4/1/2023</td>
+										
+										<!-- Table data -->
+										<td>486/500</td>
+
+										<!-- Table data -->
+										
+									</tr>
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
+						<!-- Student list table END -->
+
+						<!-- Pagination START -->
+						<div class="d-sm-flex justify-content-sm-center align-items-sm-center mt-4 mt-sm-3">
+							<!-- Content -->
+							<!-- Pagination -->
+							<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+								<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+									<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+								</ul>
+							</nav>
+						</div>
+						<!-- Pagination END -->
+					</div>
+					<!-- Card body START -->
+				</div>
+				<!-- Student quiz result END -->
+
+				
+			<!-- Main content END -->
+ </th:block>
+ </body>
+ </html>

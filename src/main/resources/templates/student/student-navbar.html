@@ -13,7 +13,7 @@
 	<nav class="navbar navbar-expand-xl">
 		<div class="container-fluid px-3 px-xl-5">
 			<!-- Logo START -->
-			<a class="navbar-brand" href="index.html">
+			<a class="navbar-brand" th:href="@{/student-dashboard}">
 				<img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
 				<img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
 			</a>
@@ -34,9 +34,9 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student-dasboard}">Dashboard</a>
-					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student-course-list}" >Courses</a>
-					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/blogs}" >Blogs</a>
+					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student-dashboard}">Dashboard</a>
+					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student-course-list}">Courses</a>
+					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/blog}" >Blogs</a>
 					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/forum}" >Forum</a>
 					
 					
