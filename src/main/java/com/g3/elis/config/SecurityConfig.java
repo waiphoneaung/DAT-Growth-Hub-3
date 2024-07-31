@@ -114,13 +114,13 @@ public class SecurityConfig {
                                                 Authentication authentication) throws IOException, ServletException {
                 Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                 if (authorities.contains("ADMIN")) {
-                	response.sendRedirect("/admin/home");
+                	response.sendRedirect("/admin/admin-dashboard");
                 }
                 else if (authorities.contains("STUDENT")) {
-                	response.sendRedirect("/student/home");
+                	response.sendRedirect("/student/student-dashboard");
                 }
                 else if (authorities.contains("INSTRUCTOR")) {
-                	response.sendRedirect("/instructor/home");
+                	response.sendRedirect("/instructor/instructor-dashboard");
                 } else {
                     response.sendRedirect("/home");
                 }
