@@ -77,11 +77,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
 	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{public/assets/vendor/font-awesome/css/all.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+	<link rel="stylesheet" href="../public/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="../public/assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{public/assets/css/style.css}">
+	<link rel="stylesheet" href="../public/assets/css/style.css">
 
 </head>
 
@@ -102,7 +102,7 @@
 							<p class="mb-0 h6 fw-light">Let's learn something new today!</p>
 						</div>
 						<!-- SVG Image -->
-						<img src="assets/images/element/02.svg" class="mt-5" alt="">
+						<img th:src="@{public/assets/images/element/02.svg}" class="mt-5" alt="">
 					</div>
 				</div>
 
@@ -118,7 +118,7 @@
 							<form method="post" action="/signIn">
 								<!-- Staff ID -->
 								<div class="mb-4">
-									<label for="username" id="username" class="form-label">Staff ID *</label>
+									<label for="username" class="form-label">Staff ID *</label>
 									<div class="input-group input-group-lg">
 										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="bi bi-person-fill"></i></span>
 										<input id="username" name="username" type="text" class="form-control border-0 bg-light rounded-end ps-1" placeholder="Staff ID">
@@ -173,10 +173,10 @@
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
 <!-- Bootstrap JS -->
-<script th:src="@{public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<script src="../public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Template Functions -->
-<script th:src="@{public/assets/js/functions.js}"></script>
+<script src="../public/assets/js/functions.js"></script>
 
 </body>
 
