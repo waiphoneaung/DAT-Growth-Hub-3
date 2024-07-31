@@ -36,7 +36,6 @@ public class LoginUserDetail implements UserDetails {
 		return authorities;
 	}
 	
-//	 @Override
 //	    public Collection<? extends GrantedAuthority> getAuthorities() {
 //	        Set<Role> roles = user.getRoles();
 //	        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
