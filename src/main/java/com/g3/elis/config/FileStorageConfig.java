@@ -11,6 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Configuration
 public class FileStorageConfig {
+
+	public void saveFile(MultipartFile file, String originalFilename) {
+		// TODO Auto-generated method stub
+		
+	}
 //	
 //	@Value("${file.upload-dir}")
 //	private String uploadDir;
