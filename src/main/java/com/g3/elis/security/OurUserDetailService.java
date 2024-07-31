@@ -12,21 +12,20 @@ import com.g3.elis.model.User;
 import com.g3.elis.repository.UserRepository;
 
 @Service
-public class OurUserDetailService  {
+public class OurUserDetailService implements UserDetailsService {
 	
-//	@Autowired
-//	private UserRepository userRepository;
-//
-//	@Override
-//	public UserDetails loadUserByUsername(String staffId) throws UsernameNotFoundException {
-//		
-//		//Need to implement Find by staff Id Method in Uesr Repository
-//		Optional<User> user = userRepository.findByStaffId(staffId);
-//		if (user.isEmpty()) {
-//			throw new UsernameNotFoundException("user not found ");
-//		}
-//
-//		return new LoginUserDetail(user.get());
-//	}
-}
+	@Autowired
+	private UserRepository userRepository;
 
+	@Override
+	public UserDetails loadUserByUsername(String staffId) throws UsernameNotFoundException {
+		
+		//Need to implement Find by staff Id Method in Uesr Repository
+		Optional<User> user = userRepository.findByStaffId(staffId);
+		if (user.isEmpty()) {
+			throw new UsernameNotFoundException("user not found ");
+		}
+
+		return new LoginUserDetail(user.get());
+	}
+}
