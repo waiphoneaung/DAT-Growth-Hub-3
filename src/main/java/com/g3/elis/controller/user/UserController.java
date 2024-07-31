@@ -13,4 +13,28 @@ public class UserController {
 		return "/user/layout";
 	}
 	
+	@GetMapping("/contactus")
+	public String contactUs(Model model) {
+		model.addAttribute("content","user/contactus");
+		return "/user/layout";
+	}
+	
+	@GetMapping("/about")
+	public String about(Model model) {
+		model.addAttribute("content","user/about");
+		return "/user/layout";
+	}
+	
+	@GetMapping("/blog")
+	public String blogGrid(Model model) {
+		model.addAttribute("content","user/blog");
+		return "/user/layout";
+	}
+	
+	@GetMapping("/courses")
+	public String courseList(Model model) {
+		model.addAttribute("content","user/courses");
+		return "/user/layout";
+	}
+	
 }
