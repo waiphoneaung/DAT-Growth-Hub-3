@@ -1,14 +1,14 @@
-package com.g3.elis.student;
+package com.g3.elis.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class StudentController {
-	@GetMapping("/student-dashboard")
+public class AdminController{
+	@GetMapping("/admin-dashboard")
 	public String home(Model model) {
-		model.addAttribute("content","student/student-main");
-		return "/student/student-layout";
+		model.addAttribute("content","admin/admin-main");
+		return "/admin/admin-layout";
 	}
 }

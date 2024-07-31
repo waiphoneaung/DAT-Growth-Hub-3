@@ -6,6 +6,7 @@
   
 </head>
 <body>
+
 <th:block th:fragment="navbar">
 	<!-- Header START -->
 <header class="navbar-light navbar-sticky header-static">
@@ -35,10 +36,10 @@
                         <a class="nav-link" th:href="@{/home}">Home</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'course' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/course}">Courses</a>
+                        <a class="nav-link"  th:href="@{/courses}">Courses</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'blogs' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/blogs}">Blogs</a>
+                        <a class="nav-link"  th:href="@{/blog}">Blogs</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'contactus' ? 'active':''">
                         <a class="nav-link"  th:href="@{/contactus}">Contact Us</a>
