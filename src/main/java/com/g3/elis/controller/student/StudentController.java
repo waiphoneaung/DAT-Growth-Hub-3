@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class StudentController {
 	@GetMapping("/student-dashboard")
 	public String home(Model model) {
-		model.addAttribute("content","student/student-main");
-		return "/student/student-layout";
+		model.addAttribute("content","student/student-dashboard");
+		return "student/student-layout";
 	}
 	
 	@GetMapping("/student-course-list")
