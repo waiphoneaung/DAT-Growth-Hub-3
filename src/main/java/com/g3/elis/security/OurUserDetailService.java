@@ -29,4 +29,3 @@ public class OurUserDetailService implements UserDetailsService {
 		return new LoginUserDetail(user.get());
 	}
 }
-

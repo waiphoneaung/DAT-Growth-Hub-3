@@ -1,0 +1,408 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head >
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+
+    <!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+</head>
+<body>
+ <th:block th:fragment="student-quiz">
+ <header class="navbar-light navbar-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container-fluid px-3 px-xl-5">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="index.html">
+				<img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
+				<!-- Nav Main menu START -->
+				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
+
+					<a class="nav-link active" th:href="@{/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Dashboard</a>
+					<a class="nav-link" th:href="@{/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
+					<a class="nav-link" th:href="@{/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">News</a>
+					<a class="nav-link" th:href="@{/forum}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+				
+					
+				</ul>
+				<!-- Nav Main menu END -->
+
+				<!-- Nav Search START -->
+				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+					<div class="nav-item w-100">
+						<form class="position-relative">
+							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+								<i class="fas fa-search fs-6 "></i>
+							</button>
+						</form>
+					</div>
+				</div>
+				<!-- Nav Search END -->
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile START -->
+			<div class="dropdown ms-1 ms-lg-0">
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+					<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+				</a>
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<img class="avatar-img rounded-circle shadow" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+							</div>
+							<div>
+								<a class="h6" href="student-dashboard.html">Student</a>
+								<p class="small m-0"> dathr@diracetechnology.com</p>
+							</div>
+						</div>
+					</li>
+          <li> <hr class="dropdown-divider"></li>
+					<!-- Links -->
+					<li><a class="dropdown-item" th:href="@{/student-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item" href=""><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-in}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li> <hr class="dropdown-divider"></li>
+					<!-- Dark mode options START -->
+					<li>
+						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+									<use href="#"></use>
+								</svg> Light
+							</button>
+							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+									<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+									<use href="#"></use>
+								</svg> Dark
+							</button>
+							<button type="button" class="btn btn-sm mb-0 active" data-bs-theme-value="auto">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+									<use href="#"></use>
+								</svg> Auto
+							</button>
+						</div>
+					</li> 
+					<!-- Dark mode options END-->
+				</ul>
+			</div>
+			<!-- Profile START -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<main>
+	
+<!-- =======================
+Page Banner START -->
+<section class="pt-0">
+	<div class="container-fluid px-0">
+		<div class="card bg-blue h-100px h-md-200px rounded-0" style="background:url(public/assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+		</div>
+	</div>
+	<div class="container mt-n4">
+		<div class="row">
+			<div class="col-12">
+				
+				
+
+				<!-- Advanced filter responsive toggler START -->
+				<!-- Divider -->
+				<hr class="d-xl-none">
+				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+					<a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+					<button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+						<i class="fas fa-sliders-h"></i>
+					</button>
+				</div>
+				<!-- Advanced filter responsive toggler END -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+		<div class="row">
+
+			
+			<!-- Main content START -->
+			<div class="col-xl-12">
+
+				<!-- Course item START -->
+				<div class="card border">
+						<div class="card-header border-bottom">
+							<!-- Course list START -->
+							<div class="row">
+								<div class="col-12">
+									<div class="card">
+										<div class="row g-0">
+											<div class="col-md-2">
+												<img th:src="@{public/assets/images/courses/4by3/01.jpg}" class="rounded-2" alt="Card image">
+											</div>
+											<div class="col-md-10">
+												<div class="card-body">
+													<!-- Title -->
+													<h3 class="card-title"><a href="#">The Complete Digital Marketing Course - 12 Courses in 1</a></h3>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Course list END -->
+						</div>
+
+						<div class="card-body">
+							<!-- Step content START -->
+							<div class="card bg-transparent border rounded-3 mb-1">
+								<div id="stepper" class="bs-stepper stepper-outline">
+									<!-- Card header -->
+									<div class="card-header bg-light border-bottom px-lg-5">
+										<!-- Step Buttons START -->
+										<div class="bs-stepper-header" role="tablist">
+											<!-- Step 1 -->
+											<div class="step" data-target="#step-1">
+												<button type="button" class="btn btn-link step-trigger mb-0" >
+														
+												</button>
+											</div>
+					
+											<!-- Step 2 -->
+											<div class="step" data-target="#step-2">
+												<button type="button" class="btn btn-link step-trigger mb-0" >
+														
+												</button>
+											</div>
+					
+											<!-- Step 3 -->
+											<div class="step" data-target="#step-3">
+												<button type="button" class="btn btn-link step-trigger mb-0" >
+														
+												</button>
+											</div>
+					
+											<!-- Step 4 -->
+											<div class="step" data-target="#step-4">
+												<button type="button" class="btn btn-link step-trigger mb-0" >
+														
+												</button>
+											</div>
+										</div>
+										<!-- Step Buttons END -->
+									</div>
+					
+									<!-- Card body START -->
+									<div class="card-body">
+
+										<h6 class="text-danger text-end mb-0"><i class="bi bi-clock-history me-2"></i>Time Left: 00:01:30</h6>
+
+										<!-- Step content START -->
+										<div class="bs-stepper-content">
+											<form>
+												<!-- Step 1 content START -->
+												<div id="step-1" role="tabpanel" class="content fade" aria-labelledby="steppertrigger1">
+													<!-- Title -->
+													<h4>How do you protect your business against cyber-crime?</h4>
+					
+													<hr> <!-- Divider -->
+													<div class="vstack gap-2">
+														<!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option1">
+														 <label class="btn btn-outline-primary w-100" for="option1">We have cybersecurity insurance coverage</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option2">
+														 <label class="btn btn-outline-primary w-100" for="option2">Our dedicated staff will protect us</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option3">
+														 <label class="btn btn-outline-primary w-100" for="option3">We give regular training for best practices</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option4">
+														 <label class="btn btn-outline-primary w-100" for="option4">Third-party vendor protection</label>
+													 </div>
+													</div>
+
+													<!-- Step 1 button -->
+													<div class="d-flex justify-content-center mt-3">
+														<button type="button" class="btn btn-primary next-btn mb-0">Next question</button>
+													</div>
+											 
+												</div>
+												<!-- Step 1 content END -->
+					
+												<!-- Step 2 content START -->
+												<div id="step-2" role="tabpanel" class="content fade" aria-labelledby="steppertrigger2">
+													<!-- Title -->
+													<h4>What is SEO?</h4>
+					
+													<hr> <!-- Divider -->
+													<div class="vstack gap-2">
+														<!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option11">
+														 <label class="btn btn-outline-primary w-100" for="option11">We have cybersecurity insurance coverage</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option22">
+														 <label class="btn btn-outline-primary w-100" for="option22">Our dedicated staff will protect us</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option33">
+														 <label class="btn btn-outline-primary w-100" for="option33">We give regular training for best practices</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option44">
+														 <label class="btn btn-outline-primary w-100" for="option44">Third-party vendor protection</label>
+													 </div>
+													</div>
+													
+													<!-- Next button -->
+													<div class="d-flex justify-content-center mt-3">
+														<button type="button" class="btn btn-primary next-btn mb-0">Next question</button>
+													</div>
+												</div>
+												<!-- Step 2 content END -->
+					
+												<!-- Step 3 content START -->
+												<div id="step-3" role="tabpanel" class="content fade" aria-labelledby="steppertrigger3">
+													<!-- Title -->
+													<h4>Who should join this course?</h4>
+					
+													<hr> <!-- Divider -->
+													<div class="vstack gap-2">
+														<!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option111">
+														 <label class="btn btn-outline-primary w-100" for="option111">We have cybersecurity insurance coverage</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option222">
+														 <label class="btn btn-outline-primary w-100" for="option222">Our dedicated staff will protect us</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option333">
+														 <label class="btn btn-outline-primary w-100" for="option333">We give regular training for best practices</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option444">
+														 <label class="btn btn-outline-primary w-100" for="option444">Third-party vendor protection</label>
+													 </div>
+													</div>
+
+													<!-- Next button -->
+													<div class="d-flex justify-content-center mt-3">
+														<button type="button" class="btn btn-primary next-btn mb-0">Next question</button>
+													</div>
+											 
+												</div>
+												<!-- Step 3 content END -->
+					
+												<!-- Step 4 content START -->
+												<div id="step-4" role="tabpanel" class="content fade" aria-labelledby="steppertrigger4">
+													<!-- Title -->
+													<h4>What are the T&C for this program?</h4>
+					
+													<hr> <!-- Divider -->
+													<div class="vstack gap-2">
+														<!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option1111">
+														 <label class="btn btn-outline-primary w-100" for="option1111">We have cybersecurity insurance coverage</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option2222">
+														 <label class="btn btn-outline-primary w-100" for="option2222">Our dedicated staff will protect us</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option3333">
+														 <label class="btn btn-outline-primary w-100" for="option3333">We give regular training for best practices</label>
+													 </div>
+													 <!-- Feed ques item -->
+													 <div>
+														 <input type="radio" class="btn-check" name="ques" id="option4444">
+														 <label class="btn btn-outline-primary w-100" for="option4444">Third-party vendor protection</label>
+													 </div>
+													</div>
+
+													<!-- Next button -->
+													<div class="d-flex justify-content-center mt-3">
+														<button type="button" class="btn btn-success next-btn mb-0">Submit</button>
+													</div>
+													
+												</div>
+												<!-- Step 4 content END -->
+					
+											</form>
+										</div>
+									</div>
+									<!-- Card body END -->
+								</div>
+							</div>		
+						</div>
+					
+				</div>
+				<!-- Course item END -->
+
+			</div>
+			<!-- Main content END -->
+		</div> <!-- Row END -->
+	</div>	
+</section>
+<!-- =======================
+Page content END -->
+
+</main>
+<div th:replace="student/student-footer :: student-footer"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments/scripts :: scripts"></th:block>
+    <script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+ </th:block>
+ </body>
+ </html>
+ 

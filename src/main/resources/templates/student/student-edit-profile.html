@@ -1,0 +1,101 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head >
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+</head>
+<body>
+ <th:block th:fragment="student-edit-profile">
+ 
+ <div class="col-xl-9">
+				<!-- Edit profile START -->
+				<div class="card bg-transparent border rounded-3">
+					<!-- Card header -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="card-header-title mb-0">Edit Profile</h3>
+					</div>
+					<!-- Card body START -->
+					<div class="card-body">
+						<!-- Form -->
+						<form class="row g-4">
+
+							<!-- Profile picture -->
+							<div class="col-12 justify-content-center align-items-center">
+								<label class="form-label">Profile picture</label>
+								<div class="d-flex align-items-center">
+									<label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
+										<!-- Avatar place holder -->
+										<span class="avatar avatar-xl">
+											<img id="uploadfile-1-preview" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{public/assets/images/avatar/07.jpg}" alt="">
+										</span>
+										<!-- Remove btn -->
+										<button type="button" class="uploadremove"><i class="bi bi-x text-white"></i></button>
+									</label>
+									<!-- Upload button -->
+									<label class="btn btn-primary-soft mb-0" for="uploadfile-1">Change</label>
+									<input id="uploadfile-1" class="form-control d-none" type="file">
+								</div>
+							</div>
+
+							<!-- Full name -->
+							<div class="col-6">
+								<label class="form-label">Full name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" disabled placeholder="Name">
+									
+								</div>
+								<div class="col-6"></div>
+							</div>
+
+							<!-- Username -->
+							<div class="col-md-6">
+								<label class="form-label">Staff ID</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+									<input type="text" class="form-control" disabled>
+								</div>
+							</div>
+
+							<!-- Email id -->
+							<div class="col-md-6">
+								<label class="form-label">Email</label>
+								<input class="form-control" type="email"  placeholder="Email" disabled>
+							</div>
+
+							<!-- Phone number -->
+							<div class="col-md-6">
+								<label class="form-label">Phone number</label>
+								<input type="text" class="form-control" placeholder="Phone number">
+							</div>
+
+							<!-- Location -->
+							<div class="col-md-6">
+								<label class="form-label">Location</label>
+								<input class="form-control" type="text" >
+							</div>
+							
+							<!-- About me -->
+							<div class="col-12">
+								<label class="form-label">About me</label>
+								<textarea class="form-control" rows="3"></textarea>
+							</div>
+
+							<!-- Save button -->
+							<div class="d-sm-flex justify-content-end">
+								<button type="button" class="btn btn-primary mb-0">Save changes</button>
+							</div>
+						</form>
+					</div>
+					<!-- Card body END -->
+				</div>
+				<!-- Edit profile END -->
+				
+				<div class="row g-4 mt-3">
+				
+					
+
+					
+				</div>
+			</div>
+			</th:block>
+			</body>
+			</html>
