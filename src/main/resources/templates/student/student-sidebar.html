@@ -103,7 +103,7 @@ Page content START -->
 									<ul class="nav collapse flex-column" id="collapseauthentication" data-bs-parent="#navbar-sidebar">
 										<li class="nav-item"> <a class="nav-link" th:href="@{/student-course-list}">My Courses</a></li>
 										<li class="nav-item"> <a class="nav-link" th:href="@{/student-view-allcourses}">All Courses</a></li>
-										</li>
+										
 									</ul>
 									
 								
@@ -123,17 +123,17 @@ Page content START -->
 			</div>
 			<!-- Left sidebar END -->
 			
-    <!-- Main content -->
     
+    	
         <th:block th:replace="${content}"></th:block>
-    
-    
+    	
+    </div>
 	</div>
-	</div>
+	
 	</section>
 	<!-- =======================
 Page content END -->
-	</main>
+</main>
 
 </th:block>
 </body>
