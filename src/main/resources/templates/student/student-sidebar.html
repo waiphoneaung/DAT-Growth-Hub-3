@@ -93,7 +93,7 @@ Page content START -->
 						<div class="bg-dark border rounded-3 p-3 w-100">
 							<!-- Dashboard menu -->
 							<div class="list-group list-group-dark list-group-borderless collapse-list">
-								<a class="list-group-item" th:classappend="${content} == 'student/student-dashboard' ? 'active' : ''" th:href="@{/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-dashboard' ? 'active' : ''" th:href="@{/student/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								
 								
 									<a class="list-group-item" th:classappend="${content} == 'student/student-course-list' ? 'active' : ''" data-bs-toggle="collapse" href="#collapseauthentication" role="button" aria-expanded="false" aria-controls="collapseauthentication">
@@ -101,19 +101,19 @@ Page content START -->
 									</a>
 									<!-- Submenu -->
 									<ul class="nav collapse flex-column" id="collapseauthentication" data-bs-parent="#navbar-sidebar">
-										<li class="nav-item"> <a class="nav-link" th:href="@{/student-course-list}">My Courses</a></li>
-										<li class="nav-item"> <a class="nav-link" th:href="@{/student-view-allcourses}">All Courses</a></li>
+										<li class="nav-item"> <a class="nav-link" th:href="@{/student/student-course-list}">My Courses</a></li>
+										<li class="nav-item"> <a class="nav-link" th:href="@{/student/student-view-allcourses}">All Courses</a></li>
 										
 									</ul>
 									
 								
 									
-									<a class="list-group-item" th:classappend="${content} == 'student/student-certificate' ? 'active' : ''" th:href="@{/student-certificate}"><i class="fas fa-fw fa-certificate me-2"></i>My Achievements</a>
-								<a class="list-group-item" th:classappend="${content} == 'student/instructor-list' ? 'active' : ''" th:href="@{/instructor-list}"><i class="bi bi-people fa-fw me-2"></i>Instructor List</a>
-								<a class="list-group-item" th:classappend="${content} == 'student/student-grade' ? 'active' : ''" th:href="@{/student-grade}"><i class="fas fa-graduation-cap fa-fw me-2"></i>Grade</a>
-								<a class="list-group-item" th:classappend="${content} == 'student/student-edit-profile' ? 'active' : ''" th:href="@{/student-edit-profile}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+									<a class="list-group-item" th:classappend="${content} == 'student/student-certificate' ? 'active' : ''" th:href="@{/student/student-certificate}"><i class="fas fa-fw fa-certificate me-2"></i>My Achievements</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/instructor-list' ? 'active' : ''" th:href="@{/student/instructor-list}"><i class="bi bi-people fa-fw me-2"></i>Instructor List</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-grade' ? 'active' : ''" th:href="@{/student/student-grade}"><i class="fas fa-graduation-cap fa-fw me-2"></i>Grade</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-edit-profile' ? 'active' : ''" th:href="@{/student/student-edit-profile}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
 								
-								<a class="list-group-item text-danger bg-danger-soft-hover" th:href="@{/sign-up}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+								<a class="list-group-item text-danger bg-danger-soft-hover" th:href="@{/sign-out}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 								
 							</div>
 						</div>
@@ -125,16 +125,10 @@ Page content START -->
 			
     
     	
-        <th:block th:replace="${content}"></th:block>
+        <th:block th:replace="~{${content}}"></th:block>
     	
     </div>
 	</div>
-<<<<<<< HEAD
-	
-	</section>
-=======
-	</section> 	
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
 	<!-- =======================
 Page content END -->
 </main>

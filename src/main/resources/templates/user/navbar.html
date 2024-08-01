@@ -33,19 +33,19 @@
                 <!-- Nav Main menu START -->
                 <ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
                     <li class="nav-item"  th:classappend="${content} == 'main' ? 'active':''">
-                        <a class="nav-link" th:href="@{/home}">Home</a>
+                        <a class="nav-link" th:href="@{/user/home}">Home</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'course' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/courses}">Courses</a>
+                        <a class="nav-link"  th:href="@{/user/courses}">Courses</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'blogs' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/blog}">Blogs</a>
+                        <a class="nav-link"  th:href="@{/user/blog}">Blogs</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'contactus' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/contactus}">Contact Us</a>
+                        <a class="nav-link"  th:href="@{/user/contactus}">Contact Us</a>
                     </li>
                     <li class="nav-item" th:classappend="${content} == 'about' ? 'active':''">
-                        <a class="nav-link"  th:href="@{/about}">About</a>
+                        <a class="nav-link"  th:href="@{/user/about}">About</a>
                     </li>
                 </ul>
                 <!-- Nav Main menu END -->

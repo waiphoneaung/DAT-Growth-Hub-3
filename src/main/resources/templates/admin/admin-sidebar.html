@@ -12,9 +12,9 @@
 
 			<!-- Navbar brand for xl START -->
 			<div class="d-flex align-items-center">
-				<a class="navbar-brand" th:href="@{/admin-dashboard}"> <img
+				<a class="navbar-brand" th:href="@{/admin/admin-dashboard}"> <img
 					class="navbar-brand-item"
-					th:src="@{public/assets/images/DAT Logo.png}" alt="">
+					th:src="@{/public/assets/images/DAT Logo.png}" alt="">
 				</a>
 			</div>
 			<!-- Navbar brand for xl END -->
@@ -29,7 +29,7 @@
 					<ul class="navbar-nav flex-column" id="navbar-sidebar">
 
 						<!-- Menu item 1 -->
-						<li class="nav-item"><a th:href="@{/admin-dashboard}"
+						<li class="nav-item"><a th:href="@{/admin/admin-dashboard}"
 							class="nav-link" th:classappend="${content} == 'admin/admin-dashboard' ? 'active' : ''"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
 
 						<!-- Title -->
@@ -44,24 +44,24 @@
 							<ul class="nav collapse flex-column" id="collapsepage"
 								data-bs-parent="#navbar-sidebar">
 								<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-course-list' ? 'active' : ''"
-									th:href="@{/admin-course-list}">All Courses</a></li>
+									th:href="@{/admin/admin-course-list}">All Courses</a></li>
 								<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-course-category' ? 'active' : ''"
-									th:href="@{/admin-course-category}">Course Category</a></li>
+									th:href="@{/admin/admin-course-category}">Course Category</a></li>
 
 							</ul></li>
 
 						<!-- Menu item 3 -->
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-student-list' ? 'active' : ''"
-							th:href="@{/admin-student-list}"><i
+							th:href="@{/admin/admin-student-list}"><i
 								class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
 
 						<!-- Menu item 4 -->
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-instructor-list' ? 'active' : ''"
-							th:href="@{/admin-instructor-list}"><i
+							th:href="@{/admin/admin-instructor-list}"><i
 								class="fas fa-user-tie fa-fw me-2"></i>Instructors</a></li>
 
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-instructor-request' ? 'active' : ''"
-							th:href="@{/admin-instructor-request}"><i
+							th:href="@{/admin/admin-instructor-request}"><i
 								class="fas fa-paper-plane fa-fw me-2"></i>Course Requests</a></li>
 
 
@@ -70,21 +70,21 @@
 
 						<!-- Menu item 6 -->
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin-view-blog' ? 'active' : ''"
-							th:href="@{/admin-view-blog}"><i
+							th:href="@{/admin/admin-view-blog}"><i
 								class="fas fa-blog fa-fw me-2"></i>Blogs</a></li>
 
 						<li class="nav-item"><a class="nav-link" 
 						th:href="@{/forum}"><i class="fas fa-comments fa-fw me-2"></i>Forum</a></li>
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin-certificate-design' ? 'active' : ''"
-							th:href="@{/admin-certificate-design}"><i
+							th:href="@{/admin/admin-certificate-design}"><i
 								class="fas fa-certificate fa-fw me-2"></i>Certificates</a></li>
 						<!-- Menu item 7 -->
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-setting' ? 'active' : ''"
-							th:href="@{/admin-setting}"><i
+							th:href="@{/admin/admin-setting}"><i
 								class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
 						<!-- Menu item 8 -->
 						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-edit-profile' ? 'active' : ''"
-							th:href="@{/admin-edit-profile}"><i
+							th:href="@{/admin/admin-edit-profile}"><i
 								class="fas fa-user-cog fa-fw me-2"></i>Edit Profile</a></li>
 
 					</ul>
@@ -94,7 +94,7 @@
 					<div class="px-3 mt-auto pt-3">
 						<div
 							class="d-flex align-items-center justify-content-between text-primary-hover">
-							<a class="h5 mb-0 text-body" th:href="@{/admin-setting}"
+							<a class="h5 mb-0 text-body" th:href="@{/admin/admin-setting}"
 								data-bs-toggle="tooltip" data-bs-placement="top"
 								title="Settings"> <i class="bi bi-gear-fill"></i>
 							</a> <a class="h5 mb-0 text-body" th:href="@{/user/home}"
