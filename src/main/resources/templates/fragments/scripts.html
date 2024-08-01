@@ -5,19 +5,26 @@
 <body>
     <th:block th:fragment="scripts">
         <!-- Bootstrap JS -->
-        <script th:src="@{public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
         <!-- Vendors -->
-        <script th:src="@{public/assets/vendor/aos/aos.js}"></script>
-        <script th:src="@{public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+        <script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+        <script th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+         <!-- Vendors -->
+    	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+    	<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+    	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+    	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
+    	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+    	<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
+       
+		<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
         
 
         <!-- Template Functions -->
-        <script th:src="@{public/assets/js/functions.js}"></script>
+        <script th:src="@{/public/assets/js/functions.js}"></script>
         
-        <script th:src="@{public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
-        <script th:src="@{public/assets/vendor/glightbox/js/glightbox.js}"></script>
-		<script th:src="@{public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+        
         
     </th:block>
 </body>

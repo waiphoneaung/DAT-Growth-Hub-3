@@ -36,7 +36,7 @@
 
 					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student-dashboard}">Dashboard</a>
 					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student-course-list}">Courses</a>
-					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/blog}" >Blogs</a>
+					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/student-view-blog}" >Blogs</a>
 					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/forum}" >Forum</a>
 					
 					
@@ -69,7 +69,7 @@
 						<div class="d-flex align-items-center">
 							<!-- Avatar -->
 							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
 							</div>
 							<div>
 								<a class="h6" th:href="@{/student-dashboard}">Student</a>
