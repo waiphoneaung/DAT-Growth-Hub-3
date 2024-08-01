@@ -93,10 +93,10 @@ Page content START -->
 						<div class="bg-dark border rounded-3 p-3 w-100">
 							<!-- Dashboard menu -->
 							<div class="list-group list-group-dark list-group-borderless collapse-list">
-								<a class="list-group-item active" th:href="@{/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-dashboard' ? 'active' : ''" th:href="@{/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								
 								
-									<a class="list-group-item" data-bs-toggle="collapse" href="#collapseauthentication" role="button" aria-expanded="false" aria-controls="collapseauthentication">
+									<a class="list-group-item" th:classappend="${content} == 'student/student-course-list' ? 'active' : ''" data-bs-toggle="collapse" href="#collapseauthentication" role="button" aria-expanded="false" aria-controls="collapseauthentication">
 										<i class="fas fa-book fa-fw me-2"></i>Courses
 									</a>
 									<!-- Submenu -->
@@ -108,10 +108,10 @@ Page content START -->
 									
 								
 									
-									<a class="list-group-item" th:href="@{/student-certificate}"><i class="fas fa-fw fa-certificate me-2"></i>My Achievements</a>
-								<a class="list-group-item" th:href="@{/instructor-list}"><i class="bi bi-people fa-fw me-2"></i>Instructor List</a>
-								<a class="list-group-item" th:href="@{/student-grade}"><i class="fas fa-graduation-cap fa-fw me-2"></i>Grade</a>
-								<a class="list-group-item" th:href="@{/student-edit-profile}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+									<a class="list-group-item" th:classappend="${content} == 'student/student-certificate' ? 'active' : ''" th:href="@{/student-certificate}"><i class="fas fa-fw fa-certificate me-2"></i>My Achievements</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/instructor-list' ? 'active' : ''" th:href="@{/instructor-list}"><i class="bi bi-people fa-fw me-2"></i>Instructor List</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-grade' ? 'active' : ''" th:href="@{/student-grade}"><i class="fas fa-graduation-cap fa-fw me-2"></i>Grade</a>
+								<a class="list-group-item" th:classappend="${content} == 'student/student-edit-profile' ? 'active' : ''" th:href="@{/student-edit-profile}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
 								
 								<a class="list-group-item text-danger bg-danger-soft-hover" th:href="@{/sign-up}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 								
