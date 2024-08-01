@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/static/public/**").permitAll()
                         .requestMatchers("/static/private/profiles/**").permitAll()
-                        .requestMatchers("/static/private/blog/**","/static/private/course/**")
+                        .requestMatchers("/authenticated-user/**","/static/private/blog/**","/static/private/course/**")
                         				.hasAnyAuthority("STUDENT","INSTRUCTOR","ADMIN")
                         .requestMatchers("/api/public/**").permitAll().anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/auth/accessDenied"))
