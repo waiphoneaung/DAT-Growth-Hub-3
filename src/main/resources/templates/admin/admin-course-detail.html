@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="admin-course-detail">
+		
+		<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+
+		<!-- Title -->
+		<div class="row mb-3">
+			<div class="col-6 d-sm-flex justify-content-between align-items-center">
+				<h1 class="h3 mb-2 mb-sm-0">Course Details</h1>
+			</div>
+			<div class="col-6 d-sm-flex justify-content-end align-items-center">
+				<a href="admin-edit-course-detail.html" class="btn btn-sm btn-primary mb-0 me-3">Edit Course</a>
+				<a href="admin-edit-course-detail.html" class="btn btn-sm btn-danger mb-0 ">Delete Course</a>
+			</div>
+		</div>
+				
+		<div class="row g-4">
+
+			<!-- Course information START -->
+			<div class="col-xxl-6">
+				<div class="card bg-transparent border rounded-3 h-100">
+
+					<!-- Catd header -->
+					<div class="card-header bg-light border-bottom">
+						<h5 class="card-header-title">The Complete Digital Marketing Course - 12 Courses in 1</h5>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body">
+
+						<!-- Course image and info START -->
+						<div class="row g-4">
+							<!-- Course image -->
+							<div class="col-md-6">
+								<img th:src="@{public/assets/images/courses/4by3/01.jpg}" class="rounded" alt="">
+							</div>
+							<!-- Course info and avatar -->
+							<div class="col-md-6">
+								<!-- Info -->
+								<p class="mb-3">Satisfied conveying a dependent contented he gentleman agreeable do be. Warrant private blushes removed an in equally totally if. Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do.</p>
+
+								
+								
+								<!-- Avatar -->
+								<div class="d-sm-flex align-items-center">
+									<!-- Avatar image -->
+									<div class="avatar avatar-md">
+										<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/05.jpg}" alt="avatar">
+									</div>
+									<div class="ms-sm-3 mt-2 mt-sm-0">
+										<h6 class="mb-0"><a href="#">By Jacqueline Miller</a></h6>
+										<p class="mb-0 small">Founder DAT  company</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Course image and info END -->
+
+						<!-- Information START -->
+						<div class="row mt-3">
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+									<li class="list-group-item">
+										<span>release date:</span>
+										<span class="h6 mb-0">29 Aug 2020</span>
+									</li>
+
+									
+									<li class="list-group-item">
+										<span>Total Enrolled:</span>
+										<span class="h6 mb-0">12,000+</span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Certificate:</span>
+										<span class="h6 mb-0">Yes</span>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Information item -->
+							<div class="col-md-6">
+								<ul class="list-group list-group-borderless">
+									
+
+									<li class="list-group-item">
+										<span>Total Lecture:</span>
+										<span class="h6 mb-0">30</span>
+									</li>
+
+									<li class="list-group-item">
+										<span>Language:</span>
+										<span class="h6 mb-0">English</span>
+									</li>
+
+									
+									
+								</ul>
+							</div>
+						</div>
+						<!-- Information END -->
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Course information END -->
+
+			<!-- Chart START -->
+			<div class="col-xxl-6">
+				<div class="row g-4">
+
+					<!-- Active student START -->
+					<div class="col-md-6 col-xxl-12">
+						<div class="card bg-transparent border overflow-hidden">
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom">
+								<h5 class="card-header-title mb-0">Total course earning</h5>
+							</div>
+							<!-- Card body -->
+							<div class="card-body p-0">
+								<div class="d-sm-flex justify-content-between p-4">
+									<h4 class="text-blue mb-0">$12,586</h4>
+									<p class="mb-0"><span class="text-success me-1">0.20%<i class="bi bi-arrow-up"></i></span>vs last Week</p>
+								</div>
+								<!-- Apex chart -->
+								<div id="activeChartstudent"></div>
+							</div>
+						</div>
+					</div>
+					<!-- Active student END -->
+
+					<!-- Enrolled START -->
+					<div class="col-md-6 col-xxl-12">
+						<div class="card bg-transparent border overflow-hidden">
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom">
+								<h5 class="card-header-title mb-0">New Enrollment This Month</h5>
+							</div>
+							<!-- Card body -->
+							<div class="card-body p-0">
+								<div class="d-sm-flex justify-content-between p-4">
+									<h4 class="text-blue mb-0">186</h4>
+									<p class="mb-0"><span class="text-success me-1">0.35%<i class="bi bi-arrow-up"></i></span>vs last Week</p>
+								</div>
+								<!-- Apex chart -->
+								<div id="activeChartstudent2"></div>
+							</div>
+						</div>
+					</div>
+					<!-- Enrolled END -->
+
+				</div>
+			</div>
+			<!-- Chart END -->
+
+		</div> <!-- Row END -->
+	</div>
+	<!-- Page main content END -->
+		</th:block>
+		</main>
+		</body>
+		</html>
