@@ -1,94 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
-    <meta charset="UTF-8">
-    <title>Admin Side Bar</title>
-  
+<meta charset="UTF-8">
+<title>Admin Side Bar</title>
+
 </head>
 <body>
-<th:block th:fragment="admin-sidebar">
-	<!-- Sidebar START -->
-<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+	<th:block th:fragment="admin-sidebar">
+		<!-- Sidebar START -->
+		<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
 
-	<!-- Navbar brand for xl START -->
-	<div class="d-flex align-items-center">
-		<a class="navbar-brand" th:href="@{/admin-dashboard}">
-			<img class="navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="">
-		</a>
-	</div>
-	<!-- Navbar brand for xl END -->
-	
-	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100"data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
-		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+			<!-- Navbar brand for xl START -->
+			<div class="d-flex align-items-center">
+				<a class="navbar-brand" th:href="@{/admin-dashboard}"> <img
+					class="navbar-brand-item"
+					th:src="@{public/assets/images/DAT Logo.png}" alt="">
+				</a>
+			</div>
+			<!-- Navbar brand for xl END -->
 
-			<!-- Sidebar menu START -->
-			<ul class="navbar-nav flex-column" id="navbar-sidebar">
-				
-				<!-- Menu item 1 -->
-				<li class="nav-item"><a th:href="@{/admin-dashboard}" class="nav-link active"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
-				
-				<!-- Title -->
-				<li class="nav-item ms-2 my-2">Pages</li>
+			<div
+				class="offcanvas offcanvas-start flex-row custom-scrollbar h-100"
+				data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+				<div
+					class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
 
-				<!-- menu item 2 -->
-				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="false" aria-controls="collapsepage">
-						<i class="bi bi-basket fa-fw me-2"></i>Courses
-					</a>
-					<!-- Submenu -->
-					<ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"> <a class="nav-link" th:href="@{/admin-course-list}">All Courses</a></li>
-						<li class="nav-item"> <a class="nav-link" th:href="@{/admin-course-category}">Course Category</a></li>
-						
+					<!-- Sidebar menu START -->
+					<ul class="navbar-nav flex-column" id="navbar-sidebar">
+
+						<!-- Menu item 1 -->
+						<li class="nav-item"><a th:href="@{/admin-dashboard}"
+							class="nav-link" th:classappend="${content} == 'admin/admin-dashboard' ? 'active' : ''"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
+
+						<!-- Title -->
+						<li class="nav-item ms-2 my-2">Pages</li>
+
+						<!-- menu item 2 -->
+						<li class="nav-item"><a class="nav-link"
+							data-bs-toggle="collapse" href="#collapsepage" role="button"
+							aria-expanded="false" aria-controls="collapsepage"> <i
+								class="bi bi-basket fa-fw me-2"></i>Courses
+						</a> <!-- Submenu -->
+							<ul class="nav collapse flex-column" id="collapsepage"
+								data-bs-parent="#navbar-sidebar">
+								<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-course-list' ? 'active' : ''"
+									th:href="@{/admin-course-list}">All Courses</a></li>
+								<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-course-category' ? 'active' : ''"
+									th:href="@{/admin-course-category}">Course Category</a></li>
+
+							</ul></li>
+
+						<!-- Menu item 3 -->
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-student-list' ? 'active' : ''"
+							th:href="@{/admin-student-list}"><i
+								class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
+
+						<!-- Menu item 4 -->
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-instructor-list' ? 'active' : ''"
+							th:href="@{/admin-instructor-list}"><i
+								class="fas fa-user-tie fa-fw me-2"></i>Instructors</a></li>
+
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-instructor-request' ? 'active' : ''"
+							th:href="@{/admin-instructor-request}"><i
+								class="fas fa-paper-plane fa-fw me-2"></i>Course Requests</a></li>
+
+						<!-- Menu item 5 -->
+
+						<!-- Menu item 6 -->
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-view-blog' ? 'active' : ''"
+							th:href="@{/admin-view-blog}"><i
+								class="fas fa-blog fa-fw me-2"></i>Blogs</a></li>
+
+						<li class="nav-item"><a class="nav-link" 
+						th:href="@{/forum}"><i class="fas fa-comments fa-fw me-2"></i>Forum</a></li>
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-certificate-design' ? 'active' : ''"
+							th:href="@{/admin-certificate-design}"><i
+								class="fas fa-certificate fa-fw me-2"></i>Certificates</a></li>
+						<!-- Menu item 7 -->
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-setting' ? 'active' : ''"
+							th:href="@{/admin-setting}"><i
+								class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
+						<!-- Menu item 8 -->
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-edit-profile' ? 'active' : ''"
+							th:href="@{/admin-edit-profile}"><i
+								class="fas fa-user-cog fa-fw me-2"></i>Edit Profile</a></li>
+
 					</ul>
-				</li>
+					<!-- Sidebar menu end -->
 
-				<!-- Menu item 3 -->
-				<li class="nav-item"> <a class="nav-link" th:href="@{/admin-student-list}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
+					<!-- Sidebar footer START -->
+					<div class="px-3 mt-auto pt-3">
+						<div
+							class="d-flex align-items-center justify-content-between text-primary-hover">
+							<a class="h5 mb-0 text-body" th:href="@{/admin-setting}"
+								data-bs-toggle="tooltip" data-bs-placement="top"
+								title="Settings"> <i class="bi bi-gear-fill"></i>
+							</a> <a class="h5 mb-0 text-body" th:href="@{/admin-dashboard}"
+								data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
+								<i class="bi bi-globe"></i>
+							</a> <a class="h5 mb-0 text-body" th:href="@{/user/sign-in}"
+								data-bs-toggle="tooltip" data-bs-placement="top"
+								title="Sign out"> <i class="bi bi-power"></i>
+							</a>
+						</div>
+					</div>
+					<!-- Sidebar footer END -->
 
-				<!-- Menu item 4 -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/admin-instructor-list}"><i class="fas fa-user-tie fa-fw me-2"></i>Instructors</a></li>
-
-				<li class="nav-item"><a class="nav-link" th:href="@{/admin-instructor-request}"><i class="fas fa-paper-plane fa-fw me-2"></i>Course Requests</a></li>
-
-				
-				<!-- Menu item 5 -->
-				
-
-				<!-- Menu item 6 -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/admin-view-blog}"><i class="fas fa-blog fa-fw me-2"></i>Blogs</a></li>
-
-				<li class="nav-item"><a class="nav-link" th:href="@{/forum}"><i class="fas fa-comments fa-fw me-2"></i>Forum</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/admin-certificate-design}"><i class="fas fa-certificate fa-fw me-2"></i>Certificates</a></li>
-				<!-- Menu item 7 -->
-				<li class="nav-item"> <a class="nav-link" th:href="@{/admin-setting}"><i class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
-                <!-- Menu item 8 -->
-				<li class="nav-item"> <a class="nav-link" th:href="@{/admin-edit-profile}"><i class="fas fa-user-cog fa-fw me-2"></i>Edit Profile</a></li>
-				
-			</ul>
-			<!-- Sidebar menu end -->
-
-			<!-- Sidebar footer START -->
-			<div class="px-3 mt-auto pt-3">
-				<div class="d-flex align-items-center justify-content-between text-primary-hover">
-						<a class="h5 mb-0 text-body" th:href="@{/admin-setting}" data-bs-toggle="tooltip" data-bs-placement="top" title="Settings">
-							<i class="bi bi-gear-fill"></i>
-						</a>
-						<a class="h5 mb-0 text-body" th:href="@{/user/home}" data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
-							<i class="bi bi-globe"></i>
-						</a>
-						<a class="h5 mb-0 text-body" th:href="@{/sign-out}" data-bs-toggle="tooltip" data-bs-placement="top" title="Sign out">
-							<i class="bi bi-power"></i>
-						</a>
 				</div>
 			</div>
-			<!-- Sidebar footer END -->
-			
-		</div>
-	</div>
-</nav>
-<!-- Sidebar END -->
+		</nav>
+		<!-- Sidebar END -->
 
-</th:block>
+	</th:block>
 </body>
 </html>

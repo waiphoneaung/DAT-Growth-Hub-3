@@ -1,0 +1,435 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head >
+    <meta charset="UTF-8">
+    <title>DAT Growth Hub</title>
+    <!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+<!-- Google Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com/">
+		<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+		<!-- Plugins CSS -->
+		<link rel="stylesheet" type="text/css"
+			th:href="@{public/assets/vendor/font-awesome/css/all.min.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+		<link rel="stylesheet" type="text/css"
+		th:href="@{public/assets/vendor/choices/css/choices.min.css}">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" type="text/css" th:href="@{public/assets/css/style.css}">
+
+</head>
+<body>
+<main>
+
+<header class="navbar-light navbar-sticky">
+			<!-- Logo Nav START -->
+			<nav class="navbar navbar-expand-xl">
+				<div class="container-fluid px-3 px-xl-5">
+					<!-- Logo START -->
+					<a class="navbar-brand" th:href="@{/admin-dashboard}">
+						<img class="light-mode-item navbar-brand-item"
+							th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+						<img class="dark-mode-item navbar-brand-item"
+							th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+					</a>
+					<!-- Logo END -->
+
+					<!-- Responsive navbar toggler -->
+					<button class="navbar-toggler ms-auto" type="button"
+						data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+						aria-controls="navbarCollapse" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
+
+					<!-- Profile START -->
+					<div class="dropdown ms-1 ms-lg-0">
+						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+							role="button" data-bs-auto-close="outside" data-bs-display="static"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}"
+								alt="avatar">
+						</a>
+						<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+							aria-labelledby="profileDropdown">
+							<!-- Profile info -->
+							<li class="px-3 mb-3">
+								<div class="d-flex align-items-center">
+									<!-- Avatar -->
+									<div class="avatar me-3">
+										<img class="avatar-img rounded-circle shadow"
+											th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+									</div>
+									<div>
+										<a class="h6" href="instructor-dashboard.html">Instructor</a>
+										<p class="small m-0"> dathr@diracetechnology.com</p>
+									</div>
+								</div>
+							</li>
+							<li> <hr class="dropdown-divider"></li>
+							<!-- Links -->
+							<li><a class="dropdown-item" th;href="@{/admin-edit-profile}"><i
+										class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+							<li><a class="dropdown-item" th:href="@{/admin-setting}"><i
+										class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
+							<li><a class="dropdown-item" href="#"><i
+										class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+							<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-in}"><i
+										class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+							<li> <hr class="dropdown-divider"></li>
+							<!-- Dark mode options START -->
+							<li>
+								<div
+									class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+									<button type="button" class="btn btn-sm mb-0"
+										data-bs-theme-value="light">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-sun fa-fw mode-switch"
+											viewBox="0 0 16 16">
+											<path
+												d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+											<use href="#"></use>
+										</svg> Light
+									</button>
+									<button type="button" class="btn btn-sm mb-0"
+										data-bs-theme-value="dark">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch"
+											viewBox="0 0 16 16">
+											<path
+												d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+											<path
+												d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+											<use href="#"></use>
+										</svg> Dark
+									</button>
+									<button type="button" class="btn btn-sm mb-0 active"
+										data-bs-theme-value="auto">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-circle-half fa-fw mode-switch"
+											viewBox="0 0 16 16">
+											<path
+												d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+											<use href="#"></use>
+										</svg> Auto
+									</button>
+								</div>
+							</li>
+							<!-- Dark mode options END-->
+						</ul>
+					</div>
+					<!-- Profile START -->
+				</div>
+			</nav>
+			<!-- Logo Nav END -->
+		</header>
+						<!-- =======================
+Inner part START -->
+			<section class="pt-0">
+				<div class="container">
+					<!-- <div class="row"> -->
+					<!-- Main content START -->
+					<!-- <div class="col-xl-9"> -->
+
+					<!-- add quiz button -->
+					<div class="d-flex justify-content-between mt-2 mb-2 mt-md-0">
+						<a th:href="@{/admin-course-list}" class="btn btn-primary"
+							onclick="alert('Without clicking submit button, your creation of quiz will not be create, Are you sure you would not create quiz?') ">Back
+							to Course</a>
+						<button class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#addQuiz">Add New Quiz</button>
+					</div>
+
+					<!-- Card START -->
+					<div class="card border bg-transparent rounded-3">
+						<!-- Card header START -->
+
+						<!-- Card header END -->
+
+						<!-- Card body START -->
+						<div class="card-body p-4">
+
+							<!-- Accordion START -->
+							<div class="accordion accordion-icon accordion-bg-light"
+								id="accordionExample">
+								<!-- Item -->
+								<div class="accordion-item mb-3">
+									<h6 class="accordion-header" id="headingOne">
+										<button class="accordion-button rounded collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne">
+											<span class="text-secondary fw-bold me-3">01</span>
+											<span class="fw-bold">How do you protect your business against
+												cyber-crime?</span>
+										</button>
+									</h6>
+									<div id="collapseOne" class="accordion-collapse collapse show"
+										aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+										<div class="accordion-body mt-3">
+											<!-- Answer options -->
+											<p class="mb-3"><b class="text-dark">A</b> We have cybersecurity
+												insurance coverage</p>
+											<p class="mb-3"><b class="text-dark">B</b> Our dedicated staff will
+												protect us</p>
+											<p class="mb-3"><b class="text-dark">C</b> We give regular training
+												for best practices</p>
+											<p class="mb-3"><b class="text-dark">D</b> Third-party vendor
+												protection</p>
+
+											<!-- Button -->
+											<a href="#" class="btn btn-sm btn-success-soft mb-0"
+												data-bs-toggle="modal" data-bs-target="#editQuestion">Edit</a>
+											<button class="btn btn-danger-soft btn-sm mb-0">Delete</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- Item -->
+								<div class="accordion-item mb-3">
+									<h6 class="accordion-header" id="headingTwo">
+										<button class="accordion-button rounded collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+											aria-expanded="false" aria-controls="collapseTwo">
+											<span class="text-secondary fw-bold me-3">02</span>
+											<span class="fw-bold">What is SEO?</span>
+										</button>
+									</h6>
+									<div id="collapseTwo" class="accordion-collapse collapse"
+										aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+										<div class="accordion-body mt-3">
+											<!-- Answer options -->
+											<p class="mb-3"><b class="text-dark">A</b> We have cybersecurity
+												insurance coverage</p>
+											<p class="mb-3"><b class="text-dark">B</b> Our dedicated staff will
+												protect us</p>
+											<p class="mb-3"><b class="text-dark">C</b> We give regular training
+												for best practices</p>
+											<p class="mb-3"><b class="text-dark">D</b> Third-party vendor
+												protection</p>
+
+											<!-- Button -->
+											<a href="#" class="btn btn-sm btn-success-soft mb-0"
+												data-bs-toggle="modal" data-bs-target="#editQuestion">Edit</a>
+											<button class="btn btn-danger-soft btn-sm mb-0">Delete</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- Item -->
+								<div class="accordion-item mb-3">
+									<h6 class="accordion-header" id="headingThree">
+										<button class="accordion-button rounded collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseThree"
+											aria-expanded="false" aria-controls="collapseThree">
+											<span class="text-secondary fw-bold me-3">03</span>
+											<span class="fw-bold">Who should join this course?</span>
+										</button>
+									</h6>
+									<div id="collapseThree" class="accordion-collapse collapse"
+										aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+										<div class="accordion-body mt-3">
+											<!-- Answer options -->
+											<p class="mb-3"><b class="text-dark">A</b> We have cybersecurity
+												insurance coverage</p>
+											<p class="mb-3"><b class="text-dark">B</b> Our dedicated staff will
+												protect us</p>
+											<p class="mb-3"><b class="text-dark">C</b> We give regular training
+												for best practices</p>
+											<p class="mb-3"><b class="text-dark">D</b> Third-party vendor
+												protection</p>
+
+											<!-- Button -->
+											<a href="#" class="btn btn-sm btn-success-soft mb-0"
+												data-bs-toggle="modal" data-bs-target="#editQuestion">Edit</a>
+											<button class="btn btn-danger-soft btn-sm mb-0">Delete</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- Item -->
+								<div class="accordion-item">
+									<h6 class="accordion-header" id="headingFour">
+										<button class="accordion-button rounded collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseFour"
+											aria-expanded="false" aria-controls="collapseFour">
+											<span class="text-secondary fw-bold me-3">04</span>
+											<span class="fw-bold">What are the T&C for this program?</span>
+										</button>
+									</h6>
+									<div id="collapseFour" class="accordion-collapse collapse"
+										aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+										<div class="accordion-body mt-3">
+											<!-- Answer options -->
+											<p class="mb-3"><b class="text-dark">A</b> We have cybersecurity
+												insurance coverage</p>
+											<p class="mb-3"><b class="text-dark">B</b> Our dedicated staff will
+												protect us</p>
+											<p class="mb-3"><b class="text-dark">C</b> We give regular training
+												for best practices</p>
+											<p class="mb-3"><b class="text-dark">D</b> Third-party vendor
+												protection</p>
+
+											<!-- Button -->
+											<a href="#" class="btn btn-sm btn-success-soft mb-0"
+												data-bs-toggle="modal" data-bs-target="#editQuestion">Edit</a>
+											<button class="btn btn-danger-soft btn-sm mb-0">Delete</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Accordion END -->
+
+						</div>
+						<!-- Card body START -->
+					</div>
+					<!-- Card END -->
+
+					<div class="container mt-2 d-flex justify-content-end">
+
+						<a th:href="@{/admin-course-list}" class="btn btn-primary">Submit
+							quiz</a>
+					</div>
+
+				</section>
+				<!-- ======= Inner part END -->
+
+			</main>
+			
+			<!-- Edit course modal START -->
+			<div class="modal fade" id="editQuestion" tabindex="-1"
+				aria-labelledby="editQuestionLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-dark">
+							<h5 class="modal-title text-white" id="editQuestionLabel">Edit
+								Question</h5>
+							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+								data-bs-dismiss="modal" aria-label="Close"><i
+									class="bi bi-x-lg"></i></button>
+						</div>
+						<div class="modal-body">
+							<form class="row text-start g-3">
+
+								<!-- Question -->
+								<div class="col-12">
+									<label class="form-label">Question</label>
+									<input class="form-control" type="text"
+										value="How do you protect your business against cyber-crime?"
+										placeholder="Write a question">
+								</div>
+
+								<!-- Answer options START -->
+								<div class="col-6">
+									<label class="form-label">Option 1</label>
+									<input class="form-control" type="text"
+										value="We have cybersecurity insurance coverage"
+										placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 2</label>
+									<input class="form-control" type="text"
+										value="Our dedicated staff will protect us"
+										placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 3</label>
+									<input class="form-control" type="text"
+										value="We give regular training for best practices"
+										placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 4</label>
+									<input class="form-control" type="text"
+										value="Third-party vendor protection" placeholder="Write a option">
+								</div>
+								<!-- Answer options END -->
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger-soft my-0"
+								data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-success my-0">Save change</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Edit course modal START -->
+
+			<!-- Add course modal START -->
+			<div class="modal fade" id="addQuiz" tabindex="-1"
+				aria-labelledby="addQuizLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-dark">
+							<h5 class="modal-title text-white" id="addQuizLabel">Add New Quiz</h5>
+							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+								data-bs-dismiss="modal" aria-label="Close"><i
+									class="bi bi-x-lg"></i></button>
+						</div>
+						<div class="modal-body">
+							<form class="row text-start g-3">
+
+								<!-- Question -->
+								<div class="col-12">
+									<label class="form-label">Question</label>
+									<input class="form-control" type="text" placeholder="Write a question">
+								</div>
+
+								<!-- Answer options START -->
+								<div class="col-6">
+									<label class="form-label">Option 1</label>
+									<input class="form-control" type="text" placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 2</label>
+									<input class="form-control" type="text" placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 3</label>
+									<input class="form-control" type="text" placeholder="Write a option">
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">Option 4</label>
+									<input class="form-control" type="text" placeholder="Write a option">
+								</div>
+								<!-- Answer options END -->
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger-soft my-0"
+								data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-success my-0">Add Quiz</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Add course modal END -->
+			<div class="back-top"><i
+					class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+			<!-- Bootstrap JS -->
+			<script
+				th:src="@{public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+			<!-- Vendors -->
+			<script th:src="@{public/assets/vendor/choices/js/choices.min.js}"></script>
+
+			<!-- Template Functions -->
+			<script th:src="@{public/assets/js/functions.js}"></script>
+			</body>
+			</html>
+			

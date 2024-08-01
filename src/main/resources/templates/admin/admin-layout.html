@@ -1,31 +1,120 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Layout</title>
-    <!-- Stylesheets -->
-    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+<meta charset="UTF-8">
+<title>DAT Growth Hub</title>
+<!-- Stylesheets -->
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
 
-    <!-- Dark Mode Script -->
-    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
 </head>
 <body>
 	<!-- Sidebar -->
-	   <div th:replace="admin/admin-sidebar :: admin-sidebar"></div>
-	   
-    <!-- Include navbar -->
-    
-    <div th:replace="admin/admin-navbar :: admin-navbar"></div>
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
 
-    <!-- Main content -->
-    <main>
-        <th:block th:replace="${content}"></th:block>
-    </main>
+	<!-- Include navbar -->
+
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+
+	<!-- Main content -->
+	<main>
+		<th:block th:replace="${content}"></th:block>
+	</main>
 	<!-- Back to top -->
-	<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+
+
+	<!-- Scripts -->
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+	<!-- Template Functions -->
+	<script th:src="@{public/assets/js/functions.js}"></script>
 	
-    
-    <!-- Scripts -->
-    <th:block th:replace="fragments/scripts :: scripts"></th:block>
+	<!-- Script Table starts here-->
+	<script>
+	document.getElementById('reportSelect').addEventListener('change', function() {
+		const reportType = this.value;
+		const tableBody = document.getElementById('tableBody');
+		const tableHeader = document.getElementById('tableHeader');
+		
+		tableBody.innerHTML = '';  // Clear existing table data
+	
+		let headers = [];
+		let data = [];
+	
+		switch (reportType) {
+			case 'active-daily':
+				headers = ['User ID', 'Name', 'Last Active'];
+				data = [
+					['1', 'Alice', '2024-07-25'],
+					['2', 'Bob', '2024-07-25'],
+					['3', 'Charlie', '2024-07-25']
+				];
+				break;
+			case 'active-weekly':
+				headers = ['User ID', 'Name', 'Weekly Activity'];
+				data = [
+					['1', 'Alice', '5 days'],
+					['2', 'Bob', '4 days'],
+					['3', 'Charlie', '6 days']
+				];
+				break;
+			case 'active-monthly':
+				headers = ['User ID', 'Name', 'Monthly Activity'];
+				data = [
+					['1', 'Alice', '20 days'],
+					['2', 'Bob', '18 days'],
+					['3', 'Charlie', '25 days']
+				];
+				break;
+			case 'course-performance':
+				headers = ['Course ID', 'Course Name', 'Average Score'];
+				data = [
+					['101', 'Math', '85'],
+					['102', 'Science', '90'],
+					['103', 'History', '78']
+				];
+				break;
+			case 'enrollment-numbers':
+				headers = ['Course ID', 'Course Name', 'Enrollment Numbers'];
+				data = [
+					['101', 'Math', '200'],
+					['102', 'Science', '150'],
+					['103', 'History', '180']
+				];
+				break;
+			case 'popular-courses':
+				headers = ['Course ID', 'Course Name', 'Popularity Index'];
+				data = [
+					['101', 'Math', '98'],
+					['102', 'Science', '95'],
+					['103', 'History', '90']
+				];
+				break;
+			case 'assessment-analytics':
+				headers = ['Assessment ID', 'Assessment Name', 'Average Score'];
+				data = [
+					['201', 'Midterm Exam', '80'],
+					['202', 'Final Exam', '85'],
+					['203', 'Quiz 1', '78']
+				];
+				break;
+			default:
+				headers = ['Header 1', 'Header 2', 'Header 3'];
+				data = [
+					['Data 1', 'Data 2', 'Data 3'],
+					['Data 4', 'Data 5', 'Data 6'],
+					['Data 7', 'Data 8', 'Data 9']
+				];
+		}
+	
+		tableHeader.innerHTML = headers.map(header => `<th>${header}</th>`).join('');
+		tableBody.innerHTML = data.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('');
+	});
+	</script>
+	<!-- Script Table ends here-->
 </body>
 </html>
