@@ -65,4 +65,9 @@ public class AdminController{
 		model.addAttribute("content","admin/admin-edit-profile");
 		return "/admin/admin-layout";
 	}
+	@GetMapping("/forum")
+	public String forum()
+	{
+		return "/authenticated-user/forum";
+	}
 }
