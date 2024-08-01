@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+<th:block th:fragment = "admin-dashboard">
+
+<!-- Page content START -->
+<div class="page-content">
+	<!-- Page main content START -->
+	<div class="page-content-wrapper border">
+		<!-- Title -->
+		<div class="row">
+			<div class="col-12 mb-3">
+				<h1 class="h3 mb-2 mb-sm-0">Dashboard</h1>
+			</div>
+		</div>
+
+		<!-- Counter boxes START -->
+		<div class="row g-4 mb-4">
+			<!-- Counter item -->
+			<div class="col-md-6 col-xxl-4">
+				<div class="card card-body bg-warning bg-opacity-15 p-4 h-100">
+					<div class="d-flex justify-content-between align-items-center">
+						<!-- Digit -->
+						<div>
+							<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1958" data-purecounter-delay="200">0</h2>
+							<span class="mb-0 h6 fw-light">Completed Courses</span>
+						</div>
+						<!-- Icon -->
+						<div class="icon-lg rounded-circle bg-warning text-white mb-0"><i class="fas fa-tv fa-fw"></i></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Counter item -->
+			<div class="col-md-6 col-xxl-4">
+				<div class="card card-body bg-purple bg-opacity-10 p-4 h-100">
+					<div class="d-flex justify-content-between align-items-center">
+						<!-- Digit -->
+						<div>
+							<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1600"	data-purecounter-delay="200">0</h2>
+							<span class="mb-0 h6 fw-light">Enrolled Courses</span>
+						</div>
+						<!-- Icon -->
+						<div class="icon-lg rounded-circle bg-purple text-white mb-0"><i class="fas fa-user-tie fa-fw"></i></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Counter item -->
+			<div class="col-md-6 col-xxl-4">
+				<div class="card card-body bg-primary bg-opacity-10 p-4 h-100">
+					<div class="d-flex justify-content-between align-items-center">
+						<!-- Digit -->
+						<div>
+							<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1235"	data-purecounter-delay="200">0</h2>
+							<span class="mb-0 h6 fw-light">Course In Progress</span>
+						</div>
+						<!-- Icon -->
+						<div class="icon-lg rounded-circle bg-primary text-white mb-0"><i class="fas fa-user-graduate fa-fw"></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Counter boxes END -->
+
+		<!-- Chart and Ticket START -->
+		<div class="row g-4 mb-4">
+
+			<!-- Chart START -->
+			<div class="col-xxl-8">
+				<div class="card shadow h-100">
+
+					<!-- Card header -->
+					<div class="card-header p-4 border-bottom">
+						<h5 class="card-header-title">Earnings</h5>
+					</div>
+
+					<!-- Card body -->
+					<div class="card-body">
+						<!-- Apex chart -->
+						<div id="ChartPayout"></div>
+					</div>
+				</div>
+			</div>
+			<!-- Chart END -->
+
+			<!-- Ticket START -->
+			<div class="col-xxl-4">
+				<div class="card shadow h-100">
+					<!-- Card header -->
+					<div class="card-header border-bottom d-flex justify-content-between align-items-center p-4">
+						<h5 class="card-header-title">Course Requests</h5>
+						<a th:href="@{/admin-instructor-request}" class="btn btn-link p-0 mb-0">View all</a>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body p-4">
+
+						<!-- Ticket item START -->
+						<div class="d-flex justify-content-between position-relative">
+							<div class="d-sm-flex">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/09.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-0"><a href="#" class="stretched-link">Lori Stevens</a></h6>
+									<p class="mb-0">New ticket #759 from Lori Stevens for General Enquiry</p>
+									<span class="small">8 hour ago</span>
+								</div>
+							</div>
+						</div>
+						<!-- Ticket item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Ticket item START -->
+						<div class="d-flex justify-content-between position-relative">
+							<div class="d-sm-flex">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<div class="avatar-img rounded-circle bg-purple bg-opacity-10">
+										<span class="text-purple position-absolute top-50 start-50 translate-middle fw-bold">DB</span>
+									</div>
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-0"><a href="#" class="stretched-link">Dennis Barrett</a></h6>
+									<p class="mb-0">Comment from Billy Vasquez on ticket #659</p>
+									<span class="small">8 hour ago</span>
+								</div>
+							</div>
+						</div>
+						<!-- Ticket item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Ticket item START -->
+						<div class="d-flex justify-content-between position-relative">
+							<div class="d-sm-flex">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<div class="avatar-img rounded-circle bg-orange bg-opacity-10">
+										<span class="text-orange position-absolute top-50 start-50 translate-middle fw-bold">WB</span>
+									</div>
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-0"><a href="#" class="stretched-link">Dennis Barrett</a></h6>
+									<p class="mb-0"><b>DAT - Elearning Hub</b> assign you a new ticket for <b>DAT  theme</b></p>
+									<span class="small">5 hour ago</span>
+								</div>
+							</div>
+						</div>
+						<!-- Ticket item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Ticket item START -->
+						<div class="d-flex justify-content-between position-relative">
+							<div class="d-sm-flex">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/04.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-0"><a href="#" class="stretched-link">Dennis Barrett</a></h6>
+									<p class="mb-0">Thanks for contact us with your issues.</p>
+									<span class="small">9 hour ago</span>
+								</div>
+							</div>
+						</div>
+						<!-- Ticket item END -->
+						
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Ticket END -->
+		</div>
+		<!-- Chart and Ticket END -->
+
+		<!-- Top listed Cards START -->
+		<div class="row g-3">
+
+			<!-- Top instructors START -->
+			<div class="col-lg-6 col-xxl-4">
+				<div class="card shadow h-100">
+
+					<!-- Card header -->
+					<div class="card-header border-bottom d-flex justify-content-between align-items-center p-4">
+						<h5 class="card-header-title">Top Instructors</h5>
+						<a href="#" class="btn btn-link p-0 mb-0">View all</a>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body p-4">
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/09.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Lori Stevens </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>25 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/03.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Dennis Barrett</h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>18 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Jacqueline Miller </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>21 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/04.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Billy Vasquez</h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>15 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/05.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Amanda Reed </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>29 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+						
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Top instructors END -->
+
+			<div class="col-lg-6 col-xxl-4">
+				<div class="card shadow h-100">
+
+					<!-- Card header -->
+					<div class="card-header border-bottom d-flex justify-content-between align-items-center p-4">
+						<h5 class="card-header-title">Top Students</h5>
+						<a href="#" class="btn btn-link p-0 mb-0">View all</a>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body p-4">
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/09.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Lori Stevens </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>25 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/03.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Dennis Barrett</h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>18 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Jacqueline Miller </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>21 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/04.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Billy Vasquez</h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>15 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+
+						<hr><!-- Divider -->
+
+						<!-- Instructor item START -->
+						<div class="d-sm-flex justify-content-between align-items-center">
+							<!-- Avatar and info -->
+							<div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+								<!-- Avatar -->
+								<div class="avatar avatar-md flex-shrink-0">
+									<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/05.jpg}" alt="avatar">
+								</div>
+								<!-- Info -->
+								<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+									<h6 class="mb-1">Amanda Reed </h6>
+									<ul class="list-inline mb-0 small">
+										<li class="list-inline-item fw-light me-2 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-1"></i>29 Courses</li>
+										 
+									</ul>
+								</div>
+							</div>
+							<!-- Button -->
+							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+						</div>
+						<!-- Instructor item END -->
+						
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Top Students END -->
+			<!-- Traffic sources START -->
+			<div class="col-lg-6 col-xxl-4">
+				<div class="card shadow h-100">
+
+					<!-- Card header -->
+					<div class="card-header border-bottom d-flex justify-content-between align-items-center p-4">
+						<h5 class="card-header-title">Traffic Sources</h5>
+						<a href="#" class="btn btn-link p-0 mb-0">View all</a>
+					</div>
+
+					<!-- Card body START -->
+					<div class="card-body p-4">
+						<!-- Chart -->
+						<div class="col-sm-6 mx-auto">
+							<div id="ChartTrafficViews"></div>
+						</div>
+
+						<!-- Content -->
+						<ul class="list-group list-group-borderless mt-3">
+							<li class="list-group-item"><i class="text-primary fas fa-circle me-2"></i>Create a Design System in Figma</li>
+							<li class="list-group-item"><i class="text-success fas fa-circle me-2"></i>The Complete Digital Marketing Course - 12 Courses in 1</li>
+							<li class="list-group-item"><i class="text-warning fas fa-circle me-2"></i>Google Ads Training: Become a PPC Expert</li>
+							<li class="list-group-item"><i class="text-danger fas fa-circle me-2"></i>Microsoft Excel - Excel from Beginner to Advanced</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Card body END -->
+			</div>
+			<!-- Traffic sources END -->
+
+		</div>
+		<!-- Top listed Cards END -->
+
+		<!-- Report Table Row Starts Here-->
+		<div class="container mt-5">
+			<div class="row justify-content-between mb-5">
+				<div class="col-6">
+					<h5>Report</h5>
+				</div>
+				<div class="col-6">
+					<select class="form-control" id="reportSelect">
+						<option value="active-daily">User Activity</option>
+						<option value="course-performance">Course Performance Report</option>
+						<option value="enrollment-numbers">Enrollment Numbers per Course</option>
+						<option value="popular-courses">Popular Courses</option>
+						<option value="assessment-analytics">Assessment Analytics Report</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped table-bordered" id="reportTable">
+						<thead class="thead-dark">
+							<tr id="tableHeader">
+								<th>Header 1</th>
+								<th>Header 2</th>
+								<th>Header 3</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+							<!-- Data will be inserted here by JavaScript -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<form>
+					<div class="col-4">
+						<button>Export Data.</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Report Table Row Ends Here-->
+	</div>
+	<!-- Page main content END -->
+</div>
+<!-- Page content END -->
+</th:block>
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+</body>
+</html>
