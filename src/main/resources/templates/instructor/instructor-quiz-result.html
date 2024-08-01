@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>DAT - Growth Hub</title>
+
+</head>
+
+<body>
+	<th:block th:fragment="instructor-navbar">
+		<!-- Main content START -->
+
+		<div class="col-xl-9">
+			<!-- Student quiz result START -->
+			<div class="card border bg-transparent rounded-3 mt-4">
+				<!-- Card header START -->
+				<div class="card-header bg-transparent border-bottom">
+					<h3 class="mb-0">Student quiz result</h3>
+				</div>
+				<!-- Card header END -->
+
+				<!-- Card body START -->
+				<div class="card-body">
+
+					<!-- Search and select START -->
+
+					<!-- Search and select END -->
+
+					<!-- Student list table START -->
+					<div class="table-responsive border-0">
+						<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+							<!-- Table head -->
+							<thead>
+								<tr>
+									<th scope="col" class="border-0 rounded-start">Student name</th>
+									<th scope="col" class="border-0">Course name</th>
+									<th scope="col" class="border-0">Date</th>
+									<th scope="col" class="border-0">Scores</th>
+									<th scope="col" class="border-0 rounded-end">Action</th>
+								</tr>
+							</thead>
+
+							<!-- Table body START -->
+							<tbody>
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{/public/assets/images/avatar/01.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>7/1/2023</td>
+
+									<!-- Table data -->
+									<td>450/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{public/assets/images/avatar/03.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>6/1/2023</td>
+
+									<!-- Table data -->
+									<td>425/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{public/assets/images/avatar/04.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Billy Vasquez</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>5/1/2023</td>
+
+									<!-- Table data -->
+									<td>385/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{public/assets/images/avatar/09.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>5/1/2023</td>
+
+									<!-- Table data -->
+									<td>398/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{public/assets/images/avatar/07.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>4/1/2023</td>
+
+									<!-- Table data -->
+									<td>428/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+
+								<!-- Table item -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center">
+											<!-- Image -->
+											<div class="avatar avatar-sm me-2">
+												<img th:src="@{public/assets/images/avatar/06.jpg}" class="rounded" alt="">
+											</div>
+											<div>
+												<!-- Title -->
+												<h6 class="mb-0"><a href="#">Frances Guerrero</a></h6>
+											</div>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
+												Digital Marketing Courses - 12 Course in 1</a></h6>
+									</td>
+
+									<!-- Table data -->
+									<td>4/1/2023</td>
+
+									<!-- Table data -->
+									<td>486/500</td>
+
+									<!-- Table data -->
+									<td>
+										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
+											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
+									</td>
+								</tr>
+							</tbody>
+							<!-- Table body END -->
+						</table>
+					</div>
+					<!-- Student list table END -->
+
+					<!-- Pagination START -->
+					<div class="d-sm-flex justify-content-sm-center align-items-sm-center mt-4 mt-sm-3">
+						<!-- Content -->
+						<!-- Pagination -->
+						<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+							<ul
+								class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+								<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
+											class="fas fa-angle-left"></i></a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+								<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#"><i
+											class="fas fa-angle-right"></i></a></li>
+							</ul>
+						</nav>
+					</div>
+					<!-- Pagination END -->
+				</div>
+				<!-- Card body START -->
+			</div>
+			<!-- Student quiz result END -->
+		</div>
+
+	</th:block>
+</body>
+
+</html>

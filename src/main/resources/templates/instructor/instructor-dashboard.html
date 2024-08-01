@@ -1,0 +1,123 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT - Growth Hub</title>
+</head>
+<body>
+	<th:block th:fragment="instructor-main">
+
+		<!-- Main content START -->
+			<div class="col-xl-9">
+
+				<!-- Counter boxes START -->
+				<div class="row g-4">
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-6">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
+							<span class="display-6 text-warning mb-0"><i class="fas fa-tv fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+								</div>
+								<span class="mb-0 h6 fw-light">Total Courses</span>
+							</div>
+						</div>
+					</div>
+					<!-- Counter item -->
+					<div class="col-sm-6 col-lg-6">
+						<div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
+							<span class="display-6 text-info mb-0"><i class="fas fa-user-graduate fa-fw"></i></span>
+							<div class="ms-4">
+								<div class="d-flex">
+									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">0</h5>
+									<span class="mb-0 h5">K</span>
+								</div>
+								<span class="mb-0 h6 fw-light">Enrolled Students</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Counter boxes END -->
+
+				<!-- Chart START -->
+				<div class="row mt-5">
+					<div class="col-12">
+						<div class="card card-body bg-transparent border p-4 h-100">
+							<div class="row g-4">
+								<!-- Content -->
+								<div class="col-sm-6 col-md-4">
+									<span class="badge text-bg-dark">Current Month</span>
+									<h4 class="text-primary my-2">350 Students</h4>
+									<p class="mb-0"><span class="text-success me-1">0.20%<i class="bi bi-arrow-up"></i></span>vs last month</p>
+								</div>
+								<!-- Content -->
+								<div class="col-sm-6 col-md-4">
+									<span class="badge text-bg-dark">Last Month</span>
+									<h4 class="my-2">250 Students</h4>
+									<p class="mb-0"><span class="text-danger me-1">0.10%<i class="bi bi-arrow-down"></i></span>Then last month</p>
+								</div>
+							</div>
+
+							<!-- Apex chart -->
+							<div id="ChartPayout"></div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Chart END -->
+
+				
+			</div>
+			<!-- Main content END -->
+			<!-- Report Table Row Starts Here-->
+		<div class="container mt-5">
+			<div class="row justify-content-between mb-5">
+				<div class="col-6">
+					<h5>Report</h5>
+				</div>
+				<div class="col-6">
+					<select class="form-control" id="reportSelect">
+						<option value="">Select Report</option>
+						<optgroup label="User Activity Report">
+							<option value="active-daily">Active Users (Daily)</option>
+							<option value="active-weekly">Active Users (Weekly)</option>
+							<option value="active-monthly">Active Users (Monthly)</option>
+						</optgroup>
+						<option value="course-performance">Course Performance Report</option>
+						<option value="enrollment-numbers">Enrollment Numbers per Course</option>
+						<option value="popular-courses">Popular Courses</option>
+						<option value="assessment-analytics">Assessment Analytics Report</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<table class="table table-striped table-bordered" id="reportTable">
+						<thead class="thead-dark">
+							<tr id="tableHeader">
+								<th>Header 1</th>
+								<th>Header 2</th>
+								<th>Header 3</th>
+							</tr>
+						</thead>
+						<tbody id="tableBody">
+							<!-- Data will be inserted here by JavaScript -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<form>
+					<div class="col-4">
+						<button>Export Data.</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Report Table Row Ends Here-->
+		<script th:src="@{public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	</th:block>
+	
+	
+</body>
+</html>

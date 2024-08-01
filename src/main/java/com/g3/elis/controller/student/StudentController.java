@@ -11,4 +11,6 @@ public class StudentController {
 		model.addAttribute("content","student/student-dashboard");
 		return "student/student-layout";
 	}
+	
+	
 }
