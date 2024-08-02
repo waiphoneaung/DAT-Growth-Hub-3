@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>DAT - Growth Hub</title>
+    <!-- Stylesheets -->
+    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+
+    <!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+</head>
+<body>
+    <!-- Include navbar -->
+    <div th:replace="instructor/instructor-navbar :: instructor-navbar"></div>
+    
+   <!-- Student Side Bar -->
+   <div th:replace="instructor/instructor-sidebar :: instructor-sidebar"></div>
+   
+
+
+    <!-- Include footer -->
+    <div th:replace="instructor/instructor-footer :: instructor-footer"></div>
+
+    <!-- Scripts -->
+    <th:block th:replace="fragments/scripts :: scripts"></th:block>
+</body>
+</html>
