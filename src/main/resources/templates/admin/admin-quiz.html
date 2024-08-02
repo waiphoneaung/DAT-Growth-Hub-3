@@ -30,11 +30,11 @@
 			<nav class="navbar navbar-expand-xl">
 				<div class="container-fluid px-3 px-xl-5">
 					<!-- Logo START -->
-					<a class="navbar-brand" th:href="@{/admin-dashboard}">
+					<a class="navbar-brand" th:href="@{/admin/admin-dashboard}">
 						<img class="light-mode-item navbar-brand-item"
-							th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+							th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 						<img class="dark-mode-item navbar-brand-item"
-							th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+							th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 					</a>
 					<!-- Logo END -->
 
@@ -55,7 +55,7 @@
 						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 							role="button" data-bs-auto-close="outside" data-bs-display="static"
 							data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}"
+							<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}"
 								alt="avatar">
 						</a>
 						<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -66,7 +66,7 @@
 									<!-- Avatar -->
 									<div class="avatar me-3">
 										<img class="avatar-img rounded-circle shadow"
-											th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									</div>
 									<div>
 										<a class="h6" href="instructor-dashboard.html">Instructor</a>
@@ -78,7 +78,7 @@
 							<!-- Links -->
 							<li><a class="dropdown-item" th;href="@{/admin-edit-profile}"><i
 										class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-							<li><a class="dropdown-item" th:href="@{/admin-setting}"><i
+							<li><a class="dropdown-item" th:href="@{/admin/admin-setting}"><i
 										class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 							<li><a class="dropdown-item" href="#"><i
 										class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
@@ -141,7 +141,7 @@ Inner part START -->
 
 					<!-- add quiz button -->
 					<div class="d-flex justify-content-between mt-2 mb-2 mt-md-0">
-						<a th:href="@{/admin-course-list}" class="btn btn-primary"
+						<a th:href="@{/admin/admin-course-list}" class="btn btn-primary"
 							onclick="alert('Without clicking submit button, your creation of quiz will not be create, Are you sure you would not create quiz?') ">Back
 							to Course</a>
 						<button class="btn btn-primary" data-bs-toggle="modal"
@@ -294,7 +294,7 @@ Inner part START -->
 
 					<div class="container mt-2 d-flex justify-content-end">
 
-						<a th:href="@{/admin-course-list}" class="btn btn-primary">Submit
+						<a th:href="@{/admin/admin-course-list}" class="btn btn-primary">Submit
 							quiz</a>
 					</div>
 
@@ -423,13 +423,13 @@ Inner part START -->
 
 			<!-- Bootstrap JS -->
 			<script
-				th:src="@{public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+				th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
 			<!-- Vendors -->
-			<script th:src="@{public/assets/vendor/choices/js/choices.min.js}"></script>
+			<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
 
 			<!-- Template Functions -->
-			<script th:src="@{public/assets/js/functions.js}"></script>
+			<script th:src="@{/public/assets/js/functions.js}"></script>
 			</body>
 			</html>
 			

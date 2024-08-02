@@ -78,7 +78,7 @@
 						role="button" data-bs-auto-close="outside"
 						data-bs-display="static" data-bs-toggle="dropdown"
 						aria-expanded="false"> <img class="avatar-img rounded-circle"
-						th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+						th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 					</a>
 					<ul
 						class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -89,7 +89,7 @@
 								<!-- Avatar -->
 								<div class="avatar me-3">
 									<img class="avatar-img rounded-circle shadow"
-										th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 								</div>
 								<div>
 									<a class="h6" th:href="@{/home}">Khine Khine
@@ -184,7 +184,7 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex align-items-center">
-											<img th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar"
+											<img th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar"
 												class="rounded-circle mr-2 me-3 img-small"
 												style="width: 40px; height: 40px;">
 											<button type="button"
@@ -237,7 +237,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -287,7 +287,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{public/assets/images/avatar/03.jpg}" alt="avatar">
+										th:src="@{/public/assets/images/avatar/03.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -383,7 +383,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{public/assets/images/avatar/08.jpg}" alt="avatar">
+										th:src="@{/public/assets/images/avatar/08.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -430,7 +430,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{public/assets/images/avatar/09.jpg}" alt="avatar">
+										th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -520,7 +520,7 @@ Footer START -->
 				<div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
 					<!-- Logo START -->
 					<a th:href="@{/home"> <img class="h-20px"
-						th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 					</a>
 				</div>
 
@@ -561,7 +561,7 @@ Footer END -->
 	<!-- Scripts -->
 	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 	<!-- Template Functions -->
-	<script th:src="@{public/assets/js/functions.js}"></script>
+	<script th:src="@{/public/assets/js/functions.js}"></script>
 
 </body>
 

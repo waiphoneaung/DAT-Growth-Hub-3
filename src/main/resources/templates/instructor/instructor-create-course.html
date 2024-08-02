@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
+    <meta charset="UTF-8">
+    <title>DAT - Growth Hub</title>
 
+    <!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+    
+    <!-- Favicon -->
+		<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
 
-<!-- Dark Mode Script -->
-<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
-<!-- Favicon -->
-	<link rel="shortcut icon" th:href="@{public/assets/images/favicon.ico}">
+		<!-- Google Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
-	<!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+		<!-- Plugins CSS -->
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/aos/aos.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
 
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/aos/aos.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
-
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
-
+		<!-- Theme CSS -->
+		<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
 </head>
-
 <body>
-
-
-<!-- **************** MAIN CONTENT START **************** -->
-<th:block th:fragment = "admin-edit-course-detail">
-
-<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
-
-<main>
+    <!-- Include navbar -->
+    <div th:replace="instructor/instructor-navbar :: instructor-navbar"></div>
+    
+  
+	<!-- **************** MAIN CONTENT START **************** -->
+		<main>
 
 			<!-- =======================
 Page Banner START -->
 			<section
 				class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0"
-				style="background:url(public/assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+				style="background:url(/public/assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
 				<!-- Main banner background image -->
 				<div class="container">
 					<div class="row">
@@ -68,7 +72,7 @@ Steps START -->
 							<!-- Content -->
 							<p class="text-center">Use this interface to add a new Course to the
 								portal. Once you are done adding the item it will be requested to admin.
-								If admin approved, your course will appear and inform to studentsthat
+								If admin approved, your course will appear and inform to students that
 								your course has been accepted.</p>
 						</div>
 					</div>
@@ -305,12 +309,9 @@ Steps START -->
 												</div>
 
 												<!-- Step 1 button -->
-												<div class="d-flex justify-content-between mt-3">
-												<button class="btn btn-warning next-btn mb-0"><a th:href="@{/admin/admin-dashboard}">Dashboard</a></button>
-
-												<button class="btn btn-primary next-btn mb-0">Next</button>
-										
-									</div>
+												<div class="d-flex justify-content-end mt-3">
+													<button class="btn btn-primary next-btn mb-0">Next</button>
+												</div>
 											</div>
 											<!-- Basic information START -->
 										</div>
@@ -330,7 +331,7 @@ Steps START -->
 													<div
 														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
 														<!-- Image -->
-														<img th:src="@{/public/assets/images/element/gallery.svg}" class="h-50px" alt>
+														<img th:src="@{/public/assets/images/element/gallery.svg" class="h-50px" alt>
 														<div>
 															<h6 class="my-2">Upload course image here, or<a href="#!"
 																	class="text-primary"> Browse</a></h6>
@@ -491,7 +492,7 @@ Steps START -->
 																		class="bi bi-plus-circle me-2"></i>Add topic</a>
 
 																		<!-- add quiz -->
-																<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																<a th:href="@{/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor-quiz}" class="btn btn-sm btn-dark mb-0">
 																	<i class="bi bi-plus-circle me-2"></i>Add quiz
 																</a>
 															</div>
@@ -522,7 +523,7 @@ Steps START -->
 																</a>
 
 																		<!-- add quiz -->
-																		<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																		<a href="instructor-quiz.html" class="btn btn-sm btn-dark mb-0">
 																			<i class="bi bi-plus-circle me-2"></i>Add quiz
 																		</a>
 
@@ -552,7 +553,7 @@ Steps START -->
 																	<i class="bi bi-plus-circle me-2"></i>Add topic
 																</a>
 																<!-- add quiz -->
-																<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																<a href="instructor-quiz.html" class="btn btn-sm btn-dark mb-0">
 																	<i class="bi bi-plus-circle me-2"></i>Add quiz
 																</a>
 															</div>
@@ -567,13 +568,11 @@ Steps START -->
 												<div class="d-flex justify-content-between">
 													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
 													<div class="text-md-end">
-														<a th:href="@{/admin/admin-course-list}"
-															class="btn btn-success mb-2 mb-sm-0">Submit a Course</a>	
-													</div>
-												</div>
-												<div class="mt-2">
-												<p class="mb-0 small mt-1">Once you click "Submit a Course", your
+														<a th:href="@{/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor/instructor-manage-course}"
+															class="btn btn-success mb-2 mb-sm-0">Submit a Course</a>
+														<p class="mb-0 small mt-1">Once you click "Submit a Course", your
 															course will be uploaded and marked as pending for review.</p>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -590,7 +589,13 @@ Steps START -->
 			<!-- =======================
 Steps END -->
 
-<!-- Popup modal for add lecture START -->
+		</main>
+		<!-- **************** MAIN CONTENT END **************** -->
+
+    <!-- Include footer -->
+    <div th:replace="instructor/instructor-footer :: instructor-footer"></div>
+    
+    <!-- Popup modal for add lecture START -->
 		<div class="modal fade" id="addLecture" tabindex="-1"
 			aria-labelledby="addLectureLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -717,23 +722,57 @@ Steps END -->
 		</div>
 		<!-- Popup modal for add topic END -->
 
-		</main>
-		</th:block>
-		<!-- Scripts -->
-	 
+		<!-- Popup modal for add faq START -->
+		<div class="modal fade" id="addQuestion" tabindex="-1"
+			aria-labelledby="addQuestionLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header bg-dark">
+						<h5 class="modal-title text-white" id="addQuestionLabel">Add FAQ</h5>
+						<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+							data-bs-dismiss="modal" aria-label="Close"><i
+								class="bi bi-x-lg"></i></button>
+					</div>
+					<div class="modal-body">
+						<form class="row text-start g-3">
+							<!-- Question -->
+							<div class="col-12">
+								<label class="form-label">Question</label>
+								<input class="form-control" type="text" placeholder="Write a question">
+							</div>
+							<!-- Answer -->
+							<div class="col-12 mt-3">
+								<label class="form-label">Answer</label>
+								<textarea class="form-control" rows="4" placeholder="Write a answer"
+									spellcheck="false"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger-soft my-0"
+							data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-success my-0">Save topic</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Popup modal for add faq END -->
+		
+		<!-- TESTING SELF JS  -->
     <!-- Bootstrap JS -->
-    <script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    
-    <!-- Vendors -->
-    <script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
-    <script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
-    <script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
-    <script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
-    <script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
-    
-    <!-- Template Functions -->
-    <script th:src="@{/public/assets/js/functions.js}"></script>
-    <!-- Initialize Quill editors -->
+		<script
+			th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+		<!-- Vendors -->
+		<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+		<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+		<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+		<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
+		<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+
+		<!-- Template Functions -->
+		<script th:src="@{/public/assets/js/functions.js}"></script>
+		<!-- Initialize Quill editors -->
 		<script>
 	document.addEventListener('DOMContentLoaded', (event) => {
 		var toolbarOptions = [
@@ -762,7 +801,5 @@ Steps END -->
 		});
 	});
 </script>
-		</body>
-		</html>
-		
-		
+  </body>
+  </html>

@@ -15,8 +15,8 @@
 		<div class="container-fluid px-3 px-xl-5">
 			<!-- Logo START -->
 			<a class="navbar-brand" href="index.html">
-				<img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="light-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 			</a>
 			<!-- Logo END -->
 
@@ -35,8 +35,8 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link active" th:href="@{/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Dashboard</a>
-					<a class="nav-link" th:href="@{/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
+					<a class="nav-link active" th:href="@{/student/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Dashboard</a>
+					<a class="nav-link" th:href="@{/student/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link" th:href="@{/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">News</a>
 					<a class="nav-link" th:href="@{/forum}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
 				
@@ -62,7 +62,7 @@
 			<!-- Profile START -->
 			<div class="dropdown ms-1 ms-lg-0">
 				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+					<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 				</a>
 				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
 					<!-- Profile info -->
@@ -70,7 +70,7 @@
 						<div class="d-flex align-items-center">
 							<!-- Avatar -->
 							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 							</div>
 							<div>
 								<a class="h6" href="student-dashboard.html">Student</a>
@@ -80,7 +80,7 @@
 					</li>
           <li> <hr class="dropdown-divider"></li>
 					<!-- Links -->
-					<li><a class="dropdown-item" th:href="@{/student-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item" th:href="@{/student/student-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 					<li><a class="dropdown-item" href=""><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
 					<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-in}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
@@ -168,7 +168,7 @@ Page content START -->
 									<div class="card">
 										<div class="row g-0">
 											<div class="col-md-2">
-												<img th:src="@{public/assets/images/courses/4by3/01.jpg}" class="rounded-2" alt="Card image">
+												<img th:src="@{/public/assets/images/courses/4by3/01.jpg}" class="rounded-2" alt="Card image">
 											</div>
 											<div class="col-md-10">
 												<div class="card-body">

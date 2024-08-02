@@ -24,12 +24,10 @@ public class StartController {
 	@GetMapping("/")
 	public String index(HttpServletRequest  request,Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication!= null) 
-		{
-			return "redirect:/home";
-		} else 
+		if (authentication== null) 
 		{
 			return "redirect:/auth/login";
 		}
+		return "redirect:/auth/login";
 	}
 }
