@@ -3,8 +3,10 @@ package com.g3.elis.controller.admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController{
 	@GetMapping("/admin-dashboard")
 	public String home(Model model) {
@@ -70,4 +72,31 @@ public class AdminController{
 	{
 		return "/authenticated-user/forum";
 	}
+	
+	@GetMapping("/admin-course-detail")
+	public String adminCourseDetail(Model model)
+	{
+		model.addAttribute("content","admin/admin-course-detail");
+		return "/admin/admin-layout";
+	}
+	@GetMapping("/admin-edit-course-detail")
+	public String adminEditCourseDetail(Model model)
+	{
+		model.addAttribute("content","admin/admin-edit-course-detail");
+		return "/admin/admin-layout";
+	}
+	@GetMapping("/admin-create-blog")
+	public String adminCreateBlog(Model model) {
+		return "/admin/admin-create-blog";
+	}
+	@GetMapping("/admin-create-course")
+	public String adminCreateCourse(Model model) {
+		return "/admin/admin-create-course";
+	}
+	@GetMapping("/admin-quiz")
+	public String adminQuiz(Model model) {
+		return "/admin/admin-quiz";
+	}
+	
+	
 }

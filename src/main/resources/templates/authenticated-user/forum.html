@@ -42,15 +42,15 @@
 					<ul
 						class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-						<a class="nav-link active" href="index.html" id="demoMenu"
+						<a class="nav-link active" th:href="@{/home}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">Home</a>
-						<a class="nav-link" href="course-list.html" id="demoMenu"
+						<a class="nav-link" th:href="@{/course-list}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">Courses</a>
-						<a class="nav-link" href="blog-grid.html" id="demoMenu"
+						<a class="nav-link" th:href="@{/blog}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">Blogs</a>
-						<a class="nav-link" href="contact-us.html" id="demoMenu"
+						<a class="nav-link" th:href="@{/contact-us}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">Contact Us</a>
-						<a class="nav-link" href="about.html" id="demoMenu"
+						<a class="nav-link" href="@{/about}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">About</a>
 					</ul>
 					<!-- Nav Main menu END -->
@@ -78,7 +78,7 @@
 						role="button" data-bs-auto-close="outside"
 						data-bs-display="static" data-bs-toggle="dropdown"
 						aria-expanded="false"> <img class="avatar-img rounded-circle"
-						src="assets/images/avatar/01.jpg" alt="avatar">
+						th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 					</a>
 					<ul
 						class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -89,10 +89,10 @@
 								<!-- Avatar -->
 								<div class="avatar me-3">
 									<img class="avatar-img rounded-circle shadow"
-										src="assets/images/avatar/01.jpg" alt="avatar">
+										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 								</div>
 								<div>
-									<a class="h6" href="instructor-dashboard.html">Khine Khine
+									<a class="h6" th:href="@{/home}">Khine Khine
 										Soe</a>
 									<p class="small m-0">dathr@diracetechnology.com</p>
 								</div>
@@ -104,7 +104,7 @@
 						<!-- Links -->
 						<li><a class="dropdown-item" href="#"><i
 								class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-						<li><a class="dropdown-item" href="instructor-setting.html"><i
+						<li><a class="dropdown-item" href="#"><i
 								class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 						<li><a class="dropdown-item" href="#"><i
 								class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
@@ -184,7 +184,7 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex align-items-center">
-											<img th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar"
+											<img th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar"
 												class="rounded-circle mr-2 me-3 img-small"
 												style="width: 40px; height: 40px;">
 											<button type="button"
@@ -237,7 +237,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										src="assets/images/avatar/01.jpg" alt="avatar">
+										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -287,7 +287,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										src="assets/images/avatar/03.jpg" alt="avatar">
+										th:src="@{/public/assets/images/avatar/03.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -335,7 +335,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										src="assets/images/avatar/05.jpg" alt="avatar">
+										th:src="@{publlic/assets/images/avatar/05.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -383,7 +383,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										src="assets/images/avatar/08.jpg" alt="avatar">
+										th:src="@{/public/assets/images/avatar/08.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -430,7 +430,7 @@
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										src="assets/images/avatar/09.jpg" alt="avatar">
+										th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -519,8 +519,8 @@ Footer START -->
 				<!-- Widget -->
 				<div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
 					<!-- Logo START -->
-					<a href="index.html"> <img class="h-20px"
-						src="assets/images/DAT Logo.png" alt="logo">
+					<a th:href="@{/home"> <img class="h-20px"
+						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 					</a>
 				</div>
 
@@ -561,7 +561,7 @@ Footer END -->
 	<!-- Scripts -->
 	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 	<!-- Template Functions -->
-	<script th:src="@{public/assets/js/functions.js}"></script>
+	<script th:src="@{/public/assets/js/functions.js}"></script>
 
 </body>
 

@@ -3,15 +3,16 @@
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
-		<th:block th:fragment="admin-view-blog">
+		<th:block th:fragment="student-view-blog">
 			<!-- Page content START -->
+			<div class="col-xl-9">
 			<div class="page-content">
 				<!-- ======================= Page content START -->
 				<section class="position-relative pt-0 pt-lg-5">
 					<div class="container">
 						<div class="row g-4">
 							<div class="d-flex align-items-center mt-2 mt-md-0">
-								<a th:href="@{/admin/admin-create-blog}" class="btn btn-success mb-0">Create
+								<a th:href="@{/admin-create-blog" class="btn btn-success mb-0">Create
 									a Blogs</a>
 							</div>
 							<!-- Card item START -->
@@ -297,6 +298,8 @@
 				</section>
 				<!-- ======================= Page content END -->
 			</div>
+			</div>
+			
 		</th:block>
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->

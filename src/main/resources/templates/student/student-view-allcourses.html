@@ -17,8 +17,8 @@
 		<div class="container-fluid px-3 px-xl-5">
 			<!-- Logo START -->
 			<a class="navbar-brand" href="index.html">
-				<img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="light-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 			</a>
 			<!-- Logo END -->
 
@@ -38,8 +38,8 @@
 					<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link" th:href="@{/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
-					<a class="nav-link active" th:href="@{/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
+					<a class="nav-link" th:href="@{/student/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					<a class="nav-link active" th:href="@{/student/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					
 				</ul>
 				<!-- Nav Main menu END -->
@@ -64,7 +64,7 @@
 			<!-- Profile START -->
 			<div class="dropdown ms-1 ms-lg-0">
 				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+					<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 				</a>
 				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
 					<!-- Profile info -->
@@ -72,7 +72,7 @@
 						<div class="d-flex align-items-center">
 							<!-- Avatar -->
 							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 							</div>
 							<div>
 								<a class="h6" href="#">Khine Khine Soe</a>
@@ -200,7 +200,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
 							<!-- Card body -->
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
@@ -228,7 +228,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -255,7 +255,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/03.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/03.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -282,7 +282,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -309,7 +309,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/11.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/11.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -336,7 +336,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/12.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/12.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -363,7 +363,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/05.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/05.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -390,7 +390,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/06.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/06.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -417,7 +417,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/10.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/10.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -444,7 +444,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/13.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/13.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -471,7 +471,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/01.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/01.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">
@@ -498,7 +498,7 @@ Page content START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								<div class="d-flex justify-content-between mb-2">

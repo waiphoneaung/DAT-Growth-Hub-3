@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+<head>
 <meta charset="UTF-8">
-<title>Navbar</title>
+<title>Instructor Navbar</title>
 
 </head>
 <body>
-
-	<th:block th:fragment="navbar">
+	<th:block th:fragment="instructor-navbar">
 		<!-- Header START -->
-		<header class="navbar-light navbar-sticky header-static">
+		<header class="navbar-light navbar-sticky">
+			<!-- Logo Nav START -->
 			<nav class="navbar navbar-expand-xl">
 				<div class="container-fluid px-3 px-xl-5">
 					<!-- Logo START -->
-					<a class="navbar-brand" th:href="@{/home}"> <img
+					<a class="navbar-brand" th:href="@{/instructor/instructor-dashboard}"> <img
 						class="light-mode-item navbar-brand-item"
 						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo"> <img
 						class="dark-mode-item navbar-brand-item"
@@ -33,24 +33,17 @@
 
 					<!-- Main navbar START -->
 					<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+
 						<!-- Nav Main menu START -->
 						<ul
 							class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
-							<li class="nav-item"><a class="nav-link"
-								th:classappend="${content} == 'user/main' ? 'active':''"
-								th:href="@{/user/home}">Home</a></li>
-							<li class="nav-item "><a class="nav-link"
-								th:classappend="${content} == 'user/courses' ? 'active':''"
-								th:href="@{/user/courses}">Courses</a></li>
-							<li class="nav-item "><a class="nav-link"
-								th:classappend="${content} == 'user/blog' ? 'active':''"
-								th:href="@{/user/blog}">Blogs</a></li>
-							<li class="nav-item "><a class="nav-link "
-								th:classappend="${content} == 'user/contactus' ? 'active':''"
-								th:href="@{/user/contactus}">Contact Us</a></li>
-							<li class="nav-item "><a class="nav-link"
-								th:classappend="${content} == 'user/about' ? 'active':''"
-								th:href="@{/user/about}">About</a></li>
+							
+							<a class="nav-link" th:classappend="${currentPage == 'instructor-dashboard' ? ' active' : '' }"	th:href="@{/instructor/instructor-dashboard}">Dashboard</a>
+							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-manage-course}">Courses</a>
+							<a class="nav-link" th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}" th:href="@{/instructor/instructor-view-blog}">Blogs</a>
+							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/forum}">Forum</a>
+
+
 						</ul>
 						<!-- Nav Main menu END -->
 
@@ -63,7 +56,7 @@
 									<button
 										class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
 										type="submit">
-										<i class="fas fa-search fs-6"></i>
+										<i class="fas fa-search fs-6 "></i>
 									</button>
 								</form>
 							</div>
@@ -83,15 +76,16 @@
 						<ul
 							class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
 							aria-labelledby="profileDropdown">
+							<!-- Profile info -->
 							<li class="px-3 mb-3">
 								<div class="d-flex align-items-center">
+									<!-- Avatar -->
 									<div class="avatar me-3">
 										<img class="avatar-img rounded-circle shadow"
 											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									</div>
 									<div>
-										<a class="h6" href="instructor-dashboard.html">Khine Khine
-											Soe</a>
+										<a class="h6" th:href="@{/instructor/instructor-dashboard}">Student</a>
 										<p class="small m-0">dathr@diracetechnology.com</p>
 									</div>
 								</div>
@@ -100,14 +94,13 @@
 								<hr class="dropdown-divider">
 							</li>
 							<!-- Links -->
-							<li><a class="dropdown-item" href="#"><i
+							<li><a class="dropdown-item"
+								th:href="@{/instructor/instructor-edit-profile}"><i
 									class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-							<li><a class="dropdown-item" href="instructor-setting.html"><i
-									class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-							<li><a class="dropdown-item" href="#"><i
-									class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-							<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
-									class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+							
+							<li><a class="dropdown-item bg-danger-soft-hover"
+								th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+									Out</a></li>
 							<li>
 								<hr class="dropdown-divider">
 							</li>
@@ -160,9 +153,11 @@
 					<!-- Profile START -->
 				</div>
 			</nav>
-			<!-- Nav END -->
+			<!-- Logo Nav END -->
 		</header>
 		<!-- Header END -->
+
+
 	</th:block>
 </body>
 </html>
