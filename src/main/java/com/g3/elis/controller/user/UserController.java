@@ -40,7 +40,7 @@ public class UserController {
 	}
 	@GetMapping("/error404")
 	public String error404(Model model) {
-		model.addAttribute("content","user/errror404");
+		model.addAttribute("content","user/error404");
 		return "/user/layout";
 	}
 }
