@@ -67,13 +67,13 @@
 						<!-- Menu item 5 -->
 
 						<!-- Menu item 6 -->
-						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin-view-blog' ? 'active' : ''"
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-view-blog' ? 'active' : ''"
 							th:href="@{/admin/admin-view-blog}"><i
 								class="fas fa-blog fa-fw me-2"></i>Blogs</a></li>
 
 						<li class="nav-item"><a class="nav-link" 
 						th:href="@{/forum}"><i class="fas fa-comments fa-fw me-2"></i>Forum</a></li>
-						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin-certificate-design' ? 'active' : ''"
+						<li class="nav-item"><a class="nav-link" th:classappend="${content} == 'admin/admin-certificate-design' ? 'active' : ''"
 							th:href="@{/admin/admin-certificate-design}"><i
 								class="fas fa-certificate fa-fw me-2"></i>Certificates</a></li>
 						<!-- Menu item 7 -->
@@ -95,7 +95,7 @@
 							<a class="h5 mb-0 text-body" th:href="@{/admin/admin-setting}"
 								data-bs-toggle="tooltip" data-bs-placement="top"
 								title="Settings"> <i class="bi bi-gear-fill"></i>
-							</a> <a class="h5 mb-0 text-body" th:href="@{/admin-dashboard}"
+							</a> <a class="h5 mb-0 text-body" th:href="@{/admin/admin-dashboard}"
 								data-bs-toggle="tooltip" data-bs-placement="top" title="Home">
 								<i class="bi bi-globe"></i>
 							</a> <a class="h5 mb-0 text-body" th:href="@{/user/sign-in}"

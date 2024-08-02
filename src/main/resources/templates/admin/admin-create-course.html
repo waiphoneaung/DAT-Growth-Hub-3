@@ -306,7 +306,7 @@ Steps START -->
 
 												<!-- Step 1 button -->
 												<div class="d-flex justify-content-between mt-3">
-												<button class="btn btn-warning next-btn mb-0"><a th:href="@{/admin-dashboard}">Dashboard</a></button>
+												<button class="btn btn-warning next-btn mb-0"><a th:href="@{/admin/admin-dashboard}">Dashboard</a></button>
 
 												<button class="btn btn-primary next-btn mb-0">Next</button>
 										
@@ -330,7 +330,7 @@ Steps START -->
 													<div
 														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
 														<!-- Image -->
-														<img th:src="@{public/assets/images/element/gallery.svg}" class="h-50px" alt>
+														<img th:src="@{/public/assets/images/element/gallery.svg}" class="h-50px" alt>
 														<div>
 															<h6 class="my-2">Upload course image here, or<a href="#!"
 																	class="text-primary"> Browse</a></h6>
@@ -383,7 +383,7 @@ Steps START -->
 													<h5 class="mt-4">Video preview</h5>
 													<div class="position-relative">
 														<!-- Image -->
-														<img th:src="@{public/assets/images/about/04.jpg}" class="rounded-4" alt>
+														<img th:src="@{/public/assets/images/about/04.jpg}" class="rounded-4" alt>
 														<div class="position-absolute top-50 start-50 translate-middle">
 															<!-- Video link -->
 															<a href="https://www.youtube.com/embed/tXHviS-4ygo"
@@ -491,7 +491,7 @@ Steps START -->
 																		class="bi bi-plus-circle me-2"></i>Add topic</a>
 
 																		<!-- add quiz -->
-																<a th:href="@{/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
 																	<i class="bi bi-plus-circle me-2"></i>Add quiz
 																</a>
 															</div>
@@ -522,7 +522,7 @@ Steps START -->
 																</a>
 
 																		<!-- add quiz -->
-																		<a th:href="@{/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																		<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
 																			<i class="bi bi-plus-circle me-2"></i>Add quiz
 																		</a>
 
@@ -552,7 +552,7 @@ Steps START -->
 																	<i class="bi bi-plus-circle me-2"></i>Add topic
 																</a>
 																<!-- add quiz -->
-																<a th:href="@{/admin-quiz}" class="btn btn-sm btn-dark mb-0">
+																<a th:href="@{/admin/admin-quiz}" class="btn btn-sm btn-dark mb-0">
 																	<i class="bi bi-plus-circle me-2"></i>Add quiz
 																</a>
 															</div>
@@ -567,7 +567,7 @@ Steps START -->
 												<div class="d-flex justify-content-between">
 													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
 													<div class="text-md-end">
-														<a th:href="@{/admin-course-list}"
+														<a th:href="@{/admin/admin-course-list}"
 															class="btn btn-success mb-2 mb-sm-0">Submit a Course</a>	
 													</div>
 												</div>
@@ -722,7 +722,7 @@ Steps END -->
 		<!-- Scripts -->
 	 
     <!-- Bootstrap JS -->
-    <script th:src="@{public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     
     <!-- Vendors -->
     <script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
@@ -732,7 +732,7 @@ Steps END -->
     <script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
     
     <!-- Template Functions -->
-    <script th:src="@{public/assets/js/functions.js}"></script>
+    <script th:src="@{/public/assets/js/functions.js}"></script>
     <!-- Initialize Quill editors -->
 		<script>
 	document.addEventListener('DOMContentLoaded', (event) => {
