@@ -36,4 +36,4 @@ build/
 bin/
 
 ### Disable Application.properties###
-src\main\resources\application.properties
+src/main/resources/application.properties
