@@ -15,8 +15,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	User findByEmail(String email);
 	
 	public Optional<User> findByStaffId(String search);
-	
-	@Query("SELECT u.email FROM User u JOIN u.roles r WHERE r.name = :role")
-	    List<String> findEmailsByRole(String role);
+	public List<User> findByNameContainingIgnoreCase(String name);
 
+	@Query("SELECT u.email FROM User u JOIN u.roles r WHERE r.name = :role")
+	List<String> findEmailsByRole(String role);
 }
