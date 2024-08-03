@@ -46,8 +46,16 @@
 				<div class="ms-xl-auto">
 					<ul class="navbar-nav flex-row align-items-center">
 
-						<!-- Profile dropdown START -->
-						<li class="nav-item ms-2 ms-md-3 dropdown">
+
+					<!-- Profile dropdown START -->
+					<li class="nav-item ms-2 ms-md-3 dropdown">
+						<!-- Sign In Button for Unauthenticated Users -->
+                        <div th:if="${#authentication == null}">
+                            <a class="btn btn-primary" th:href="@{/auth/sign-in}">Sign In</a>
+                        </div>
+						
+				<!-- Profile Dropdown for Authenticated Users -->
+                        <div th:if="${#authentication != null}">
 							<!-- Avatar -->
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
 								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
@@ -63,12 +71,14 @@
 											<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 										</div>
 										<div>
-											<a class="h6 mt-2 mt-sm-0" href="admin-dashboard.html">Admin</a>
+											<a class="h6 mt-2 mt-sm-0" th:href="@{/admin/admin-dashboard}">Admin</a>
 											<p class="small m-0"> dathr@diracetechnology.com</p>
 										</div>
 									</div>
+									
 								</li>
                 <li> <hr class="dropdown-divider"></li>
+                
 								<!-- Links -->
 								<li><a class="dropdown-item" th:href="@{/admin/admin-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 								<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
@@ -98,9 +108,11 @@
 											</svg> Auto
 										</button>
 									</div>
+									
 								</li> 
 								<!-- Dark mode options END-->
 							</ul>
+							</div>
 							<!-- Profile dropdown END -->
 						</li>
 						<!-- Profile dropdown END -->
