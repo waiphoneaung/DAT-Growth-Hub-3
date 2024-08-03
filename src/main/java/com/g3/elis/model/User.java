@@ -41,6 +41,8 @@ public class User {
 	private String email;	
 	private String status;
 	private String password;
+	private String gender;
+
 
 	@Column(nullable=false)
 	private boolean enabled;
@@ -133,6 +135,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -150,7 +160,7 @@ public class User {
 	}
 
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
-			String email, String status, String password, boolean enabled, Set<Role> roles) {
+			String email, String status, String password, String gender, boolean enabled, Set<Role> roles) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -162,6 +172,7 @@ public class User {
 		this.email = email;
 		this.status = status;
 		this.password = password;
+		this.gender = gender;
 		this.enabled = enabled;
 		this.roles = roles;
 	}

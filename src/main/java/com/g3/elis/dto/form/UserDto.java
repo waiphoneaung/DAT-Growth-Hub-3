@@ -11,6 +11,7 @@ public class UserDto
 	private String email;	
 	private String status;
 	private String password;
+	private String gender;
 	public String getDivision() {
 		return division;
 	}
@@ -65,8 +66,14 @@ public class UserDto
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public UserDto(String division, String staffId, String name, String doorLogNo, String dept, String team,
-			String email, String status, String password) {
+			String email, String status, String password, String gender) {
 		super();
 		this.division = division;
 		this.staffId = staffId;
@@ -77,8 +84,8 @@ public class UserDto
 		this.email = email;
 		this.status = status;
 		this.password = password;
+		this.gender = gender;
 	}
-	
 	public UserDto()
 	{
 		

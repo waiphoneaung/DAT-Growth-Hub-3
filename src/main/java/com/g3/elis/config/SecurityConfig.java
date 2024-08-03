@@ -60,7 +60,7 @@ public class SecurityConfig {
                         	"/public/assets/images/**","/public/assets/js/**",
                         	"/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
                         	"/api/public/**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("ROLE_INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
