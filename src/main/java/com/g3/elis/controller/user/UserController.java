@@ -43,4 +43,6 @@ public class UserController {
 		model.addAttribute("content","user/error404");
 		return "/user/layout";
 	}
+	
+	
 }

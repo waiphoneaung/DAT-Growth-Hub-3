@@ -13,4 +13,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer>{
 
 	@Query("SELECT r FROM Role r LEFT JOIN FETCH r.users WHERE r.name = :name")
 	Optional<Role> findByName(String name);
+	
+	
 }
