@@ -233,6 +233,18 @@ public class InputFileServiceImpl implements InputFileService {
 							if(getCellValue(formulaEvaluator,cell).contains("25-") || getCellValue(formulaEvaluator,cell).contains("26-"))
 							{
 								userDto.setStaffId(getCellValue(formulaEvaluator,cell));
+								if (getCellValue(formulaEvaluator,cell).contains("25-"))
+								{
+									userDto.setGender("Male");
+								}
+								else if(getCellValue(formulaEvaluator,cell).contains("26-"))
+								{
+									userDto.setGender("Female");
+								}
+								else
+								{
+									userDto.setGender("Other");
+								}
 							}
 							if(getCellValue(formulaEvaluator,cell).contains("Dept"))
 							{
@@ -242,10 +254,7 @@ public class InputFileServiceImpl implements InputFileService {
 							{
 								userDto.setEmail(getCellValue(formulaEvaluator,cell));
 							}
-							if(getCellValue(formulaEvaluator,cell).equalsIgnoreCase("Active") || getCellValue(formulaEvaluator,cell).equalsIgnoreCase("InActive"))
-							{
-								userDto.setStatus(getCellValue(formulaEvaluator,cell));
-							}
+							
 							if(getCellValue(formulaEvaluator,row.getCell(3))!=null)
 							{
 								userDto.setName(getCellValue(formulaEvaluator,row.getCell(3)));
@@ -258,6 +267,11 @@ public class InputFileServiceImpl implements InputFileService {
 							{
 								userDto.setTeam(getCellValue(formulaEvaluator,row.getCell(6)));
 							}
+							if(getCellValue(formulaEvaluator,row.getCell(8))!=null)
+							{
+								userDto.setStatus(getCellValue(formulaEvaluator,row.getCell(8)));
+							}
+							
 						}
 					}
 					if(userDto.getName()!=null)
