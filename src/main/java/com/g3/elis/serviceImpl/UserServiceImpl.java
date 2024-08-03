@@ -1,5 +1,7 @@
 package com.g3.elis.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,5 +70,10 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.save(user);
 	}
+
+	@Override
+	public List<String> getEmailsByRole(String role) {
+        return userRepository.findEmailsByRole(role);
+    }
 
 }
