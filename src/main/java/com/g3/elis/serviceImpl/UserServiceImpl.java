@@ -75,4 +75,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findEmailsByRole(role);
     }
 
+	@Override
+	public List<User> getAllStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
