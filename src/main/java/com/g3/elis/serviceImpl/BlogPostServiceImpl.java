@@ -27,8 +27,8 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Autowired
     private FileStorageConfig fileStorageConfig;
 
-    private final String BLOG_IMAGE_PATH = "/blog/blog-images";
-    private final String BLOG_HTML_PATH = "/blog/blog-files";
+    public final String BLOG_IMAGE_PATH = "/blog/blog-images/";
+    public final String BLOG_HTML_PATH = "/blog/blog-files/";
 
     @Override
     public List<BlogPost> getAllBlogPosts() {
@@ -44,7 +44,6 @@ public class BlogPostServiceImpl implements BlogPostService {
     public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
         BlogPost blogPost = new BlogPost();
 
-        // Handle HTML file
         if (blogPostDto.getId() > 0) {
             BlogPost existingBlogPost = blogPostRepository.findById(blogPostDto.getId()).orElse(null);
             if (existingBlogPost != null) {
@@ -62,13 +61,12 @@ public class BlogPostServiceImpl implements BlogPostService {
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setUsers(blogPostDto.getUsers());
 
-        // Handle image file
         if (imgFile != null && !imgFile.isEmpty()) {
             String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
             fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
             blogPost.setBlogImage(newImageFileName);
         }
-
+        
         blogPostRepository.save(blogPost);
     }
 
@@ -78,17 +76,14 @@ public class BlogPostServiceImpl implements BlogPostService {
         if (blogPostOptional.isPresent()) {
             BlogPost blogPost = blogPostOptional.get();
 
-            // Delete associated image
             if (blogPost.getBlogImage() != null && !blogPost.getBlogImage().isEmpty()) {
                 fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());
             }
 
-            // Delete associated HTML file
             if (blogPost.getHtmlFileName() != null && !blogPost.getHtmlFileName().isEmpty()) {
                 fileStorageConfig.deleteFile(blogPost.getHtmlFileName(), BLOG_HTML_PATH);
             }
 
-            // Delete the blog post from the database
             blogPostRepository.delete(blogPost);
         } else {
             throw new RuntimeException("Blog post not found with id " + id);
@@ -103,23 +98,21 @@ public class BlogPostServiceImpl implements BlogPostService {
             blogPost.setTitle(blogPostDto.getTitle());
             blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
-            // Handle HTML file update
             fileStorageConfig.saveHTMLFile(content, BLOG_HTML_PATH, blogPost.getHtmlFileName());
 
-            // Handle image file update
             if (imgFile != null && !imgFile.isEmpty()) {
-                // Delete the old image if a new one is uploaded
                 fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());
                 String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
                 fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
                 blogPost.setBlogImage(newImageFileName);
             }
-
+            
             blogPostRepository.save(blogPost);
         } else {
             throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
         }
     }
+
 
     @Override
     public String getBlogPostContent(BlogPost blogPost) throws IOException {

@@ -15,13 +15,13 @@ public class BlogPostDto {
 	private String htmlFileName;
 
 	@NotEmpty(message = "Title is required")
-	@Size(min = 5, message = "Title must be at least 5 characters long")
+	@Size(min = 3, message = "Title must be at least 5 characters long")
 	private String title;
 
 	private User users;
 
 	public BlogPostDto(int id, Timestamp createdAt, Timestamp updatedAt, String imageFile, String htmlFileName,
-			@NotEmpty(message = "Title is required") @Size(min = 5, message = "Title must be at least 5 characters long") String title,
+			@NotEmpty(message = "Title is required") @Size(min = 3, message = "Title must be at least 5 characters long") String title,
 			User users) {
 		super();
 		this.id = id;
