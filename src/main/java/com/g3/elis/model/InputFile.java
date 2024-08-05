@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +17,11 @@ public class InputFile
 	private int id;
 	
 	private String fileName;
+	
+//	@ManyToOne
+//	@JoinColumn(name="course_materials_id")
+//	private CourseMaterial coursematerials;
+//	
 	
 	public InputFile() {
 		

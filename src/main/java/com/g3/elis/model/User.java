@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.HashSet;
@@ -49,7 +50,10 @@ public class User {
 	
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
-
+    
+    @OneToMany(mappedBy = "users" , fetch=FetchType.LAZY)
+    private Set<BlogPost> blogposts=new HashSet<>();
+    
     public User() 
     {
     	
