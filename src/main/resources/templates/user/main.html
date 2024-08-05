@@ -6,6 +6,10 @@
 </head>
 <body>
  <th:block th:fragment="user-main">
+ 
+    <link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+    
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
 	
@@ -170,7 +174,7 @@ Main Banner START -->
 
 				<div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
 					<!-- Button -->
-					<a href="#" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
+					<a th:href="@{/auth/login}" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
 					<!-- Video button -->
 					<div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
 						<a data-glightbox data-gallery="office-tour" href="https://youtu.be/0jNm2La-9uM?list=RD0jNm2La-9uM" class="btn btn-round btn-primary-shadow mb-0 overflow-visible me-7"> 
@@ -789,6 +793,10 @@ Popular course END -->
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
+
+<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
 
 </th:block>
 </body>
