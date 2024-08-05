@@ -3,6 +3,7 @@ package com.g3.elis.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,19 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import java.util.HashSet;
-import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +25,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String division;
 	private String staffId;	
 	private String name;
@@ -49,6 +43,23 @@ public class User {
 	
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private Set<Course> courses=new HashSet<>();
+    
+    @OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
+    private Profile profiles;
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private Set<EnrolledCourse> enrolledCourses=new HashSet<>();
+    
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+	 private Set<Report> reports=new HashSet<>();
+
+
+    @OneToMany(mappedBy = "users" , fetch=FetchType.LAZY)
+    private Set<BlogPost> blogposts=new HashSet<>();
 
     public User() 
     {
@@ -159,8 +170,33 @@ public class User {
 		this.roles = roles;
 	}
 
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+	public Profile getProfiles() {
+		return profiles;
+	}
+
+	public void setProfiles(Profile profiles) {
+		this.profiles = profiles;
+	}
+
+	public Set<EnrolledCourse> getEnrolledCourses() {
+		return enrolledCourses;
+	}
+
+	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
+		this.enrolledCourses = enrolledCourses;
+	}
+
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
-			String email, String status, String password, String gender, boolean enabled, Set<Role> roles) {
+			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
+			Set<Course> courses, Profile profile, Set<EnrolledCourse> enrolledCourses) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -175,5 +211,10 @@ public class User {
 		this.gender = gender;
 		this.enabled = enabled;
 		this.roles = roles;
+		this.courses = courses;
+		this.profiles = profile;
+		this.enrolledCourses = enrolledCourses;
 	}
+	
+	
 }

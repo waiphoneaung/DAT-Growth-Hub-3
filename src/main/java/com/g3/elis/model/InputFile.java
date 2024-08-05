@@ -22,7 +22,13 @@ public class InputFile
 	@Column(name="file_name")
 	private String fileName;
 	
+
+	@ManyToOne
+	@JoinColumn(name="course_materials_id")
+	private CourseMaterial coursematerials;
+
 	private Timestamp createdAt;
+
 	
 	@ManyToOne
 	@JoinColumn(name ="course_material_id", nullable = false)

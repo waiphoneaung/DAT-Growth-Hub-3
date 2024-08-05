@@ -3,7 +3,6 @@ package com.g3.elis.dto.form;
 public class UserDto 
 {
 	private String division;
-	private String staffId;	
 	private String name;
 	private String doorLogNo;
 	private String dept;
@@ -17,12 +16,6 @@ public class UserDto
 	}
 	public void setDivision(String division) {
 		this.division = division;
-	}
-	public String getStaffId() {
-		return staffId;
-	}
-	public void setStaffId(String staffId) {
-		this.staffId = staffId;
 	}
 	public String getName() {
 		return name;
@@ -72,11 +65,10 @@ public class UserDto
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public UserDto(String division, String staffId, String name, String doorLogNo, String dept, String team,
-			String email, String status, String password, String gender) {
+	public UserDto(String division, String name, String doorLogNo, String dept, String team, String email,
+			String status, String password, String gender) {
 		super();
 		this.division = division;
-		this.staffId = staffId;
 		this.name = name;
 		this.doorLogNo = doorLogNo;
 		this.dept = dept;
@@ -86,8 +78,18 @@ public class UserDto
 		this.password = password;
 		this.gender = gender;
 	}
-	public UserDto()
-	{
+	public UserDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public void setStaffId(String cellValue) {
+		// TODO Auto-generated method stub
 		
 	}
+	public String getStaffId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
