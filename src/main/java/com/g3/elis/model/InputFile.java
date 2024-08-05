@@ -23,14 +23,9 @@ public class InputFile
 	private String fileName;
 	
 
-//	@ManyToOne
-//	@JoinColumn(name="course_materials_id")
-//	private CourseMaterial coursematerials;
-//	
-	
-	public InputFile() {
-		
-	}
+	@ManyToOne
+	@JoinColumn(name="course_materials_id")
+	private CourseMaterial coursematerials;
 
 	private Timestamp createdAt;
 
