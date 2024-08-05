@@ -37,7 +37,7 @@
 					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student/student-dashboard}">Dashboard</a>
 					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student/student-course-list}">Courses</a>
 					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/student/student-view-blog}" >Blogs</a>
-					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/forum}" >Forum</a>
+					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/authenticated-user/forum}" >Forum</a>
 					
 					
 				</ul>

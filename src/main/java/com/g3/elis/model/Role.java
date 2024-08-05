@@ -1,5 +1,6 @@
 package com.g3.elis.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +21,9 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
-	private Date createdAt;
+	private Timestamp createdAt;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -51,7 +53,7 @@ public class Role {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -67,7 +69,7 @@ public class Role {
 		
 	}
 	
-	public Role(int id, String name, Date createdAt, Set<User> users) {
+	public Role(int id, String name, Timestamp createdAt, Set<User> users) {
 		super();
 		this.id = id;
 		this.name = name;

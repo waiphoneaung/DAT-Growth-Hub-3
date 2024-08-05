@@ -4,6 +4,8 @@
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
 <th:block th:fragment = "admin-course-list">
+ <link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css}">
 
 
 <!-- Page content START -->
@@ -499,6 +501,10 @@
 
 </div>
 <!-- Page content END -->
+
+<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+<script th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
 </th:block>
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
