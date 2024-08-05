@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUsersByName(String name) {
 		return userRepository.findByNameContainingIgnoreCase(name);
 	}
+	@Override
 	public List<String> getEmailsByRole(String role) {
         return userRepository.findEmailsByRole(role);
     }
