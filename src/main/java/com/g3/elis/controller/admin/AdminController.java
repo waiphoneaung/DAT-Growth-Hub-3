@@ -50,7 +50,7 @@ public class AdminController
 	@GetMapping("/admin-student-list")
 	public String adminStudentList(Model model)
 	{
-		List<User> users = userService.getAllUsers();
+		List<User> users = userService.getAllStudents();
 		model.addAttribute("users",users);
 		model.addAttribute("content","admin/admin-student-list");
 		return "/admin/admin-layout";
@@ -82,6 +82,8 @@ public class AdminController
 	@GetMapping("/admin-instructor-list")
 	public String adminInstructorList(Model model)
 	{
+		List<User> users = userService.getAllInstructors();
+		model.addAttribute("users",users);
 		model.addAttribute("content","admin/admin-instructor-list");
 		return "/admin/admin-layout";
 	}

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.UserDto;
@@ -71,8 +70,24 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUsersByName(String name) {
 		return userRepository.findByNameContainingIgnoreCase(name);
 	}
+	@Override
 	public List<String> getEmailsByRole(String role) {
         return userRepository.findEmailsByRole(role);
     }
+
+	@Override
+	public List<User> getAllStudents() {
+		return userRepository.findByRole("ROLE_STUDENT");
+	}
+
+	@Override
+	public List<User> getAllInstructors() {
+		return userRepository.findByRole("ROLE_INSTRUCTOR");
+	}
+
+	@Override
+	public List<User> getAllAdmins() {
+		return userRepository.findByRole("ROLE_ADMIN");
+	}
 
 }
