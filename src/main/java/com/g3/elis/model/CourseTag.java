@@ -3,7 +3,6 @@ package com.g3.elis.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,17 +12,17 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="course_tags")
+@Table(name = "course_tags")
 public class CourseTag {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
 	private String tagName;
-	
-	@OneToMany(mappedBy="courseTags",fetch = FetchType.LAZY)
-    private Set<Course> courses=new HashSet<>();
+
+	@OneToMany(mappedBy = "courseTags", fetch = FetchType.LAZY)
+	private Set<Course> courses = new HashSet<>();
 
 	public int getId() {
 		return id;
@@ -55,7 +54,5 @@ public class CourseTag {
 		this.tagName = tagName;
 		this.courses = courses;
 	}
-	
-	
 
 }
