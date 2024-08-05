@@ -119,7 +119,9 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link" th:href="@{/user/home}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<a class="nav-link" th:href="@{/admin/admin-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
 					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
 					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>

@@ -135,6 +135,13 @@ public class AdminController
 	public String adminCreateBlog(Model model) {
 		return "/admin/admin-create-blog";
 	}
+	
+	@GetMapping("/blog-detail")
+	public String blogDetail()
+	{
+		return "/authenticated-user/blog-detail";
+	}
+	
 	@GetMapping("/admin-create-course")
 	public String adminCreateCourse(Model model) {
 		return "/admin/admin-create-course";
