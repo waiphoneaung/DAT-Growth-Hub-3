@@ -11,12 +11,12 @@ public class StudentController {
 	@GetMapping("/student-dashboard")
 	public String home(Model model) {
 		model.addAttribute("content","student/student-dashboard");
-		return "student/student-layout";
+		return "/student/student-layout";
 	}
 	@GetMapping("/student-view-blog")
 	public String studentViewBlog(Model model) {
 		model.addAttribute("content","student/student-view-blog");
-		return "student/student-view-blog";
+		return "/student/student-layout";
 	}
 	
 	
@@ -69,8 +69,5 @@ public class StudentController {
 		return "/student/student-quiz";
 	}
 	
-	@GetMapping("/forum.html")
-	public String Forum(Model model) {
-		return "/authenticated-user/forum";
-	}
+	
 }
