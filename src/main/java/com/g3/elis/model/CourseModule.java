@@ -46,7 +46,7 @@ public class CourseModule {
 	private List<CourseMaterial> courseMaterials;
 	
 	@OneToMany(mappedBy = "courseModules", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CourseAssignment> courseAssessments;
+	private List<CourseAssignment> courseAssignment;
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id")

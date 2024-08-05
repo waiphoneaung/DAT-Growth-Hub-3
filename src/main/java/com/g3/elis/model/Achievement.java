@@ -92,7 +92,5 @@ public class Achievement {
 	}
 
 	public Achievement() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 }
