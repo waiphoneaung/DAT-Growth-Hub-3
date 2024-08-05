@@ -6,4 +6,7 @@ import com.g3.elis.model.Profile;
 
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
+	Object findByUserId(Long userId);
+	
+
 }

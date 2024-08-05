@@ -83,5 +83,67 @@ public class Profile {
 		this.users = users;
 	}
 
+	public Object getFullName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getPhoneNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setFullName(Object fullName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setEmail(Object email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPhoneNumber(Object phoneNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setLocation(Object location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getAboutMe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setAboutMe(Object aboutMe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setProfilePicturePath(String profilePicturePath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPassword(String newPassword) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
 	
 }

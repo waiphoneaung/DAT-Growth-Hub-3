@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +27,11 @@ public class ModuleGrade {
 				@ManyToOne
 				@JoinColumn(name="user_id")
 				private User users;
+				
+				@ManyToOne
+				@JoinColumn(name="course_id")
+				private Course courses;
+
 
 
 				public int getId() {
@@ -71,10 +77,9 @@ public class ModuleGrade {
 					// TODO Auto-generated constructor stub
 				}
 				
-				
-//				@OneToOne
-//				@JoinColumn(name="course_module_id")
-//				private CourseModule course_modules;
+	@OneToOne
+			@JoinColumn(name="course_module_id")
+			private CourseModule course_modules;
 
 
 				
