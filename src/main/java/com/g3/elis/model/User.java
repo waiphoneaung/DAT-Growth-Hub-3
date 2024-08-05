@@ -3,7 +3,6 @@ package com.g3.elis.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,56 +14,50 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-
-
 @Entity
 @Table(name = "users")
 
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String division;
-	private String staffId;	
+	private String staffId;
 	private String name;
 	private String doorLogNo;
 	private String dept;
 	private String team;
-	private String email;	
+	private String email;
 	private String status;
 	private String password;
 	private String gender;
 
-
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private boolean enabled;
-	
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
-    
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
-    private Set<Course> courses=new HashSet<>();
-    
-    @OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
-    private Profile profiles;
-    
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
-    private Set<EnrolledCourse> enrolledCourses=new HashSet<>();
-    
-    
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
-	 private Set<Report> reports=new HashSet<>();
 
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "users" , fetch=FetchType.LAZY)
-    private Set<BlogPost> blogposts=new HashSet<>();
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private Set<Course> courses = new HashSet<>();
 
-    public User() 
-    {
-    	
-    }
+	@OneToOne(mappedBy = "users", fetch = FetchType.LAZY)
+	private Profile profiles;
+
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private Set<EnrolledCourse> enrolledCourses = new HashSet<>();
+
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private Set<Report> reports = new HashSet<>();
+
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private Set<BlogPost> blogposts = new HashSet<>();
+
+	public User() {
+
+	}
 
 	public int getId() {
 		return id;
@@ -215,6 +208,5 @@ public class User {
 		this.profiles = profile;
 		this.enrolledCourses = enrolledCourses;
 	}
-	
-	
+
 }

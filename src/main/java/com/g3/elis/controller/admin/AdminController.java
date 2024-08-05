@@ -135,6 +135,7 @@ public class AdminController
 	public String adminCreateBlog(Model model) {
 		return "/admin/admin-create-blog";
 	}
+<<<<<<< HEAD
 	
 	@GetMapping("/blog-detail")
 	public String blogDetail()
@@ -146,6 +147,8 @@ public class AdminController
 	public String adminCreateCourse(Model model) {
 		return "/admin/admin-create-course";
 	}
+=======
+>>>>>>> 6635ea3f0405340afb612a3f865f310d99381dd6
 	@GetMapping("/admin-quiz")
 	public String adminQuiz(Model model) {
 		return "/admin/admin-quiz";
