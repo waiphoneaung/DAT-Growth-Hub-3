@@ -22,7 +22,6 @@ public class InputFileDto {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
@@ -36,11 +35,11 @@ public class InputFileDto {
 		super();
 		this.fileName = fileName;
 		this.createdAt = createdAt;
+
 	}
 
 	public InputFileDto() {
 		super();
 	}
 
-   
 }
