@@ -1,6 +1,9 @@
 package com.g3.elis.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +23,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public User getUserById(int id) {
@@ -51,22 +51,28 @@ public class UserServiceImpl implements UserService {
 		user.setStatus(userDto.getStatus());
 		
 		user.setEnabled(true);
-		if(userDto.getPassword()!=null)
-		{
-			user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		}
-		else
-		{ 	
-			user.setPassword(passwordEncoder.encode("dirace@1234"));
-		}
+		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
 		
 //		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
-		Role userRole = roleRepository.findByName("STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
+		Role userRole = roleRepository.findByName("ROLE_STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
 		
 		user.getRoles().add(userRole);
 		userRole.getUsers().add(user);
 		
 		userRepository.save(user);
 	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public List<User> searchUsersByName(String name) {
+		return userRepository.findByNameContainingIgnoreCase(name);
+	}
+	public List<String> getEmailsByRole(String role) {
+        return userRepository.findEmailsByRole(role);
+    }
 
 }
