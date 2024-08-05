@@ -10,7 +10,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "otprequests")
+@Table(name = "otp_requests")
 public class OtpRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
