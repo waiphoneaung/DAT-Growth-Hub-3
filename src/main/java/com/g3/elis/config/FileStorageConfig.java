@@ -29,9 +29,17 @@ public class FileStorageConfig {
 		Files.copy(file.getInputStream(), targetLocation);
 	}
 	
+//	public void deleteBlogImage(String blogFileName) throws IOException {
+//		
+//		Path targetLocation = getBlogImageUploadDir().resolve(blogFileName);
+//		Files.delete(targetLocation);
+//	}
 	
-	
-	
+	public void deleteBlogImage(String fileName) throws IOException {
+	    Path filePath = getBlogImageUploadDir().resolve(fileName).normalize();
+	    Files.deleteIfExists(filePath);
+	}
+
 	
 	
 	public Path getUploadDir()

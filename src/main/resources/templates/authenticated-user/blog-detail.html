@@ -122,6 +122,12 @@
 					<div sec:authorize="hasRole('ROLE_ADMIN')">
 					<a class="nav-link" th:href="@{/admin/admin-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
 					</div>
+					<div sec:authorize="hasRole('ROLE_STUDENT')">
+					<a class="nav-link" th:href="@{/student/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
+					<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+					<a class="nav-link" th:href="@{/instructor/instructor-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
 					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
 					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
@@ -225,13 +231,14 @@ Main Content START -->
 								<div class="avatar avatar-xxl">
 									<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
 								</div>
-								<a href="#" class="h5 stretched-link mt-2 mb-0 d-block">Frances Guerrero</a>
+								<a href="#" class="h5 stretched-link mt-2 mb-0 d-block">Daw Khin Thiri</a>
 								
 							</div>
 							<!-- Info -->
 							<ul class="list-inline list-unstyled">
-								<li class="list-inline-item d-lg-block my-lg-2">Nov 15, 2021</li>
-								
+								<!-- <li class="list-inline-item d-lg-block my-lg-2">Nov 15, 2021</li> -->
+								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
+
 								
 							</ul>
 						</div>
@@ -240,11 +247,13 @@ Main Content START -->
 					<!-- Content -->
 					<div class="col-lg-9 order-1">
 						<!-- Pre title -->
-						<span>40D ago</span><span class="mx-2">|</span><div class="badge text-bg-success">Research</div>
+						<!-- <span>40D ago</span><span class="mx-2">|</span><div class="badge text-bg-success">Research</div> -->
+						<span class="small text-warning" th:text="${timeAgo}"></span>
+						
 						<!-- Title -->
-						<h1 class="mt-2 mb-0 display-5">Never underestimate the influence of DAT </h1>
+						<h1 class="mt-2 mb-0 display-5" th:text="${blogPost.title}"> </h1>
 						<!-- Info -->
-						<p class="mt-2">For who thoroughly her boy estimating conviction. Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection favorable Mrs can be projecting own. Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but. Drawings offended yet answered Jennings perceive laughing six did far.</p>
+						<p class="mt-2" th:text="${blogPost.content}">For who thoroughly her boy estimating conviction. Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection favorable Mrs can be projecting own. Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but. Drawings offended yet answered Jennings perceive laughing six did far.</p>
 						<p class="mb-0 mb-lg-3">Perceived end knowledge certainly day sweetness why cordially.  On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished. Demesne new manners savings staying had. Under folly balls, death own point now men. Match way these she avoids seeing death. She who drift their fat off. Ask a quick six seven offer see among. Handsome met debating sir dwelling age material. As style lived he worse dried. Offered related so visitors we private removed.</p>
 					</div>
 				</div>

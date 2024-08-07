@@ -93,12 +93,7 @@ public class AdminController
 		model.addAttribute("content","admin/admin-instructor-request");
 		return "/admin/admin-layout";
 	}
-	@GetMapping("/admin-view-blog")
-	public String adminViewBlog(Model model)
-	{
-		model.addAttribute("content","admin/admin-view-blog");
-		return "/admin/admin-layout";
-	}
+	
 	@GetMapping("/admin-certificate-design")
 	public String adminCertificateDesign(Model model)
 	{
@@ -131,24 +126,11 @@ public class AdminController
 		model.addAttribute("content","admin/admin-edit-course-detail");
 		return "/admin/admin-layout";
 	}
-	@GetMapping("/admin-create-blog")
-	public String adminCreateBlog(Model model) {
-		return "/admin/admin-create-blog";
-	}
-<<<<<<< HEAD
-	
-	@GetMapping("/blog-detail")
-	public String blogDetail()
-	{
-		return "/authenticated-user/blog-detail";
-	}
-	
+		
 	@GetMapping("/admin-create-course")
 	public String adminCreateCourse(Model model) {
 		return "/admin/admin-create-course";
 	}
-=======
->>>>>>> 6635ea3f0405340afb612a3f865f310d99381dd6
 	@GetMapping("/admin-quiz")
 	public String adminQuiz(Model model) {
 		return "/admin/admin-quiz";

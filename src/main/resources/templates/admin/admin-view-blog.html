@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+  .btn-xs {
+    padding: 5px;
+    font-size: .6rem;
+    line-height: 1.5;
+    color: blue;
+  }
+</style>
+</head>
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
@@ -7,19 +17,24 @@
 			<!-- Page content START -->
 			<div class="page-content">
 				<!-- ======================= Page content START -->
-				<section class="position-relative pt-0 pt-lg-5">
-					<div class="container">
+				<section class="position-relative pt-0 pt-lg-2">
+					<div class="container mt-0">
+
+						<div class="d-flex justify-content-end my-3 mt-md-0">
+							<a th:href="@{/admin/admin-create-blog}"
+								class="btn btn-success mb-0">Create a Blogs</a>
+						</div>
 						<div class="row g-4">
-							<div class="d-flex align-items-center mt-2 mt-md-0">
-								<a th:href="@{/admin/admin-create-blog}" class="btn btn-success mb-0">Create
-									a Blogs</a>
-							</div>
+
 							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
+							<div class="col-sm-6 col-lg-4 col-xl-3" th:each="blogPost:${blogPosts}">
 								<div class="card bg-transparent">
 									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/02.jpg}" class="card-img"
-											alt="course image">
+									<!-- 	<img th:src="@{/public/assets/images/event/02.jpg}"
+											class="card-img" alt="course image"> -->
+											
+											<img th:src="@{'/private/blog/blog-images/' + ${blogPost.blogImage}}"
+											class="card-img" alt="blog image">
 										<!-- Overlay -->
 										<div class="bg-overlay bg-dark opacity-4"></div>
 
@@ -29,244 +44,19 @@
 									<div class="card-body">
 										<!-- Title -->
 										<h5 class="card-title">
-											<a th:href="@{/admin/blog-detail}">Student Loan Survey: Many Owe
-												$50K-plus</a>
+											<a th:href="@{/admin/blog-detail}" th:text="${blogPost.title}"></a>
+											
 										</h5>
-										<p class="text-truncate-2">Affronting imprudence do he he
-											everything. Offered chiefly farther of my no colonel shyness.
-											Such on help ye some door if in. Laughter proposal laughing
-											any son law consider. Needed except up piqued an.</p>
+										<p class="text-truncate-2" th:text="${blogPost.description} + '.....'"></p>
 										<!-- Info -->
 										<div class="d-flex justify-content-between">
 											<h6 class="mb-0">
-												<a href="#">Frances Guerrero</a>
+												<a th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}" onclick="alert('Are you sure delete this blog?')">Delete Blog</a>
 											</h6>
-											<span class="small">30M Ago</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
+										<!--  	<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'yyyy-MM-dd')}"></span>-->
 
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/08.jpg}" class="card-img"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a th:href="@{/authenticated-user/blog-detail}">How to make a college list</a>
-										</h5>
-										<p class="text-truncate-2">Prospective students should
-											start broadly and then narrow their list down to colleges
-											that best fit their needs, experts say. Yet remarkably
-											appearance get him his projection.</p>
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Louis Crawford</a>
-											</h6>
-											<span class="small">12H Ago</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/09.jpg}" class="card-img"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">Never underestimate the influence of DAT </a>
-										</h5>
-										<p class="text-truncate-2">Prospective students should
-											start broadly and then narrow their list</p>
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Joan Wallace</a>
-											</h6>
-											<span class="small">5D Ago</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/03.jpg}" class="card-img-top"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">Covid-19 and the college experienced</a>
-										</h5>
-										<p class="text-truncate-2">Rooms oh fully taken by worse
-											do. Points afraid but may end law. Points afraid but may end
-											law.</p>
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Amanda Reed</a>
-											</h6>
-											<span class="small">July 21, 2021</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/07.jpg}" class="card-img-top"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">Best Pinterest Boards for learning about
-												business</a>
-										</h5>
-										<p class="text-truncate-2">Fully taken by worse do. Points
-											afraid but may end law. Points afraid but may end law.</p>
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Samuel Bishop</a>
-											</h6>
-											<span class="small">40D ago</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/04.jpg}" class="card-img-top"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">The Olympics are over, now what?</a>
-										</h5>
-										<p class="text-truncate-2">Rooms oh fully taken by worse
-											do. Points afraid but may end law. Points afraid but may end
-											law.</p>
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Carolyn Ortiz</a>
-											</h6>
-											<span class="small">Aug 31, 2021</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/05.jpg}" class="card-imgp"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">Campus Support for First-Year Students</a>
-										</h5>
-										<p class="text-truncate-2">Prospective students should
-											start broadly and then narrow their list</p>
-
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Lori Stevens</a>
-											</h6>
-											<span class="small">3M Ago</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Card item END -->
-
-							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3">
-								<div class="card bg-transparent">
-									<div class="overflow-hidden rounded-3">
-										<img th:src="@{/public/assets/images/event/06.jpg}" class="card-imgp"
-											alt="course image">
-										<!-- Overlay -->
-										<div class="bg-overlay bg-dark opacity-4"></div>
-
-									</div>
-
-									<!-- Card body -->
-									<div class="card-body">
-										<!-- Title -->
-										<h5 class="card-title">
-											<a href="#">Bad habits that people in the industry need
-												to quit</a>
-										</h5>
-										<p class="text-truncate-2">Prospective students should
-											start broadly and then narrow their list</p>
-
-										<!-- Info -->
-										<div class="d-flex justify-content-between">
-											<h6 class="mb-0">
-												<a href="#">Louis Crawford</a>
-											</h6>
-											<span class="small">10D Ago</span>
+											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" class="btn btn-black btn-xs">More Detail>></a>
+											
 										</div>
 									</div>
 								</div>
