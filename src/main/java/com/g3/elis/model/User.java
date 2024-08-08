@@ -56,7 +56,7 @@ public class User {
 	private Set<CourseCategory> courseCategories = new HashSet<>();
 
 	public User() {
-
+		
 	}
 
 	public int getId() {
@@ -163,37 +163,6 @@ public class User {
 		this.roles = roles;
 	}
 
-	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
-			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-			Set<Course> courses, Profile profiles, Set<EnrolledCourse> enrolledCourses, Set<Report> reports) {
-		super();
-		this.id = id;
-		this.division = division;
-		this.staffId = staffId;
-		this.name = name;
-		this.doorLogNo = doorLogNo;
-		this.dept = dept;
-		this.team = team;
-		this.email = email;
-		this.status = status;
-		this.password = password;
-		this.gender = gender;
-		this.enabled = enabled;
-		this.roles = roles;
-		this.courses = courses;
-		this.profiles = profiles;
-		this.enrolledCourses = enrolledCourses;
-		this.reports = reports;
-	}
-
-	public Set<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(Set<Report> reports) {
-		this.reports = reports;
-	}
-
 	public Set<Course> getCourses() {
 		return courses;
 	}
@@ -216,6 +185,14 @@ public class User {
 
 	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
+	}
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
 	}
 
 	public Set<CourseCategory> getCourseCategories() {
@@ -250,4 +227,5 @@ public class User {
 		this.reports = reports;
 		this.courseCategories = courseCategories;
 	}
+	
 }
