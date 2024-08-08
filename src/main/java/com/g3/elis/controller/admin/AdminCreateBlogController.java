@@ -1,17 +1,12 @@
 package com.g3.elis.controller.admin;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
 import com.g3.elis.service.BlogPostService;
@@ -49,6 +42,7 @@ public class AdminCreateBlogController {
 		return "/admin/admin-layout";
 	}
 
+	@SuppressWarnings("unused")
 	@GetMapping("/blog-detail/{id}")
 	public String adminViewBlogDetail(@PathVariable("id") int id, Model model) {
 		BlogPost blogPost = blogPostService.findById(id);

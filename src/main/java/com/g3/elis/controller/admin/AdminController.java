@@ -57,7 +57,6 @@ public class AdminController
 		return "/admin/admin-layout";
 	}
 	
-	
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)
 	{

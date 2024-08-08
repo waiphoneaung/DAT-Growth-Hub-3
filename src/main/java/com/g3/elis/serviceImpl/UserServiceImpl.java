@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 		user.setDept(userDto.getDept());
 		user.setTeam(userDto.getTeam());
 		user.setStatus(userDto.getStatus());
+		user.setGender(userDto.getGender());
 		
 		user.setEnabled(true);
 		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
