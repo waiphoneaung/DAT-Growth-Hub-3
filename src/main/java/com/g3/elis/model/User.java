@@ -43,8 +43,8 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 
-	@OneToOne(mappedBy = "users", fetch = FetchType.LAZY)
-	private Profile profiles;
+	@OneToOne(mappedBy = "user")
+	private Profile profile;
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<EnrolledCourse> enrolledCourses = new HashSet<>();
@@ -171,12 +171,12 @@ public class User {
 		this.courses = courses;
 	}
 
-	public Profile getProfiles() {
-		return profiles;
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setProfiles(Profile profiles) {
-		this.profiles = profiles;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 	public Set<EnrolledCourse> getEnrolledCourses() {
@@ -205,7 +205,7 @@ public class User {
 		this.enabled = enabled;
 		this.roles = roles;
 		this.courses = courses;
-		this.profiles = profile;
+		this.profile = profile;
 		this.enrolledCourses = enrolledCourses;
 	}
 

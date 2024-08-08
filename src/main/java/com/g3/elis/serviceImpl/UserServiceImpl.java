@@ -90,4 +90,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByRole("ROLE_ADMIN");
 	}
 
+	@Override
+	public void changePassword(User user, String newPassword) {
+		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+		userRepository.save(user);
+	}
+
 }

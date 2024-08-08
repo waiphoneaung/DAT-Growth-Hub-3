@@ -1,20 +1,15 @@
 package com.g3.elis.service;
 
+import java.io.IOException;
+
+import com.g3.elis.dto.form.ProfileDto;
 import com.g3.elis.model.Profile;
+import com.g3.elis.model.User;
 
 public interface ProfileService {
-	
-	    
-	    Profile updateProfile(int userId, Profile updatedProfile);
-	    void updateProfilePicture(int userId, String profilePicturePath);
-	    void changePassword(int userId, String newPassword);
-		Profile getProfileByUserId(int userId);
-		Profile getProfileByUserId(Long userId);
-		Profile updateProfile(Long userId, Profile updatedProfile);
-		void updateProfilePicture(Long userId, String profilePicturePath);
-		void changePassword(Long userId, String newPassword);
-		
-	}
+	Profile getProfileById(int id);
+	Profile getProfileByUser(User user);
 
-
-
+	void updateProfile(User user, ProfileDto profileDto) throws IOException;
+	void createProfile(User user,ProfileDto profileDto) throws IOException;
+}

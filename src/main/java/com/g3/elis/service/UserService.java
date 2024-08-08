@@ -16,7 +16,7 @@ public interface UserService {
 	List<User> searchUsersByName(String name);
 	User getUserById(int id);
 	void createUser(UserDto userDto);
-	
+	void changePassword(User user,String newPassword);
 	
     public List<String> getEmailsByRole(String role);
 }

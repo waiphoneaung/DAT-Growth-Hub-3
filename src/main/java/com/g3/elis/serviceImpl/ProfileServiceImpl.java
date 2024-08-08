@@ -1,82 +1,77 @@
 package com.g3.elis.serviceImpl;
 
-import com.g3.elis.service.ProfileService;
+import com.g3.elis.config.FileStorageConfig;
+import com.g3.elis.dto.form.ProfileDto;
 import com.g3.elis.model.Profile;
+import com.g3.elis.model.User;
 import com.g3.elis.repository.ProfileRepository;
+import com.g3.elis.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Optional;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-    private final ProfileRepository profileRepository;
-
-    @Autowired
-    public ProfileServiceImpl(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
-
-    @Override
-    public Profile getProfileByUserId(Long userId) {
-        return profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found for user ID: " + userId));
-    }
+	@Autowired
+    private ProfileRepository profileRepository;
+	
+	@Autowired
+	private FileStorageConfig fileStorageConfig;
 
     @Override
-    public Profile updateProfile(Long userId, Profile updatedProfile) {
-        Profile existingProfile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found for user ID: " + userId));
-        
-        existingProfile.setFullName(updatedProfile.getFullName());
-        existingProfile.setEmail(updatedProfile.getEmail());
-        existingProfile.setPhoneNumber(updatedProfile.getPhoneNumber());
-        existingProfile.setLocation(updatedProfile.getLocation());
-        existingProfile.setAboutMe(updatedProfile.getAboutMe());
-        // Update other fields as necessary
-
-        return profileRepository.save(existingProfile);
-    }
-
-    @Override
-    public void updateProfilePicture(Long userId, String profilePicturePath) {
-        Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found for user ID: " + userId));
-        
-        profile.setProfilePicturePath(profilePicturePath);
-        profileRepository.save(profile);
-    }
-
-    @Override
-    public void changePassword(Long userId, String newPassword) {
-        Profile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found for user ID: " + userId));
-        
-        // Here you should use a password encoder to hash the new password
-        profile.setPassword(newPassword); // Assume setPassword handles encoding
-        profileRepository.save(profile);
+    public Profile getProfileById(int id) {
+        return profileRepository.findById(id).orElse(null);
     }
 
 	@Override
-	public Profile getProfileByUserId(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateProfile(User user, ProfileDto profileDto) throws IOException {
+		Profile profile = profileRepository.findProfileByUser(user);
+		if(profile !=null)
+		{
+			profile.setAddress(profileDto.getAddress());
+			profile.setDescription(profileDto.getDescription());
+			profile.setPhNo(profileDto.getPhNo());
+			profile.setUser(user);
+			
+			Path targetLocation = fileStorageConfig.getProfileImageDir().resolve(profile.getProfileImg());
+			if(Files.exists(targetLocation))
+			{
+				fileStorageConfig.deleteProfileImageFile(profile.getProfileImg());
+			}
+			
+			profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
+			
+			MultipartFile profileImage = profileDto.getProfileImg();
+			fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
+			profileRepository.save(profile);
+		}
 	}
 
 	@Override
-	public Profile updateProfile(int userId, Profile updatedProfile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateProfilePicture(int userId, String profilePicturePath) {
-		// TODO Auto-generated method stub
+	public void createProfile(User user, ProfileDto profileDto) throws IOException {
+		Profile profile = new Profile();
+		profile.setAddress(profileDto.getAddress());
+		profile.setDescription(profileDto.getDescription());
+		profile.setPhNo(profileDto.getPhNo());
+		profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
+		profile.setUser(user);
 		
+		MultipartFile profileImage = profileDto.getProfileImg();
+		fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
+		
+		profileRepository.save(profile);
 	}
 
+	
+
 	@Override
-	public void changePassword(int userId, String newPassword) {
-		// TODO Auto-generated method stub
-		
+	public Profile getProfileByUser(User user) {
+		return profileRepository.findProfileByUser(user);
 	}
 }

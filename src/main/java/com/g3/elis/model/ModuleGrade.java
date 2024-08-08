@@ -13,18 +13,14 @@ import jakarta.persistence.Table;
 @Table(name = "achievements")
 public class ModuleGrade {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String grade;
+	
 
-<<<<<<< HEAD
-				@Id
-				@GeneratedValue(strategy = GenerationType.IDENTITY)
-				private int id;
-				private String grade;
-				
-				
+	             @Id
+	             @GeneratedValue(strategy = GenerationType.IDENTITY)
+	             private int id;
+	             private String grade;
+
+
 				@ManyToOne
 				@JoinColumn(name="user_id")
 				private User users;
@@ -32,81 +28,72 @@ public class ModuleGrade {
 				@ManyToOne
 				@JoinColumn(name="course_id")
 				private Course courses;
+				
+				@OneToOne
+				@JoinColumn(name="course_module_id")
+				private CourseModule course_modules;
 
-=======
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User users;
->>>>>>> b4cb57eff90693b22e8dc59f829c3f1022caa230
+				public int getId() {
+					return id;
+				}
 
-	public int getId() {
-		return id;
-	}
+				public void setId(int id) {
+					this.id = id;
+				}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+				public String getGrade() {
+					return grade;
+				}
 
-	public String getGrade() {
-		return grade;
-	}
-
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
-
-	public User getUsers() {
-		return users;
-	}
-
-	public void setUsers(User users) {
-		this.users = users;
-	}
-
-	public ModuleGrade(int id, String grade, User users) {
-		super();
-		this.id = id;
-		this.grade = grade;
-		this.users = users;
-	}
-
-	public ModuleGrade() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@OneToOne
-	@JoinColumn(name = "course_module_id")
-	private CourseModule course_modules;
-
+				public void setGrade(String grade) {
+					this.grade = grade;
+				}
 
 				public User getUsers() {
 					return users;
 				}
 
-
 				public void setUsers(User users) {
 					this.users = users;
 				}
 
+				public Course getCourses() {
+					return courses;
+				}
 
-				public ModuleGrade(int id, String grade, User users) {
+				public void setCourses(Course courses) {
+					this.courses = courses;
+				}
+
+				public CourseModule getCourse_modules() {
+					return course_modules;
+				}
+
+				public void setCourse_modules(CourseModule course_modules) {
+					this.course_modules = course_modules;
+				}
+
+				public ModuleGrade(int id, String grade, User users, Course courses, CourseModule course_modules) {
 					super();
 					this.id = id;
 					this.grade = grade;
 					this.users = users;
+					this.courses = courses;
+					this.course_modules = course_modules;
 				}
-
 
 				public ModuleGrade() {
 					super();
 					// TODO Auto-generated constructor stub
 				}
 				
-	@OneToOne
-			@JoinColumn(name="course_module_id")
-			private CourseModule course_modules;
-
-
 				
+				
+				
+				
+
+
+
+
+		
 }

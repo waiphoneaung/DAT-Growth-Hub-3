@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -14,7 +15,7 @@ public class Profile {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String profileImg;
 	private String description;
@@ -23,13 +24,13 @@ public class Profile {
 	
 	@OneToOne
     @JoinColumn(name = "user_id")
-    private User users;
+    private User user;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -65,85 +66,25 @@ public class Profile {
 		this.phNo = phNo;
 	}
 
-	public User getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(User users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Profile(int id, String profileImg, String description, String address, String phNo, User users) {
+	public Profile(Integer id, String profileImg, String description, String address, String phNo, User user) {
 		super();
 		this.id = id;
 		this.profileImg = profileImg;
 		this.description = description;
 		this.address = address;
 		this.phNo = phNo;
-		this.users = users;
+		this.user = user;
 	}
 
-	public Object getFullName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getEmail() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getPhoneNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setFullName(Object fullName) {
-		// TODO Auto-generated method stub
+	public Profile() {
 		
 	}
-
-	public void setEmail(Object email) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPhoneNumber(Object phoneNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setLocation(Object location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object getAboutMe() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setAboutMe(Object aboutMe) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setProfilePicturePath(String profilePicturePath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setPassword(String newPassword) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	
 }
