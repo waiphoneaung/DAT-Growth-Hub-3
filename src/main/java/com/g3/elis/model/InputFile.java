@@ -2,7 +2,6 @@ package com.g3.elis.model;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,11 +18,8 @@ public class InputFile
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="file_name")
 	private String fileName;
-	
 	private Timestamp createdAt;
-
 
 	@ManyToOne
 	@JoinColumn(name="course_materials_id")

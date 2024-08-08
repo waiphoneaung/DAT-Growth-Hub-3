@@ -26,27 +26,36 @@
 
 								<!-- Search bar -->
 								<div class="col-md-8">
-									<form class="rounded position-relative" th:action="@{/admin/admin-instructor-list/search}" method="get">
-    <div class="row g-3">
-        <div class="col-md-3">
-            <input class="form-control bg-body" type="search" name="name" placeholder="Name" aria-label="Search by Name">
-        </div>
-        <div class="col-md-3">
-            <input class="form-control bg-body" type="search" name="staffId" placeholder="Staff ID" aria-label="Search by Staff ID">
-        </div>
-        <div class="col-md-3">
-            <input class="form-control bg-body" type="search" name="department" placeholder="Department" aria-label="Search by Department">
-        </div>
-        <div class="col-md-3">
-            <input class="form-control bg-body" type="search" name="division" placeholder="Division" aria-label="Search by Division">
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-primary" type="submit">
-                <i class="fas fa-search fs-6"></i> Search
-            </button>
-        </div>
-    </div>
-</form>
+									<form class="rounded position-relative"
+										th:action="@{/admin/admin-instructor-list/search}"
+										method="get">
+										<div class="row g-3">
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="name" placeholder="Name" aria-label="Search by Name">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="staffId" placeholder="Staff ID"
+													aria-label="Search by Staff ID">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="department" placeholder="Department"
+													aria-label="Search by Department">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="division" placeholder="Division"
+													aria-label="Search by Division">
+											</div>
+											<div class="col-md-3">
+												<button class="btn btn-primary" type="submit">
+													<i class="fas fa-search fs-6"></i> Search
+												</button>
+											</div>
+										</div>
+									</form>
 
 								</div>
 
@@ -193,7 +202,7 @@
 													<th scope="col" class="border-0">Team</th>
 													<th scope="col" class="border-0">Email</th>
 													<th scope="col" class="border-0">Status</th>
-													
+
 													<th scope="col" class="border-0 rounded-end">Action</th>
 												</tr>
 											</thead>
@@ -224,7 +233,7 @@
 													</td>
 
 													<!-- Table data -->
-												
+
 
 													<td th:text="${user.staffId}"></td>
 													<td th:text="${user.courses}"></td>
@@ -246,16 +255,20 @@
 
 													<!-- Table data -->
 													<td>
-    <form th:action="@{/admin/change-user-status}" method="post" 
-          th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
-        <input type="hidden" name="id" th:value="${user.id}" />
-        <input type="hidden" name="enabled" th:value="${user.enabled} ? 0 : 1" />
-        <button type="submit" class="btn" th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'" 
-                th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
-            <i class="bi" th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
-        </button>
-    </form>
-</td>
+														<form th:action="@{/admin/change-user-status}"
+															method="post"
+															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
+															<input type="hidden" name="id" th:value="${user.id}" />
+															<input type="hidden" name="enabled"
+																th:value="${user.enabled} ? 0 : 1" />
+															<button type="submit" class="btn"
+																th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+																th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																<i class="bi"
+																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+															</button>
+														</form>
+													</td>
 
 												</tr>
 

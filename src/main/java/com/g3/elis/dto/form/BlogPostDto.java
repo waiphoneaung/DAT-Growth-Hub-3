@@ -2,28 +2,44 @@ package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
 
-import org.springframework.web.multipart.MultipartFile;
+import com.g3.elis.model.User;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class BlogPostDto{
-
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    
-    private MultipartFile imageFile;
+public class BlogPostDto {
+	private int id;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
+	private String imageFile;
+	private String htmlFileName;
 
 	@NotEmpty(message = "Title is required")
-    @Size(min = 5, message = "Title must be at least 5 characters long")
-    private String title;
+	@Size(min = 5, message = "Title must be at least 5 characters long")
+	private String title;
 
-    @NotEmpty(message = "Description is required")
-    @Size(min = 10, message = "Description must be at least 10 characters long")
-    private String description;
+	private User users;
 
-    @NotEmpty(message = "Content is required")
-    private String content;
+	public BlogPostDto(int id, Timestamp createdAt, Timestamp updatedAt, String imageFile, String htmlFileName,
+			@NotEmpty(message = "Title is required") @Size(min = 5, message = "Title must be at least 5 characters long") String title,
+			User users) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.imageFile = imageFile;
+		this.htmlFileName = htmlFileName;
+		this.title = title;
+		this.users = users;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public Timestamp getCreatedAt() {
 		return createdAt;
@@ -41,12 +57,20 @@ public class BlogPostDto{
 		this.updatedAt = updatedAt;
 	}
 
-	public MultipartFile getImageFile() {
+	public String getImageFile() {
 		return imageFile;
 	}
 
-	public void setImageFile(MultipartFile imageFile) {
+	public void setImageFile(String imageFile) {
 		this.imageFile = imageFile;
+	}
+
+	public String getHtmlFileName() {
+		return htmlFileName;
+	}
+
+	public void setHtmlFileName(String htmlFileName) {
+		this.htmlFileName = htmlFileName;
 	}
 
 	public String getTitle() {
@@ -57,36 +81,15 @@ public class BlogPostDto{
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public User getUsers() {
+		return users;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public BlogPostDto(Timestamp createdAt, Timestamp updatedAt, MultipartFile imageFile,
-			@NotEmpty(message = "Title is required") @Size(min = 5, message = "Title must be at least 5 characters long") String title,
-			@NotEmpty(message = "Description is required") @Size(min = 10, message = "Description must be at least 10 characters long") String description,
-			@NotEmpty(message = "Content is required") String content) {
-		super();
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.imageFile = imageFile;
-		this.title = title;
-		this.description = description;
-		this.content = content;
+	public void setUsers(User users) {
+		this.users = users;
 	}
 
 	public BlogPostDto() {
-		
+
 	}
 }

@@ -37,16 +37,17 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 		BlogPost blogPost = new BlogPost();
 		blogPost.setTitle(blogPostDto.getTitle());
-		blogPost.setDescription(blogPostDto.getDescription());
-		blogPost.setContent(blogPostDto.getContent());
+		//blogPost.setDescription(blogPostDto.getDescription());
+		blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
 		blogPost.setCreatedAt(blogPostDto.getCreatedAt());
 		blogPost.setUpdatedAt(blogPostDto.getUpdatedAt());
-		blogPost.setBlogImage(blogPostDto.getImageFile().getOriginalFilename());
+		blogPost.setBlogImage(blogPostDto.getImageFile());
+		blogPost.setUsers(blogPostDto.getUsers());
 		
+		//MultipartFile image = blogPostDto.getImageFile();
+		//String originalFileName = image.getOriginalFilename();
 		
-		MultipartFile image = blogPostDto.getImageFile();
-		
-		fileStorageConfig.saveFile(image, image.getOriginalFilename(), fileUploadDir);
+		//fileStorageConfig.saveBlogImage(image, image.getOriginalFilename());
 		
 		blogPostRepository.save(blogPost);
 

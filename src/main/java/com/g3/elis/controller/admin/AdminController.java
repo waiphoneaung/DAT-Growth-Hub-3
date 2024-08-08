@@ -23,13 +23,6 @@ public class AdminController
 		return "/admin/admin-layout";
 	}
 	
-	@GetMapping("/admin-course-category")
-	public String adminCourseCategory(Model model)
-	{
-		model.addAttribute("content","admin/admin-course-category");
-		return "/admin/admin-layout";
-	}
-	
 	@GetMapping("/admin-instructor-request")
 	public String adminInstructorRequest(Model model)
 	{

@@ -2,8 +2,8 @@ package com.g3.elis.model;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,11 +22,8 @@ public class BlogPost {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	private String title;
-	private String description;
+	private String htmlFileName;
 	private String blogImage;
-
-	@Column(name = "content", columnDefinition = "TEXT")
-	private String content;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -64,28 +61,12 @@ public class BlogPost {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getBlogImage() {
 		return blogImage;
 	}
 
 	public void setBlogImage(String blogImage) {
 		this.blogImage = blogImage;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public User getUsers() {
@@ -96,24 +77,28 @@ public class BlogPost {
 		this.users = users;
 	}
 
-	public BlogPost(int id, Timestamp createdAt, Timestamp updatedAt, String title, String description,
-			String blogImage, String content, User users) {
-		super();
-		this.id = id;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.title = title;
-		this.description = description;
-		this.blogImage = blogImage;
-		this.content = content;
-		this.users = users;
+	public String getHtmlFileName() {
+		return htmlFileName;
+	}
+
+	public void setHtmlFileName(String htmlFileName) {
+		this.htmlFileName = htmlFileName;
 	}
 
 	public BlogPost() {
 		super();
 	}
-	
-	
-	
-	
+
+	public BlogPost(int id, Timestamp createdAt, Timestamp updatedAt, String title, String htmlFileName,
+			String blogImage, User users) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.title = title;
+		this.htmlFileName = htmlFileName;
+		this.blogImage = blogImage;
+		this.users = users;
+	}
+
 }
