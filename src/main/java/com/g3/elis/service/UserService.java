@@ -3,6 +3,7 @@ package com.g3.elis.service;
 import java.util.List;
 
 import com.g3.elis.dto.form.UserDto;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
 
 
@@ -19,4 +20,12 @@ public interface UserService {
 	
 	
     public List<String> getEmailsByRole(String role);
+    
+    public List<User> searchInstructorByName(String name);
+    
+    public List<User> searchInstructors(String name, String staffId, String dept, String division);
+    
+    public void updateUserStatus(int id, boolean enabled);
+        
+    
 }

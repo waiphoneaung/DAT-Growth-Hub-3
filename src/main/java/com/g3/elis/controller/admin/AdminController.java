@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
+import com.g3.elis.service.CourseCategoryService;
 import com.g3.elis.service.InputFileService;
 import com.g3.elis.service.UserService;
 
@@ -27,6 +29,9 @@ public class AdminController
 	@Autowired
 	private InputFileService inputFileService;
 	
+	@Autowired
+    private CourseCategoryService courseCategoryService;
+	
 	@GetMapping("/admin-dashboard")
 	public String home(Model model) {
 		model.addAttribute("content","admin/admin-dashboard");
@@ -37,13 +42,6 @@ public class AdminController
 	public String adminCourseList(Model model)
 	{
 		model.addAttribute("content","admin/admin-course-list");
-		return "/admin/admin-layout";
-	}
-	
-	@GetMapping("/admin-course-category")
-	public String adminCourseCategory(Model model)
-	{
-		model.addAttribute("content","admin/admin-course-category");
 		return "/admin/admin-layout";
 	}
 	
@@ -143,6 +141,13 @@ public class AdminController
 	public String adminQuiz(Model model) {
 		return "/admin/admin-quiz";
 	}
+	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
 	
 	
 }

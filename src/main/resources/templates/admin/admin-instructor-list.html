@@ -26,16 +26,28 @@
 
 								<!-- Search bar -->
 								<div class="col-md-8">
-									<form th:action="@{/admin/admin-instructor-list/search}"
-										method="GET" class="rounded position-relative">
-										<input class="form-control bg-transparent" type="search"
-											placeholder="Search" aria-label="Search">
-										<button
-											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-											type="submit">
-											<i class="fas fa-search fs-6 "></i>
-										</button>
-									</form>
+									<form class="rounded position-relative" th:action="@{/admin/admin-instructor-list/search}" method="get">
+    <div class="row g-3">
+        <div class="col-md-3">
+            <input class="form-control bg-body" type="search" name="name" placeholder="Name" aria-label="Search by Name">
+        </div>
+        <div class="col-md-3">
+            <input class="form-control bg-body" type="search" name="staffId" placeholder="Staff ID" aria-label="Search by Staff ID">
+        </div>
+        <div class="col-md-3">
+            <input class="form-control bg-body" type="search" name="department" placeholder="Department" aria-label="Search by Department">
+        </div>
+        <div class="col-md-3">
+            <input class="form-control bg-body" type="search" name="division" placeholder="Division" aria-label="Search by Division">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fs-6"></i> Search
+            </button>
+        </div>
+    </div>
+</form>
+
 								</div>
 
 								<!-- Tab buttons -->
@@ -181,7 +193,7 @@
 													<th scope="col" class="border-0">Team</th>
 													<th scope="col" class="border-0">Email</th>
 													<th scope="col" class="border-0">Status</th>
-													<th scope="col" class="border-0">Total students</th>
+													
 													<th scope="col" class="border-0 rounded-end">Action</th>
 												</tr>
 											</thead>
@@ -212,9 +224,10 @@
 													</td>
 
 													<!-- Table data -->
-													<!--<td th:text="${user.gender}"></td>-->
+												
 
 													<td th:text="${user.staffId}"></td>
+													<td th:text="${user.courses}"></td>
 
 													<!-- Table data -->
 													<!--<td th:text="${user.doorLogNo}"></td>-->
@@ -232,16 +245,18 @@
 													<td th:text="${user.status}"></td>
 
 													<!-- Table data -->
-													<td><a href="#"
-														class="btn btn-success-soft btn-round me-1 mb-1 mb-md-0"
-														data-bs-toggle="tooltip" data-bs-placement="top"
-														title="Edit"> <i class="bi bi-pencil-square"></i>
-													</a>
-														<button class="btn btn-danger-soft btn-round mb-0"
-															data-bs-toggle="tooltip" data-bs-placement="top"
-															title="Delete">
-															<i class="bi bi-trash"></i>
-														</button></td>
+													<td>
+    <form th:action="@{/admin/change-user-status}" method="post" 
+          th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
+        <input type="hidden" name="id" th:value="${user.id}" />
+        <input type="hidden" name="enabled" th:value="${user.enabled} ? 0 : 1" />
+        <button type="submit" class="btn" th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'" 
+                th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+            <i class="bi" th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+        </button>
+    </form>
+</td>
+
 												</tr>
 
 											</tbody>
