@@ -35,6 +35,14 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/public/assets/css/style.css}">
 
+<style>
+                    .ql-video {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        aspect-ratio: 16 / 9;
+                    }
+                </style>
 </head>
 <body>
 
@@ -241,7 +249,7 @@ Steps START -->
 							<div class="card-body">
 								<!-- Step content START -->
 								<div class="bs-stepper-content">
-									<form th:action="@{/admin/admin-create-blog}"
+									<form th:action="@{/admin/admin-save-blog}"
 										th:object="${blogPostDto}" method="post"
 										enctype="multipart/form-data">
 
@@ -255,49 +263,86 @@ Steps START -->
 											<!-- Divider -->
 
 											<!-- Basic information START -->
-											<div class="row g-4">
-												<!-- Course title -->
-												<div class="col-12">
-													<label class="form-label">Blog title</label> <input
-														class="form-control" type="text"
-														placeholder="Enter course title" th:field="*{title}">
-													<div class="text-danger"
-														th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-												</div>
+				<div class="row g-4">
+					<!-- Course title -->
+					<div class="col-12">
+						<label class="form-label">Blog title</label> <input
+								class="form-control" type="text"
+							placeholder="Enter course title" th:field="*{title}" required>
+							<div class="text-danger"
+							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+					</div>
+			<div class="form-group">
+               
+                <!-- Editor toolbar -->
+                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar1">
+                    <span class="ql-formats">
+    <select class="ql-font"></select>
+    <select class="ql-size"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-bold"></button>
+    <button class="ql-italic"></button>
+    <button class="ql-underline"></button>
+    <button class="ql-strike"></button>
+  </span>
+  <span class="ql-formats">
+    <select class="ql-color"></select>
+    <select class="ql-background"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-script" value="sub"></button>
+    <button class="ql-script" value="super"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-header" value="1"></button>
+    <button class="ql-header" value="2"></button>
+    <button class="ql-blockquote"></button>
+    <button class="ql-code-block"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-list" value="ordered"></button>
+    <button class="ql-list" value="bullet"></button>
+    <button class="ql-indent" value="-1"></button>
+    <button class="ql-indent" value="+1"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-direction" value="rtl"></button>
+    <select class="ql-align"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-link"></button>
+    <button class="ql-image"></button>
+    <button class="ql-video"></button>
+    <button class="ql-formula"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-clean"></button>
+  </span>
+                </div>
+                <!-- Main toolbar -->
+                <div class="bg-body border rounded-bottom h-400px overflow-hidden" id="quilleditor1">
+                 
+                    <h1>Header</h1>
+                    <br>
+                    <p>Enter Body Text Here.</p>
+                    <br>
+                </div>
+                <input type="hidden" id="content" name="content">
+            </div>
 
-												<!-- Short description -->
-												<div class="col-12">
-													<label class="form-label">Blog description</label>
-													<textarea class="form-control" rows="5"
-														placeholder="Enter descriptions" th:field="*{description}"></textarea>
-													<div class="text-danger"
-														th:if="${#fields.hasErrors('description')}"
-														th:errors="*{description}"></div>
-												</div>
+		<!-- Step 1 button -->
+		<div class="d-flex justify-content-end mt-3">
+				 <a	class="btn btn-primary next-btn mb-0">Next</a>
 
-												<div class="col-12">
-													<label class="form-label">Blog Content</label>
-													<textarea class="form-control" rows="12"
-														placeholder="Enter descriptions" th:field="*{content}"></textarea>
-													<div class="text-danger"
-														th:if="${#fields.hasErrors('content')}"
-														th:errors="*{content}"></div>
-												</div>
+		</div>
+	</div>
+			<!-- Basic information START -->
+				</div>
+			<!-- Step 1 content END -->
 
-
-												<!-- Step 1 button -->
-												<div class="d-flex justify-content-end mt-3">
-													 <a
-														class="btn btn-primary next-btn mb-0">Next</a>
-
-												</div>
-											</div>
-											<!-- Basic information START -->
-										</div>
-										<!-- Step 1 content END -->
-
-										<!-- Step 2 content START -->
-										<div id="step-2" role="tabpanel" class="content fade"
+								<!-- Step 2 content START -->
+								<div id="step-2" role="tabpanel" class="content fade"
 											aria-labelledby="steppertrigger2">
 											<!-- Title -->
 											<h4>Blog thumbnail</h4>
@@ -381,8 +426,47 @@ Steps END -->
 	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
 	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
 	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
-
+	<script th:src="@{/public/assets/vendor/jquery/jquery-3.5.1.slim.min.js}"></script>
+	
+	
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
-</body>
+	 
+	  <script>
+        var quill = new Quill('#quilleditor1', {
+            modules: {
+                toolbar: '#quilltoolbar1'
+            },
+            theme: 'snow'
+        });
+        
+        document.querySelector('form').onsubmit = function() {
+            var quillContent = quill.root.innerHTML;
+            var headerContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                    .ql-video {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        aspect-ratio: 16 / 9;
+                    }
+                </style>
+                
+                </head>
+                <body>
+            `;
+            var footerContent = `
+                </body>
+                </html>
+            `;
+            var completeHtml = headerContent + quillContent + footerContent;
+            document.querySelector('#content').value = completeHtml;
+        };
+    </script>
+    
+    </body>
 </html>
