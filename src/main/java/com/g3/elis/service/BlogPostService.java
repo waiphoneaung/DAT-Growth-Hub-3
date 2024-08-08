@@ -1,42 +1,23 @@
 package com.g3.elis.service;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.g3.elis.dto.form.BlogPostDto;
+import com.g3.elis.model.BlogPost;
 
-@Service
-public class BlogPostService {
-	
+import jakarta.validation.Valid;
 
-	
+public interface BlogPostService {
 
-	
-	    BlogPostDto createBlogPost(BlogPostDto dto) {
-			return null;
-		}
+	public List<BlogPost> getAllBlogPosts();
 
-	    BlogPostDto getBlogPostById(int id) {
-			return null;
-		}
+	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException;
 
-	    List<BlogPostDto> getAllBlogPosts() {
-			return null;
-		}
+	public BlogPost findById(int id);
 
-	    BlogPostDto updateBlogPost(int id, BlogPostDto dto) {
-			return null;
-		}
+//	public void deleteBlog(int id) throws IOException;
 
-	    void deleteBlogPost(int id) {
-		}
-	}
+	void deleteBlogPost(int id) throws IOException;
 
-	
-
-	
-
-	   
-
-
+}

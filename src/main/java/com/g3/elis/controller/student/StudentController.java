@@ -19,6 +19,11 @@ public class StudentController {
 		return "/student/student-layout";
 	}
 	
+	@GetMapping("/blog-detail")
+	public String blogDetail()
+	{
+		return "/authenticated-user/blog-detail";
+	}
 	
 	
 	@GetMapping("/student-course-list")

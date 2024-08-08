@@ -15,6 +15,33 @@ public class FileStorageConfig {
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 	
+	@Value("${file.upload-dir}")
+	private String uploadBlogImageDir;
+	
+	public Path getBlogImageUploadDir()
+	{
+		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
+	}
+	
+	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
+	{
+		Path targetLocation = getBlogImageUploadDir().resolve(fileName);
+		Files.copy(file.getInputStream(), targetLocation);
+	}
+	
+//	public void deleteBlogImage(String blogFileName) throws IOException {
+//		
+//		Path targetLocation = getBlogImageUploadDir().resolve(blogFileName);
+//		Files.delete(targetLocation);
+//	}
+	
+	public void deleteBlogImage(String fileName) throws IOException {
+	    Path filePath = getBlogImageUploadDir().resolve(fileName).normalize();
+	    Files.deleteIfExists(filePath);
+	}
+
+	
+	
 	public Path getUploadDir()
 	{
 		return Paths.get(uploadDir).toAbsolutePath().normalize();
