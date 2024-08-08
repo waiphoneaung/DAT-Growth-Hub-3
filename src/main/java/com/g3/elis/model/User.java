@@ -36,10 +36,38 @@ public class User {
 
 	@Column(nullable = false)
 	private boolean enabled;
+<<<<<<< HEAD
+	
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private Set<Course> courses=new HashSet<>();
+    
+    @OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
+    private Profile profiles;
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private Set<EnrolledCourse> enrolledCourses=new HashSet<>();
+    
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+	 private Set<Report> reports=new HashSet<>();
+    
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+	 private Set<CourseCategory> courseCategories=new HashSet<>();
+=======
+>>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 
+<<<<<<< HEAD
+    public User() 
+    {
+    	
+    }
+=======
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 
@@ -58,6 +86,7 @@ public class User {
 	public User() {
 
 	}
+>>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 
 	public int getId() {
 		return id;
@@ -163,6 +192,39 @@ public class User {
 		this.roles = roles;
 	}
 
+	
+
+	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
+			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
+			Set<Course> courses, Profile profiles, Set<EnrolledCourse> enrolledCourses, Set<Report> reports) {
+		super();
+		this.id = id;
+		this.division = division;
+		this.staffId = staffId;
+		this.name = name;
+		this.doorLogNo = doorLogNo;
+		this.dept = dept;
+		this.team = team;
+		this.email = email;
+		this.status = status;
+		this.password = password;
+		this.gender = gender;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.courses = courses;
+		this.profiles = profiles;
+		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+	}
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
 	public Set<Course> getCourses() {
 		return courses;
 	}
@@ -187,9 +249,20 @@ public class User {
 		this.enrolledCourses = enrolledCourses;
 	}
 
+	
+
+	public Set<CourseCategory> getCourseCategories() {
+		return courseCategories;
+	}
+
+	public void setCourseCategories(Set<CourseCategory> courseCategories) {
+		this.courseCategories = courseCategories;
+	}
+
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-			Set<Course> courses, Profile profile, Set<EnrolledCourse> enrolledCourses) {
+			Set<Course> courses, Profile profiles, Set<EnrolledCourse> enrolledCourses, Set<Report> reports,
+			Set<CourseCategory> courseCategories) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -205,8 +278,17 @@ public class User {
 		this.enabled = enabled;
 		this.roles = roles;
 		this.courses = courses;
-		this.profiles = profile;
+		this.profiles = profiles;
 		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+		this.courseCategories = courseCategories;
 	}
+<<<<<<< HEAD
+	
+	
+	
+	
+=======
 
+>>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 }

@@ -2,13 +2,18 @@ package com.g3.elis.model;
 
 import java.util.HashSet;
 import java.util.Set;
+<<<<<<< HEAD
+=======
 
+>>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +23,19 @@ public class CourseCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String categoryName;
+<<<<<<< HEAD
+	
+	@OneToMany(mappedBy="courseCategories",fetch = FetchType.LAZY)
+    private Set<Course> courses=new HashSet<>();
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User users;
+=======
 
 	@OneToMany(mappedBy = "courseCategories", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
+>>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 
 	public int getId() {
 		return id;
@@ -53,4 +68,29 @@ public class CourseCategory {
 		this.courses = courses;
 	}
 
+	public CourseCategory() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public User getUsers() {
+		return users;
+	}
+
+	public void setUsers(User users) {
+		this.users = users;
+	}
+
+	public CourseCategory(int id, String categoryName, Set<Course> courses, User users) {
+		super();
+		this.id = id;
+		this.categoryName = categoryName;
+		this.courses = courses;
+		this.users = users;
+	}
+	
 }
