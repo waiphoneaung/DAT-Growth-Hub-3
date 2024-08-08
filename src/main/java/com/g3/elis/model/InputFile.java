@@ -25,9 +25,14 @@ public class InputFile
 
 	@ManyToOne
 	@JoinColumn(name="course_materials_id")
-	private CourseMaterial courseMaterials;
+	private CourseMaterial coursematerials;
 
 	private Timestamp createdAt;
+
+	
+	@ManyToOne
+	@JoinColumn(name ="course_material_id", nullable = false)
+	private CourseMaterial courseMaterials;
 
 	public int getId() {
 		return id;

@@ -133,6 +133,10 @@ public class AdminController
 	public String adminCreateBlog(Model model) {
 		return "/admin/admin-create-blog";
 	}
+	@GetMapping("/admin-create-course")
+	public String adminCreateCourse(Model model) {
+		return "/admin/admin-create-course";
+	}
 	@GetMapping("/admin-quiz")
 	public String adminQuiz(Model model) {
 		return "/admin/admin-quiz";
