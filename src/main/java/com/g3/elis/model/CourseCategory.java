@@ -2,10 +2,7 @@ package com.g3.elis.model;
 
 import java.util.HashSet;
 import java.util.Set;
-<<<<<<< HEAD
-=======
 
->>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +20,6 @@ public class CourseCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String categoryName;
-<<<<<<< HEAD
 	
 	@OneToMany(mappedBy="courseCategories",fetch = FetchType.LAZY)
     private Set<Course> courses=new HashSet<>();
@@ -31,11 +27,6 @@ public class CourseCategory {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User users;
-=======
-
-	@OneToMany(mappedBy = "courseCategories", fetch = FetchType.LAZY)
-	private Set<Course> courses = new HashSet<>();
->>>>>>> f1b2bbe8b6984f636c097c843ff3934abc69162f
 
 	public int getId() {
 		return id;
