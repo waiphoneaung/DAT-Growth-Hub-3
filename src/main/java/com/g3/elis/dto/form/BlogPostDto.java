@@ -1,8 +1,6 @@
 package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Set;
 
 public class BlogPostDto{
 

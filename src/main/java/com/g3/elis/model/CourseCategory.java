@@ -16,7 +16,6 @@ import jakarta.persistence.Table;
 public class CourseCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private int id;
 	private String categoryName;
 

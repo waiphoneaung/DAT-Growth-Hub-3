@@ -8,11 +8,11 @@ import jakarta.validation.constraints.PastOrPresent;
 
 public class InputFileDto {
 
-	@NotBlank(message = "File name cannot be blank")
+//	@NotBlank(message = "File name cannot be blank")
     private String fileName;
 
-    @NotNull(message = "Creation date cannot be null")
-    @PastOrPresent(message = "Creation date must be in the past or present")
+//    @NotNull(message = "Creation date cannot be null")
+//    @PastOrPresent(message = "Creation date must be in the past or present")
     private Timestamp createdAt;
 
 	public String getFileName() {

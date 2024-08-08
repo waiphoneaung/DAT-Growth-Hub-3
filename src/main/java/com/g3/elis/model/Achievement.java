@@ -91,6 +91,7 @@ public class Achievement {
 		this.users = users;
 	}
 
-	public Achievement() {
+	public Achievement() { 
+		
 	}
 }
