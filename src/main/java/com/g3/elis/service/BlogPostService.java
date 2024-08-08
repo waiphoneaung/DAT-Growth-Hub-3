@@ -10,13 +10,12 @@ import jakarta.validation.Valid;
 
 public interface BlogPostService {
 
-	public List<BlogPost> getAllBlogPosts();
+	 List<BlogPost> getAllBlogPosts();
 
-	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException;
+	 void saveBlogPost(BlogPostDto blogPostDto) throws IOException;
 
-	public BlogPost findById(int id);
+	 BlogPost findById(int id);
 
-//	public void deleteBlog(int id) throws IOException;
 
 	void deleteBlogPost(int id) throws IOException;
 
