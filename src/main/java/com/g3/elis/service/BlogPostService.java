@@ -6,7 +6,6 @@ import java.util.List;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
 
-import jakarta.validation.Valid;
 
 public interface BlogPostService {
 
