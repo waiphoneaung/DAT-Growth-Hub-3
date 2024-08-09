@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.CourseCategoryDto;
 import com.g3.elis.model.CourseCategory;
-import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseCategoryRepository;
 import com.g3.elis.service.CourseCategoryService;
 

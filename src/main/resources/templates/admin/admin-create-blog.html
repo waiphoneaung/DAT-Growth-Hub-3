@@ -7,208 +7,466 @@
 <th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
 
 <!-- Favicon -->
-	<link rel="shortcut icon" th;href="@{/public/assets/images/favicon.ico}">
+<link rel="shortcut icon" th;href="@{/public/assets/images/favicon.ico}">
 
-	<!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/aos/aos.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/aos/aos.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
 
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/css/style.css}">
 
+<style>
+                    .ql-video {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        aspect-ratio: 16 / 9;
+                    }
+                </style>
 </head>
 <body>
 
 
-<!-- **************** MAIN CONTENT START **************** -->
+	<!-- **************** MAIN CONTENT START **************** -->
 
-<th:block th:fragment = "admin-create-blog">
+	<th:block th:fragment="admin-create-blog">
 
-<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
-<main>
-	
-<!-- =======================
-Page Banner START -->
-<section class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0" style="background:url(/public/assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
-	<!-- Main banner background image -->
-	<div class="container">
-		<div class="row">
-			<div class="col-12 text-center">
-				<!-- Title -->
-				<h1 class="text-white">Submit a new blog</h1>
-				<p class="text-white mb-0">Read our <a href="#" class="text-white"><u>"Before you create a course"</u></a> article before submitting!</p>	
+		<!-- Top bar START -->
+		<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
+			<div class="container-fluid p-0">
+				<div class="d-flex align-items-center w-100">
+
+					<!-- Top bar left -->
+					<div class="navbar-expand-lg ms-auto ms-xl-0">
+							<a th:href="@{/admin/admin-view-blog}" class="btn btn-primary">Back To Blog</a>
+					</div>
+					<!-- Top bar left END -->
+
+					<!-- Top bar right START -->
+					<div class="ms-xl-auto">
+						<ul class="navbar-nav flex-row align-items-center">
+
+
+							<!-- Profile dropdown START -->
+							<li class="nav-item ms-2 ms-md-3 dropdown">
+								<!-- Sign In Button for Unauthenticated Users -->
+								<div th:if="${#authentication == null}">
+									<a class="btn btn-primary" th:href="@{/auth/sign-in}">Sign
+										In</a>
+								</div> <!-- Profile Dropdown for Authenticated Users -->
+								<div th:if="${#authentication != null}">
+									<!-- Avatar -->
+									<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+										role="button" data-bs-auto-close="outside"
+										data-bs-display="static" data-bs-toggle="dropdown"
+										aria-expanded="false"> <img
+										class="avatar-img rounded-circle"
+										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+									</a>
+
+									<!-- Profile dropdown START -->
+									<ul
+										class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+										aria-labelledby="profileDropdown">
+										<!-- Profile info -->
+										<li class="px-3">
+											<div class="d-flex align-items-center">
+												<!-- Avatar -->
+												<div class="avatar me-3 mb-3">
+													<img class="avatar-img rounded-circle shadow"
+														th:src="@{/public/assets/images/avatar/01.jpg}"
+														alt="avatar">
+												</div>
+												<div>
+													<a class="h6 mt-2 mt-sm-0"
+														th:href="@{/admin/admin-dashboard}">Admin</a>
+													<p class="small m-0">dathr@diracetechnology.com</p>
+												</div>
+											</div>
+
+										</li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+
+										<!-- Links -->
+										<li><a class="dropdown-item"
+											th:href="@{/admin/admin-edit-profile}"><i
+												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+										<li><a class="dropdown-item bg-danger-soft-hover"
+											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+												Out</a></li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+
+										<!-- Dark mode options START -->
+										<li>
+											<div
+												class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+												<!-- <span>Mode:</span> -->
+												<button type="button" class="btn btn-sm mb-0"
+													data-bs-theme-value="light">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16"
+														height="16" fill="currentColor"
+														class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+												<path
+															d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+												<use href="#"></use>
+											</svg>
+													Light
+												</button>
+												<button type="button" class="btn btn-sm mb-0"
+													data-bs-theme-value="dark">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16"
+														height="16" fill="currentColor"
+														class="bi bi-moon-stars fa-fw mode-switch"
+														viewBox="0 0 16 16">
+												<path
+															d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+												<path
+															d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+												<use href="#"></use>
+											</svg>
+													Dark
+												</button>
+												<button type="button" class="btn btn-sm mb-0 active"
+													data-bs-theme-value="auto">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16"
+														height="16" fill="currentColor"
+														class="bi bi-circle-half fa-fw mode-switch"
+														viewBox="0 0 16 16">
+												<path
+															d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+												<use href="#"></use>
+											</svg>
+													Auto
+												</button>
+											</div>
+
+										</li>
+										<!-- Dark mode options END-->
+									</ul>
+								</div> <!-- Profile dropdown END -->
+							</li>
+							<!-- Profile dropdown END -->
+						</ul>
+					</div>
+					<!-- Top bar right END -->
+				</div>
 			</div>
-		</div>
-	</div>
-</section>
-<!-- =======================
+		</nav>
+		<!-- Top bar END -->
+		<main>
+
+			<!-- =======================
+Page Banner START -->
+			<section
+				class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0"
+				style="background: url(/public/assets/images/pattern/04.png) no-repeat center center; background-size: cover;">
+				<!-- Main banner background image -->
+				<div class="container">
+					<div class="row">
+						<div class="col-12 text-center">
+							<!-- Title -->
+							<h1 class="text-white">Submit a new blog</h1>
+							<!--  <p class="text-white mb-0">Read our <a href="#" class="text-white"><u>"Before you create a blog"</u></a> article before submitting!</p>-->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
 Page Banner END -->
 
-<!-- =======================
+			<!-- =======================
 Steps START -->
-<section>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 mx-auto text-center">
-				<!-- Content -->
-				<p class="text-center">Use this interface to add a new Course to the portal. Once you are done adding the item it will be requested to admin. If admin approved, your course will appear and inform to studentsthat your course has been accepted.</p>
-			</div>
-		</div>
-
-		<div class="card bg-transparent border rounded-3 mb-5">
-			<div id="stepper" class="bs-stepper stepper-outline">
-				<!-- Card header -->
-				<div class="card-header bg-light border-bottom px-lg-5">
-					<!-- Step Buttons START -->
-					<div class="bs-stepper-header" role="tablist" >
-						<!-- Step 1 -->
-						<div class="step" data-target="#step-1">
-							<div class="d-grid text-center align-items-center">
-								<button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger1" aria-controls="step-1">
-									<span class="bs-stepper-circle">1</span>
-								</button>
-								<h6 class="bs-stepper-label d-none d-md-block">Blog details</h6>
-							</div>
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 mx-auto text-center">
+							<!-- Content -->
+							<p class="text-center">This page is used to create blog posts
+								only by Admin.</p>
 						</div>
-						<div class="line"></div>
-
-						<!-- Step 2 -->
-						<div class="step" data-target="#step-2">
-							<div class="d-grid text-center align-items-center">
-								<button type="button" class="btn btn-link step-trigger mb-0" role="tab" id="steppertrigger2" aria-controls="step-2">
-									<span class="bs-stepper-circle">2</span>
-								</button>
-								<h6 class="bs-stepper-label d-none d-md-block">Blog Thumbnail</h6>
-							</div>
-						</div>
-						
 					</div>
-					<!-- Step Buttons END -->
-				</div>
 
-				<!-- Card body START -->
-				<div class="card-body">
-					<!-- Step content START -->
-					<div class="bs-stepper-content">
-						<form onsubmit="return false">
+					<div class="card bg-transparent border rounded-3 mb-5">
+						<div id="stepper" class="bs-stepper stepper-outline">
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom px-lg-5">
+								<!-- Step Buttons START -->
+								<div class="bs-stepper-header" role="tablist">
+									<!-- Step 1 -->
+									<div class="step" data-target="#step-1">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger1" aria-controls="step-1">
+												<span class="bs-stepper-circle">1</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Blog
+												details</h6>
+										</div>
+									</div>
+									<div class="line"></div>
 
-							<!-- Step 1 content START -->
-							<div id="step-1" role="tabpanel" class="content fade" aria-labelledby="steppertrigger1">
-								<!-- Title -->
-								<h4>Blog details</h4>
-
-								<hr> <!-- Divider -->
-
-								<!-- Basic information START -->
-								<div class="row g-4">
-									<!-- Course title -->
-									<div class="col-12">
-										<label class="form-label">Blog title</label>
-										<input class="form-control" type="text" placeholder="Enter course title">
+									<!-- Step 2 -->
+									<div class="step" data-target="#step-2">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger2" aria-controls="step-2">
+												<span class="bs-stepper-circle">2</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Blog
+												Thumbnail</h6>
+										</div>
 									</div>
 
-									<!-- Short description -->
-									<div class="col-12">
-										<label class="form-label">Blog description</label>
-										<textarea class="form-control" rows="12" placeholder="Enter descriptions"></textarea>
-									</div>
-
-
-									<!-- Step 1 button -->
-									<div class="d-flex justify-content-between mt-3">
-										<button class="btn btn-warning next-btn mb-0"><a th:href="@{/admin/admin-dashboard}">Dashboard</a></button>
-
-										<button class="btn btn-primary next-btn mb-0">Next</button>
-										
-									</div>
 								</div>
-								<!-- Basic information START -->
+								<!-- Step Buttons END -->
 							</div>
-							<!-- Step 1 content END -->
 
-							<!-- Step 2 content START -->
-							<div id="step-2" role="tabpanel" class="content fade" aria-labelledby="steppertrigger2">
-								<!-- Title -->
-								<h4>Blog thumbnail</h4>
+							<!-- Card body START -->
+							<div class="card-body">
+								<!-- Step content START -->
+								<div class="bs-stepper-content">
+									<form th:action="@{/admin/admin-save-blog}"
+										th:object="${blogPostDto}" method="post"
+										enctype="multipart/form-data">
 
-								<hr> <!-- Divider -->
+										<!-- Step 1 content START -->
+										<div id="step-1" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger1">
+											<!-- Title -->
+											<h4>Blog details</h4>
 
-								<div class="row">
-									<!-- Upload image START -->
-									<div class="col-12">
-										<div class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
-											<!-- Image -->
-											<img th:src="@{/public/assets/images/element/gallery.svg}" class="h-50px" alt="">
-											<div>
-												<h6 class="my-2">Upload blog image here, or<a href="#!" class="text-primary"> Browse</a></h6>
-												<label style="cursor:pointer;">
-													<span> 
-														<input class="form-control stretched-link" type="file" name="my-image" id="image" accept="image/gif, image/jpeg, image/png" />
-													</span>
-												</label>
-													<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Our suggested dimensions are 600px * 450px. Larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
-											</div>	
-										</div>
+											<hr>
+											<!-- Divider -->
 
-										<!-- Button -->
-										<div class="d-sm-flex justify-content-end mt-2">
-											<button type="button" class="btn btn-sm btn-danger-soft mb-3">Remove image</button>
-										</div>
-									</div>
-									<!-- Upload image END -->
-
-									
-
-									<!-- Step 2 button -->
-									<div class="d-flex justify-content-between mt-3">
-										<button class="btn btn-secondary prev-btn mb-0">Previous</button>
-										<div class="text-md-end">
-											<a th:href="@{/admin/admin-view-blog}" class="btn btn-success mb-2 mb-sm-0">Submit Blog</a>
-											<p class="mb-0 small mt-1">Once you click "Submit Blog", your blog will be uploaded.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Step 2 content END -->
-
-							
-
-							
-						</form>
+											<!-- Basic information START -->
+				<div class="row g-4">
+					<!-- Course title -->
+					<div class="col-12">
+						<label class="form-label">Blog title</label> <input
+								class="form-control" type="text"
+							placeholder="Enter course title" th:field="*{title}" required>
+							<div class="text-danger"
+							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 					</div>
-				</div>
-				<!-- Card body END -->
-			</div>
+			<div class="form-group">
+               
+                <!-- Editor toolbar -->
+                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar1">
+                    <span class="ql-formats">
+    <select class="ql-font"></select>
+    <select class="ql-size"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-bold"></button>
+    <button class="ql-italic"></button>
+    <button class="ql-underline"></button>
+    <button class="ql-strike"></button>
+  </span>
+  <span class="ql-formats">
+    <select class="ql-color"></select>
+    <select class="ql-background"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-script" value="sub"></button>
+    <button class="ql-script" value="super"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-header" value="1"></button>
+    <button class="ql-header" value="2"></button>
+    <button class="ql-blockquote"></button>
+    <button class="ql-code-block"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-list" value="ordered"></button>
+    <button class="ql-list" value="bullet"></button>
+    <button class="ql-indent" value="-1"></button>
+    <button class="ql-indent" value="+1"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-direction" value="rtl"></button>
+    <select class="ql-align"></select>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-link"></button>
+    <button class="ql-image"></button>
+    <button class="ql-video"></button>
+    <button class="ql-formula"></button>
+  </span>
+  <span class="ql-formats">
+    <button class="ql-clean"></button>
+  </span>
+                </div>
+                <!-- Main toolbar -->
+                <div class="bg-body border rounded-bottom h-400px overflow-hidden" id="quilleditor1">
+                 
+                    <h1>Header</h1>
+                    <br>
+                    <p>Enter Body Text Here.</p>
+                    <br>
+                </div>
+                <input type="hidden" id="content" name="content">
+            </div>
+
+		<!-- Step 1 button -->
+		<div class="d-flex justify-content-end mt-3">
+				 <a	class="btn btn-primary next-btn mb-0">Next</a>
+
 		</div>
 	</div>
-</section>
-<!-- =======================
-Steps END -->
+			<!-- Basic information START -->
+				</div>
+			<!-- Step 1 content END -->
 
-</main>
-</th:block>
-	
+								<!-- Step 2 content START -->
+								<div id="step-2" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger2">
+											<!-- Title -->
+											<h4>Blog thumbnail</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<div class="row">
+												<!-- Upload image START -->
+												<div class="col-12">
+													<div
+														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
+														<!-- Image -->
+														<img th:src="@{/public/assets/images/element/gallery.svg}"
+															class="h-50px" alt="">
+														<div>
+															<h6 class="my-2">
+																Upload blog image here, or<a href="#!"
+																	class="text-primary"> Browse</a>
+															</h6>
+															<label style="cursor: pointer;"> <span> <input
+																	class="form-control stretched-link" type="file"
+																	name="img-file"
+																	accept="image/gif, image/jpeg, image/png" /> <!-- <span th:if="${#fields.hasErrors('imageFile')}" th:errors="${#fields.errors('imageFile')}"></span> -->
+															</span>
+															</label>
+															<p class="small mb-0 mt-2">
+																<b>Note:</b> Only JPG, JPEG and PNG. Our suggested
+																dimensions are 600px * 450px. Larger image will be
+																cropped to 4:3 to fit our thumbnails/previews.
+															</p>
+														</div>
+													</div>
+
+													<!-- Button -->
+													<div class="d-sm-flex justify-content-end mt-2">
+														<button type="button"
+															class="btn btn-sm btn-danger-soft mb-3">Remove
+															image</button>
+													</div>
+												</div>
+												<!-- Upload image END -->
+
+
+
+												<!-- Step 2 button -->
+												<div class="d-flex justify-content-between mt-3">
+													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<div class="text-md-end">
+														<button class="btn btn-success mb-2 mb-sm-0" type="submit">Submit
+															Blog</button>
+														<p class="mb-0 small mt-1">Once you click "Submit
+															Blog", your blog will be uploaded.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Step 2 content END -->
+
+									</form>
+								</div>
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
+Steps END -->
+ 
+		</main>
+	</th:block>
+
 	<!-- Bootstrap JS -->
-    <script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    
-    <!-- Vendors -->
-    <script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
-    <script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
-    <script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
-    <script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
-    <script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
-    
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/jquery/jquery-3.5.1.slim.min.js}"></script>
+	
+	
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
-</body>
+	 
+	  <script>
+        var quill = new Quill('#quilleditor1', {
+            modules: {
+                toolbar: '#quilltoolbar1'
+            },
+            theme: 'snow'
+        });
+        
+        document.querySelector('form').onsubmit = function() {
+            var quillContent = quill.root.innerHTML;
+            var headerContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <style>
+                    .ql-video {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        aspect-ratio: 16 / 9;
+                    }
+                </style>
+                
+                </head>
+                <body>
+            `;
+            var footerContent = `
+                </body>
+                </html>
+            `;
+            var completeHtml = headerContent + quillContent + footerContent;
+            document.querySelector('#content').value = completeHtml;
+        };
+    </script>
+    
+    </body>
 </html>

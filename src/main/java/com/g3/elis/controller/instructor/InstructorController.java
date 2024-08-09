@@ -72,6 +72,13 @@ public class InstructorController {
 		return "instructor/instructor-layout";
 	}
 	
+	@GetMapping("/blog-detail")
+	public String blogDetail()
+	{
+		return "/authenticated-user/blog-detail";
+	}
+	
+	
 	@GetMapping("/instructor-edit-profile")
 	public String instructor_edit_profile(Model model) {
 		

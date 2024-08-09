@@ -1,9 +1,13 @@
 package com.g3.elis.config;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,10 +25,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.g3.elis.security.OurUserDetailService;
 import com.g3.elis.util.CustomAccessDeniedHandler;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,11 +44,15 @@ import org.slf4j.LoggerFactory;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
-    @Autowired
+	
+	@Autowired
     private OurUserDetailService ourUserDetailService;
-
+    private  PersistentTokenRepository persistentTokenRepository;
+    
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+    
+    @Value("${remember.me.key}")
+    private String rememberMeKey;
 
     @Bean
     static PasswordEncoder passwordEncoder() {
@@ -51,42 +62,51 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-        		.csrf(AbstractHttpConfigurer::disable)
-        		.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                        	"/public/**", "/public/assets/**", "/public/assets/css/**",
-                        	"/public/assets/images/**","/public/assets/js/**",
-                        	"/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
-                        	"/api/public/**").permitAll()
+                                "/public/**", "/public/assets/**", "/public/assets/css/**",
+                                "/public/assets/images/**","/public/assets/js/**",
+                                "/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
+                                "/api/public/**").permitAll()
                         .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("ROLE_INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/authenticated-user/**", "/static/private/blog/**", "/static/private/course/**")
-                        							 .hasAnyAuthority("ROLE_STUDENT", "ROLE_INSTRUCTOR", "ROLE_ADMIN")
+                                .hasAnyAuthority("ROLE_STUDENT", "ROLE_INSTRUCTOR", "ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> 
                     exceptionHandling.accessDeniedHandler(accessDeniedHandler())
-                					 .authenticationEntryPoint(authenticationEntryPoint()))
+                                     .authenticationEntryPoint(authenticationEntryPoint()))
                 .formLogin(form -> 
-                	form
-                		.loginPage("/auth/login").loginProcessingUrl("/signIn")
-                        .successHandler(
-                        		customerAuthenticationSuccessHandler()
-                        )
-                        .failureHandler(
-                        		authenticationFailureHandler()
-                        		)
-                        	.permitAll())
+                    form
+                        .loginPage("/auth/login").loginProcessingUrl("/signIn")
+                        .successHandler(customerAuthenticationSuccessHandler())
+                        .failureHandler(authenticationFailureHandler())
+                        .permitAll())
+                .rememberMe(rememberMe -> 
+                    rememberMe
+                        .key(rememberMeKey)
+                        .rememberMeParameter("remember-me")
+                        .tokenRepository(persistentTokenRepository)
+                        .tokenValiditySeconds(7 * 24 * 60 * 60) 
+                        .userDetailsService(ourUserDetailService))
+                .sessionManagement(session -> 
+                    session
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/auth/login?expired"))
                 .logout(logout -> 
-                	logout
-                		.logoutUrl("/sign-out").logoutSuccessUrl("/auth/login")
+                    logout
+                        .logoutUrl("/sign-out").logoutSuccessUrl("/auth/login")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.sendRedirect("/auth/login");
-                        }).invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").permitAll());
-
+                        }).invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me")
+                        .permitAll());
+        
         return httpSecurity.build();
     }
 
@@ -103,11 +123,10 @@ public class SecurityConfig {
     }
     
     @Bean
-    AccessDeniedHandler accessDeniedHandler(){
+    AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
 
-   
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -127,30 +146,49 @@ public class SecurityConfig {
 
     @Bean
     AuthenticationSuccessHandler customerAuthenticationSuccessHandler() {
-    	
         return new AuthenticationSuccessHandler() {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                    Authentication authentication) throws IOException, ServletException {
                 Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                 if (authorities.contains("ROLE_ADMIN")) {
-                	
                     logger.info("Redirecting to admin dashboard for user: {}", authentication.getName());
                     response.sendRedirect("/admin/admin-dashboard");
                 } else if (authorities.contains("ROLE_STUDENT")) {
-                	
                     logger.info("Redirecting to student dashboard for user: {}", authentication.getName());
                     response.sendRedirect("/student/student-dashboard");
                 } else if (authorities.contains("ROLE_INSTRUCTOR")) {
-                	
                     logger.info("Redirecting to instructor dashboard for user: {}", authentication.getName());
                     response.sendRedirect("/instructor/instructor-dashboard");
                 } else {
-                	
                     logger.info("Redirecting to home page for user: {}", authentication.getName());
                     response.sendRedirect("/user/home");
                 }
             }
         };
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        return new InMemoryTokenRepositoryImpl();
+    }
+
+    @PostConstruct
+    public void init() {
+        // Ensure the key is initialized from a properties file or environment variable
+        if (rememberMeKey == null || rememberMeKey.isEmpty()) {
+            rememberMeKey = generateRememberMeKey();
+        }
+    }
+
+    private String generateRememberMeKey() {
+        try {
+            SecureRandom secureRandom = SecureRandom.getInstanceStrong();
+            byte[] keyBytes = new byte[32];  
+            secureRandom.nextBytes(keyBytes);
+            return Base64.getEncoder().encodeToString(keyBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Failed to generate Remember Me key", e);
+        }
     }
 }
