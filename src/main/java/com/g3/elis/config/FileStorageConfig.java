@@ -34,6 +34,9 @@ public class FileStorageConfig {
 	
 	
 	
+	
+	
+	
 	public Path getUploadDir(String filePath)
 	{
 		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
@@ -51,4 +54,12 @@ public class FileStorageConfig {
 		Files.delete(targetLocation);
 	}
 	
+	
+	
+	
+	public void saveHTMLFile(String content,String path,String fileName) throws IOException
+	{
+		Path targetLocation = getUploadDir(path).resolve(fileName);
+		Files.write(targetLocation, content.getBytes());
+	}
 }
