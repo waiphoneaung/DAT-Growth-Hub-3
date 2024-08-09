@@ -25,13 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
 import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.BlogPostService;
-import com.g3.elis.service.UserService;
 
 import jakarta.validation.Valid;
 
