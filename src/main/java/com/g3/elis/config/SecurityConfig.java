@@ -175,8 +175,7 @@ public class SecurityConfig {
 
     @PostConstruct
     public void init() {
-        // Ensure the key is initialized from a properties file or environment variable
-        if (rememberMeKey == null || rememberMeKey.isEmpty()) {
+          if (rememberMeKey == null || rememberMeKey.isEmpty()) {
             rememberMeKey = generateRememberMeKey();
         }
     }

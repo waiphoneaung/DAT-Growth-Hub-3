@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	@Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = :role")
 	List<User> findByRole(String role);
 
-	@Query("SELECT u FROM User u WHERE " +
+	@Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'ROLE_INSTRUCTOR' AND " +
 	           "(:name IS NULL OR u.name LIKE %:name%) AND " +
 	           "(:staffId IS NULL OR u.staffId LIKE %:staffId%) AND " +
 	           "(:dept IS NULL OR u.dept LIKE %:dept%) AND " +
@@ -33,7 +33,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	                                 @Param("staffId") String staffId, 
 	                                 @Param("dept") String dept, 
 	                                 @Param("division") String division);
-	
-	
     
 }

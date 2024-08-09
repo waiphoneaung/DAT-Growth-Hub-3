@@ -22,7 +22,9 @@ public class AdminController
 		model.addAttribute("content","admin/admin-course-list");
 		return "/admin/admin-layout";
 	}
-	
+
+
+
 	@GetMapping("/admin-instructor-request")
 	public String adminInstructorRequest(Model model)
 	{
