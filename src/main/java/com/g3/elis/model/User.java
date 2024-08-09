@@ -1,6 +1,8 @@
 package com.g3.elis.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -54,6 +56,12 @@ public class User {
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<BlogPost> blogposts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<Forum> forums = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<ForumComment> forumComments = new ArrayList<>();
 
 	public User() {
 
@@ -185,6 +193,68 @@ public class User {
 
 	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
+	}
+	
+	
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
+	public Set<BlogPost> getBlogposts() {
+		return blogposts;
+	}
+
+	public void setBlogposts(Set<BlogPost> blogposts) {
+		this.blogposts = blogposts;
+	}
+
+	public List<Forum> getForums() {
+		return forums;
+	}
+
+	public void setForums(List<Forum> forums) {
+		this.forums = forums;
+	}
+
+	public List<ForumComment> getForumComments() {
+		return forumComments;
+	}
+
+	public void setForumComments(List<ForumComment> forumComments) {
+		this.forumComments = forumComments;
+	}
+	
+	
+
+	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
+			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
+			Set<Course> courses, Profile profiles, Set<EnrolledCourse> enrolledCourses, Set<Report> reports,
+			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments) {
+		super();
+		this.id = id;
+		this.division = division;
+		this.staffId = staffId;
+		this.name = name;
+		this.doorLogNo = doorLogNo;
+		this.dept = dept;
+		this.team = team;
+		this.email = email;
+		this.status = status;
+		this.password = password;
+		this.gender = gender;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.courses = courses;
+		this.profiles = profiles;
+		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+		this.blogposts = blogposts;
+		this.forums = forums;
+		this.forumComments = forumComments;
 	}
 
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,

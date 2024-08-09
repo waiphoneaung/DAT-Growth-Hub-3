@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,11 +41,17 @@ public class AdminCreateBlogController {
 	private BlogPostService blogPostService;
 
 	@GetMapping("/admin-view-blog")
-	public String adminViewBlog(Model model) {
+	public String adminViewBlog(@RequestParam(defaultValue = "0") int page, Model model) {
 
 		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-
-		model.addAttribute("blogPosts", blogPosts);
+		
+		//PAGINATION TEST
+		Page<BlogPost> blogPostPage = blogPostService.getPaginatedBlogPosts(page, 1);
+		model.addAttribute("blogPosts", blogPostPage.getContent());
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", blogPostPage.getTotalPages());
+		//END PAGINATION
+		//model.addAttribute("blogPosts", blogPosts);
 		model.addAttribute("content", "admin/admin-view-blog");
 		return "/admin/admin-layout";
 	}

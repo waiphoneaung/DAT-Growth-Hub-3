@@ -3,18 +3,18 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Layout</title>
+<title>DAT - Growth Hub</title>
 <!-- Stylesheets -->
-<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+<th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
 
 <!-- Dark Mode Script -->
-<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+<th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
 </head>
 <body>
 
 	<!-- Header START -->
-	<header class="navbar-light navbar-sticky header-static">
-		<!-- Nav START -->
+	<header class="navbar-light navbar-sticky">
+		<!-- Logo Nav START -->
 		<nav class="navbar navbar-expand-xl">
 			<div class="container-fluid px-3 px-xl-5">
 				<!-- Logo START -->
@@ -35,6 +35,7 @@
 						<span></span>
 					</span>
 				</button>
+
 				<!-- Main navbar START -->
 				<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
 
@@ -42,16 +43,30 @@
 					<ul
 						class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-						<a class="nav-link active" th:href="@{/home}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Home</a>
-						<a class="nav-link" th:href="@{/course-list}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Courses</a>
-						<a class="nav-link" th:href="@{/blog}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Blogs</a>
-						<a class="nav-link" th:href="@{/contact-us}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Contact Us</a>
-						<a class="nav-link" href="@{/about}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">About</a>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<a class="nav-link" th:href="@{/admin/admin-dashboard}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+						</div>
+						<div sec:authorize="hasRole('ROLE_STUDENT')">
+							<a class="nav-link" th:href="@{/student/student-dashboard}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+						</div>
+						<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+							<a class="nav-link" th:href="@{/instructor/instructor-dashboard}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+						</div>
+						<div sec:authorize="hasRole('ROLE_ADMIN')">
+							<a class="nav-link active" th:href="@{/admin/forum}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+						</div>
+						<div sec:authorize="hasRole('ROLE_STUDENT')">
+							<a class="nav-link active" th:href="@{/student/forum}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+						</div>
+						<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+							<a class="nav-link active" th:href="@{/instructor/forum}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+						</div>
 					</ul>
 					<!-- Nav Main menu END -->
 
@@ -72,6 +87,7 @@
 					<!-- Nav Search END -->
 				</div>
 				<!-- Main navbar END -->
+
 				<!-- Profile START -->
 				<div class="dropdown ms-1 ms-lg-0">
 					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
@@ -92,8 +108,7 @@
 										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 								</div>
 								<div>
-									<a class="h6" th:href="@{/home}">Khine Khine
-										Soe</a>
+									<a class="h6" th:href="@{/admin/admin-dashboard}">Admin</a>
 									<p class="small m-0">dathr@diracetechnology.com</p>
 								</div>
 							</div>
@@ -104,12 +119,13 @@
 						<!-- Links -->
 						<li><a class="dropdown-item" href="#"><i
 								class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-						<li><a class="dropdown-item" href="#"><i
+						<li><a class="dropdown-item" href="admin-setting.html"><i
 								class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 						<li><a class="dropdown-item" href="#"><i
 								class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
-								class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li><a class="dropdown-item bg-danger-soft-hover"
+							href="sign-in.html"><i class="bi bi-power fa-fw me-2"></i>Sign
+								Out</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
@@ -161,17 +177,63 @@
 				<!-- Profile START -->
 			</div>
 		</nav>
-		<!-- Nav END -->
+		<!-- Logo Nav END -->
 	</header>
 	<!-- Header END -->
-
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
 		<!-- =======================Inner part START -->
 		<section class="pt-0">
 			<div class="container">
-				<div class="row">
+				<div class="container d-flex justify-content-end my-2">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Add new post</button>
 
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Create
+										a new post</h1>
+								</div>
+								<div class="modal-body">
+									<form method="post" >
+										<div class="mb-3">
+											<label for="recipient-name" class="col-form-label">Enter
+												title</label> <input type="text" class="form-control"
+												id="recipient-name" />
+										</div>
+
+										<div class="mb-3">
+											<label for="message-text" class="col-form-label">Enter
+												your description</label>
+											<textarea class="form-control" id="message-text" rows="7"
+												></textarea>
+										</div>
+
+										<div class="mb-3">
+											<a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+											<button type="submit" class="btn btn-primary">Send
+												message</button>
+										</div>
+									</form>
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+					<!-- Modal end -->
+				</div>
+
+				<!--  end test form-->
+				<div class="row">
 					<!-- Main content START -->
 					<div class="col-xl-12">
 						<!-- Student review START -->
@@ -179,86 +241,40 @@
 							<!-- Header START -->
 							<!-- Title -->
 
-							<!-- Facebook post button -->
-							<div class="container mt-5">
-								<div class="card">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<img th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar"
-												class="rounded-circle mr-2 me-3 img-small"
-												style="width: 40px; height: 40px;">
-											<button type="button"
-												class="btn btn-light flex-grow-1 text-left rounded-pill"
-												data-bs-toggle="modal" data-bs-target="#addPost">What's
-												on your mind?</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Popup modal for add lecture START -->
-							<div class="modal fade" id="addPost" tabindex="-1"
-								aria-labelledby="postLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-dark">
-											<h5 class="modal-title text-white" id="postLabel">Add
-												Lecture</h5>
-											<button type="button"
-												class="btn btn-sm btn-light mb-0 ms-auto"
-												data-bs-dismiss="modal" aria-label="Close">
-												<i class="bi bi-x-lg"></i>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form class="row text-start g-3">
-												<!-- Course name -->
-												<div class="col-12">
-													<label class="form-label">Course name <span
-														class="text-danger">*</span></label> <input type="text"
-														class="form-control" placeholder="Enter course name">
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger-soft my-0"
-												data-bs-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-success my-0">Save
-												Lecture</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Popup modal for add lecture END -->
-
 							<!-- Reviews START -->
 							<div class="card-body mt-2 mt-sm-4">
-
 								<!-- Review item START -->
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+										src="assets/images/avatar/01.jpg" alt="avatar" />
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
 											<!-- Title -->
 											<div>
-												<h5 class="m-0">Frances Guerrero</h5>
+												<h5 class="m-0">Khin Thiri</h5>
 												<span class="me-3 small">June 11, 2021 at 6:01 am </span>
 											</div>
 											<!-- Review star -->
-
 										</div>
 										<!-- Content -->
-										
+										<h6>
+											<span class="text-body fw-light">Review on:</span> How to
+											implement sitemap on sass
+										</h6>
 										<p>Satisfied conveying a dependent contented he gentleman
 											agreeable do be. Warrant private blushes removed an in
 											equally totally if. Delivered dejection necessary objection
 											do Mr prevailed. Mr feeling does chiefly cordial in do.</p>
+										<!-- Comment -->
+										<div class="">
+											Replied by <span style="color: red;">Kalyar Soe</span>:
+											<p>You do your work the best.</p>
+										</div>
 										<!-- Button -->
 										<div class="text-end">
-											
-												<a class="btn btn-sm btn-light mb-0"
+											<a class="btn btn-sm btn-primary mb-0"
 												data-bs-toggle="collapse" href="#collapseComment"
 												role="button" aria-expanded="false"
 												aria-controls="collapseComment"> Reply </a>
@@ -277,146 +293,14 @@
 									</div>
 								</div>
 								<!-- Divider -->
-								<hr>
+								<hr />
 								<!-- Review item END -->
 
 								<!-- Review item START -->
 								<div class="d-sm-flex">
 									<!-- Avatar image -->
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/03.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Louis Ferguson</h5>
-												<span class="me-3 small">June 18, 2021 at 11:55 am</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Far advanced settling say finished raillery. Offered
-											chiefly farther Satisfied conveying a dependent contented he
-											gentleman agreeable do be. Warrant private blushes removed an
-											in equally totally if. Delivered dejection necessary
-											objection do Mr prevailed. Mr feeling does chiefly cordial in
-											do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											 
-												<a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{publlic/assets/images/avatar/05.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Carolyn Ortiz</h5>
-												<span class="me-3 small">August 28, 2021 at 3:08 pm</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Offered chiefly farther Satisfied conveying a dependent
-											contented he gentleman agreeable do be. Warrant private
-											blushes removed an in equally totally if. Delivered dejection
-											necessary objection do Mr prevailed. Mr feeling does chiefly
-											cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											
-												<a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/08.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Dennis Barrett</h5>
-												<span class="me-3 small">August 29, 2021 at 5:35 pm</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Chiefly farther Satisfied conveying a dependent
-											contented he gentleman agreeable do be. Warrant private
-											blushes removed an in equally totally if. Delivered dejection
-											necessary objection do Mr prevailed. Mr feeling does chiefly
-											cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											 <a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
+										src="assets/images/avatar/09.jpg" alt="avatar" />
 									<div>
 										<div
 											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
@@ -427,10 +311,12 @@
 													am</span>
 											</div>
 											<!-- Review star -->
-
 										</div>
 										<!-- Content -->
-										
+										<h6>
+											<span class="text-body fw-light">Review on:</span> What are
+											object prototypes?
+										</h6>
 										<p>Chiefly farther Satisfied conveying a dependent
 											contented he gentleman agreeable do be. Warrant private
 											blushes removed an in equally totally if. Delivered dejection
@@ -438,7 +324,8 @@
 											cordial in do.</p>
 										<!-- Button -->
 										<div class="text-end">
-											 <a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
+											<a href="#" class="btn btn-sm btn-primary-soft mb-0">Direct
+												message</a> <a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
 											<div class="collapse show" id="collapseComment">
 												<div class="d-flex mt-3">
 													<textarea class="form-control mb-0"
@@ -468,10 +355,12 @@
 											class="pagination pagination-sm pagination-primary-soft my-0 py-0">
 											<li class="page-item my-0"><a class="page-link" href="#"
 												tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-											<li class="page-item my-0"><a class="page-link" href="#">1</a></li>
+											<li class="page-item my-0"><a class="page-link" href="#">1</a>
+											</li>
 											<li class="page-item my-0 active"><a class="page-link"
 												href="#">2</a></li>
-											<li class="page-item my-0"><a class="page-link" href="#">3</a></li>
+											<li class="page-item my-0"><a class="page-link" href="#">3</a>
+											</li>
 											<li class="page-item my-0"><a class="page-link" href="#"><i
 													class="fas fa-angle-right"></i></a></li>
 										</ul>
@@ -489,63 +378,15 @@
 		</section>
 		<!-- =======================
 Inner part END -->
-
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
 
-	<!-- =======================
-Footer START -->
-	<footer class="bg-dark p-3">
-		<div class="container">
-			<div class="row align-items-center">
-				<!-- Widget -->
-				<div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-					<!-- Logo START -->
-					<a th:href="@{/home"> <img class="h-20px"
-						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
-					</a>
-				</div>
 
-				<!-- Widget -->
-				<div class="col-md-4 mb-3 mb-md-0">
-					<div class="text-center text-white text-primary-hover">
-						Copyrights ©2024 DAT . Build by <a
-							href="https://www.diracetechnology.com/" target="_blank"
-							class="text-white">DAT - Elearning Hub</a>.
-					</div>
-				</div>
-				<!-- Widget -->
-				<div class="col-md-4">
-					<!-- Rating -->
-					<ul class="list-inline mb-0 text-center text-md-end">
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-facebook"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-instagram"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-linkedin-in"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-twitter"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- =======================
-Footer END -->
 
-	<!-- Back to top -->
-	<div class="back-top">
-		<i
-			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
-	</div>
+	<!-- Include footer -->
+	<div th:replace="instructor/instructor-footer :: instructor-footer"></div>
 
 	<!-- Scripts -->
-	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-	<!-- Template Functions -->
-	<script th:src="@{/public/assets/js/functions.js}"></script>
-
+	<th:block th:replace="fragments/scripts :: scripts"></th:block>
 </body>
-
-<!-- Mirrored from diracetechnology.com/instructor-review.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:23:00 GMT -->
 </html>

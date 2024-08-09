@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
-  .btn-xs {
-    padding: 5px;
-    font-size: .6rem;
-    line-height: 1.5;
-    color: blue;
-  }
+.btn-xs {
+	padding: 5px;
+	font-size: .6rem;
+	line-height: 1.5;
+	color: blue;
+}
 </style>
 </head>
 <body>
@@ -27,13 +27,15 @@
 						<div class="row g-4">
 
 							<!-- Card item START -->
-							<div class="col-sm-6 col-lg-4 col-xl-3" th:each="blogPost:${blogPosts}">
+							<div class="col-sm-6 col-lg-4 col-xl-3"
+								th:each="blogPost:${blogPosts}">
 								<div class="card bg-transparent">
 									<div class="overflow-hidden rounded-3">
-									<!-- 	<img th:src="@{/public/assets/images/event/02.jpg}"
+										<!-- 	<img th:src="@{/public/assets/images/event/02.jpg}"
 											class="card-img" alt="course image"> -->
-											
-											<img th:src="@{'/private/blog/blog-images/' + ${blogPost.blogImage}}"
+
+										<img
+											th:src="@{'/private/blog/blog-images/' + ${blogPost.blogImage}}"
 											class="card-img" alt="blog image">
 										<!-- Overlay -->
 										<div class="bg-overlay bg-dark opacity-4"></div>
@@ -44,19 +46,25 @@
 									<div class="card-body">
 										<!-- Title -->
 										<h5 class="card-title">
-											<a th:href="@{/admin/blog-detail}" th:text="${blogPost.title}"></a>
-											
+											<a th:href="@{/admin/blog-detail}"
+												th:text="${blogPost.title}"></a>
+
 										</h5>
-										<p class="text-truncate-2" th:text="${blogPost.description} + '.....'"></p>
+										<p class="text-truncate-2"
+											th:text="${blogPost.description} + '.....'"></p>
 										<!-- Info -->
 										<div class="d-flex justify-content-between">
 											<h6 class="mb-0">
-												<a th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}" onclick="alert('Are you sure delete this blog?')">Delete Blog</a>
+												<a
+													th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}"
+													onclick="alert('Are you sure delete this blog?')">Delete
+													Blog</a>
 											</h6>
-										<!--  	<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'yyyy-MM-dd')}"></span>-->
+											<!--  	<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'yyyy-MM-dd')}"></span>-->
 
-											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" class="btn btn-black btn-xs">More Detail>></a>
-											
+											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}"
+												class="btn btn-black btn-xs">More Detail>></a>
+
 										</div>
 									</div>
 								</div>
@@ -67,7 +75,7 @@
 						<!-- Row end -->
 
 						<!-- Pagination START -->
-						<nav class="d-flex justify-content-center mt-5"
+						<!--  	<nav class="d-flex justify-content-center mt-5"
 							aria-label="navigation">
 							<ul class="pagination pagination-primary-soft rounded mb-0">
 								<li class="page-item mb-0"><a class="page-link" href="#"
@@ -80,8 +88,34 @@
 								<li class="page-item mb-0"><a class="page-link" href="#"><i
 										class="fas fa-angle-double-right"></i></a></li>
 							</ul>
+						</nav>-->
+						<!-- Pagination END -->
+
+						<!-- Pagination START -->
+						<nav class="d-flex justify-content-center mt-5"
+							aria-label="navigation">
+							<ul class="pagination pagination-primary-soft rounded mb-0">
+								<li class="page-item mb-0" th:if="${currentPage > 0}"><a
+									class="page-link"
+									th:href="@{/admin/admin-view-blog(page=${currentPage - 1})}"
+									tabindex="-1"> <i class="fas fa-angle-double-left"></i>
+								</a></li>
+								<li class="page-item mb-0"
+									th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+									<a class="page-link"
+									th:href="@{/admin/admin-view-blog(page=${pageNum})}"
+									th:text="${pageNum + 1}"></a>
+								</li>
+								<li class="page-item mb-0"
+									th:if="${currentPage < totalPages - 1}"><a
+									class="page-link"
+									th:href="@{/admin/admin-view-blog(page=${currentPage + 1})}">
+										<i class="fas fa-angle-double-right"></i>
+								</a></li>
+							</ul>
 						</nav>
 						<!-- Pagination END -->
+
 
 					</div>
 				</section>

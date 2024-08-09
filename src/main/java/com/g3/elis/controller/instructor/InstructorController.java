@@ -58,10 +58,10 @@ public class InstructorController {
 	}
 	
 	@GetMapping("/forum")
-	public String forum(Model model) {
+	public String instructorForum() {
 		 
-		model.addAttribute("currentPage", "forum");
-		return "instructor/forum";
+//		model.addAttribute("currentPage", "forum");
+		return "authenticated-user/forum";
 	}
 	
 	@GetMapping("/instructor-view-blog")

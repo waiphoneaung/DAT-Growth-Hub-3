@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.config.FileStorageConfig;
@@ -82,6 +84,14 @@ public class BlogPostServiceImpl implements BlogPostService {
 	    } else {
 	        throw new RuntimeException("Blog post not found with id " + id);
 	    }
+	}
+
+	//for page pagination
+	@Override
+	public Page<BlogPost> getPaginatedBlogPosts(int page, int size) {
+		
+		PageRequest pageable = PageRequest.of(page, size);
+		return blogPostRepository.findAll(pageable);
 	}
 
 
