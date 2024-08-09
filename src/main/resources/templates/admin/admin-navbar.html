@@ -15,7 +15,7 @@
 
 					<!-- Logo START -->
 					<div class="d-flex align-items-center d-xl-none">
-						<a class="navbar-brand" th:href="@{/admin/admin-dashboard}"> <img
+						<a class="navbar-brand" th:href="@{/user/home}"> <img
 							class="light-mode-item navbar-brand-item h-30px"
 							th:src="@{/public/assets/images/DAT Logo.png}" alt=""> <img
 							class="dark-mode-item navbar-brand-item h-30px"
@@ -67,7 +67,7 @@
 										data-bs-display="static" data-bs-toggle="dropdown"
 										aria-expanded="false"> <img
 										class="avatar-img rounded-circle"
-										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+										th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}" alt="avatar">
 									</a>
 
 									<!-- Profile dropdown START -->
@@ -80,7 +80,7 @@
 												<!-- Avatar -->
 												<div class="avatar me-3 mb-3">
 													<img class="avatar-img rounded-circle shadow"
-														th:src="@{/public/assets/images/avatar/01.jpg}"
+														th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
 														alt="avatar">
 												</div>
 												<div>
