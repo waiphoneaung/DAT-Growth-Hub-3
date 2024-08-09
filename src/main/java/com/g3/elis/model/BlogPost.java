@@ -2,8 +2,8 @@ package com.g3.elis.model;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "blogposts")
+@Table(name = "blog_posts")
 
 public class BlogPost {
 	@Id
@@ -22,26 +22,13 @@ public class BlogPost {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	private String title;
-	private String description;
-
-	@Column(name = "content", columnDefinition = "TEXT")
-	private String content;
+	private String htmlFileName;
+	private String blogImage;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User users;
-
-	public BlogPost(int id, Timestamp createdAt, Timestamp updatedAt, String title, String description, String content,
-			User users) {
-		super();
-		this.id = id;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.title = title;
-		this.description = description;
-		this.content = content;
-		this.users = users;
-	}
 
 	public int getId() {
 		return id;
@@ -75,21 +62,16 @@ public class BlogPost {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	
+
+	public String getBlogImage() {
+		return blogImage;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setBlogImage(String blogImage) {
+		this.blogImage = blogImage;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 	public User getUsers() {
 		return users;
@@ -99,9 +81,33 @@ public class BlogPost {
 		this.users = users;
 	}
 
-	public BlogPost() {
-		super();
+	
 
+	public String getHtmlFileName() {
+		return htmlFileName;
 	}
 
+	public void setHtmlFileName(String htmlFileName) {
+		this.htmlFileName = htmlFileName;
+	}
+
+	public BlogPost() {
+		super();
+	}
+
+	public BlogPost(int id, Timestamp createdAt, Timestamp updatedAt, String title, String htmlFileName,
+			String blogImage, User users) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.title = title;
+		this.htmlFileName = htmlFileName;
+		this.blogImage = blogImage;
+		this.users = users;
+	}
+	
+	
+	
+	
 }
