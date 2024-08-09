@@ -17,5 +17,7 @@ public interface BlogPostService {
 
 
 	void deleteBlogPost(int id) throws IOException;
+	
+	void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
 
 }
