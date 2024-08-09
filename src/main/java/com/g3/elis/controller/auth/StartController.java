@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class StartController {
 
-	@GetMapping("/")
+	@GetMapping({"","/"})
 	public String index(HttpServletRequest  request,Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication== null) 
