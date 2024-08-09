@@ -1,36 +1,14 @@
 package com.g3.elis.controller.admin;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.g3.elis.model.CourseCategory;
-import com.g3.elis.model.User;
-import com.g3.elis.service.CourseCategoryService;
-import com.g3.elis.service.InputFileService;
-import com.g3.elis.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController
 {
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private InputFileService inputFileService;
-	
-	@Autowired
-    private CourseCategoryService courseCategoryService;
 	
 	@GetMapping("/admin-dashboard")
 	public String home(Model model) {
@@ -45,6 +23,7 @@ public class AdminController
 		return "/admin/admin-layout";
 	}
 	
+<<<<<<< HEAD
 	@GetMapping("/admin-student-list")
 	public String adminStudentList(Model model)
 	{
@@ -79,18 +58,15 @@ public class AdminController
 	
 
 
+=======
+>>>>>>> 5763b4c43e1503ec5425ec1721f7e2e2f88448eb
 	@GetMapping("/admin-instructor-request")
 	public String adminInstructorRequest(Model model)
 	{
 		model.addAttribute("content","admin/admin-instructor-request");
 		return "/admin/admin-layout";
 	}
-	@GetMapping("/admin-view-blog")
-	public String adminViewBlog(Model model)
-	{
-		model.addAttribute("content","admin/admin-view-blog");
-		return "/admin/admin-layout";
-	}
+	
 	@GetMapping("/admin-certificate-design")
 	public String adminCertificateDesign(Model model)
 	{
@@ -110,7 +86,6 @@ public class AdminController
 		return "/admin/admin-layout";
 	}
 	
-	
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)
 	{
@@ -123,25 +98,4 @@ public class AdminController
 		model.addAttribute("content","admin/admin-edit-course-detail");
 		return "/admin/admin-layout";
 	}
-	@GetMapping("/admin-create-blog")
-	public String adminCreateBlog(Model model) {
-		return "/admin/admin-create-blog";
-	}
-	@GetMapping("/admin-create-course")
-	public String adminCreateCourse(Model model) {
-		return "/admin/admin-create-course";
-	}
-	@GetMapping("/admin-quiz")
-	public String adminQuiz(Model model) {
-		return "/admin/admin-quiz";
-	}
-	
-	@GetMapping("/blog_detail")
-	public String BlogDetail(Model model) {
-		
-		return "/authenticated-user/blog-detail";
-	}
-	
-	
-	
 }

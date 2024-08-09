@@ -15,107 +15,83 @@ import jakarta.persistence.Table;
 @Table(name = "achievements")
 public class Achievement {
 
-			@Id
-			@GeneratedValue(strategy = GenerationType.IDENTITY)
-			private int id;
-			
-			private String title;
-			private String badgeName;
-			private String certificateName;
-			private Timestamp receivedAt;
-			
-			@ManyToOne
-			@JoinColumn(name="user_id")
-			private User users;
-			
-//			@OneToOne
-//			@JoinColumn(name="course_id")
-//			private Course courses;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-			
-			public Achievement(int id, String title, String badgeName, String certificateName, Timestamp receivedAt,
-					User users) {
-				super();
-				this.id = id;
-				this.title = title;
-				this.badgeName = badgeName;
-				this.certificateName = certificateName;
-				this.receivedAt = receivedAt;
-				this.users = users;
-			}
+	private String title;
+	private String badgeName;
+	private String certificateName;
+	private Timestamp receivedAt;
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User users;
 
-			public int getId() {
-				return id;
-			}
+	@OneToOne
+	@JoinColumn(name = "course_id")
+	private Course courses;
 
+	public Achievement(int id, String title, String badgeName, String certificateName, Timestamp receivedAt,
+			User users) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.badgeName = badgeName;
+		this.certificateName = certificateName;
+		this.receivedAt = receivedAt;
+		this.users = users;
+	}
 
-			public void setId(int id) {
-				this.id = id;
-			}
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
-			public String getTitle() {
-				return title;
-			}
+	public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-			public void setTitle(String title) {
-				this.title = title;
-			}
+	public String getBadgeName() {
+		return badgeName;
+	}
 
+	public void setBadgeName(String badgeName) {
+		this.badgeName = badgeName;
+	}
 
-			public String getBadgeName() {
-				return badgeName;
-			}
+	public String getCertificateName() {
+		return certificateName;
+	}
 
+	public void setCertificateName(String certificateName) {
+		this.certificateName = certificateName;
+	}
 
-			public void setBadgeName(String badgeName) {
-				this.badgeName = badgeName;
-			}
+	public Timestamp getReceivedAt() {
+		return receivedAt;
+	}
 
+	public void setReceivedAt(Timestamp receivedAt) {
+		this.receivedAt = receivedAt;
+	}
 
-			public String getCertificateName() {
-				return certificateName;
-			}
+	public User getUsers() {
+		return users;
+	}
 
+	public void setUsers(User users) {
+		this.users = users;
+	}
 
-			public void setCertificateName(String certificateName) {
-				this.certificateName = certificateName;
-			}
-
-
-			public Timestamp getReceivedAt() {
-				return receivedAt;
-			}
-
-
-			public void setReceivedAt(Timestamp receivedAt) {
-				this.receivedAt = receivedAt;
-			}
-
-
-			public User getUsers() {
-				return users;
-			}
-
-
-			public void setUsers(User users) {
-				this.users = users;
-			}
-
-
-			public Achievement() {
-				super();
-				// TODO Auto-generated constructor stub
-			}
+	public Achievement() { 
+		
+	}
 }
-			
-			
-			
-			
-			
-			
-
-
-			 

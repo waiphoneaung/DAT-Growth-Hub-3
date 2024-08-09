@@ -11,6 +11,7 @@ public class UserDto
 	private String status;
 	private String password;
 	private String gender;
+	private String staffId;
 	public String getDivision() {
 		return division;
 	}
@@ -65,8 +66,14 @@ public class UserDto
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getStaffId() {
+		return staffId;
+	}
+	public void setStaffId(String staffId) {
+		this.staffId = staffId;
+	}
 	public UserDto(String division, String name, String doorLogNo, String dept, String team, String email,
-			String status, String password, String gender) {
+			String status, String password, String gender, String staffId) {
 		super();
 		this.division = division;
 		this.name = name;
@@ -77,19 +84,9 @@ public class UserDto
 		this.status = status;
 		this.password = password;
 		this.gender = gender;
+		this.staffId = staffId;
 	}
 	public UserDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public void setStaffId(String cellValue) {
-		// TODO Auto-generated method stub
 		
 	}
-	public String getStaffId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 }

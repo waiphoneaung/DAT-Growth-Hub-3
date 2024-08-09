@@ -232,7 +232,6 @@ public class InputFileServiceImpl implements InputFileService {
 							}
 							if(getCellValue(formulaEvaluator,cell).contains("25-") || getCellValue(formulaEvaluator,cell).contains("26-"))
 							{
-								userDto.setStaffId(getCellValue(formulaEvaluator,cell));
 								if (getCellValue(formulaEvaluator,cell).contains("25-"))
 								{
 									userDto.setGender("Male");
@@ -245,6 +244,7 @@ public class InputFileServiceImpl implements InputFileService {
 								{
 									userDto.setGender("Other");
 								}
+								userDto.setStaffId(getCellValue(formulaEvaluator,cell));
 							}
 							if(getCellValue(formulaEvaluator,cell).contains("Dept"))
 							{

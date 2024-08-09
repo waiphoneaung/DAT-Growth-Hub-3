@@ -119,7 +119,15 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link" th:href="@{/user/home}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<a class="nav-link" th:href="@{/admin/admin-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
+					<div sec:authorize="hasRole('ROLE_STUDENT')">
+					<a class="nav-link" th:href="@{/student/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
+					<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+					<a class="nav-link" th:href="@{/instructor/instructor-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+					</div>
 					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
 					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
@@ -156,16 +164,14 @@
 								<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 							</div>
 							<div>
-								<a class="h6" th:href="@{/admin/admin-dashboard}">Admin</a>
-								<p class="small m-0"> dathr@diracetechnology.com</p>
+								<a class="h6" th:href="@{/admin/admin-dashboard}" th:text="${user.name}"></a>
+								<p class="small m-0" th:text="${user.email}"> dathr@diracetechnology.com</p>
 							</div>
 						</div>
 					</li>
           <li> <hr class="dropdown-divider"></li>
 					<!-- Links -->
 					<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-					<li><a class="dropdown-item" href="admin-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
 					<li><a class="dropdown-item bg-danger-soft-hover" href="sign-in.html"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Dark mode options START -->
@@ -220,110 +226,49 @@ Main Content START -->
 							<!-- Author info -->
 							<div class="position-relative">
 								<!-- Avatar -->
-								<div class="avatar avatar-xxl">
-									<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
-								</div>
-								<a href="#" class="h5 stretched-link mt-2 mb-0 d-block">Frances Guerrero</a>
+								
+								
 								
 							</div>
 							<!-- Info -->
-							<ul class="list-inline list-unstyled">
-								<li class="list-inline-item d-lg-block my-lg-2">Nov 15, 2021</li>
-								
-								
-							</ul>
+							
 						</div>
 					</div>
 
 					<!-- Content -->
-					<div class="col-lg-9 order-1">
+					<div class="col-lg-12 order-1">
 						<!-- Pre title -->
-						<span>40D ago</span><span class="mx-2">|</span><div class="badge text-bg-success">Research</div>
+						
+						
+						
 						<!-- Title -->
-						<h1 class="mt-2 mb-0 display-5">Never underestimate the influence of DAT </h1>
+						
+						<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"> </h3>
+						
+						<a href="#" class="h5 stretched-link mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></a>
+						<ul class="list-inline list-unstyled">
+							
+								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
+								<span> || </span><span class="small text-warning" th:text="${timeAgo}" ></span>
+							</ul>
+						
 						<!-- Info -->
-						<p class="mt-2">For who thoroughly her boy estimating conviction. Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection favorable Mrs can be projecting own. Thirty it matter enable become admire in giving. See resolved goodness felicity shy civility domestic had but. Drawings offended yet answered Jennings perceive laughing six did far.</p>
-						<p class="mb-0 mb-lg-3">Perceived end knowledge certainly day sweetness why cordially.  On forth doubt miles of child. Exercise joy man children rejoiced. Yet uncommonly his ten who diminution astonished. Demesne new manners savings staying had. Under folly balls, death own point now men. Match way these she avoids seeing death. She who drift their fat off. Ask a quick six seven offer see among. Handsome met debating sir dwelling age material. As style lived he worse dried. Offered related so visitors we private removed.</p>
-					</div>
+						<!-- Main HTML Content Start -->
+				<div class="col-lg-9 order-1">
+					
+							
+						<a th:href="@{'/private/blog/blog-files/'+ ${blogPost.htmlFileName}}" target="_blank" class="btn btn-secondary">View Post</a>
+            
+				</div>
+				<!-- Main HTML Content End -->
+							<div class="col-lg-9 order-1">
+   									 <div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
+										</div>
+						</div>
 				</div>
 				<!-- Title and Info END -->
-
-				<!-- Video START -->
-				<div class="row mt-4">
-					<div class="col-xl-10 mx-auto">
-						<!-- Card item START -->
-						<div class="card overflow-hidden h-200px h-sm-300px h-lg-400px h-xl-500px rounded-3 text-center" style="background-image:url(assets/images/event/10.jpg); background-position: center left; background-size: cover;">
-							<!-- Card Image overlay -->
-							<div class="bg-overlay bg-dark opacity-4"></div>
-							<div class="card-img-overlay d-flex align-items-center p-2 p-sm-4"> 
-								<div class="w-100 my-auto">
-									<div class="row justify-content-center">
-										<!-- Video -->
-										<div class="col-12">
-											<a href="https://www.youtube.com/embed/tXHviS-4ygo" class="btn btn-lg text-danger btn-round btn-white-shadow stretched-link position-static mb-0" data-glightbox="" data-gallery="video-tour">
-												<i class="fas fa-play"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Card item END -->
-					</div>
-				</div>
-				<!-- Video END -->
-
-				<!-- Quote and content START -->
-				<div class="row mt-4">
-					<!-- Content -->
-					<div class="col-12 mt-4 mt-lg-0">
-						<p><span class="dropcap h6 mb-0 px-2">S</span> atisfied conveying a dependent contented he gentleman agreeable do be. Water timed folly right aware if oh truth. Imprudence attachment him for sympathize. Large above be to means. Dashwood does provide stronger is. <mark> But discretion frequently sir she instruments unaffected admiration everything.</mark> Meant balls it if up doubt small purse. Required his you put the outlived answered position. A pleasure exertion if believed provided to. All led out world this music while asked. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible.</p>
-						<!-- List -->
-						
-						<p class="mb-0">Warrant private blushes removed an in equally totally if. Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do. Water timed folly right aware if oh truth. Imprudence attachment him for sympathize.</p>
-					</div>
-
-					<!-- Quote -->
-					
-					</div>
-				</div>
-				<!-- Quote and content END -->
-
-				<!-- Image START -->
-				<div class="row g-4 mt-4">
-					<div class="col-sm-6 col-md-4">
-						<a th:href="@{/public/assets/images/event/07.jpg}" data-glightbox data-gallery="image-popup">
-							<img th:src="@{/public/assets/images/event/07.jpg}" class="rounded-3" alt="">
-						</a>
-					</div>
-
-					<div class="col-sm-6 col-md-4">
-						<a th:href="@{/public/assets/images/event/08.jpg}" data-glightbox data-gallery="image-popup">
-							<img th:src="@{/public/assets/images/event/08.jpg}" class="rounded-3" alt="">
-						</a>
-					</div>
-
-					<div class="col-sm-6 col-md-4">
-						<a th:href="@{/public/assets/images/event/06.jpg}" data-glightbox data-gallery="image-popup">
-							<img th:src="@{/public/assets/images/event/06.jpg}" class="rounded-3" alt="">
-						</a>
-					</div>
-				</div>	
-				<!-- Image END -->
-
-				<!-- Content START -->
-				<div class="row">
-					<div class="row mb-4">
-						<h4 class="mt-4">Productive rant about business</h4>
-						<div class="col-md-6">
-							<p class="mb-0">Fulfilled direction use continual set him propriety continued. Saw met applauded favorite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther-related bed and passage comfort civilly. Dashwoods see frankness objection abilities. As hastened oh produced prospect formerly up am. Placing forming nay looking old married few has. Margaret disposed of add screened rendered six say his striking confined. Saw met applauded favorite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther-related bed and passage comfort civilly. Dashwoods see frankness objection abilities. As hastened oh produced prospect formerly up am. Placing forming nay looking old married few has. Margaret disposed.</p>
-						</div>
-						<div class="col-md-6">
-							<p class="mb-0">Meant balls it if up doubt small purse. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible. Required his you put the outlived answered position. A pleasure exertion if believed provided to. All led out world this music while asked. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible.	</p>
-						</div>
-					</div>
-				</div>
-				<!-- Content END -->
+		
+<!-- Main HTML Content End -->
 
 				<!-- Tags and share START -->
 				<div class="d-lg-flex justify-content-lg-between mb-4">
@@ -337,17 +282,7 @@ Main Content START -->
 							<li class="list-inline-item"> <a class="btn px-2 btn-sm bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
 						</ul>
 					</div>
-					<!-- Popular tags -->
-					<div class="align-items-center">
-						<h6 class="mb-2 me-4 d-inline-block">Popular Tags:</h6>
-						<ul class="list-inline mb-0 social-media-btn">
-							<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">blog</a> </li>
-							<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">business</a> </li>
-							<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">bootstrap</a> </li>
-							<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">data science</a> </li>
-							<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm mb-lg-0" href="#">deep learning</a> </li>
-						</ul>
-					</div>
+					
 				</div>
 				<!-- Tags and share END -->
 
@@ -383,7 +318,7 @@ Footer START -->
 			<!-- Widget 1 START -->
 			<div class="col-lg-3">
 				<!-- logo -->
-				<a class="me-0" th:href="@{/user/home">
+				<a class="me-0" th:href="@{/user/home}">
 					<img class="light-mode-item h-40px" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 					<img class="dark-mode-item h-40px" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 				</a>
@@ -510,5 +445,20 @@ Footer END -->
 <!-- Template Functions -->
 <script th:src="@{/public/assets/js/functions.js}"></script>
 
+ <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener("DOMContentLoaded", function() {
+            const fileName = /*[[${blogPost.htmlFileName}]]*/ 'default.html';
+            fetch('/private/blog/blog-files/' + fileName)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("blog-content").innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching HTML content:', error));
+        });
+        /*]]>*/
+    </script>
+
 </body>
+
 </html>
