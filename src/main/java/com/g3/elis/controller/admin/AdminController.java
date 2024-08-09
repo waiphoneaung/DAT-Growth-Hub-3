@@ -32,10 +32,4 @@ public class AdminController {
 		model.addAttribute("content", "admin/admin-setting");
 		return "/admin/admin-layout";
 	}
-
-	@GetMapping("/admin-edit-profile")
-	public String adminEditProfile(Model model) {
-		model.addAttribute("content", "admin/admin-edit-profile");
-		return "/admin/admin-layout";
-	}
 }
