@@ -19,36 +19,36 @@ import com.g3.elis.service.UserService;
 @RequestMapping("/admin")
 public class InstructorListController {
 
-    @Autowired
-    UserService userService;
-    
-    @GetMapping("/admin-instructor-list")
-	public String adminInstructorList(Model model)
-	{
-		List<User> users = userService.getAllInstructors();
-	model.addAttribute("users",users);
-	model.addAttribute("content","admin/admin-instructor-list");
-	return "/admin/admin-layout";
-	}
-
-    @GetMapping("/admin-instructor-list/search")
-    public String searchInstructors(
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "staffId", required = false) String staffId,
-            @RequestParam(value = "dept", required = false) String dept,
-            @RequestParam(value = "division", required = false) String division,
-            Model model) {
-
-        List<User> users = userService.searchInstructors(name, staffId, dept, division);
-
-        model.addAttribute("users", users);
-        model.addAttribute("content", "admin/admin-instructor-list");
-        return "/admin/admin-layout";
-    }
-    
-    @PostMapping("/change-user-status")
-    public String changeUserStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
-        userService.updateUserStatus(id, enabled);
-        return "redirect:/admin/admin-instructor-list";
-    }
+//    @Autowired
+//    UserService userService;
+//    
+//    @GetMapping("/admin-instructor-list")
+//	public String adminInstructorList(Model model)
+//	{
+//		List<User> users = userService.getAllInstructors();
+//	model.addAttribute("users",users);
+//	model.addAttribute("content","admin/admin-instructor-list");
+//	return "/admin/admin-layout";
+//	}
+//
+//    @GetMapping("/admin-instructor-list/search")
+//    public String searchInstructors(
+//            @RequestParam(value = "name", required = false) String name,
+//            @RequestParam(value = "staffId", required = false) String staffId,
+//            @RequestParam(value = "dept", required = false) String dept,
+//            @RequestParam(value = "division", required = false) String division,
+//            Model model) {
+//
+//        List<User> users = userService.searchInstructors(name, staffId, dept, division);
+//
+//        model.addAttribute("users", users);
+//        model.addAttribute("content", "admin/admin-instructor-list");
+//        return "/admin/admin-layout";
+//    }
+//    
+//    @PostMapping("/change-user-status")
+//    public String changeUserStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
+//        userService.updateUserStatus(id, enabled);
+//        return "redirect:/admin/admin-instructor-list";
+//    }
 }

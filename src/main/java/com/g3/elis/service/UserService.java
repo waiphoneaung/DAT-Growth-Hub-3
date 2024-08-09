@@ -3,10 +3,7 @@ package com.g3.elis.service;
 import java.util.List;
 
 import com.g3.elis.dto.form.UserDto;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5763b4c43e1503ec5425ec1721f7e2e2f88448eb
 import com.g3.elis.model.User;
 
 public interface UserService {

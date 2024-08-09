@@ -22,44 +22,9 @@ public class AdminController
 		model.addAttribute("content","admin/admin-course-list");
 		return "/admin/admin-layout";
 	}
-	
-<<<<<<< HEAD
-	@GetMapping("/admin-student-list")
-	public String adminStudentList(Model model)
-	{
-		List<User> users = userService.getAllStudents();
-		model.addAttribute("users",users);
-		model.addAttribute("content","admin/admin-student-list");
-		return "/admin/admin-layout";
-	}
-	
-	@PostMapping("/admin-student-list") 
-	public String getEmployeeDataFromExcel(@RequestParam(name = "file",required = false)MultipartFile excelFile,Model model) throws IOException
-	{
-		model.addAttribute("content","admin/admin-student-list");
-		String errorMessage;
-		if(excelFile.isEmpty())
-		{
-			errorMessage = "File must not be empty!";
-			model.addAttribute("errorMessage",errorMessage);
-			return "/admin/admin-layout";
-		}
-		inputFileService.WriteEmployeeDataFromExcel(excelFile);
-		return "/admin/admin-layout";
-	}
-	@GetMapping("/admin-student-list/search")
-	public String adminStudentListSearch(@RequestParam("search")String name,Model model)
-	{
-		List<User> users = userService.searchUsersByName(name);
-		model.addAttribute("users",users);
-		model.addAttribute("content","admin/admin-student-list");
-		return "/admin/admin-layout";
-	}
-	
 
 
-=======
->>>>>>> 5763b4c43e1503ec5425ec1721f7e2e2f88448eb
+
 	@GetMapping("/admin-instructor-request")
 	public String adminInstructorRequest(Model model)
 	{
