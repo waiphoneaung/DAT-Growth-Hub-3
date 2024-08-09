@@ -90,9 +90,9 @@
 											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									</div>
 									<div>
-										<a class="h6" href="instructor-dashboard.html">Khine Khine
+										<a class="h6" th:href="@{/home}" th:text="${user.name}">Khine Khine
 											Soe</a>
-										<p class="small m-0">dathr@diracetechnology.com</p>
+										<p class="small m-0" th:text="${user.email}">dathr@diracetechnology.com</p>
 									</div>
 								</div>
 							</li>
@@ -103,7 +103,7 @@
 							<li><a class="dropdown-item" href="#"><i
 									class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 						
-							<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
+							<li><a class="dropdown-item bg-danger-soft-hover"th:href="@{/sign-out}"><i
 									class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 							<li>
 								<hr class="dropdown-divider">
