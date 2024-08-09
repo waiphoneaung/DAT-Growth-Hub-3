@@ -255,7 +255,7 @@
 
 													<!-- Table data -->
 													<td>
-														<form th:action="@{/admin/change-user-status}"
+														<form th:action="@{/admin/change-instructor-status}"
 															method="post"
 															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
 															<input type="hidden" name="id" th:value="${user.id}" />

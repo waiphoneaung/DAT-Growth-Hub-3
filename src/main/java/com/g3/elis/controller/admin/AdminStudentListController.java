@@ -57,5 +57,9 @@ public class AdminStudentListController
 		model.addAttribute("content","admin/admin-student-list");
 		return "/admin/admin-layout";
 	}
-
+	@PostMapping("/change-student-status")
+	public String changeStudentStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
+		userService.updateUserStatus(id, enabled);
+		return "redirect:/admin/admin-student-list";
+	}
 }
