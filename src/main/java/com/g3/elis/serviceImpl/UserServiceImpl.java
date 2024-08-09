@@ -1,7 +1,9 @@
 package com.g3.elis.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.UserDto;
@@ -20,9 +22,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public User getUserById(int id) {
@@ -49,19 +48,13 @@ public class UserServiceImpl implements UserService {
 		user.setDept(userDto.getDept());
 		user.setTeam(userDto.getTeam());
 		user.setStatus(userDto.getStatus());
+		user.setGender(userDto.getGender());
 		
 		user.setEnabled(true);
-		if(userDto.getPassword()!=null)
-		{
-			user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-		}
-		else
-		{ 	
-			user.setPassword(passwordEncoder.encode("dirace@1234"));
-		}
+		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
 		
 //		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
-		Role userRole = roleRepository.findByName("STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
+		Role userRole = roleRepository.findByName("ROLE_STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
 		
 		user.getRoles().add(userRole);
 		userRole.getUsers().add(user);
@@ -69,4 +62,56 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
-}
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public List<User> searchUsersByName(String name) {
+		return userRepository.findByNameContainingIgnoreCase(name);
+	}
+	@Override
+	public List<String> getEmailsByRole(String role) {
+        return userRepository.findEmailsByRole(role);
+    }
+
+	@Override
+	public List<User> getAllStudents() {
+		return userRepository.findByRole("ROLE_STUDENT");
+	}
+
+	@Override
+	public List<User> getAllInstructors() {
+		return userRepository.findByRole("ROLE_INSTRUCTOR");
+	}
+
+	@Override
+	public List<User> getAllAdmins() {
+		return userRepository.findByRole("ROLE_ADMIN");
+	}
+
+	@Override
+	public List<User> searchInstructorByName(String name) {
+		// TODO Auto-generated method stub
+		 return userRepository.findByNameContainingIgnoreCase(name);
+	}
+
+	@Override
+	public List<User> searchInstructors(String name, String staffId, String dept, String division) {
+		// TODO Auto-generated method stub
+		 return userRepository.searchInstructors(name, staffId, dept, division);
+	        
+	 }
+
+	@Override
+	public void updateUserStatus(int id, boolean enabled) {
+		
+	        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	        user.setEnabled(enabled);
+	        user.setStatus(enabled ? "Active" : "Unactive");
+	        userRepository.save(user);
+	    }
+	}
+	
+	

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+<!-- Favicon -->
+<link rel="shortcut icon" th:href="@{public/assets/images/favicon.ico}">
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/aos/aos.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/css/style.css}">
+
+</head>
+
+<body>
+
+
+	<!-- **************** MAIN CONTENT START **************** -->
+	<th:block th:fragment="admin-edit-course-detail">
+
+		<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+
+		<main>
+
+			<!-- =======================
+Page Banner START -->
+			<section
+				class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0"
+				style="background: url(/public/assets/images/pattern/04.png) no-repeat center center; background-size: cover;">
+				<!-- Main banner background image -->
+				<div class="container">
+					<div class="row">
+						<div class="col-12 text-center">
+							<!-- Title -->
+							<h1 class="text-white">Submit a new Course</h1>
+							<p class="text-white mb-0">
+								Read our <a href="#" class="text-white"><u>"Before you
+										create a course"</u></a> article before submitting!
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
+Page Banner END -->
+
+			<!-- =======================
+Steps START -->
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 mx-auto text-center">
+							<!-- Content -->
+							<p class="text-center">Use this interface to add a new Course
+								to the portal. Once you are done adding the item it will be
+								requested to admin. If admin approved, your course will appear
+								and inform to studentsthat your course has been accepted.</p>
+						</div>
+					</div>
+
+					<div class="card bg-transparent border rounded-3 mb-5">
+						<div id="stepper" class="bs-stepper stepper-outline">
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom px-lg-5">
+								<!-- Step Buttons START -->
+								<div class="bs-stepper-header" role="tablist">
+									<!-- Step 1 -->
+									<div class="step" data-target="#step-1">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger1" aria-controls="step-1">
+												<span class="bs-stepper-circle">1</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Course
+												details</h6>
+										</div>
+									</div>
+									<div class="line"></div>
+
+									<!-- Step 2 -->
+									<div class="step" data-target="#step-2">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger2" aria-controls="step-2">
+												<span class="bs-stepper-circle">2</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Course
+												thumbnail</h6>
+										</div>
+									</div>
+									<div class="line"></div>
+
+									<!-- Step 3 -->
+									<div class="step" data-target="#step-3">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger3" aria-controls="step-3">
+												<span class="bs-stepper-circle">3</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Curriculum</h6>
+										</div>
+									</div>
+
+								</div>
+								<!-- Step Buttons END -->
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body">
+								<!-- Step content START -->
+								<div class="bs-stepper-content">
+									<form th:action="@{/admin/admin-create-course}"
+										th:object="${superDto}" method="POST"
+										enctype="multipart/form-data">
+
+										<!-- Step 1 content START -->
+										<div id="step-1" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger1">
+											<!-- Title -->
+											<h4>Course details</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<!-- Basic information START -->
+											<div class="row g-4">
+												<!-- Course title -->
+												<div class="col-12">
+													<label class="form-label">Course title</label> <input
+														class="form-control" type="text"
+														th:field="*{courseDto.courseTitle}"
+														th:value="${superDto.courseDto.courseTitle}"
+														placeholder="Enter course title">
+												</div>
+
+												<!-- Short description -->
+												<div class="col-12">
+													<label class="form-label">Short description</label>
+													<textarea class="form-control" rows="2"
+														th:field="*{courseDto.courseDescription}"
+														th:value="${superDto.courseDto.courseDescription}"
+														placeholder="Enter keywords"></textarea>
+												</div>
+
+												<!-- Course category -->
+												<div class="col-md-12">
+													<label class="form-label">Course category</label> <select
+														class="form-select js-choice border-0 z-index-9 bg-transparent"
+														aria-label=".form-select-sm" data-search-enabled="true">
+														<option value>Select category</option>
+														<option>Engineer</option>
+														<option>Medical</option>
+														<option>Information technology</option>
+														<option>Finance</option>
+														<option>Marketing</option>
+													</select>
+												</div>
+
+												<!-- Course time -->
+												<div class="col-md-12">
+													<label class="form-label">Course time</label>
+													<div class="row">
+														<div class="col-12">
+															<input class="form-control" type="number"
+																th:field="*{courseDto.durationHour}"
+																th:value="${superDto.courseDto.durationHour}"
+																placeholder="Enter course time by hour">
+														</div>
+													</div>
+												</div>
+
+												<!-- Course description -->
+												<div class="col-12">
+													<label class="form-label">Add description</label>
+													<textarea th:field="*{courseDto.courseInfo}"
+														class="form-control" rows="12"
+														placeholder="Enter descriptions"></textarea>
+												</div>
+
+												<!-- Step 1 button -->
+												<div class="d-flex justify-content-between mt-3">
+													<a class="btn btn-warning next-btn mb-0"
+														th:href="@{/admin/admin-dashboard}">Dashboard</a>
+													<button class="btn btn-primary next-btn mb-0">Next</button>
+
+												</div>
+											</div>
+											<!-- Basic information START -->
+										</div>
+										<!-- Step 1 content END -->
+
+										<!-- Step 2 content START -->
+										<div id="step-2" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger2">
+											<!-- Title -->
+											<h4>Course Thumbnail</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<div class="row">
+												<!-- Upload image START -->
+												<div class="col-12">
+													<div
+														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
+														<!-- Image -->
+														<img th:src="@{/public/assets/images/element/gallery.svg}"
+															class="h-50px" alt>
+														<div>
+															<h6 class="my-2">
+																Upload course thumbnail here, or<a href="#!"
+																	class="text-primary"> Browse</a>
+															</h6>
+															<label style="cursor: pointer;"> <span> <input
+																	class="form-control stretched-link" type="file"
+																	name="imgFile" id="image"
+																	accept="image/gif, image/jpeg, image/png" />
+															</span>
+															</label>
+															<p class="small mb-0 mt-2">
+																<b>Note:</b> Only JPG, JPEG and PNG. Our suggested
+																dimensions are 600px * 450px. Larger image will be
+																cropped to 4:3 to fit our thumbnails/previews.
+															</p>
+														</div>
+													</div>
+
+													
+												</div>
+												<!-- Upload image END -->
+
+												<!-- Step 2 button -->
+												<div class="d-flex justify-content-between mt-3">
+													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<button class="btn btn-primary next-btn mb-0">Next</button>
+												</div>
+											</div>
+										</div>
+										<!-- Step 2 content END -->
+
+										<!-- Step 3 content START -->
+										<div id="step-3" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger3">
+											<!-- Title -->
+											<h4>Curriculum</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<div class="row">
+												<!-- Add Module Modal button -->
+												<div
+													class="d-sm-flex justify-content-sm-between align-items-center mb-3">
+													<h5 class="mb-2 mb-sm-0">Upload Module</h5>
+													<a href="#" class="btn btn-sm btn-primary-soft mb-0"
+														data-bs-toggle="modal" data-bs-target="#addLecture"><i
+														class="bi bi-plus-circle me-2"></i>Add Module</a>
+												</div>
+
+												<!-- Edit Module START -->
+												<div class="accordion accordion-icon accordion-bg-light"
+													id="accordionExample2">
+													<!-- Item START -->
+
+													<div th:each="moduleList,iterStat : *{courseModuleDtoList}">
+
+														<div class="accordion-item mb-3">
+															<h6 class="accordion-header font-base"
+																th:id="'heading-' + ${iterStat.index}">
+																<button
+																	class="accordion-button fw-bold rounded d-inline-block collapsed d-block pe-5"
+																	type="button" data-bs-toggle="collapse"
+																	th:attr="aria-controls='collapse-' + ${iterStat.index}, data-bs-target= '#collapse-' + ${iterStat.index}"
+																	aria-expanded="false"
+																	th:text="${moduleList.moduleTitle}"></button>
+															</h6>
+
+															<div th:id="'collapse-' + ${iterStat.index}"
+																class="accordion-collapse collapse show"
+																th:attr="aria-labelledby='heading-' + ${iterStat.index}"
+																data-bs-parent="#accordionExample2">
+																<!-- Material START -->
+																<div class="accordion-body mt-3">
+
+																	<!-- Material item START -->
+																	<div th:each="materialList : *{courseMaterialDtoList}">
+
+																		<div
+																			th:if="${materialList.index} == ${iterStat.index}">
+																			<div
+																				class="d-flex justify-content-between align-items-center">
+																				<div class="position-relative">
+																					<a href="#"
+																						class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static"><i
+																						class="fas fa-play"></i></a> <span
+																						th:text="${materialList.title}"
+																						class="ms-2 mb-0 h6 fw-light"></span>
+																				</div>
+																				<!-- Edit and cancel button -->
+																				<div>
+																					<a href="#"
+																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
+																						class="far fa-fw fa-edit"></i></a>
+																					<button
+																						class="btn btn-sm btn-danger-soft btn-round mb-0">
+																						<i class="fas fa-fw fa-times"></i>
+																					</button>
+																				</div>
+																			</div>
+																			<!-- Divider -->
+																			<hr>
+																		</div>
+
+																	</div>
+																	<!-- Material item END -->
+																	<!-- Add course Material -->
+																	<a href="#" class="btn btn-sm btn-dark mb-0"
+																		data-bs-toggle="modal" data-bs-target="#addTopic"
+																		th:data-id="${iterStat.index}"><i
+																		class="bi bi-plus-circle me-2"></i>Add Course Material</a>
+
+																	<!-- Add Quiz 
+																	<a th:href="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}"
+																		
+																		class="btn btn-sm btn-dark mb-0"> <i
+																		class="bi bi-plus-circle me-2"></i>Add assignment
+																	</a>
+																	<!-- Material END th:href="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}" -->
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<!-- Item END -->
+
+
+
+												</div>
+												<!-- Edit Module END -->
+
+												<!-- Step 3 button -->
+												<div class="d-flex justify-content-between">
+													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<div class="text-md-end">
+														<button type="submit" class="btn btn-success mb-2 mb-sm-0">Submit
+															a Course</button>
+													</div>
+												</div>
+												<div class="mt-2">
+													<p class="mb-0 small mt-1">Once you click "Submit a
+														Course", your course will be uploaded and marked as
+														pending for review.</p>
+												</div>
+											</div>
+										</div>
+										<!-- Step 3 content END -->
+
+									</form>
+								</div>
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
+Steps END -->
+
+			<!-- Popup modal for add module START -->
+			<div class="modal fade" id="addLecture" tabindex="-1"
+				aria-labelledby="addLectureLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-dark">
+							<h5 class="modal-title text-white" id="addLectureLabel">Add
+								Module</h5>
+							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+								data-bs-dismiss="modal" aria-label="Close">
+								<i class="bi bi-x-lg"></i>
+							</button>
+						</div>
+						<form th:action="@{/admin/admin-create-course/add-module}"
+							method="POST" class="row text-start g-3">
+							<div class="modal-body">
+
+								<!-- Course name -->
+								<div class="col-12">
+									<label class="form-label">Module name <span
+										class="text-danger">*</span></label> <input type="text"
+										name="module-title" class="form-control"
+										placeholder="Enter module name">
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger-soft my-0"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-success my-0">Save
+									Module</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Popup modal for add module END -->
+
+			<!-- Popup modal for add Material START -->
+			<div th:each="moduleList,iterStat : ${superDto.courseModuleDtoList}">
+				<div class="modal modal-lg fade" id="addTopic" tabindex="-1"
+					aria-labelledby="addTopicLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<form th:action="@{/admin/admin-create-course/add-material}"
+							class="row text-start g-3" method="POST"
+							enctype="multipart/form-data">
+							<div class="modal-content">
+								<div class="modal-header bg-dark">
+									<h5 class="modal-title text-white" id="addTopicLabel">Add
+										course material</h5>
+									<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+										data-bs-dismiss="modal" aria-label="Close">
+										<i class="bi bi-x-lg"></i>
+									</button>
+								</div>
+								<div class="modal-body">
+									<!--  Working Code. Do not Delete
+									<input type="hidden" th:value="${iterStat.index}"
+										name="courseModuleIndex">-->
+
+									<input type="hidden" id="index" name="courseModuleIndex">
+
+									<!-- Title name -->
+									<div class="col-md-6">
+										<label class="form-label"></label> <input name="title"
+											class="form-control" type="text"
+											placeholder="Enter name for title">
+									</div>
+									<!-- Video link -->
+									<div class="col-md-6">
+										<label class="form-label">Video link</label> <input
+											name="video" class="form-control" type="text"
+											placeholder="Enter Video link">
+									</div>
+									<!-- Course description -->
+									<div class="col-12">
+										<label class="form-label">Add description</label>
+										<!-- Editor toolbar -->
+										<div class="bg-light border border-bottom-0 rounded-top py-3"
+											id="quilltoolbar2">
+											<span class="ql-formats"> <select class="ql-size"></select>
+											</span> <span class="ql-formats">
+												<button class="ql-bold"></button>
+												<button class="ql-italic"></button>
+												<button class="ql-underline"></button>
+												<button class="ql-strike"></button>
+											</span> <span class="ql-formats"> <select class="ql-color"></select>
+												<select class="ql-background"></select>
+											</span> <span class="ql-formats">
+												<button class="ql-code-block"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-list" value="ordered"></button>
+												<button class="ql-list" value="bullet"></button>
+												<button class="ql-indent" value="-1"></button>
+												<button class="ql-indent" value="+1"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-link"></button>
+												<button class="ql-image"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-clean"></button>
+											</span>
+										</div>
+
+										<!-- Main toolbar -->
+										<div
+											class="bg-body border rounded-bottom h-400px overflow-hidden"
+											id="quilleditor2">
+											<br>
+											<h1>Quill Rich Text Editor</h1>
+											<br>
+											<p>Quill is a free, open-source WYSIWYG editor built for
+												the modern web. With its modular architecture and expressive
+												API, it is completely customizable to fit any need.</p>
+											<br>
+
+											<p>Post no so what deal evil rent by real in. But her
+												ready least set lived spite solid. September how men saw
+												tolerably two behavior arranging. She offices for highest
+												and replied one venture pasture. Applauded no discovery in
+												Blogspaper allowance am northward. Frequently partiality
+												possession resolution at or appearance unaffected me.
+												Engaged its was the evident pleased husband. Ye goodness
+												felicity do disposal dwelling no. First am plate jokes to
+												began to cause a scale. Subjects he prospect elegance
+												followed no overcame possible it on.</p>
+										</div>
+									</div>
+									<!-- Buttons -->
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger-soft my-0"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-success my-0">Save
+										Course Material</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Popup modal for add material END -->
+
+			<!-- Popup modal for add Assignment START 
+			<div class="modal fade" id="addAssignment" tabindex="-1"
+				aria-labelledby="addAssignmentLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-dark">
+							<h5 class="modal-title text-white" id="addAssignmentLabel">Add
+								Assignment</h5>
+							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+								data-bs-dismiss="modal" aria-label="Close">
+								<i class="bi bi-x-lg"></i>
+							</button>
+						</div>
+						<form
+							th:action="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}"
+							method="POST" class="row text-start g-3">
+							<div class="modal-body">
+
+								<!-- Course name 
+								<div class="col-12">
+									<label class="form-label">Assignment name <span
+										class="text-danger">*</span></label> <input type="text"
+										name="assignment-title" class="form-control"
+										placeholder="Enter assignment name">
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger-soft my-0"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-success my-0">Save
+									Assignment</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Popup modal for add Assignment END -->
+		</main>
+	</th:block>
+	<!-- Scripts -->
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Initialize Quill editors -->
+	<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		var toolbarOptions = [
+			[{ 'size': [] }],
+			['bold', 'italic', 'underline', 'strike'],
+			[{ 'color': [] }, { 'background': [] }],
+			[{ 'code-block': 'code-block' }],
+			[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+			[{ 'indent': '-1' }, { 'indent': '+1' }],
+			['link', 'image'],
+			['clean']
+		];
+
+		var quill1 = new Quill('#quilleditor1', {
+			modules: {
+				toolbar: '#quilltoolbar1'
+			},
+			theme: 'snow'
+		});
+
+		var quill2 = new Quill('#quilleditor2', {
+			modules: {
+				toolbar: '#quilltoolbar2'
+			},
+			theme: 'snow'
+		});
+	});
+	var myModal = document.getElementById('addTopic');
+    myModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+        // Extract info from data-* attributes
+        var courseMaterialId = button.getAttribute('data-id');
+        // Update the modal's content.
+        var input = myModal.querySelector('#index');
+        input.value = courseMaterialId;
+    });
+</script>
+</body>
+</html>
+

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head >
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
     <title>Home</title>
 </head>
 <body>
  <th:block th:fragment="user-about">
- <main>
-=======
-    <title>About</title>
-</head>
-<body>
- <th:block th:fragment="user-about">
  
+ <!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/aos/aos.css}">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
 	
 <!-- =======================
 Page Banner START -->
@@ -65,19 +66,11 @@ Page Banner START -->
 				<div class="row g-4">
 					<!-- Image -->
 					<div class="col-10 col-lg-6">
-<<<<<<< HEAD
 						<img class="rounded-4" th:src="@{/public/assets/images/about/05.jpg}" alt="">
 					</div>
 					<!-- Image -->
 					<div class="col-12">
 						<img class="rounded-4" th:src="@{/public/assets/images/about/03.jpg}" alt="">
-=======
-						<img class="rounded-4" src="assets/images/about/05.jpg" alt="">
-					</div>
-					<!-- Image -->
-					<div class="col-12">
-						<img class="rounded-4" src="assets/images/about/03.jpg" alt="">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
 					</div>
 				</div>
 			</div>
@@ -91,11 +84,8 @@ Page Banner START -->
 					</svg>
 				</figure>
 				<!-- Image -->
-<<<<<<< HEAD
 				<img class="rounded-4" th:src="@{/public/assets/images/about/09.jpg}" alt="">
-=======
-				<img class="rounded-4" src="assets/images/about/09.jpg" alt="">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
+		
 			</div>
 
 			<!-- Right image -->
@@ -110,11 +100,8 @@ Page Banner START -->
 					</div>
 					<!-- Image -->
 					<div class="col-sm-6 col-md-12 col-lg-6">
-<<<<<<< HEAD
 						<img class="rounded-4" th:src="@{/public/assets/images/about/10.jpg}" alt="">
-=======
-						<img class="rounded-4" src="assets/images/about/10.jpg" alt="">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
+						
 					</div>
 				</div>
 			</div>
@@ -208,7 +195,7 @@ About founder START -->
 				</figure>
 
 				<!-- Image -->
-				<img src="assets/images/about/06.jpg" class="rounded" alt="">
+				<img th:src="@{/public/assets/images/about/06.jpg}" class="rounded" alt="">
 			</div>
 
 			<div class="col-lg-7 mt-4 mt-lg-0">
@@ -255,127 +242,13 @@ About founder START -->
 		</div>
 	</div>
 </section>
-<!-- =======================
-About founder END -->
-
-
-
-<!-- =======================
-Award and Team START -->
-<section>
-	<div class="container">
-		<div class="row">
-
-			<!-- Our team START -->
-			<div class="col-md-12">
-				<!-- Title and button -->
-				<div class="d-sm-flex justify-content-sm-between">
-					<h2 class="mb-0">Meet Our Team</h2>
-				</div>
-				
-				<!-- Slider START -->
-				<div class="tiny-slider arrow-round arrow-creative arrow-blur arrow-hover mt-2 mt-sm-5">
-					<div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-dots="false" data-items="4" data-items-lg="3" data-items-md="2">
-
-						<!-- Avatar item -->
-						<div class="text-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xxl mb-3">
-<<<<<<< HEAD
-								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
-=======
-								<img class="avatar-img rounded-circle" src="assets/images/avatar/01.jpg" alt="avatar">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0"><a href="#">Khine Khine Soe</a></h6>
-							<p class="mb-0 small">Designer</p>
-							
-						</div>
-
-						<!-- Avatar item -->
-						<div class="text-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xxl mb-3">
-<<<<<<< HEAD
-								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/02.jpg}" alt="avatar">
-=======
-								<img class="avatar-img rounded-circle" src="assets/images/avatar/02.jpg" alt="avatar">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0"><a href="#">Myint Myat Thu</a></h6>
-							<p class="mb-0 small">IT professor</p>
-							
-						</div>
-
-						<!-- Avatar item -->
-						<div class="text-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xxl mb-3">
-<<<<<<< HEAD
-								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
-=======
-								<img class="avatar-img rounded-circle" src="assets/images/avatar/09.jpg" alt="avatar">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0"><a href="#">Hnin Wutt Yi</a></h6>
-							<p class="mb-0 small">Developer</p>
-							
-						</div>
-
-						<!-- Avatar item -->
-						<div class="text-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xxl mb-3">
-<<<<<<< HEAD
-								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/04.jpg}" alt="avatar">
-=======
-								<img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt="avatar">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0"><a href="#">Moe Kyaw Swar</a></h6>
-							<p class="mb-0 small">Designer</p>
-							
-						</div>
-
-						<!-- Avatar item -->
-						<div class="text-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xxl mb-3">
-<<<<<<< HEAD
-								<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/10.jpg}" alt="avatar">
-=======
-								<img class="avatar-img rounded-circle" src="assets/images/avatar/10.jpg" alt="avatar">
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0"><a href="#">Wai Phone Aung</a></h6>
-							<p class="mb-0 small">Medical Professor</p>
-							
-						</div>
-					</div>
-				</div>	
-				<!-- Slider END -->
-			</div>
-			<!-- Our team END -->
-		</div>
-	</div>
-</section>
-<!-- =======================
-Award and Team END -->
 
 </main>
-<<<<<<< HEAD
+<script th:src="@{public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
+<script th:src="@{public/assets/vendor/glightbox/js/glightbox.js}"></script>
+<script th:src="@{public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+
  </th:block>
 </body>
 </html>
-=======
 <!-- **************** MAIN CONTENT END **************** -->
- 
- </th:block>
- </body>
- </html>
->>>>>>> 385eea6473a6f01146eccf5c74b4645c8b612385

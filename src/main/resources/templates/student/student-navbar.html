@@ -13,9 +13,9 @@
 	<nav class="navbar navbar-expand-xl">
 		<div class="container-fluid px-3 px-xl-5">
 			<!-- Logo START -->
-			<a class="navbar-brand" th:href="@{/student-dashboard}">
-				<img class="light-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" th:src="@{public/assets/images/DAT Logo.png}" alt="logo">
+			<a class="navbar-brand" th:href="@{/student/student-dashboard}">
+				<img class="light-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 			</a>
 			<!-- Logo END -->
 
@@ -34,10 +34,10 @@
 				<!-- Nav Main menu START -->
 				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student-dashboard}">Dashboard</a>
-					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student-course-list}">Courses</a>
-					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/blog}" >Blogs</a>
-					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/forum}" >Forum</a>
+					<a class="nav-link" th:classappend= "${content} == 'student-dashboard' ? 'active':''" th:href="@{/student/student-dashboard}">Dashboard</a>
+					<a class="nav-link" th:classappend="${content} == 'student-course-list' ? 'active':''" th:href="@{/student/student-course-list}">Courses</a>
+					<a class="nav-link" th:classappend="${content} == 'blogs' ? 'active':''" th:href="@{/student/student-view-blog}" >Blogs</a>
+					<a class="nav-link" th:classappend="${content} == 'forum' ? 'active':''" th:href="@{/authenticated-user/forum}" >Forum</a>
 					
 					
 				</ul>
@@ -61,7 +61,7 @@
 			<!-- Profile START -->
 			<div class="dropdown ms-1 ms-lg-0">
 				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="avatar-img rounded-circle" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+					<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 				</a>
 				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
 					<!-- Profile info -->
@@ -69,20 +69,18 @@
 						<div class="d-flex align-items-center">
 							<!-- Avatar -->
 							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 							</div>
 							<div>
-								<a class="h6" th:href="@{/student-dashboard}">Student</a>
-								<p class="small m-0"> dathr@diracetechnology.com</p>
+								<a class="h6" th:href="@{/student/student-dashboard}" th:text="${user.name}">Student</a>
+								<p class="small m-0" th:text="${user.email}"> dathr@diracetechnology.com</p>
 							</div>
 						</div>
 					</li>
           <li> <hr class="dropdown-divider"></li>
 					<!-- Links -->
-					<li><a class="dropdown-item" th:href="@{/student-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-					<li><a class="dropdown-item" th:href="@{/student-setting}"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-					<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-in}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li><a class="dropdown-item" th:href="@{/student/student-edit-profile}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 					<li> <hr class="dropdown-divider"></li>
 					<!-- Dark mode options START -->
 					<li>

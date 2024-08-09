@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head >
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
  <th:block th:fragment="user-main">
+ 
+    <link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+    
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
 	
@@ -170,7 +175,9 @@ Main Banner START -->
 
 				<div class="d-sm-flex align-items-center justify-content-center justify-content-lg-start">
 					<!-- Button -->
-					<a href="#" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
+
+					<a th:href="@{/auth/login}" class="btn btn-lg btn-danger-soft me-2 mb-4 mb-sm-0">Get Started</a>
+
 					<!-- Video button -->
 					<div class="d-flex align-items-center justify-content-center py-2 ms-0 ms-sm-4">
 						<a data-glightbox data-gallery="office-tour" href="https://youtu.be/0jNm2La-9uM?list=RD0jNm2La-9uM" class="btn btn-round btn-primary-shadow mb-0 overflow-visible me-7"> 
@@ -219,13 +226,13 @@ Main Banner START -->
 				</figure>
 				<!-- Icon logos START -->
 				<div class="p-2 bg-white shadow rounded-3 position-absolute top-50 start-0 translate-middle-y mt-n7 d-none d-sm-block">
-					<img th:src="@{public/assets/images/client/science.svg}" alt="Icon">
+					<img th:src="@{/public/assets/images/client/science.svg}" alt="Icon">
 				</div>
 				<div class="p-2 bg-white shadow rounded-3 position-absolute top-0 end-0 me-5">
-					<img th:src="@{public/assets/images/client/angular.svg}" alt="Icon">
+					<img th:src="@{/public/assets/images/client/angular.svg}" alt="Icon">
 				</div>
 				<div 	class="p-2 bg-white shadow rounded-3 position-absolute top-50 end-0 translate-middle-y mt-5 ms-5 d-none d-lg-block z-index-9">
-					<img th:src="@{public/assets/images/client/figma.svg}" alt="Icon">
+					<img th:src="@{/public/assets/images/client/figma.svg}" alt="Icon">
 				</div>
 				<!-- Icon logos END -->
 
@@ -244,16 +251,16 @@ Main Banner START -->
 					<!-- Avatar group -->
 					<ul class="avatar-group mb-0">
 						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" th:src="@{public/assets/images/avatar/01.jpg}" alt="avatar">
+							<img class="avatar-img rounded-circle border-white" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 						</li>
 						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" th:src="@{public/assets/images/avatar/02.jpg}" alt="avatar">
+							<img class="avatar-img rounded-circle border-white" th:src="@{/public/assets/images/avatar/02.jpg}" alt="avatar">
 						</li>
 						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" th:src="@{public/assets/images/avatar/03.jpg}" alt="avatar">
+							<img class="avatar-img rounded-circle border-white" th:src="@{/public/assets/images/avatar/03.jpg}" alt="avatar">
 						</li>
 						<li class="avatar avatar-sm">
-							<img class="avatar-img rounded-circle border-white" th:src="@{public/assets/images/avatar/04.jpg}" alt="avatar">
+							<img class="avatar-img rounded-circle border-white" th:src="@{/public/assets/images/avatar/04.jpg}" alt="avatar">
 						</li>
 						<li class="avatar avatar-sm">
 							<div class="avatar-img rounded-circle border-white bg-primary">
@@ -264,7 +271,7 @@ Main Banner START -->
 				</div>
 				<!-- Image -->
 				<div class="position-relative ms-sm-4">
-					 <img th:src="@{public/assets/images/element/07.png}" alt=""> 
+					 <img th:src="@{/public/assets/images/element/07.png}" alt=""> 
 					<!-- <img src="assets/images/element/user-student-two.png" alt="student-photo">  -->
 				</div>
 			</div>
@@ -375,7 +382,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
 							<!-- Card body -->
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
@@ -404,7 +411,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -429,7 +436,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/03.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/03.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -454,7 +461,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -479,7 +486,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/11.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/11.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -511,7 +518,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/05.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/05.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -536,7 +543,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/06.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/06.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -561,7 +568,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -593,7 +600,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -618,7 +625,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -643,7 +650,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -676,7 +683,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/01.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/01.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -701,7 +708,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -732,7 +739,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -757,7 +764,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{public/assets/images/courses/4by3/09.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/09.jpg}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								
@@ -789,6 +796,10 @@ Popular course END -->
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
+
+<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
 
 </th:block>
 </body>

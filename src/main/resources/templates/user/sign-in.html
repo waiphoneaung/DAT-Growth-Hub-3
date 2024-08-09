@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
 <!-- Meta Tags -->
@@ -69,19 +70,20 @@
 	</script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" th:href="@{public/assets/images/favicon.ico}">
+	<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
-	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com/">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
 	<!-- Plugins CSS -->
-	<link rel="stylesheet" href="../public/assets/vendor/font-awesome/css/all.min.css">
-	<link rel="stylesheet" href="../public/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
 
 	<!-- Theme CSS -->
-	<link rel="stylesheet" href="../public/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
+	
 
 </head>
 
@@ -94,15 +96,15 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!-- left -->
-				<div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
-					<div class="p-3 p-lg-5">
+				<div class="col-12 col-lg-6 d-none d-md-flex align-items-center justify-content-center bg-primary bg-opacity-10 vh-lg-100">
+					<div class="p-3 p-lg-5 ">
 						<!-- Title -->
 						<div class="text-center">
 							<h2 class="fw-bold">Welcome to our largest community</h2>
 							<p class="mb-0 h6 fw-light">Let's learn something new today!</p>
 						</div>
 						<!-- SVG Image -->
-						<img th:src="@{public/assets/images/element/02.svg}" class="mt-5" alt="">
+						<img th:src="@{/public/assets/images/element/02.svg}" class="mt-5" alt="">
 					</div>
 				</div>
 
@@ -110,10 +112,13 @@
 				<div class="col-12 col-lg-6 m-auto">
 					<div class="row my-5">
 						<div class="col-sm-10 col-xl-8 m-auto">
-							<!-- Title -->
-							<span class="mb-0 fs-1">👋</span>
+							
+						<!-- Title -->
+						<div class= "text-center">
+							<span class="mb-0 fs-1 ">👋</span>
 							<h1 class="fs-2">Login into<br> DAT E-Learning Hub!</h1>
 							<p class="lead mb-4">Nice to see you! Please log in with your account.</p>
+							</div>
 							<!-- Form START -->
 							<form method="post" action="/signIn">
 								<!-- Staff ID -->
@@ -129,7 +134,7 @@
 									<label for="password" class="form-label">Password *</label>
 									<div class="input-group input-group-lg">
 										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
-										<input id="password" name="password" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="password">
+										<input id="password" name="password" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="Password">
 									</div>
 									<div id="passwordHelpBlock" class="form-text">
 										Your password must be 8 characters at least 
@@ -138,12 +143,12 @@
 								<!-- Checkbox -->
 								<div class="mb-4 d-flex justify-content-between">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="exampleCheck1">
-										<label class="form-check-label" for="exampleCheck1">Remember me</label>
+										<input type="checkbox" class="form-check-input" id="rememberCheck" name="remember-me">
+										<label class="form-check-label" for="rememberCheck">Remember me</label>
 									</div>
 									<div class="text-primary-hover">
-										<a href="forgot-password.html" class="text-secondary">
-											<u>Forgot password?</u>
+										<a th:href="@{/auth/forgot-password}" class="text-secondary">
+											 Forgot password?
 										</a>
 									</div>
 								</div>
@@ -155,8 +160,6 @@
 								</div>
 							</form> 	
 							<!-- Form END -->
-
-							
 						</div>
 					</div> <!-- Row END -->
 				</div>
@@ -170,12 +173,10 @@
 <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
 
 <!-- Bootstrap JS -->
-<script src="../public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
 <!-- Template Functions -->
-<script src="../public/assets/js/functions.js"></script>
+<script th:src="@{/public/assets/js/functions.js}"></script>
 
 </body>
-
-<!-- Mirrored from diracetechnology.com/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:22:55 GMT -->
 </html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="admin-instructor-list">
+			<!-- Page content START -->
+			<div class="page-content">
+				<!-- Page main content START -->
+				<div class="page-content-wrapper border">
+
+					<!-- Title -->
+					<div class="row">
+						<div class="col-12">
+							<h1 class="h3 mb-2 mb-sm-0">Instructors</h1>
+						</div>
+					</div>
+
+					<!-- Card START -->
+					<div class="card bg-transparent">
+
+						<!-- Card header START -->
+						<div class="card-header bg-transparent border-bottom px-0">
+							<!-- Search and select START -->
+							<div class="row g-3 align-items-center justify-content-between">
+
+								<!-- Search bar -->
+								<div class="col-md-8">
+									<form class="rounded position-relative"
+										th:action="@{/admin/admin-instructor-list/search}"
+										method="get">
+										<div class="row g-3">
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="name" placeholder="Name" aria-label="Search by Name">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="staffId" placeholder="Staff ID"
+													aria-label="Search by Staff ID">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="department" placeholder="Department"
+													aria-label="Search by Department">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="division" placeholder="Division"
+													aria-label="Search by Division">
+											</div>
+											<div class="col-md-3">
+												<button class="btn btn-primary" type="submit">
+													<i class="fas fa-search fs-6"></i> Search
+												</button>
+											</div>
+										</div>
+									</form>
+
+								</div>
+
+								<!-- Tab buttons -->
+								<div class="col-md-3">
+									<!-- Tabs START -->
+									<ul
+										class="list-inline mb-0 nav nav-pills nav-pill-dark-soft border-0 justify-content-end"
+										id="pills-tab" role="tablist">
+										<!-- Grid tab -->
+										<li class="nav-item"><a href="#nav-preview-tab-1"
+											class="nav-link mb-0 me-2 active" data-bs-toggle="tab"> <i
+												class="fas fa-fw fa-th-large"></i>
+										</a></li>
+										<!-- List tab -->
+										<li class="nav-item"><a href="#nav-html-tab-1"
+											class="nav-link mb-0" data-bs-toggle="tab"> <i
+												class="fas fa-fw fa-list-ul"></i>
+										</a></li>
+									</ul>
+									<!-- Tabs end -->
+								</div>
+							</div>
+							<!-- Search and select END -->
+						</div>
+						<!-- Card header END -->
+
+						<!-- Card body START -->
+						<div class="card-body px-0">
+							<!-- Tabs content START -->
+							<div class="tab-content">
+
+								<!-- Tabs content item START -->
+								<div class="tab-pane fade show active" id="nav-preview-tab-1">
+									<div class="row g-4">
+
+										<!-- Card item START -->
+										<div th:each="user : ${users}"  class="col-md-6 col-xxl-4">
+											<div class="card bg-transparent border h-100">
+												<!-- Card header -->
+												<div
+													class="card-header bg-transparent border-bottom d-flex justify-content-between">
+													<div class="d-sm-flex align-items-center">
+														<!-- Avatar -->
+														<div class="avatar avatar-md flex-shrink-0">
+															<img class="avatar-img rounded-circle"
+																th:src="@{/public/assets/images/avatar/01.jpg}"
+																alt="avatar">
+														</div>
+														<!-- Info -->
+														<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+															<h5 class="mb-0">
+																<a href="#" th:text="${user.name}"></a>
+															</h5>
+															<span class="text-body small" th:text="${user.division}"><i
+																class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i></span>
+														</div>
+													</div>
+
+													<!-- Edit dropdown -->
+													<div class="dropdown text-end">
+														<a href="#"
+															class="btn btn-sm btn-light btn-round small mb-0"
+															role="button" id="dropdownShare2"
+															data-bs-toggle="dropdown" aria-expanded="false"> <i
+															class="bi bi-three-dots fa-fw"></i>
+														</a>
+														<!-- dropdown button -->
+														<ul
+															class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+															aria-labelledby="dropdownShare2">
+															<li><a class="dropdown-item" href="#"><i
+																	class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
+															<li><a class="dropdown-item" href="#"><i
+																	class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
+														</ul>
+													</div>
+												</div>
+
+												<div class="card-body">
+													<!-- Payments -->
+													<div
+														class="d-flex justify-content-between align-items-center mb-3">
+														<div class="d-flex align-items-center">
+															<div
+																class="icon-md bg-success bg-opacity-10 text-success rounded-circle flex-shrink-0">
+																<i class="bi bi-currency-dollar fa-fw"></i>
+															</div>
+															<h6 class="mb-0 ms-2 fw-light">Staff-ID</h6>
+														</div>
+														<span class="mb-0 fw-bold" th:text="${user.staffId}"></span>
+													</div>
+
+													<!-- Total courses -->
+													<div
+														class="d-flex justify-content-between align-items-center mb-3">
+														<div class="d-flex align-items-center">
+															<div
+																class="icon-md bg-purple bg-opacity-10 text-purple rounded-circle flex-shrink-0">
+																<i class="fas fa-book fa-fw"></i>
+															</div>
+															<h6 class="mb-0 ms-2 fw-light">Total Course</h6>
+														</div>
+														<span class="mb-0 fw-bold">21</span>
+													</div>
+
+												</div>
+
+												<!-- Card footer -->
+												<div class="card-footer bg-transparent border-top">
+													<div
+														class="d-flex justify-content-between align-items-center">
+														<!-- Rating star -->
+														<a th:href="@{/admin/admin-instructor-detail}"
+															class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Details</a>
+														<!-- Message button -->
+														<a href="#" class="btn btn-link text-body p-0 mb-0"
+															data-bs-toggle="tooltip" data-bs-placement="top" title=""
+															data-bs-original-title="Message" aria-label="Message"></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Card item END -->
+									</div>
+									<!-- Row END -->
+								</div>
+								<!-- Tabs content item END -->
+
+								<!-- Tabs content item START -->
+								<div class="tab-pane fade" id="nav-html-tab-1">
+									<!-- Table START -->
+									<div class="table-responsive border-0">
+										<table
+											class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+											<!-- Table head -->
+											<thead>
+												<tr>
+													<th scope="col" class="border-0 rounded-start">Instructor
+														name</th>
+													<th scope="col" class="border-0">Staff-ID</th>
+													<th scope="col" class="border-0">Courses</th>
+													<th scope="col" class="border-0">Department</th>
+													<th scope="col" class="border-0">Team</th>
+													<th scope="col" class="border-0">Email</th>
+													<th scope="col" class="border-0">Status</th>
+
+													<th scope="col" class="border-0 rounded-end">Action</th>
+												</tr>
+											</thead>
+
+											<!-- Table body START -->
+											<tbody>
+
+												<!-- Table row -->
+												<tr th:each="user : ${users}" >
+													<!-- Table data -->
+													<td>
+														<div class="d-flex align-items-center position-relative">
+															<!-- Image -->
+															<div class="avatar avatar-md">
+																<img th:src="@{/public/assets/images/avatar/09.jpg}"
+																	class="rounded-circle" alt>
+															</div>
+															<div class="mb-0 ms-3">
+																<!-- Title -->
+																<h6 class="mb-0">
+																	<a href="#" class="stretched-link"
+																		th:text="${user.name}"></a>
+																</h6>
+																<span class="text-body small" th:text="${user.division}"><i
+																	class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i></span>
+															</div>
+														</div>
+													</td>
+
+													<!-- Table data -->
+
+
+													<td th:text="${user.staffId}"></td>
+													<td th:text="${user.courses}"></td>
+
+													<!-- Table data -->
+													<!--<td th:text="${user.doorLogNo}"></td>-->
+
+													<!-- Table data -->
+													<td th:text="${user.dept}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.team}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.email}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.status}"></td>
+
+													<!-- Table data -->
+													<td>
+														<form th:action="@{/admin/change-instructor-status}"
+															method="post"
+															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
+															<input type="hidden" name="id" th:value="${user.id}" />
+															<input type="hidden" name="enabled"
+																th:value="${user.enabled} ? 0 : 1" />
+															<button type="submit" class="btn"
+																th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+																th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																<i class="bi"
+																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+															</button>
+														</form>
+													</td>
+
+												</tr>
+
+											</tbody>
+											<!-- Table body END -->
+										</table>
+									</div>
+									<!-- Table END -->
+								</div>
+								<!-- Tabs content item END -->
+
+							</div>
+							<!-- Tabs content END -->
+						</div>
+						<!-- Card body END -->
+
+						<!-- Card footer START -->
+						<div class="card-footer bg-transparent p-0">
+							<!-- Pagination START -->
+							<div
+								class="d-sm-flex justify-content-sm-center align-items-sm-center">
+								<!-- Content -->
+								<!-- Pagination -->
+								<nav class="d-flex justify-content-center mb-0"
+									aria-label="navigation">
+									<ul
+										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+										<li class="page-item mb-0"><a class="page-link" href="#"
+											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+										<li class="page-item mb-0 active"><a class="page-link"
+											href="#">2</a></li>
+										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+										<li class="page-item mb-0"><a class="page-link" href="#"><i
+												class="fas fa-angle-right"></i></a></li>
+									</ul>
+								</nav>
+							</div>
+							<!-- Pagination END -->
+						</div>
+						<!-- Card footer END -->
+					</div>
+					<!-- Card END -->
+				</div>
+				<!-- Page main content END -->
+
+			</div>
+			<!-- Page content END -->
+		</th:block>
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+</body>
+
+<!-- Mirrored from diracetechnology.com/admin-instructor-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:24:23 GMT -->
+</html>

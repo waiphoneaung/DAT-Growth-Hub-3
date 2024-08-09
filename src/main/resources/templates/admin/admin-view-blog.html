@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+  .btn-xs {
+    padding: 5px;
+    font-size: .6rem;
+    line-height: 1.5;
+    color: blue;
+  }
+</style>
+</head>
+<body>
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="admin-view-blog">
+			<!-- Page content START -->
+			<div class="page-content">
+				<!-- ======================= Page content START -->
+				<section class="position-relative pt-0 pt-lg-2">
+					<div class="container mt-0">
+
+						<div class="d-flex justify-content-end my-3 mt-md-0">
+							<a th:href="@{/admin/admin-create-blog}"
+								class="btn btn-success mb-0">Create a Blogs</a>
+						</div>
+						<div class="row g-4">
+
+							<!-- Card item START -->
+							<div class="col-sm-6 col-lg-4 col-xl-3" th:each="blogPost:${blogPosts}">
+								<div class="card bg-transparent">
+									<div class="overflow-hidden rounded-3">
+									<!-- 	<img th:src="@{/public/assets/images/event/02.jpg}"
+											class="card-img" alt="course image"> -->
+											
+											<img th:src="@{'/private/blog/blog-images/' + ${blogPost.blogImage}}"
+											class="card-img" alt="blog image">
+										<!-- Overlay -->
+										<div class="bg-overlay bg-dark opacity-4"></div>
+
+									</div>
+
+									<!-- Card body -->
+									<div class="card-body">
+										<!-- Title -->
+										<h5 class="card-title">
+											<a th:href="@{/admin/blog-detail}" th:text="${blogPost.title}"></a>
+											
+										</h5>
+											<!-- Info -->
+										<div class="d-flex justify-content-between">
+											<h6 class="mb-0">
+												<a th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}" onclick="alert('Are you sure delete this blog?')">Delete Blog</a>
+											</h6>
+										<!--  	<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'yyyy-MM-dd')}"></span>-->
+
+											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" class="btn btn-black btn-xs">More Detail>></a>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Card item END -->
+
+						</div>
+						<!-- Row end -->
+
+						<!-- Pagination START -->
+						<nav class="d-flex justify-content-center mt-5"
+							aria-label="navigation">
+							<ul class="pagination pagination-primary-soft rounded mb-0">
+								<li class="page-item mb-0"><a class="page-link" href="#"
+									tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+								<li class="page-item mb-0 active"><a class="page-link"
+									href="#">2</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#"><i
+										class="fas fa-angle-double-right"></i></a></li>
+							</ul>
+						</nav>
+						<!-- Pagination END -->
+
+					</div>
+				</section>
+				<!-- ======================= Page content END -->
+			</div>
+		</th:block>
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+</body>
+
+<!-- Mirrored from diracetechnology.com/admin-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:23:06 GMT -->
+</html>

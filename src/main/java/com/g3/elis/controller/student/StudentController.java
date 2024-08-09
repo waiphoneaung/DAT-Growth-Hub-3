@@ -3,14 +3,28 @@ package com.g3.elis.controller.student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/student")
 public class StudentController {
 	@GetMapping("/student-dashboard")
 	public String home(Model model) {
 		model.addAttribute("content","student/student-dashboard");
-		return "student/student-layout";
+		return "/student/student-layout";
 	}
+	@GetMapping("/student-view-blog")
+	public String studentViewBlog(Model model) {
+		model.addAttribute("content","student/student-view-blog");
+		return "/student/student-layout";
+	}
+	
+	@GetMapping("/blog-detail")
+	public String blogDetail()
+	{
+		return "/authenticated-user/blog-detail";
+	}
+	
 	
 	@GetMapping("/student-course-list")
 	public String studentCourseList(Model model) {
@@ -20,7 +34,7 @@ public class StudentController {
 	
 	@GetMapping("/student-view-allcourses")
 	public String studentAllCourse(Model model) {
-		model.addAttribute("content","student/student-view-allcourses");
+		
 		return "/student/student-view-allcourses";
 	}
 	
@@ -56,7 +70,16 @@ public class StudentController {
 	
 	@GetMapping("/student-quiz")
 	public String studentQuiz(Model model) {
-		model.addAttribute("content","student/student-quiz");
+		
 		return "/student/student-quiz";
 	}
+	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
+	
+	
 }
