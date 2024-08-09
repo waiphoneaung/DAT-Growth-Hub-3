@@ -47,8 +47,7 @@
 											<a th:href="@{/admin/blog-detail}" th:text="${blogPost.title}"></a>
 											
 										</h5>
-										<p class="text-truncate-2" th:text="${blogPost.description} + '.....'"></p>
-										<!-- Info -->
+											<!-- Info -->
 										<div class="d-flex justify-content-between">
 											<h6 class="mb-0">
 												<a th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}" onclick="alert('Are you sure delete this blog?')">Delete Blog</a>

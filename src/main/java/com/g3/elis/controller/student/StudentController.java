@@ -74,5 +74,12 @@ public class StudentController {
 		return "/student/student-quiz";
 	}
 	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
+	
 	
 }

@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 		user.setDept(userDto.getDept());
 		user.setTeam(userDto.getTeam());
 		user.setStatus(userDto.getStatus());
+		user.setGender(userDto.getGender());
 		
 		user.setEnabled(true);
 		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
@@ -90,4 +91,27 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByRole("ROLE_ADMIN");
 	}
 
-}
+	@Override
+	public List<User> searchInstructorByName(String name) {
+		// TODO Auto-generated method stub
+		 return userRepository.findByNameContainingIgnoreCase(name);
+	}
+
+	@Override
+	public List<User> searchInstructors(String name, String staffId, String dept, String division) {
+		// TODO Auto-generated method stub
+		 return userRepository.searchInstructors(name, staffId, dept, division);
+	        
+	 }
+
+	@Override
+	public void updateUserStatus(int id, boolean enabled) {
+		
+	        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	        user.setEnabled(enabled);
+	        user.setStatus(enabled ? "Active" : "Unactive");
+	        userRepository.save(user);
+	    }
+	}
+	
+	
