@@ -77,14 +77,8 @@ public class AdminController
 		return "/admin/admin-layout";
 	}
 	
-	@GetMapping("/admin-instructor-list")
-	public String adminInstructorList(Model model)
-	{
-		List<User> users = userService.getAllInstructors();
-		model.addAttribute("users",users);
-		model.addAttribute("content","admin/admin-instructor-list");
-		return "/admin/admin-layout";
-	}
+
+
 	@GetMapping("/admin-instructor-request")
 	public String adminInstructorRequest(Model model)
 	{
