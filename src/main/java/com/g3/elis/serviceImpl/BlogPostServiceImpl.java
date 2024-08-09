@@ -1,12 +1,6 @@
 package com.g3.elis.serviceImpl;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +16,8 @@ import com.g3.elis.service.BlogPostService;
 @Service
 public class BlogPostServiceImpl implements BlogPostService {
 
+	private final String fileUploadDir = "/blog/blog-images";
+	
 	@Autowired
 	private BlogPostRepository blogPostRepository;
 
@@ -46,8 +42,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blogPost.setUpdatedAt(blogPostDto.getUpdatedAt());
 		blogPost.setBlogImage(blogPostDto.getImageFile());
 		blogPost.setUsers(blogPostDto.getUsers());
-		
-		// blog image start
 		
 		//MultipartFile image = blogPostDto.getImageFile();
 		//String originalFileName = image.getOriginalFilename();
@@ -75,7 +69,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	        // Delete the image file
 	        String imageFileName = blogPost.getBlogImage();
 	        if (imageFileName != null && !imageFileName.isEmpty()) {
-	            fileStorageConfig.deleteBlogImage(imageFileName);
+	            fileStorageConfig.deleteFile(imageFileName,fileUploadDir);
 	        }
 
 	        // Delete the blog post from the database

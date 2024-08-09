@@ -9,29 +9,34 @@ public class CourseDto {
 
     
 
-    @NotBlank(message = "Course title is required")
-    @Size(max = 255, message = "Course title must be less than 255 characters")
+//    @NotBlank(message = "Course title is required")
+//    @Size(max = 255, message = "Course title must be less than 255 characters")
     private String courseTitle;
 
-    @NotBlank(message = "Course description is required")
-    @Size(max = 500, message = "Course description must be less than 500 characters")
+//    @NotBlank(message = "Course description is required")
+//    @Size(max = 500, message = "Course description must be less than 500 characters")
     private String courseDescription;
 
-    @NotBlank(message = "Status is required")
-    @Size(max = 50, message = "Status must be less than 50 characters")
+//    @NotBlank(message = "Status is required")
+//    @Size(max = 50, message = "Status must be less than 50 characters")
     private String status;
 
    
     private Timestamp createdAt;
 
-    @NotBlank(message = "Duration is required")
-    @Size(max = 50, message = "Duration must be less than 50 characters")
+//    @NotBlank(message = "Duration is required")
+//    @Size(max = 50, message = "Duration must be less than 50 characters")
     private String duration;
+    
+    private int durationHour;
+    private int durationMinute;
 
     private boolean courseCompletedStatus;
 
    
     private double progress;
+    
+    private String courseInfo;
 
     @NotBlank(message = "Course image file name is required")
     
@@ -89,6 +94,22 @@ public class CourseDto {
 		this.duration = duration;
 	}
 
+	public int getDurationHour() {
+		return durationHour;
+	}
+
+	public void setDurationHour(int durationHour) {
+		this.durationHour = durationHour;
+	}
+
+	public int getDurationMinute() {
+		return durationMinute;
+	}
+
+	public void setDurationMinute(int durationMinute) {
+		this.durationMinute = durationMinute;
+	}
+
 	public boolean isCourseCompletedStatus() {
 		return courseCompletedStatus;
 	}
@@ -103,6 +124,14 @@ public class CourseDto {
 
 	public void setProgress(double progress) {
 		this.progress = progress;
+	}
+
+	public String getCourseInfo() {
+		return courseInfo;
+	}
+
+	public void setCourseInfo(String courseInfo) {
+		this.courseInfo = courseInfo;
 	}
 
 	public String getCourseImageFileName() {
@@ -145,13 +174,8 @@ public class CourseDto {
 		this.course_tag_id = course_tag_id;
 	}
 
-	public CourseDto(
-			@NotBlank(message = "Course title is required") @Size(max = 255, message = "Course title must be less than 255 characters") String courseTitle,
-			@NotBlank(message = "Course description is required") @Size(max = 500, message = "Course description must be less than 500 characters") String courseDescription,
-			@NotBlank(message = "Status is required") @Size(max = 50, message = "Status must be less than 50 characters") String status,
-			Timestamp createdAt,
-			@NotBlank(message = "Duration is required") @Size(max = 50, message = "Duration must be less than 50 characters") String duration,
-			boolean courseCompletedStatus, double progress,
+	public CourseDto(String courseTitle, String courseDescription, String status, Timestamp createdAt, String duration,
+			int durationHour, int durationMinute, boolean courseCompletedStatus, double progress, String courseInfo,
 			@NotBlank(message = "Course image file name is required") String courseImageFileName, Timestamp updatedDate,
 			@NotNull(message = "User ID is required") int user_id,
 			@NotNull(message = "Course category ID is required") int course_category_id,
@@ -162,8 +186,11 @@ public class CourseDto {
 		this.status = status;
 		this.createdAt = createdAt;
 		this.duration = duration;
+		this.durationHour = durationHour;
+		this.durationMinute = durationMinute;
 		this.courseCompletedStatus = courseCompletedStatus;
 		this.progress = progress;
+		this.courseInfo = courseInfo;
 		this.courseImageFileName = courseImageFileName;
 		this.updatedDate = updatedDate;
 		this.user_id = user_id;
@@ -171,7 +198,7 @@ public class CourseDto {
 		this.course_tag_id = course_tag_id;
 	}
 
-   
-
-    
+	public CourseDto() {
+		
+	}
 }

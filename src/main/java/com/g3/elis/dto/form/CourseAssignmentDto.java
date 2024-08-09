@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CourseAssignmentDto {
 
-	@NotBlank(message = "Title cannot be blank")
+//	@NotBlank(message = "Title cannot be blank")
 	private String title;
 	
 	private boolean finishedStatus;

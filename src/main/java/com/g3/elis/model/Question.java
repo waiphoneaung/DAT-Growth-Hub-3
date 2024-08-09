@@ -22,10 +22,8 @@ public class Question {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "question", nullable = false, columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT")
 	private String question;
-	
-	@Column(name = "correct_status", nullable = false)
 	private boolean correctStatus;
 	
 	@ManyToOne

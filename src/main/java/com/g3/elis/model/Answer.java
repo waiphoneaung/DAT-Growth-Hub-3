@@ -1,6 +1,5 @@
 package com.g3.elis.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,11 +15,8 @@ public class Answer {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	
-	@Column(name = "answer_title", nullable = false, length = 255)
+
     private String answerTitle;
-	
-	@Column(name = "correct_status", nullable = false)
     private boolean correctStatus;
 	
 	@ManyToOne
