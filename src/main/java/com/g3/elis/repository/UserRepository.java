@@ -36,4 +36,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	                                 @Param("dept") String dept, 
 	                                 @Param("division") String division);
     
+	Optional<User> findById(int userId);
 }

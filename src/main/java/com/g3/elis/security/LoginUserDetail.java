@@ -66,4 +66,17 @@ public class LoginUserDetail implements UserDetails {
 	public User getUser() {
 		return this.user;
 	}
+	
+	public boolean isAdmin()
+	{
+		return user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+	}
+	public boolean isInstructor()
+	{
+		return user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_INSTRUCTOR"));
+	}
+	public boolean isStudent()
+	{
+		return user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_STUDENT"));
+	}
 }

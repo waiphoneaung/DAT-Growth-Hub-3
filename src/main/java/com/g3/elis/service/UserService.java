@@ -29,4 +29,5 @@ public interface UserService {
 
 	public void updateUserStatus(int id, boolean enabled);
 
+	void changePassword(User user,String newPassword);
 }

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -51,7 +52,7 @@ public class Course {
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
 	private List<Report> reports = new ArrayList<>();
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CourseModule> courseModule =  new ArrayList<>();
 
 	@OneToOne(mappedBy = "courses", fetch = FetchType.LAZY)
