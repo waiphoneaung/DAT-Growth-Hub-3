@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,16 @@ public class CourseCategoryController {
 	private CourseCategoryService courseCategoryService;
 
 	@GetMapping("/admin-course-category")
-	public String getAllCourseCategories(Model model) {
+	public String getAllCourseCategories(Model model,@RequestParam(defaultValue = "0") int page) {
+		
+		int pageSize = 5;
+	    Page<CourseCategory> courseCategoriesPage = courseCategoryService.getPaginatedCourseCategories(page, pageSize);
+	    
+	    model.addAttribute("courseCategories", courseCategoriesPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", courseCategoriesPage.getTotalPages());
+	    model.addAttribute("categoryCount", courseCategoriesPage.getTotalElements());
+	    
 	    List<CourseCategory> courseCategories = courseCategoryService.getAllCourseCategories();
 	    int categoryCount = courseCategories.size();
 	    
