@@ -1,6 +1,7 @@
 package com.g3.elis.serviceImpl;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,5 +80,27 @@ public class BlogPostServiceImpl implements BlogPostService {
 	    }
 	}
 
+	@Override
+	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
+		Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
+        if (existingBlogPostOpt.isPresent()) {
+            BlogPost blogPost = existingBlogPostOpt.get();
+            blogPost.setTitle(blogPostDto.getTitle());
+            blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
+            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            
+            if (blogPostDto.getImageFile() != null && !blogPostDto.getImageFile().isEmpty()) {
+                // Delete the old image if a new one is uploaded
+                fileStorageConfig.deleteFile(blogPost.getBlogImage(), fileUploadDir);
+                blogPost.setBlogImage(blogPostDto.getImageFile());
+            }
+            
+            blogPostRepository.save(blogPost);
+        } else {
+            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
+        }
+    }
+		
+	}
 
-}
+
