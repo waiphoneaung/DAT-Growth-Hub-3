@@ -56,11 +56,7 @@ public class StudentController {
 		return "/student/student-layout";
 	}
 	
-	@GetMapping("/student-edit-profile")
-	public String studentEditProfile(Model model) {
-		model.addAttribute("content","student/student-edit-profile");
-		return "/student/student-layout";
-	}
+	
 	
 	@GetMapping("/student-course-resume")
 	public String studentCourseResume(Model model) {
