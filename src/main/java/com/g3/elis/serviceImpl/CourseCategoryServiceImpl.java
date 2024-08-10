@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -73,11 +74,16 @@ public List<CourseCategory> getCourseCategoryByUserId(int id) {
 	return null;
 }
 
+
+
+
 @Override
-public Page<CourseCategory> getPaginatedCourseCategories(Pageable pageable) {
-	// TODO Auto-generated method stub
-	return courseCategoryRepository.findAll(pageable);
+public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
+	Pageable pageable = PageRequest.of(page, size);
+    return courseCategoryRepository.findAll(pageable);
 }
+
+
 
 
 

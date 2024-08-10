@@ -28,7 +28,7 @@ public interface CourseCategoryService {
     List<CourseCategory> getCourseCategoryByUsername(String name);
 
 	List<CourseCategory> getCourseCategoryByUserId(int id);
-	Page<CourseCategory> getPaginatedCourseCategories(Pageable pageable);
+	Page<CourseCategory> getPaginatedCourseCategories(int page, int size);
 	
     
 
