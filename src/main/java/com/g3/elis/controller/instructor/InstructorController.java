@@ -86,4 +86,11 @@ public class InstructorController {
 		model.addAttribute("content", "instructor/instructor-edit-profile");
 		return "instructor/instructor-layout";
 	}
+	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
 }

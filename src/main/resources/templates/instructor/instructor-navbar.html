@@ -85,8 +85,8 @@
 											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
 									</div>
 									<div>
-										<a class="h6" th:href="@{/instructor/instructor-dashboard}">Student</a>
-										<p class="small m-0">dathr@diracetechnology.com</p>
+										<a class="h6" th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}">Student</a>
+										<p class="small m-0" th:text="${user.email}">dathr@diracetechnology.com</p>
 									</div>
 								</div>
 							</li>

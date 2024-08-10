@@ -74,11 +74,19 @@ public class StudentController {
 		return "/student/student-quiz";
 	}
 	
+
 	@GetMapping("/forum")
 	public String instructorForum() {
 		 
 //		model.addAttribute("currentPage", "forum");
 		return "authenticated-user/forum";
 	}
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
+	
 	
 }

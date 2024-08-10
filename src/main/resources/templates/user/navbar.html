@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="header">
 <meta charset="UTF-8">
 <title>Navbar</title>
@@ -73,26 +74,33 @@
 					<!-- Main navbar END -->
 
 					<!-- Profile START -->
-					<div class="dropdown ms-1 ms-lg-0">
-						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
-							role="button" data-bs-auto-close="outside"
-							data-bs-display="static" data-bs-toggle="dropdown"
-							aria-expanded="false"> <img class="avatar-img rounded-circle"
-							th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
-						</a>
-						<ul
-							class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
-							aria-labelledby="profileDropdown">
-							<li class="px-3 mb-3">
-								<div class="d-flex align-items-center">
-									<div class="avatar me-3">
-										<img class="avatar-img rounded-circle shadow"
-											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+					<div sec:authorize="isAuthenticated()">
+						<div class="dropdown ms-1 ms-lg-0">
+							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+								role="button" data-bs-auto-close="outside"
+								data-bs-display="static" data-bs-toggle="dropdown"
+								aria-expanded="false"> <img
+								class="avatar-img rounded-circle"
+								th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+							</a>
+							<ul
+								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+								aria-labelledby="profileDropdown">
+								<li class="px-3 mb-3">
+									<div class="d-flex align-items-center">
+										<div class="avatar me-3">
+											<img class="avatar-img rounded-circle shadow"
+												th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+										</div>
+										<div>
+											<a class="h6 mt-2 mt-sm-0" th:href="@{/admin/admin-dashboard}" th:text="${user.name}"></a>
+											<p class="small m-0" th:text="${user.email}"> dathr@diracetechnology.com</p>
+										</div>
 									</div>
 									<div>
-										<a class="h6" href="instructor-dashboard.html">Khine Khine
+										<a class="h6" th:href="@{/home}" th:text="${user.name}">Khine Khine
 											Soe</a>
-										<p class="small m-0">dathr@diracetechnology.com</p>
+										<p class="small m-0" th:text="${user.email}">dathr@diracetechnology.com</p>
 									</div>
 								</div>
 							</li>
@@ -103,7 +111,7 @@
 							<li><a class="dropdown-item" href="#"><i
 									class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 						
-							<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
+							<li><a class="dropdown-item bg-danger-soft-hover"th:href="@{/sign-out}"><i
 									class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 							<li>
 								<hr class="dropdown-divider">
@@ -153,6 +161,8 @@
 							</li>
 							<!-- Dark mode options END-->
 						</ul>
+
+								
 					</div>
 					<!-- Profile START -->
 				</div>

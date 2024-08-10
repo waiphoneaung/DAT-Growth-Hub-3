@@ -11,6 +11,10 @@ public interface ForumService {
 
 	void saveForum(@Valid ForumDto forumDto);
 
+	Forum findById(int forumId);
+
+	List<Forum> getAllForums();
+
 //	  getAllForums();
 
 }

@@ -1,6 +1,9 @@
 package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.g3.elis.model.User;
 
 import jakarta.validation.constraints.NotBlank;
@@ -12,9 +15,11 @@ public class ForumDto {
 	
 	@NotBlank(message = "Content cannot be null")
 	private String content;
-	private User users;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
+	private User users;
+	//private List<ForumCommentDTO> forumCommentDto = new ArrayList<>();
+	private List<ForumCommentDto> forumCommentDto;
 	
     public User getUsers() {
 		return users;

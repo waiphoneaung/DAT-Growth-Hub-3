@@ -19,8 +19,8 @@ public class ForumComment {
 	private int id;
 	
 	private String comment;
-	private Timestamp created_at;
-	private Timestamp updated_at;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "forum_id")
@@ -46,23 +46,7 @@ public class ForumComment {
 		this.comment = comment;
 	}
 
-	public Timestamp getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
-	}
-
-	public Timestamp getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(Timestamp updated_at) {
-		this.updated_at = updated_at;
-	}
-
-	public Forum getForums() {
+		public Forum getForums() {
 		return forums;
 	}
 
@@ -78,19 +62,38 @@ public class ForumComment {
 		this.users = users;
 	}
 
-	public ForumComment(int id, String comment, Timestamp created_at, Timestamp updated_at, Forum forums, User users) {
-		super();
-		this.id = id;
-		this.comment = comment;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.forums = forums;
-		this.users = users;
+	
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
 	}
 
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+	
+
+	public void setCreatedAt(Timestamp createdAt) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public ForumComment() {
 		super();
 	}
-	
+
+	public ForumComment(int id, String comment, Timestamp createdAt, Timestamp updatedAt, Forum forums, User users) {
+		super();
+		this.id = id;
+		this.comment = comment;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.forums = forums;
+		this.users = users;
+	}
 	
 }

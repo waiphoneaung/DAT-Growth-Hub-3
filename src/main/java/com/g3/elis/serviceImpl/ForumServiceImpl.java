@@ -17,19 +17,29 @@ public class ForumServiceImpl implements ForumService{
 
 	@Autowired
 	ForumRepository forumRepository;
-//	@Override
-//	public List<Forum> getAllForums() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public List<Forum> getAllForums() {
+		// TODO Auto-generated method stub
+		return forumRepository.findAll();
+	}
 
 	@Override
 	public void saveForum(@Valid ForumDto forumDto) {
 
 		Forum forum = new Forum();
+		forum.setUsers(forumDto.getUsers());
+		forum.setCreated_at(forumDto.getCreatedAt());
 		forum.setTitle(forumDto.getTitle());
 		forum.setContent(forumDto.getContent());
 		forumRepository.save(forum);
 	}
+
+	@Override
+	public Forum findById(int forumId) {
+		// TODO Auto-generated method stub
+		return forumRepository.findById(forumId).orElse(null);
+	}
+
+	
 
 }

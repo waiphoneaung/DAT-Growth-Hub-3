@@ -44,5 +44,11 @@ public class UserController {
 		return "/user/layout";
 	}
 	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
+		
+		return "/authenticated-user/blog-detail";
+	}
+	
 	
 }
