@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.g3.elis.dto.form.ForumCommentDto;
@@ -68,14 +69,14 @@ public class AdminCreateForumController {
 
 	@PostMapping("/comment")
 	public String adminCreateComment(@ModelAttribute("forumCommentDto") ForumCommentDto forumCommentDto,
-			Authentication authentication) {
+			@RequestParam("forumId")int forumId,Authentication authentication) {
 
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();
 		forumCommentDto.setUsers(user);
 		forumCommentDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
-		forumCommentService.saveComment(forumCommentDto);
+		forumCommentService.saveComment(forumCommentDto,forumId);
 		return "redirect:/admin/forum";
 	}
 }

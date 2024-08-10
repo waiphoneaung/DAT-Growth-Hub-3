@@ -103,9 +103,10 @@ public class AdminCreateCourseController
 									  @RequestParam(name = "courseModuleIndex",required=false)int index,
 									  @RequestParam(name = "title")String title,
 									  @RequestParam(name = "video",required=false)String video,
+									  @RequestParam(name = "content") String content,
 									  Model model)
 	{
-		superDto.getCourseMaterialDtoList().add(courseMaterialDtoService.createMaterialDto(index,title));
+		superDto.getCourseMaterialDtoList().add(courseMaterialDtoService.createMaterialDto(index,title,content));
 		model.addAttribute("superDto",superDto);
 		return "/admin/admin-create-course";
 	}

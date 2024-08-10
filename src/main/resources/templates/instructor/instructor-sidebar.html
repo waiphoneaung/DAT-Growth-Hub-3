@@ -26,10 +26,8 @@ Page Banner START -->
 									<!-- Avatar -->
 									<div class="col-auto">
 										<div class="avatar avatar-xxl position-relative mt-n3">
-											<img
-												class="avatar-img rounded-circle border border-white border-3 shadow"
-												th:src="@{/public/assets/images/avatar/09.jpg}" alt="">
-
+										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}" alt="avatar">
+										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 										</div>
 									</div>
 									<!-- Profile info -->

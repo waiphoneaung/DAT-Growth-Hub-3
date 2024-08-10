@@ -21,6 +21,7 @@ public class ForumCommentServiceImpl implements ForumCommentService{
 	@Autowired
 	ForumRepository forumRepository;
 	
+	
 	@Override
 	public List<ForumComment> getAllComments() {
 		// TODO Auto-generated method stub
@@ -29,13 +30,16 @@ public class ForumCommentServiceImpl implements ForumCommentService{
 
 	
 	@Override
-	public void saveComment(ForumCommentDto forumCommentDto) {
+	public void saveComment(ForumCommentDto forumCommentDto,int forumId) {
 
 		ForumComment forumComment = new ForumComment();
+		Forum forum = forumRepository.findById(forumId).orElse(null);
 		
 		forumComment.setUsers(forumCommentDto.getUsers());
 		forumComment.setCreatedAt(forumCommentDto.getCreatedAt());
 		forumComment.setComment(forumCommentDto.getComment());
+		forumComment.setForums(forum);
+		
 //		Forum forum = forumRepository.findById(forumCommentDto.getForums().getId())
 //			    .orElseThrow(() -> new RuntimeException("Forum not found with id: " + forumCommentDto.getForums().getId()));
 

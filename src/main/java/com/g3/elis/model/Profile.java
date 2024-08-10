@@ -9,27 +9,27 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="profiles")
+@Table(name = "profiles")
 public class Profile {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
 	private String profileImg;
 	private String description;
 	private String address;
 	private String phNo;
-	
-	@OneToOne
-    @JoinColumn(name = "user_id")
-    private User users;
 
-	public int getId() {
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -65,23 +65,25 @@ public class Profile {
 		this.phNo = phNo;
 	}
 
-	public User getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(User users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Profile(int id, String profileImg, String description, String address, String phNo, User users) {
+	public Profile(Integer id, String profileImg, String description, String address, String phNo, User user) {
 		super();
 		this.id = id;
 		this.profileImg = profileImg;
 		this.description = description;
 		this.address = address;
 		this.phNo = phNo;
-		this.users = users;
+		this.user = user;
 	}
 
-	
+	public Profile() {
+
+	}
 }

@@ -157,4 +157,44 @@ public class AdminCreateBlogController {
 		blogPostService.deleteBlogPost(id);
 		return "redirect:/admin/admin-view-blog";
 	}
+	
+	@GetMapping("/admin-edit-blog/{id}")
+    public String adminEditBlog(@PathVariable("id") int id, Model model) {
+        BlogPost blogPost = blogPostService.findById(id);
+        if (blogPost != null) {
+            BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setId(blogPost.getId());
+            blogPostDto.setTitle(blogPost.getTitle());
+            blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
+            blogPostDto.setImageFile(blogPost.getBlogImage());
+            model.addAttribute("blogPostDto", blogPostDto);
+            return "/admin/admin-edit-blog";
+        }
+        return "redirect:/admin/admin-view-blog";
+    }
+
+    @PostMapping("/admin-update-blog")
+    public String adminUpdateBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
+                                  @RequestParam String content,
+                                  @RequestParam(name = "img-file", required = false) MultipartFile imgFile,
+                                  BindingResult result, Authentication authentication, Model model) throws IOException {
+        if (result.hasErrors()) {
+            model.addAttribute("blogPostDto", blogPostDto);
+            return "/admin/admin-edit-blog";
+        }
+        
+        // Handle image file upload
+        if (!imgFile.isEmpty()) {
+            String originalFileName = imgFile.getOriginalFilename();
+            String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+            String newImageFileName = dateTime + "_" + originalFileName;
+            String imagePath = IMAGE_FILE_PATH + newImageFileName;
+            Files.write(Paths.get(imagePath), imgFile.getBytes());
+            blogPostDto.setImageFile(newImageFileName);
+        }
+
+        // Update the blog post
+        blogPostService.updateBlogPost(blogPostDto);
+        return "redirect:/admin/admin-view-blog";
+    }
 }

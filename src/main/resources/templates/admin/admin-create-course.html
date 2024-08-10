@@ -250,7 +250,7 @@ Steps START -->
 														</div>
 													</div>
 
-													
+
 												</div>
 												<!-- Upload image END -->
 
@@ -430,48 +430,47 @@ Steps END -->
 			<!-- Popup modal for add module END -->
 
 			<!-- Popup modal for add Material START -->
-			<div th:each="moduleList,iterStat : ${superDto.courseModuleDtoList}">
-				<div class="modal modal-lg fade" id="addTopic" tabindex="-1"
-					aria-labelledby="addTopicLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<form th:action="@{/admin/admin-create-course/add-material}"
-							class="row text-start g-3" method="POST"
-							enctype="multipart/form-data">
-							<div class="modal-content">
-								<div class="modal-header bg-dark">
-									<h5 class="modal-title text-white" id="addTopicLabel">Add
-										course material</h5>
-									<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
-										data-bs-dismiss="modal" aria-label="Close">
-										<i class="bi bi-x-lg"></i>
-									</button>
+			<div class="modal modal-xl fade" id="addTopic" tabindex="-1"
+				aria-labelledby="addTopicLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<form th:action="@{/admin/admin-create-course/add-material}"
+						class="row text-start g-3" method="POST" id="courseMaterialId"
+						enctype="multipart/form-data">
+						<div class="modal-content">
+							<div class="modal-header bg-dark">
+								<h5 class="modal-title text-white" id="addTopicLabel">Add
+									course material</h5>
+								<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+									data-bs-dismiss="modal" aria-label="Close">
+									<i class="bi bi-x-lg"></i>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<input type="hidden" id="index" name="courseModuleIndex">
+
+								<!-- Title name -->
+								<div class="col-md-6">
+									<label class="form-label"></label> <input name="title"
+										class="form-control" type="text"
+										placeholder="Enter name for title">
 								</div>
-								<div class="modal-body">
-									<!--  Working Code. Do not Delete
-									<input type="hidden" th:value="${iterStat.index}"
-										name="courseModuleIndex">-->
+								<!-- Video link -->
+								<div class="col-md-6">
+									<label class="form-label">Video link</label> <input
+										name="video" class="form-control" type="text"
+										placeholder="Enter Video link">
+								</div>
+								<!-- Course description -->
+								<div class="col-12">
+									<label class="form-label">Add description</label>
+									<div class="form-group">
 
-									<input type="hidden" id="index" name="courseModuleIndex">
-
-									<!-- Title name -->
-									<div class="col-md-6">
-										<label class="form-label"></label> <input name="title"
-											class="form-control" type="text"
-											placeholder="Enter name for title">
-									</div>
-									<!-- Video link -->
-									<div class="col-md-6">
-										<label class="form-label">Video link</label> <input
-											name="video" class="form-control" type="text"
-											placeholder="Enter Video link">
-									</div>
-									<!-- Course description -->
-									<div class="col-12">
-										<label class="form-label">Add description</label>
 										<!-- Editor toolbar -->
 										<div class="bg-light border border-bottom-0 rounded-top py-3"
-											id="quilltoolbar2">
-											<span class="ql-formats"> <select class="ql-size"></select>
+											id="quilltoolbar">
+											<span class="ql-formats"> <select class="ql-font"></select>
+												<select class="ql-size"></select>
 											</span> <span class="ql-formats">
 												<button class="ql-bold"></button>
 												<button class="ql-italic"></button>
@@ -480,6 +479,12 @@ Steps END -->
 											</span> <span class="ql-formats"> <select class="ql-color"></select>
 												<select class="ql-background"></select>
 											</span> <span class="ql-formats">
+												<button class="ql-script" value="sub"></button>
+												<button class="ql-script" value="super"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-header" value="1"></button>
+												<button class="ql-header" value="2"></button>
+												<button class="ql-blockquote"></button>
 												<button class="ql-code-block"></button>
 											</span> <span class="ql-formats">
 												<button class="ql-list" value="ordered"></button>
@@ -487,50 +492,42 @@ Steps END -->
 												<button class="ql-indent" value="-1"></button>
 												<button class="ql-indent" value="+1"></button>
 											</span> <span class="ql-formats">
+												<button class="ql-direction" value="rtl"></button> <select
+												class="ql-align"></select>
+											</span> <span class="ql-formats">
 												<button class="ql-link"></button>
 												<button class="ql-image"></button>
+												<button class="ql-video"></button>
+												<button class="ql-formula"></button>
 											</span> <span class="ql-formats">
 												<button class="ql-clean"></button>
 											</span>
 										</div>
-
 										<!-- Main toolbar -->
 										<div
 											class="bg-body border rounded-bottom h-400px overflow-hidden"
-											id="quilleditor2">
-											<br>
-											<h1>Quill Rich Text Editor</h1>
-											<br>
-											<p>Quill is a free, open-source WYSIWYG editor built for
-												the modern web. With its modular architecture and expressive
-												API, it is completely customizable to fit any need.</p>
-											<br>
+											id="quilleditor">
 
-											<p>Post no so what deal evil rent by real in. But her
-												ready least set lived spite solid. September how men saw
-												tolerably two behavior arranging. She offices for highest
-												and replied one venture pasture. Applauded no discovery in
-												Blogspaper allowance am northward. Frequently partiality
-												possession resolution at or appearance unaffected me.
-												Engaged its was the evident pleased husband. Ye goodness
-												felicity do disposal dwelling no. First am plate jokes to
-												began to cause a scale. Subjects he prospect elegance
-												followed no overcame possible it on.</p>
+											<h1>Header</h1>
+											<br>
+											<p>Enter Body Text Here.</p>
+											<br>
 										</div>
+										<input type="hidden" id="content" name="content">
 									</div>
-									<!-- Buttons -->
+								</div>
+								<!-- Buttons -->
 
 
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-danger-soft my-0"
-										data-bs-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-success my-0">Save
-										Course Material</button>
-								</div>
 							</div>
-						</form>
-					</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger-soft my-0"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-success my-0">Save
+									Course Material</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 			<!-- Popup modal for add material END -->
@@ -591,32 +588,6 @@ Steps END -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
 	<!-- Initialize Quill editors -->
 	<script>
-	document.addEventListener('DOMContentLoaded', (event) => {
-		var toolbarOptions = [
-			[{ 'size': [] }],
-			['bold', 'italic', 'underline', 'strike'],
-			[{ 'color': [] }, { 'background': [] }],
-			[{ 'code-block': 'code-block' }],
-			[{ 'list': 'ordered' }, { 'list': 'bullet' }],
-			[{ 'indent': '-1' }, { 'indent': '+1' }],
-			['link', 'image'],
-			['clean']
-		];
-
-		var quill1 = new Quill('#quilleditor1', {
-			modules: {
-				toolbar: '#quilltoolbar1'
-			},
-			theme: 'snow'
-		});
-
-		var quill2 = new Quill('#quilleditor2', {
-			modules: {
-				toolbar: '#quilltoolbar2'
-			},
-			theme: 'snow'
-		});
-	});
 	var myModal = document.getElementById('addTopic');
     myModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
@@ -627,7 +598,41 @@ Steps END -->
         var input = myModal.querySelector('#index');
         input.value = courseMaterialId;
     });
+    var quill = new Quill('#quilleditor', {
+        modules: {
+            toolbar: '#quilltoolbar'
+        },
+        theme: 'snow'
+    });
+    
+    document.querySelector('#courseMaterialId').onsubmit = function() {
+        var quillContent = quill.root.innerHTML;
+        var headerContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                .ql-video {
+                    width: 100%;
+                    max-width: 100%;
+                    height: 100%;
+                    aspect-ratio: 16 / 9;
+                }
+            </style>
+            
+            </head>
+            <body>
+        `;
+        var footerContent = `
+            </body>
+            </html>
+        `;
+        var completeHtml = headerContent + quillContent + footerContent;
+        document.querySelector('#content').value = completeHtml;
+    };
 </script>
+
 </body>
 </html>
 

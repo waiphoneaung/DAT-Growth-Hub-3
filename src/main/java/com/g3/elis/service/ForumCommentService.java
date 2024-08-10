@@ -8,7 +8,7 @@ import com.g3.elis.model.ForumComment;
 
 public interface ForumCommentService {
 
-	void saveComment(ForumCommentDto forumCommentDto);
+	void saveComment(ForumCommentDto forumCommentDto,int forumId);
 
 	List<ForumComment> getAllComments();
 
