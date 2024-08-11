@@ -1,4 +1,5 @@
 package com.g3.elis.controller.admin;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import com.g3.elis.security.LoginUserDetail;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-
+	
     @ModelAttribute
     public void addUserToModel(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
