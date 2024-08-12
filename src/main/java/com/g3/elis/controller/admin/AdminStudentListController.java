@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +30,23 @@ public class AdminStudentListController
 	@Autowired
 	private InputFileService inputFileService;
 	
+	
 	@GetMapping("/admin-student-list")
-	public String adminStudentList(Model model)
-	{
-		List<User> users = userService.getAllStudents();
-		model.addAttribute("users",users);
-		model.addAttribute("content","admin/admin-student-list");
-		return "/admin/admin-layout";
-	}
+    public String adminStudentList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            Model model)
+    {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        Page<User> userPage = userService.getAllStudents(pageable);
+        
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("content", "admin/admin-student-list");
+        return "/admin/admin-layout";
+    }
+
 	
 	@PostMapping("/admin-student-list") 
 	public String getEmployeeDataFromExcel(@RequestParam(name = "file",required = false)MultipartFile excelFile,Model model) throws IOException
@@ -49,14 +62,27 @@ public class AdminStudentListController
 		inputFileService.WriteEmployeeDataFromExcel(excelFile);
 		return "/admin/admin-layout";
 	}
+	
 	@GetMapping("/admin-student-list/search")
-	public String adminStudentListSearch(@RequestParam("search")String name,Model model)
-	{
-		List<User> users = userService.searchUsersByName(name);
-		model.addAttribute("users",users);
-		model.addAttribute("content","admin/admin-student-list");
-		return "/admin/admin-layout";
+	public String adminStudentListSearch(
+	        @RequestParam("search") String name,
+	        @RequestParam(value = "page", defaultValue = "0") int page,
+	        @RequestParam(value = "size", defaultValue = "10") int size,
+	        Model model) {
+
+	    Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+	    Page<User> userPage = userService.searchUsersByName(name, pageable);
+
+	    model.addAttribute("users", userPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", userPage.getTotalPages());
+	    model.addAttribute("search", name); // Pass the search term to the view
+	    model.addAttribute("size", size);   // Pass the page size to the view
+	    model.addAttribute("content", "admin/admin-student-list");
+	    return "/admin/admin-layout";
 	}
+
+	
 	@PostMapping("/change-student-status")
 	public String changeStudentStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
 		userService.updateUserStatus(id, enabled);
