@@ -287,28 +287,33 @@
 
 						<!-- Card footer START -->
 						<div class="card-footer bg-transparent p-0">
-							<!-- Pagination START -->
-							<div
-								class="d-sm-flex justify-content-sm-center align-items-sm-center">
-								<!-- Content -->
-								<!-- Pagination -->
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-							<!-- Pagination END -->
-						</div>
+							<div class="card-footer bg-transparent p-0">
+   <!-- Pagination START -->
+<div class="card-footer bg-transparent pt-0">
+    <div class="d-sm-flex justify-content-center align-items-sm-center">
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
+                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage - 1}, size=5)}" tabindex="-1">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
+                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-instructor-list(page=${i}, size=5)}">1</a>
+                </li>
+                <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
+                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage + 1}, size=5)}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- Pagination END -->
+
+</div>
+
 						<!-- Card footer END -->
 					</div>
 					<!-- Card END -->

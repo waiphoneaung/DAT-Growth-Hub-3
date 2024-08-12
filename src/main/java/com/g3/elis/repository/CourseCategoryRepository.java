@@ -21,5 +21,8 @@ public interface CourseCategoryRepository extends JpaRepository<CourseCategory, 
 	List<CourseCategory> findByCategoryNameContainingIgnoreCase(String categoryName);
 
 	Page<CourseCategory> findAll(Pageable pageable);
+	
+	Page<CourseCategory> findByCategoryNameContainingIgnoreCase(String categoryName, Pageable pageable);
+	
 
 }

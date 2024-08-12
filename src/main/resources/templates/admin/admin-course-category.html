@@ -101,16 +101,17 @@
 								<div class="col-md-8"></div>
 								<div class="col-md-4">
 									<form class="rounded position-relative"
-										th:action="@{/admin/admin-course-category/search}"
-										method="get">
-										<input class="form-control bg-body" type="search"
-											name="search" placeholder="Search" aria-label="Search">
-										<button
-											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-											type="submit">
-											<i class="fas fa-search fs-6"></i>
-										</button>
-									</form>
+      th:action="@{/admin/admin-course-category/search}"
+      method="get">
+    <input class="form-control bg-body" type="search"
+           name="search" th:value="${search}"
+           placeholder="Search" aria-label="Search">
+    <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+            type="submit">
+        <i class="fas fa-search fs-6"></i>
+    </button>
+</form>
+
 								</div>
 							</div>
 						</div>
@@ -159,22 +160,23 @@
 						<div class="card-footer bg-transparent pt-0">
     <div class="d-sm-flex justify-content-center align-items-sm-center">
         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-course-category(page=${currentPage - 1})}" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                    </a>
-                </li>
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
-                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-course-category(page=${i})}">1</a>
-                </li>
-                <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-course-category(page=${currentPage + 1})}">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+        <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
+            <a class="page-link" th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}" tabindex="-1">
+                <i class="fas fa-angle-left"></i>
+            </a>
+        </li>
+        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
+            <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
+        </li>
+        <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
+            <a class="page-link" th:href="@{/admin/admin-course-category/search(page=${currentPage + 1}, search=${search})}">
+                <i class="fas fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+
     </div>
 </div>
 
