@@ -93,7 +93,7 @@
 									<div class="row g-4">
 
 										<!-- Card item START -->
-										<div th:each="user : ${users}"  class="col-md-6 col-xxl-4">
+										<div th:each="user : ${users}" class="col-md-6 col-xxl-4">
 											<div class="card bg-transparent border h-100">
 												<!-- Card header -->
 												<div
@@ -211,7 +211,7 @@
 											<tbody>
 
 												<!-- Table row -->
-												<tr th:each="user : ${users}" >
+												<tr  th:if="${#lists.isEmpty(users) == false}" th:each="user : ${users}" >
 													<!-- Table data -->
 													<td>
 														<div class="d-flex align-items-center position-relative">
@@ -294,15 +294,15 @@
         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
             <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                 <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage - 1}, size=5)}" tabindex="-1">
+                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage - 1}, size=10)}" tabindex="-1">
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
                 <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
-                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-instructor-list(page=${i}, size=5)}">1</a>
+                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-instructor-list(page=${i}, size=10)}">1</a>
                 </li>
                 <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage + 1}, size=5)}">
+                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage + 1}, size=10)}">
                         <i class="fas fa-angle-right"></i>
                     </a>
                 </li>

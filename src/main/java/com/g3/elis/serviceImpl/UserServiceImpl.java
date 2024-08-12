@@ -1,6 +1,7 @@
 package com.g3.elis.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(UserDto userDto) {
+		
+		Optional<User> existingUser = userRepository.findByStaffId(userDto.getStaffId());
+	    if (existingUser.isPresent()) {
+	        return;
+	    }
+		
+		
 		User user = new User();
+		
 		
 		if(userDto.getEmail() == null)
 		{
