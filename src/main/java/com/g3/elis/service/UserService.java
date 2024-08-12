@@ -33,4 +33,5 @@ public interface UserService {
 	 Page<User> getAllInstructors(Pageable pageable);
 	    Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable);
 
+	void changePassword(User user,String newPassword);
 }

@@ -13,53 +13,87 @@ import jakarta.persistence.Table;
 @Table(name = "achievements")
 public class ModuleGrade {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String grade;
+	
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User users;
+	             @Id
+	             @GeneratedValue(strategy = GenerationType.IDENTITY)
+	             private int id;
+	             private String grade;
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+				@ManyToOne
+				@JoinColumn(name="user_id")
+				private User users;
+				
+				@ManyToOne
+				@JoinColumn(name="course_id")
+				private Course courses;
+				
+				@OneToOne
+				@JoinColumn(name="course_module_id")
+				private CourseModule course_modules;
 
-	public String getGrade() {
-		return grade;
-	}
+				public int getId() {
+					return id;
+				}
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+				public void setId(int id) {
+					this.id = id;
+				}
 
-	public User getUsers() {
-		return users;
-	}
+				public String getGrade() {
+					return grade;
+				}
 
-	public void setUsers(User users) {
-		this.users = users;
-	}
+				public void setGrade(String grade) {
+					this.grade = grade;
+				}
 
-	public ModuleGrade(int id, String grade, User users) {
-		super();
-		this.id = id;
-		this.grade = grade;
-		this.users = users;
-	}
+				public User getUsers() {
+					return users;
+				}
 
-	public ModuleGrade() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+				public void setUsers(User users) {
+					this.users = users;
+				}
 
-	@OneToOne
-	@JoinColumn(name = "course_module_id")
-	private CourseModule course_modules;
+				public Course getCourses() {
+					return courses;
+				}
 
+				public void setCourses(Course courses) {
+					this.courses = courses;
+				}
+
+				public CourseModule getCourse_modules() {
+					return course_modules;
+				}
+
+				public void setCourse_modules(CourseModule course_modules) {
+					this.course_modules = course_modules;
+				}
+
+				public ModuleGrade(int id, String grade, User users, Course courses, CourseModule course_modules) {
+					super();
+					this.id = id;
+					this.grade = grade;
+					this.users = users;
+					this.courses = courses;
+					this.course_modules = course_modules;
+				}
+
+				public ModuleGrade() {
+					super();
+					// TODO Auto-generated constructor stub
+				}
+				
+				
+				
+				
+				
+
+
+
+
+		
 }
