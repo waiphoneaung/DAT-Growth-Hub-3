@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ import jakarta.transaction.Transactional;
 public class CourseServiceImpl implements CourseService {
 
 	private final String courseInputFilePath = "/course/course-image-file";
+	
+	private final String courseInputHTMLPath = "/course/course-html-file";
 	
 	@Autowired
 	private CourseRepository courseRepository;
@@ -81,8 +84,13 @@ public class CourseServiceImpl implements CourseService {
 				if(index == courseMaterialDto.getIndex())
 				{
 					CourseMaterial courseMaterial = new CourseMaterial();
+					String fileName = UUID.randomUUID().toString() + ".html";
 					courseMaterial.setTitle(courseMaterialDto.getTitle());
+					courseMaterial.setContent(fileName);
 					courseMaterial.setCourseModules(courseModule);
+					
+					fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
+					
 					courseMaterialList.add(courseMaterial);
 				}
 			}
@@ -104,5 +112,10 @@ public class CourseServiceImpl implements CourseService {
 		course.setCourseModule(courseModuleList);
 		course.setUsers(user);
 		courseRepository.save(course);
+	}
+
+	@Override
+	public List<Course> getAllCourse() {
+		return courseRepository.findAll();
 	}
 }

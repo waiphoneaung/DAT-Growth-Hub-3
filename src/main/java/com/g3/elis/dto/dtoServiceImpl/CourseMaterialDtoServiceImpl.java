@@ -9,8 +9,9 @@ import com.g3.elis.dto.form.CourseMaterialDto;
 public class CourseMaterialDtoServiceImpl implements CourseMaterialDtoService{
 
 	@Override
-	public CourseMaterialDto createMaterialDto(int index, String title) {
+	public CourseMaterialDto createMaterialDto(int index, String title,String content) {
 		CourseMaterialDto courseMaterialDto = new CourseMaterialDto();
+		courseMaterialDto.setContent(content);
 		courseMaterialDto.setIndex(index);
 		courseMaterialDto.setTitle(title);
 		return courseMaterialDto;
