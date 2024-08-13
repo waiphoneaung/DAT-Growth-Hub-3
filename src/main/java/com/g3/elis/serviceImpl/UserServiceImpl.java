@@ -1,8 +1,11 @@
 package com.g3.elis.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +16,15 @@ import com.g3.elis.repository.RoleRepository;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.UserService;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Override
 	public User getUserById(int id) {
 		return userRepository.findById(id).orElse(null);
@@ -30,17 +32,28 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(UserDto userDto) {
+		
+		Optional<User> existingUser = userRepository.findByStaffId(userDto.getStaffId());
+	    if (existingUser.isPresent()) {
+	        return;
+	    }
+		
+		
 		User user = new User();
+<<<<<<< HEAD
+		
 		
 		if(userDto.getEmail() == null)
 		{
+=======
+
+		if (userDto.getEmail() == null) {
+>>>>>>> bcc25d538ff83b80eb55db0ddc8865bca1dd638b
 			user.setEmail(userDto.getName().toLowerCase().replaceAll("\\s+", "") + "@diracetechnology.com");
-		}
-		else
-		{
+		} else {
 			user.setEmail(userDto.getEmail());
 		}
-		
+
 		user.setName(userDto.getName());
 		user.setDivision(userDto.getDivision());
 		user.setStaffId(userDto.getStaffId());
@@ -48,16 +61,18 @@ public class UserServiceImpl implements UserService {
 		user.setDept(userDto.getDept());
 		user.setTeam(userDto.getTeam());
 		user.setStatus(userDto.getStatus());
-		
+		user.setGender(userDto.getGender());
+
 		user.setEnabled(true);
 		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
-		
+
 //		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
-		Role userRole = roleRepository.findByName("ROLE_STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
-		
+		Role userRole = roleRepository.findByName("ROLE_STUDENT")
+				.orElseThrow(() -> new RuntimeException("Role is not found!"));
+
 		user.getRoles().add(userRole);
 		userRole.getUsers().add(user);
-		
+
 		userRepository.save(user);
 	}
 
@@ -65,32 +80,56 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
-
-	@Override
-	public List<User> searchUsersByName(String name) {
-		return userRepository.findByNameContainingIgnoreCase(name);
-	}
+  
 	@Override
 	public List<String> getEmailsByRole(String role) {
-        return userRepository.findEmailsByRole(role);
-    }
+		return userRepository.findEmailsByRole(role);
+	}
+
 
 	@Override
-	public List<User> getAllStudents() {
-		return userRepository.findByRole("ROLE_STUDENT");
+	public void updateUserStatus(int id, boolean enabled) {
+		
+	        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	        user.setEnabled(enabled);
+	        user.setStatus(enabled ? "Active" : "Unactive");
+	        userRepository.save(user);
+	    }
+
+	@Override
+	public Page<User> getAllStudents(Pageable pageable) {
+		return userRepository.findByRole("ROLE_STUDENT", pageable);
 	}
 
 	@Override
-	public List<User> getAllInstructors() {
-		return userRepository.findByRole("ROLE_INSTRUCTOR");
+	public Page<User> searchUsersByName(String name, Pageable pageable) {
+		return userRepository.findByNameContainingIgnoreCaseAndRole(name, "ROLE_STUDENT", pageable);
 	}
 
 	@Override
-	public List<User> getAllAdmins() {
-		return userRepository.findByRole("ROLE_ADMIN");
+	public Page<User> getAllInstructors(Pageable pageable) {
+		// TODO Auto-generated method stub
+
+		return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
+  }
+
+	@Override
+	public Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return userRepository.searchInstructors(name, staffId, dept, division,pageable);
 	}
 
 	@Override
+	public void updateUserStatus(int id, boolean enabled) {
+
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		user.setEnabled(enabled);
+		user.setStatus(enabled ? "Active" : "Unactive");
+		userRepository.save(user);
+
+	}
+
 	public void changePassword(User user, String newPassword) {
 		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
 		userRepository.save(user);

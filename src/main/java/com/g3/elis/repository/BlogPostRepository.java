@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.g3.elis.model.BlogPost;
 
-
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Integer>{
 

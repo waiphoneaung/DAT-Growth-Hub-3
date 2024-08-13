@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Size;
 
 public class AnswerDto {
 
-	@NotBlank(message = "Answer title cannot be blank")
-    @Size(max = 255, message = "Answer title cannot exceed 255 characters")
+//	@NotBlank(message = "Answer title cannot be blank")
+//    @Size(max = 255, message = "Answer title cannot exceed 255 characters")
 	private String answerTitle;
 	private boolean correctStatus;
 	public String getAnswerTitle() {

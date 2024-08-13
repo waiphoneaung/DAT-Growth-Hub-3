@@ -1,11 +1,9 @@
 package com.g3.elis.dto.form;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 public class QuestionDto {
 
-	@NotBlank(message = "Question cannot be blank")
+//	@NotBlank(message = "Question cannot be blank")
 	private String question;
 	
 	

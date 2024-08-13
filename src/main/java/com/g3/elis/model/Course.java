@@ -1,9 +1,10 @@
 package com.g3.elis.model;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ public class Course {
 
 	private String courseTitle;
 	private String courseDescription;
+	private String courseInfo;
 	private String status;
 	private Timestamp createdAt;
 	private String duration;
@@ -45,13 +47,13 @@ public class Course {
 	private CourseTag courseTags;
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-	private Set<EnrolledCourse> enrolledCourses = new HashSet<>();
+	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-	private Set<Report> reports = new HashSet<>();
+	private List<Report> reports = new ArrayList<>();
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
-	private Set<CourseModule> courseModule = new HashSet<>();
+	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CourseModule> courseModule =  new ArrayList<>();
 
 	@OneToOne(mappedBy = "courses", fetch = FetchType.LAZY)
 	private Achievement achievements;
@@ -78,6 +80,14 @@ public class Course {
 
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
+	}
+
+	public String getCourseInfo() {
+		return courseInfo;
+	}
+
+	public void setCourseInfo(String courseInfo) {
+		this.courseInfo = courseInfo;
 	}
 
 	public String getStatus() {
@@ -160,22 +170,48 @@ public class Course {
 		this.courseTags = courseTags;
 	}
 
-	public Set<EnrolledCourse> getEnrolledCourses() {
+	public List<EnrolledCourse> getEnrolledCourses() {
 		return enrolledCourses;
 	}
 
-	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
+	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
 	}
 
-	public Course(int id, String courseTitle, String courseDescription, String status, Timestamp createdAt,
-			String duration, boolean courseCompletedStatus, double progress, String courseImageFileName,
-			Timestamp updatedDate, User users, CourseCategory courseCategories, CourseTag courseTags,
-			Set<EnrolledCourse> enrolledCourses) {
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+
+	public List<CourseModule> getCourseModule() {
+		return courseModule;
+	}
+
+	public void setCourseModule(List<CourseModule> courseModule) {
+		this.courseModule = courseModule;
+	}
+
+	public Achievement getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(Achievement achievements) {
+		this.achievements = achievements;
+	}
+
+	public Course(int id, String courseTitle, String courseDescription, String courseInfo, String status,
+			Timestamp createdAt, String duration, boolean courseCompletedStatus, double progress,
+			String courseImageFileName, Timestamp updatedDate, User users, CourseCategory courseCategories,
+			CourseTag courseTags, List<EnrolledCourse> enrolledCourses, List<Report> reports,
+			List<CourseModule> courseModule, Achievement achievements) {
 		super();
 		this.id = id;
 		this.courseTitle = courseTitle;
 		this.courseDescription = courseDescription;
+		this.courseInfo = courseInfo;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.duration = duration;
@@ -187,5 +223,11 @@ public class Course {
 		this.courseCategories = courseCategories;
 		this.courseTags = courseTags;
 		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+		this.courseModule = courseModule;
+		this.achievements = achievements;
+	}
+	public Course() {
+		
 	}
 }

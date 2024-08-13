@@ -24,7 +24,6 @@ public class BlogPost {
 	private String title;
 	private String htmlFileName;
 	private String blogImage;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -62,8 +61,6 @@ public class BlogPost {
 		this.title = title;
 	}
 
-	
-
 	public String getBlogImage() {
 		return blogImage;
 	}
@@ -72,7 +69,6 @@ public class BlogPost {
 		this.blogImage = blogImage;
 	}
 
-
 	public User getUsers() {
 		return users;
 	}
@@ -80,8 +76,6 @@ public class BlogPost {
 	public void setUsers(User users) {
 		this.users = users;
 	}
-
-	
 
 	public String getHtmlFileName() {
 		return htmlFileName;
@@ -107,12 +101,4 @@ public class BlogPost {
 		this.users = users;
 	}
 
-	public void setImageFile(String newImageFileName) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
 }

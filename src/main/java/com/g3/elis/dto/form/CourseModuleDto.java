@@ -1,32 +1,32 @@
 package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 public class CourseModuleDto {
 
-	@NotBlank(message = "Module title cannot be blank")
-	@Size(max = 255, message = "Module title cannot exceed 255 characters")
+//	@NotBlank(message = "Module title cannot be blank")
+//	@Size(max = 255, message = "Module title cannot exceed 255 characters")
 	private String moduleTitle;
 	
-	@NotNull(message = "Duration cannot be null")
+//	@NotNull(message = "Duration cannot be null")
 	private String duration;
 	
-	@NotNull(message = "Max score cannot be null")
+//	@NotNull(message = "Max score cannot be null")
 	private int maxScore;
 	
-	@NotNull(message = "Toal score cannot be null")
+//	@NotNull(message = "Toal score cannot be null")
 	private int totalResultScore;
 	
 	private Timestamp createdAt;
 	
 	
 	private Timestamp updatedAt;
+	
+	private int index;
 
 	public String getModuleTitle() {
 		return moduleTitle;
@@ -76,12 +76,20 @@ public class CourseModuleDto {
 		this.updatedAt = updatedAt;
 	}
 
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
 	public CourseModuleDto(
 			@NotBlank(message = "Module title cannot be blank") @Size(max = 255, message = "Module title cannot exceed 255 characters") String moduleTitle,
 			@NotNull(message = "Duration cannot be null") String duration,
 			@NotNull(message = "Max score cannot be null") int maxScore,
 			@NotNull(message = "Toal score cannot be null") int totalResultScore, Timestamp createdAt,
-			Timestamp updatedAt) {
+			Timestamp updatedAt, int index) {
 		super();
 		this.moduleTitle = moduleTitle;
 		this.duration = duration;
@@ -89,11 +97,11 @@ public class CourseModuleDto {
 		this.totalResultScore = totalResultScore;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.index = index;
 	}
 
-	public CourseModuleDto() {
-		super();
-	}
-
+	public CourseModuleDto()
+	{
 		
+	}
 }

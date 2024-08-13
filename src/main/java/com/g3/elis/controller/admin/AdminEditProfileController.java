@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,19 +41,19 @@ public class AdminEditProfileController {
 		UserDto userDto = new UserDto();
 		if (profileService.getProfileByUser(user) == null) {
 			ProfileDto profileDto = new ProfileDto();
-			
+
 			model.addAttribute("user", user);
 			model.addAttribute("profileDto", profileDto);
 		} else {
 			ProfileDto profileDto = new ProfileDto();
 			Profile profile = profileService.getProfileByUser(user);
-			
+
 			profileDto.setAddress(profile.getAddress());
 			profileDto.setDescription(profile.getDescription());
 			profileDto.setPhNo(profile.getPhNo());
-			
+
 			String imageName = profileService.getProfileByUser(user).getProfileImg();
-			model.addAttribute("profileImg",imageName);
+			model.addAttribute("profileImg", imageName);
 			model.addAttribute("user", user);
 			model.addAttribute("profileDto", profileDto);
 		}
@@ -65,24 +64,22 @@ public class AdminEditProfileController {
 
 	@PostMapping("/admin-edit-profile")
 	public String adminEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
-			@RequestParam(name = "profileImage",required = false) MultipartFile profileImage,
+			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
 			Authentication authentication, BindingResult result, Model model) throws IOException {
-		
-		
+
 		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
 		User user = loginUser.getUser();
-		
+
 		if (profileImage.isEmpty()) {
-			
+
 			result.addError(new FieldError("profileDto", "profileImage", "The image file is required"));
 		}
-		if(result.hasErrors())
-		{
+		if (result.hasErrors()) {
 			model.addAttribute("user", user);
 			model.addAttribute("content", "admin/admin-edit-profile");
 			return "/admin/admin-layout";
 		}
-		profileDto.setProfileImg(profileImage);		
+		profileDto.setProfileImg(profileImage);
 		if (profileService.getProfileByUser(user) == null) {
 			profileService.createProfile(user, profileDto);
 		} else {
@@ -90,7 +87,7 @@ public class AdminEditProfileController {
 		}
 		String imageName = profileService.getProfileByUser(user).getProfileImg();
 		model.addAttribute("user", user);
-		model.addAttribute("profileImg",imageName);
+		model.addAttribute("profileImg", imageName);
 		model.addAttribute("content", "admin/admin-edit-profile");
 		return "redirect:/admin/admin-edit-profile";
 	}

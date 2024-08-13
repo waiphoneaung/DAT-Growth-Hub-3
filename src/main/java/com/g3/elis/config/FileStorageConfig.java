@@ -91,9 +91,41 @@ public class FileStorageConfig {
 		Path targetLocation = getUploadDir().resolve(fileName);
 		Files.copy(file.getInputStream(), targetLocation);
 	}
+	
 	public void deleteFile(String fileName) throws IOException
 	{
 		Path targetLocation = getUploadDir().resolve(fileName);
 		Files.delete(targetLocation);
+	}
+	
+	
+	
+	
+	
+	
+	public Path getUploadDir(String filePath)
+	{
+		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
+	}
+	
+	public void saveFile(MultipartFile file,String fileName,String filePath) throws IOException
+	{
+		Path targetLocation = getUploadDir(filePath).resolve(fileName);
+		Files.copy(file.getInputStream(), targetLocation);
+	}
+	
+	public void deleteFile(String fileName,String filePath) throws IOException
+	{
+		Path targetLocation = getUploadDir(filePath).resolve(fileName);
+		Files.delete(targetLocation);
+	}
+	
+	
+	
+	
+	public void saveHTMLFile(String content,String path,String fileName) throws IOException
+	{
+		Path targetLocation = getUploadDir(path).resolve(fileName);
+		Files.write(targetLocation, content.getBytes());
 	}
 }
