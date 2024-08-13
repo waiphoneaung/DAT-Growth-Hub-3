@@ -271,7 +271,10 @@ public class InputFileServiceImpl implements InputFileService {
 							{
 								userDto.setStatus(getCellValue(formulaEvaluator,row.getCell(8)));
 							}
-							
+							if(getCellValue(formulaEvaluator,row.getCell(9))!=null)
+							{
+								userDto.setRole(getCellValue(formulaEvaluator,row.getCell(9)));
+							}
 						}
 					}
 					if(userDto.getName()!=null)
@@ -279,7 +282,7 @@ public class InputFileServiceImpl implements InputFileService {
 						userService.createUser(userDto);
 					}
 				}
-			}
+			}	
 		}
 		workbook.close();
 	}

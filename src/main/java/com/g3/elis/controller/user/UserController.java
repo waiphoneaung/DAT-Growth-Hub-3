@@ -12,13 +12,14 @@ import com.g3.elis.model.BlogPost;
 import com.g3.elis.service.BlogPostService;
 
 @Controller
-@RequestMapping({"/user","/"})
+@RequestMapping({"/user","/",""})
 public class UserController {
 	
 	@Autowired
     private BlogPostService blogPostService;
 	
-	@GetMapping({"/home","/"})
+	
+	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("content","user/main");
 		return "/user/layout";
