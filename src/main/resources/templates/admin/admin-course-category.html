@@ -129,100 +129,135 @@
 										</tr>
 									</thead>
 									<tbody>
-    <tr th:each="category : ${courseCategories}">
-        <td>
-            <div class="d-flex align-items-center position-relative">
-                <h6 class="table-responsive-title mb-0 ms-2">
-                    <a href="#" class="stretched-link" th:text="${category.categoryName}"></a>
-                </h6>
-            </div>
-        </td>
-        <td>
-            <ul>
-                <li th:each="course : ${category.courses}" th:text="${course.courseTitle}"></li>
-            </ul>
-        </td>
-        <td th:text="${category.users.name}"></td>
-        <td>
-            <a class="btn btn-sm btn-success me-1 mb-1 mb-md-0" th:data-id="${category.id}" data-bs-toggle="modal" data-bs-target="#editCategory">Edit</a>
-            <form th:action="@{/admin/admin-course-category/delete/{id}(id=${category.id})}" method="post" style="display: inline;" onsubmit="return confirm('Are you sure?');">
-                <button type="submit" class="btn btn-sm btn-danger mb-0">Delete</button>
-            </form>
-        </td>
-    </tr>
-</tbody>
+										<tr th:each="category : ${courseCategories}">
+											<td>
+												<div class="d-flex align-items-center position-relative">
+													<h6 class="table-responsive-title mb-0 ms-2">
+														<a href="#" class="stretched-link"
+															th:text="${category.categoryName}"></a>
+													</h6>
+												</div>
+											</td>
+											<td>
+												<ul>
+													<li th:each="course : ${category.courses}"
+														th:text="${course.courseTitle}"></li>
+												</ul>
+											</td>
+											<td th:text="${category.users.name}"></td>
+											<td><a class="btn btn-sm btn-success me-1 mb-1 mb-md-0"
+												th:data-id="${category.id}" data-bs-toggle="modal"
+												data-bs-target="#editCategory">Edit</a>
+												<form
+													th:action="@{/admin/admin-course-category/delete/{id}(id=${category.id})}"
+													method="post" style="display: inline;"
+													onsubmit="return confirm('Are you sure?');">
+													<button type="submit" class="btn btn-sm btn-danger mb-0">Delete</button>
+												</form></td>
+										</tr>
+									</tbody>
 
 								</table>
 							</div>
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
-    <div class="d-sm-flex justify-content-center align-items-sm-center">
-        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-course-category(page=${currentPage - 1})}" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                    </a>
-                </li>
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
-                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-course-category(page=${i})}">1</a>
-                </li>
-                <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-course-category(page=${currentPage + 1})}">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-
-                    </div>
-                </div>
-
+							<div
+								class="d-sm-flex justify-content-center align-items-sm-center">
+								<nav class="d-flex justify-content-center mb-0"
+									aria-label="navigation">
+									<ul
+										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+										<li th:classappend="${currentPage == 0} ? 'disabled' : ''"
+											class="page-item mb-0"><a class="page-link"
+											th:href="@{/admin/admin-course-category(page=${currentPage - 1})}"
+											tabindex="-1"> <i class="fas fa-angle-left"></i>
+										</a></li>
+										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+											th:classappend="${i == currentPage} ? 'active' : ''"
+											class="page-item mb-0"><a class="page-link"
+											th:text="${i + 1}"
+											th:href="@{/admin/admin-course-category(page=${i})}">1</a></li>
+										<li
+											th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''"
+											class="page-item mb-0"><a class="page-link"
+											th:href="@{/admin/admin-course-category(page=${currentPage + 1})}">
+												<i class="fas fa-angle-right"></i>
+										</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
 
 					</div>
-				
+				</div>
 
-				<!-- Edit Modal Start -->
-				<div th:each="category : ${courseCategories}">
-					<div class="modal fade" id="editCategory" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="editCategory">Edit Course
-										Category</h5>
 
-								</div>
-								<form id="editCategory"
-									th:action="@{/admin/admin-course-category/edit}" method="post">
-									<div class="modal-body">
-										<div class="form-group">
-											<label for="edit-category-name" class="col-form-label">Category
-												Name:</label> <input type="text" class="form-control"
-												id="edit-category-name" name="categoryName"
-												th:value="${category.categoryName}"> <input
-												type="hidden" id="categoryId" name="categoryId">
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Save
-											changes</button>
-									</div>
-								</form>
+			</div>
+
+
+			<!-- Edit Modal Start -->
+			<div th:each="category : ${courseCategories}">
+				<div class="modal fade" id="editCategory" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editCategory">Edit Course
+									Category</h5>
+
 							</div>
+							<form
+								th:action="@{/admin/admin-course-category/edit}" method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="edit-category-name" class="col-form-label">Category
+											Name:</label> <input type="text" class="form-control"
+											id="edit-category-name" name="categoryName"
+											th:value="${category.categoryName}"> <input
+											type="hidden" id="categoryId" name="categoryId">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save
+										changes</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
+			</div>
 		</th:block>
 		<!-- Edit Modal End -->
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
+	<script>
+		var myModal = document.getElementById('editCategory');
+		myModal.addEventListener('show.bs.modal', function(event) {
+			var button = event.relatedTarget;
+			var categoryId = button.getAttribute('data-id');
+			var input = myModal.querySelector('#categoryId');
+			input.value = categoryId;
+		});
+
+		//function editCategoryModal(element) {
+		//	var categoryId = element.getAttribute("data-id");
+		//	var categoryName = element.getAttribute("data-name");
+
+		//	var form = document.getElementById("editCategory");
+		//	form.action = "/admin-course-category/edit/" + categoryId;
+
+		//	var categoryNameInput = document
+		//			.getElementById("edit-category-name");
+		//	categoryNameInput.value = categoryName;
+
+		//	var categoryIdInput = document.getElementById("edit-category-id");
+		//	categoryIdInput.value = categoryId;
+		//}
+	</script>
 	<!-- Bootstrap JS -->
 	<script
 		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
@@ -252,29 +287,5 @@
 
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
-	<script>
-		var myModal = document.getElementById('editCategory');
-		myModal.addEventListener('show.bs.modal', function(event) {
-			var button = event.relatedTarget;
-			var categoryId = button.getAttribute('data-id');
-			var input = myModal.querySelector('#categoryId');
-			input.value = categoryId;
-		});
-
-		//function editCategoryModal(element) {
-		//	var categoryId = element.getAttribute("data-id");
-		//	var categoryName = element.getAttribute("data-name");
-
-		//	var form = document.getElementById("editCategory");
-		//	form.action = "/admin-course-category/edit/" + categoryId;
-
-		//	var categoryNameInput = document
-		//			.getElementById("edit-category-name");
-		//	categoryNameInput.value = categoryName;
-
-		//	var categoryIdInput = document.getElementById("edit-category-id");
-		//	categoryIdInput.value = categoryId;
-		//}
-	</script>
 </body>
 </html>

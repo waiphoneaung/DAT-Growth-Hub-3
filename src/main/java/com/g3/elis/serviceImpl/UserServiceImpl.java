@@ -49,13 +49,18 @@ public class UserServiceImpl implements UserService {
 		user.setEnabled(true);
 		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
 
-//		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
-		Role userRole = roleRepository.findByName("ROLE_STUDENT")
-				.orElseThrow(() -> new RuntimeException("Role is not found!"));
-
-		user.getRoles().add(userRole);
+		if(userDto.getRole()!=null)
+		{
+			String roleName = userDto.getRole().equalsIgnoreCase("Admin") ? "ROLE_ADMIN" : userDto.getRole().equalsIgnoreCase("Instructor") ? "ROLE_INSTRUCTOR" : userDto.getRole().equalsIgnoreCase("Student") ? "ROLE_STUDENT" : "";
+			Role userRole = roleRepository.findByName(roleName).orElseThrow(() -> new RuntimeException("Role is not found"));
+			userRole.getUsers().add(user);
+			user.getRoles().add(userRole);
+			userRepository.save(user);
+			return;
+		}
+		Role userRole = roleRepository.findByName("ROLE_STUDENT").orElseThrow(() -> new RuntimeException("Role is not found!"));
 		userRole.getUsers().add(user);
-
+		user.getRoles().add(userRole);
 		userRepository.save(user);
 	}
 

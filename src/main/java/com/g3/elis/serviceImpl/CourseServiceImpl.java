@@ -56,9 +56,9 @@ public class CourseServiceImpl implements CourseService {
 		course.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 		course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
 		course.setStatus("Pending");
-		if(superDto.getCourseDto().getDurationHour()<=0)
+		if(superDto.getCourseDto().getDurationHour()>0)
 		{
-			course.setDuration(String.valueOf((superDto.getCourseDto().getDurationHour())));
+			course.setDuration(superDto.getCourseDto().getDurationHour());
 		}
 		if(!(imgFile.isEmpty())|| imgFile != null)
 		{
