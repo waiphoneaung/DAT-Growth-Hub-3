@@ -29,4 +29,6 @@ public interface CourseCategoryService {
 
 	Page<CourseCategory> getPaginatedCourseCategories(int page, int size);
 
+	public Page<CourseCategory> searchPaginatedCourseCategoriesByName(String search, int page, int pageSize);
+
 }

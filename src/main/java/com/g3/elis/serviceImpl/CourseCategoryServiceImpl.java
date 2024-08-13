@@ -83,6 +83,12 @@ public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
     return courseCategoryRepository.findAll(pageable);
 }
 
+@Override
+public Page<CourseCategory> searchPaginatedCourseCategoriesByName(String search, int page, int pageSize) {
+	Pageable pageable = PageRequest.of(page, pageSize);
+    return courseCategoryRepository.findByCategoryNameContainingIgnoreCase(search, pageable);
+}
+
 
 
 

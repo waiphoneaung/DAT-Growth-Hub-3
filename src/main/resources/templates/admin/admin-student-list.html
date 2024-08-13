@@ -297,30 +297,30 @@
 						<!-- Card body END -->
 
 						<!-- Card footer START -->
-						<div class="card-footer bg-transparent pt-0 px-0">
-							<!-- Pagination START -->
-							<div
-								class="d-sm-flex justify-content-sm-center align-items-sm-center">
-								<!-- Content -->
-								<!-- Pagination -->
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft mb-0 pb-0 px-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-							<!-- Pagination END -->
-						</div>
-						<!-- Card footer END -->
+<div class="card-footer bg-transparent pt-0 px-0">
+    <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0 px-0">
+            <!-- Previous Page -->
+            <li class="page-item mb-0" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/admin-student-list/search(search=${search}, page=${currentPage - 1}, size=${size})}" tabindex="-1">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+            <!-- Page Numbers -->
+            <li class="page-item mb-0" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${pageNum == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/admin/admin-student-list/search(search=${search}, page=${pageNum}, size=${size})}" th:text="${pageNum + 1}"></a>
+            </li>
+            <!-- Next Page -->
+            <li class="page-item mb-0" th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/admin-student-list/search(search=${search}, page=${currentPage + 1}, size=${size})}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- Card footer END -->
+
 					</div>
 				</div>
 				<!-- Page main content END -->
