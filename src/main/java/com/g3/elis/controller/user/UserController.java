@@ -27,12 +27,12 @@ public class UserController {
 		return "/user/layout";
 	}
 	
-	@GetMapping("/blog")
-	public String blogGrid(Model model) {
-		model.addAttribute("content","user/blog");
-		return "/user/layout";
-	}
-	
+//	@GetMapping("/blog")
+//	public String blogGrid(Model model) {
+//		model.addAttribute("content","user/blog");
+//		return "/user/layout";
+//	}
+//	
 	@GetMapping("/courses")
 	public String courseList(Model model) {
 		model.addAttribute("content","user/courses");

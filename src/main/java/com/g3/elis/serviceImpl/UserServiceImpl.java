@@ -40,15 +40,9 @@ public class UserServiceImpl implements UserService {
 		
 		
 		User user = new User();
-<<<<<<< HEAD
-		
-		
-		if(userDto.getEmail() == null)
-		{
-=======
+
 
 		if (userDto.getEmail() == null) {
->>>>>>> bcc25d538ff83b80eb55db0ddc8865bca1dd638b
 			user.setEmail(userDto.getName().toLowerCase().replaceAll("\\s+", "") + "@diracetechnology.com");
 		} else {
 			user.setEmail(userDto.getEmail());
@@ -87,14 +81,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	@Override
-	public void updateUserStatus(int id, boolean enabled) {
-		
-	        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-	        user.setEnabled(enabled);
-	        user.setStatus(enabled ? "Active" : "Unactive");
-	        userRepository.save(user);
-	    }
+	
 
 	@Override
 	public Page<User> getAllStudents(Pageable pageable) {
