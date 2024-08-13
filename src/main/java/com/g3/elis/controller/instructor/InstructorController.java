@@ -80,13 +80,13 @@ public class InstructorController {
 	
 	
 
-	@GetMapping("/instructor-edit-profile")
-	public String instructor_edit_profile(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-edit-profile");
-		model.addAttribute("content", "instructor/instructor-edit-profile");
-		return "instructor/instructor-layout";
-	}
+//	@GetMapping("/instructor-edit-profile")
+//	public String instructor_edit_profile(Model model) {
+//		
+//		model.addAttribute("currentPage", "instructor-edit-profile");
+//		model.addAttribute("content", "instructor/instructor-edit-profile");
+//		return "instructor/instructor-layout";
+//	}
 	
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
