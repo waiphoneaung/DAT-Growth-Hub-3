@@ -39,16 +39,10 @@ public class UserServiceImpl implements UserService {
 	    }
 		
 		
-		User user = new User();
-<<<<<<< HEAD
-		
+		User user = new User();	
 		
 		if(userDto.getEmail() == null)
 		{
-=======
-
-		if (userDto.getEmail() == null) {
->>>>>>> bcc25d538ff83b80eb55db0ddc8865bca1dd638b
 			user.setEmail(userDto.getName().toLowerCase().replaceAll("\\s+", "") + "@diracetechnology.com");
 		} else {
 			user.setEmail(userDto.getEmail());
@@ -119,20 +113,16 @@ public class UserServiceImpl implements UserService {
 		return userRepository.searchInstructors(name, staffId, dept, division,pageable);
 	}
 
-	@Override
-	public void updateUserStatus(int id, boolean enabled) {
-
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-		user.setEnabled(enabled);
-		user.setStatus(enabled ? "Active" : "Unactive");
-		userRepository.save(user);
-
-	}
 
 	public void changePassword(User user, String newPassword) {
 		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
 		userRepository.save(user);
+	}
+
+	@Override
+	public User getCurrentUser() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><style>
+    .card {
+        width: 100%;
+        max-width: 250px; /* Set a fixed width */
+        height: 350px; /* Set a fixed height */
+        margin: auto;
+    }
+
+    .card img {
+        width: 100%;
+        height: 200px; /* Ensure the image fits within the card */
+        object-fit: cover; /* This ensures the image covers the entire area without distortion */
+    }
+
+    .card-body {
+        text-align: center; /* Center the text within the card body */
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        margin-top: 10px;
+    }
+</style>
+</head>
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>

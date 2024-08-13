@@ -13,17 +13,15 @@ public interface UserService {
 	List<User> getAllUsers();
 
 
-	
+
+    public List<String> getEmailsByRole(String role);
+	User getCurrentUser();
+
 
 	User getUserById(int id);
 
 	void createUser(UserDto userDto);
 
-	public List<String> getEmailsByRole(String role);
-
-	
-
-	
 
 	public void updateUserStatus(int id, boolean enabled);
 	
