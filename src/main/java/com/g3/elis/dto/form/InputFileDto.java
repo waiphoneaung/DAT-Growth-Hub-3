@@ -2,17 +2,11 @@ package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-
 public class InputFileDto {
 
+	private String fileName;
 
-    private String fileName;
-
-
-    private Timestamp createdAt;
+	private Timestamp createdAt;
 
 	public String getFileName() {
 		return fileName;
@@ -21,6 +15,7 @@ public class InputFileDto {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
@@ -29,7 +24,7 @@ public class InputFileDto {
 		this.createdAt = createdAt;
 	}
 
-	public InputFileDto( String fileName, Timestamp createdAt) {
+	public InputFileDto(String fileName, Timestamp createdAt) {
 		super();
 		this.fileName = fileName;
 		this.createdAt = createdAt;

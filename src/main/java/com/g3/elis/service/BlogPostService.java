@@ -8,6 +8,7 @@ import com.g3.elis.model.BlogPost;
 
 import jakarta.validation.Valid;
 
+
 public interface BlogPostService {
 
 	 List<BlogPost> getAllBlogPosts();
@@ -18,5 +19,7 @@ public interface BlogPostService {
 
 
 	void deleteBlogPost(int id) throws IOException;
+	
+	void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
 
 }

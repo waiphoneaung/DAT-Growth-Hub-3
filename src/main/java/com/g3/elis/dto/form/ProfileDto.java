@@ -1,43 +1,34 @@
 package com.g3.elis.dto.form;
 
-
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.mail.Multipart;
 import jakarta.validation.constraints.Size;
 
 public class ProfileDto {
-	
-    private MultipartFile profileImg;
-    
-    @Size(max = 255, message = "Description must be less than 255 characters")
-    private String description;
-    
-    @Size(max = 255, message = "Address must be less than 255 characters")
-    private String address;
 
+	private MultipartFile profileImg;
 
-    @Size(max = 15, message = "Phone number must be less than 15 characters")
-    private String phNo;
+	@Size(max = 255, message = "Description must be less than 255 characters")
+	private String description;
 
-    private int user_id;
+	@Size(max = 255, message = "Address must be less than 255 characters")
+	private String address;
 
-    public ProfileDto() {
-    }
+	@Size(max = 15, message = "Phone number must be less than 15 characters")
+	private String phNo;
 
-	
+	private int user_id;
+
+	public ProfileDto() {
+	}
 
 	public MultipartFile getProfileImg() {
 		return profileImg;
 	}
 
-
-
 	public void setProfileImg(MultipartFile profileImg) {
 		this.profileImg = profileImg;
 	}
-
-
 
 	public String getDescription() {
 		return description;
@@ -71,8 +62,6 @@ public class ProfileDto {
 		this.user_id = user_id;
 	}
 
-
-
 	public ProfileDto(MultipartFile profileImg,
 			@Size(max = 255, message = "Description must be less than 255 characters") String description,
 			@Size(max = 255, message = "Address must be less than 255 characters") String address,
@@ -83,6 +72,6 @@ public class ProfileDto {
 		this.address = address;
 		this.phNo = phNo;
 		this.user_id = user_id;
-	}    
+	}
 
 }
