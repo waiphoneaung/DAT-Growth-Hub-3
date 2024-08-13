@@ -64,13 +64,13 @@ public class InstructorController {
 		return "instructor/forum";
 	}
 	
-	@GetMapping("/instructor-view-blog")
-	public String instructor_view_blog(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-view-blog");
-		model.addAttribute("content", "instructor/instructor-view-blog");
-		return "instructor/instructor-layout";
-	}
+//	@GetMapping("/instructor-view-blog")
+//	public String instructor_view_blog(Model model) {
+//		
+//		model.addAttribute("currentPage", "instructor-view-blog");
+//		model.addAttribute("content", "instructor/instructor-view-blog");
+//		return "instructor/instructor-layout";
+//	}
 	
 	@GetMapping("/blog-detail")
 	public String blogDetail()

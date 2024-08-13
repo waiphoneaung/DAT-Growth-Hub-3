@@ -12,7 +12,7 @@ public interface BlogPostService {
 
 	 List<BlogPost> getAllBlogPosts();
 
-	 void saveBlogPost(BlogPostDto blogPostDto) throws IOException;
+	 void saveBlogPost(@Valid BlogPostDto blogPostDto) throws IOException;
 
 	 BlogPost findById(int id);
 

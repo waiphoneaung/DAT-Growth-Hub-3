@@ -19,4 +19,5 @@ public interface UserService {
 	void changePassword(User user,String newPassword);
 	
     public List<String> getEmailsByRole(String role);
+	User getCurrentUser();
 }

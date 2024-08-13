@@ -21,6 +21,10 @@ public class FileStorageConfig {
 	@Value("${file.upload-dir}")
 	private String uploadBlogImageDir;
 	
+	@Value("${file.upload-dir}")
+	private String uploadStudentImageDir;
+	
+	
 	public Path getProfileImageDir()
 	{
 		return Paths.get(profileImageDir + "/profile/admin-profile").toAbsolutePath().normalize();
@@ -37,6 +41,24 @@ public class FileStorageConfig {
 		Files.delete(targetLocation);
 	}
 	
+	//STUDENT
+	public Path getStudentProfileImageDir()
+	{
+		return Paths.get(uploadStudentImageDir + "/profile/student-profile").toAbsolutePath().normalize();
+	}
+	
+	public void saveStudentProfileImageFile(MultipartFile file,String fileName) throws IOException
+	{
+		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
+		Files.copy(file.getInputStream(), targetLocation);
+	}
+	public void deleteStudentProfileImageFile(String fileName) throws IOException
+	{
+		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
+		Files.delete(targetLocation);
+	}
+	
+	//END STUDENT
 	public Path getBlogImageUploadDir()
 	{
 		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();

@@ -106,6 +106,11 @@ public class BlogPost {
 		this.blogImage = blogImage;
 		this.users = users;
 	}
+
+	public void setImageFile(String newImageFileName) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
