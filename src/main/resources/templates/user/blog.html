@@ -1,14 +1,26 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head >
     <meta charset="UTF-8">
     <title>Blogs</title>
+    <style>
+  .btn-xs {
+    padding: 5px;
+    font-size: .6rem;
+    line-height: 1.5;
+    color: blue;
+  }
+</style>
+
 </head>
 <body>
- <th:block th:fragment="user-blog">
- <main>
-	<section class="pt-4">
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="blog">
+			<!-- Page content START -->
+			<section class="pt-4">
 		<div class="container">
 			<!-- Search option START -->
 			<div class="row mb-4 align-items-center">
@@ -24,11 +36,7 @@
 			</div>
 		</div>
 	</section>
-			<!-- Search option END -->
-	
-<!-- =======================
-Page Banner START -->
-<section class="py-5">
+	<section class="py-5">
 	<div class="container">
 		<div class="row position-relative">
 			<!-- SVG decoration -->
@@ -61,9 +69,12 @@ Page Banner START -->
 		</div>
 	</div>
 </section>
-<!-- =======================
-Page Banner END -->
+			<div class="page-content">
+				<!-- ======================= Page content START -->
+				<section class="position-relative pt-0 pt-lg-2">
+					<div class="container mt-0">
 
+<<<<<<< HEAD
 <!-- =======================
 Page content START -->
 <section class="position-relative pt-0 pt-lg-5">
@@ -71,6 +82,11 @@ Page content START -->
 		<div class="row g-4">
 		
 			<!-- Card item START -->
+=======
+						
+						<div class="row g-4">
+    <!-- Card item START -->
+>>>>>>> ebf1a08573e6f30a516995ee5726f312c7dabf8e
     
     <div class="col-sm-6 col-lg-4 col-xl-3" th:each="blogPost:${blogPosts}">
         <div class="card bg-transparent" style="width: 100%; height: 350px;">
@@ -81,6 +97,7 @@ Page content START -->
                 <!-- Overlay -->
                 <div class="bg-overlay bg-dark opacity-4"></div>
             </div>
+<<<<<<< HEAD
 
             <!-- Card body -->
             <div class="card-body" style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -122,5 +139,48 @@ Page content END -->
 
 </main>
 </th:block>
+=======
+
+            <!-- Card body -->
+            <div class="card-body" style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
+                <!-- Title -->
+                <h5 class="card-title" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <a th:href="@{/blog/blog-detail/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>
+                </h5>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Card item END -->
+</div>
+<!-- Row end -->
+
+						<!-- Pagination START -->
+						<nav class="d-flex justify-content-center mt-5"
+							aria-label="navigation">
+							<ul class="pagination pagination-primary-soft rounded mb-0">
+								<li class="page-item mb-0"><a class="page-link" href="#"
+									tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+								<li class="page-item mb-0 active"><a class="page-link"
+									href="#">2</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+								<li class="page-item mb-0"><a class="page-link" href="#"><i
+										class="fas fa-angle-double-right"></i></a></li>
+							</ul>
+						</nav>
+						<!-- Pagination END -->
+
+					</div>
+				</section>
+				<!-- ======================= Page content END -->
+			</div>
+		</th:block>
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+>>>>>>> ebf1a08573e6f30a516995ee5726f312c7dabf8e
 </body>
+
+<!-- Mirrored from diracetechnology.com/admin-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:23:06 GMT -->
 </html>
