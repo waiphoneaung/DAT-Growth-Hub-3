@@ -279,18 +279,25 @@
 						<!-- Course list table END -->
 
 						<!-- Pagination START -->
-						<div class="d-sm-flex justify-content-sm-center align-items-sm-center mt-4 mt-sm-3">
-							
-							<nav class="d-flex justify-content-center align-items-center  mb-0" aria-label="navigation">
-								<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-									<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-								</ul>
-							</nav>
-						</div>
+						<nav class="d-flex justify-content-center mt-1"
+							aria-label="navigation">
+							<ul class="pagination pagination-primary-soft rounded mb-0">
+								<li class="page-item " th:if="${currentPage > 0}">
+								<a class="page-link" th:href="@{/student/student-dashboard(page=${previousPage})}"
+									tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
+								<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+									class="page-item"
+									th:classappend="${currentPage == i} ? 'active'"><a
+									class="page-link" th:href="@{/student/student-dashboard(page=${i})}"
+									th:text="${i + 1}">1</a></li>
+								<li class="page-item"
+									th:if="${currentPage < totalPages - 1}">
+									<a class="page-link" th:href="@{/student/student-dashboard(page=${nextPage})}">
+										<i class="fas fa-angle-double-right"></i>
+								</a>
+								</li>
+							</ul>
+						</nav>
 						<!-- Pagination END -->
 					</div>
 					<!-- Card body START -->

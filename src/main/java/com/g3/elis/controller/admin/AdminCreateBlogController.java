@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,9 +47,20 @@ public class AdminCreateBlogController {
 	private BlogPostService blogPostService;
 
 	@GetMapping("/admin-view-blog")
-	public String adminViewBlog(Model model) {
-		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-		model.addAttribute("blogPosts", blogPosts);
+	public String adminViewBlog(@RequestParam(defaultValue = "0") int page, Model model) {
+		int pageSize = 8; // Set the page size to 8
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<BlogPost> blogPostsPage = blogPostService.getAllBlogPosts(pageable);
+        int previousPage = (page > 0) ? page - 1 : 0;
+        int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
+
+        model.addAttribute("blogPosts", blogPostsPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("previousPage", previousPage);
+        model.addAttribute("totalPages", blogPostsPage.getTotalPages());
+//		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
+//		model.addAttribute("blogPosts", blogPosts);
 		model.addAttribute("content", "admin/admin-view-blog");
 		return "/admin/admin-layout";
 	}

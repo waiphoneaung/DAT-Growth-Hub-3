@@ -70,7 +70,7 @@ public class SecurityConfig {
                                 "/public/**", "/public/assets/**", "/public/assets/css/**",
                                 "/public/assets/images/**","/public/assets/js/**",
                                 "/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
-                                "/private/blog/blog-images/**","/private/blog/blog-files/**",
+                                "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**",
                                 "/api/public/**").permitAll()
                         .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")

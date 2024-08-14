@@ -69,4 +69,46 @@ public class ProfileServiceImpl implements ProfileService {
 	public Profile getProfileByUser(User user) {
 		return profileRepository.findProfileByUser(user);
 	}
-}
+
+	@Override
+	public void updateStudentProfile(User user, ProfileDto profileDto) throws IOException {
+		Profile profile = profileRepository.findProfileByUser(user);
+		if (profile != null) {
+			profile.setAddress(profileDto.getAddress());
+			profile.setDescription(profileDto.getDescription());
+			profile.setPhNo(profileDto.getPhNo());
+			profile.setUser(user);
+
+			Path targetLocation = fileStorageConfig.getProfileImageDir().resolve(profile.getProfileImg());
+			if (Files.exists(targetLocation)) {
+				fileStorageConfig.deleteProfileImageFile(profile.getProfileImg());
+			}
+
+			profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
+
+			MultipartFile profileImage = profileDto.getProfileImg();
+			fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
+			profileRepository.save(profile);
+		}
+	}
+		
+		
+	
+
+	@Override
+	public void createStudentProfile(User user, ProfileDto profileDto) throws IOException {
+		Profile profile = new Profile();
+		profile.setAddress(profileDto.getAddress());
+		profile.setDescription(profileDto.getDescription());
+		profile.setPhNo(profileDto.getPhNo());
+		profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
+		profile.setUser(user);
+
+		MultipartFile profileImage = profileDto.getProfileImg();
+		fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
+
+		profileRepository.save(profile);
+	}
+	
+	}
+

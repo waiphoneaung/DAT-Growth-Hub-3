@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
+import com.g3.elis.model.User;
 import com.g3.elis.repository.BlogPostRepository;
+import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.BlogPostService;
 
 @Service
@@ -25,12 +29,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
 
-	@Override
-	public List<BlogPost> getAllBlogPosts() {
-
-		return blogPostRepository.findAll();
-	}
-
+	
 	@Override
 	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException
 	{
@@ -100,7 +99,46 @@ public class BlogPostServiceImpl implements BlogPostService {
             throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
         }
     }
+
+	@Override
+	public void updateBlogPostStatus(int id, boolean enabled) {
+		// TODO Auto-generated method stub
 		
 	}
+
+
+//	@Override
+//	public Page<BlogPost> searchBlogPostsByName(String name, Pageable pageable) {
+//		return BlogPostRepository.findByNameContainingIgnoreCaseAndRole(name, "ROLE_STUDENT", pageable);
+//	}
+
+	@Override
+	public List<BlogPost> getAllBlogPosts() {
+		// TODO Auto-generated method stub
+		return blogPostRepository.findAll();
+	}
+
+	@Override
+	public Page<BlogPost> getAllBlogPosts(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return blogPostRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<BlogPost> searchBlogPostsByTitle(String title, Pageable pageable) {
+		
+		return blogPostRepository.findByTitleContainingIgnoreCase(title, pageable);
+	}
+	
+		
+	
+
+	
+}
+	
+
+	
+
+	
 
 
