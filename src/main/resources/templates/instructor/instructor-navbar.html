@@ -71,7 +71,7 @@
 							role="button" data-bs-auto-close="outside"
 							data-bs-display="static" data-bs-toggle="dropdown"
 							aria-expanded="false"> 
-							<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}" alt="avatar">
+							<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
 							<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 						</a>
 						<ul

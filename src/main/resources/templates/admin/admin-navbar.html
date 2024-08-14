@@ -69,7 +69,7 @@
 
 										class="avatar-img rounded-circle"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}" alt="avatar">
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
 										<img
 										class="avatar-img rounded-circle"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
@@ -89,7 +89,7 @@
 
 													<img class="avatar-img rounded-circle shadow"
 														th:if="${user.profile != null && user.profile.profileImg != null}"
-														th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+														th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 														alt="avatar">
 													<img class="avatar-img rounded-circle shadow"
 														th:unless="${user.profile != null && user.profile.profileImg != null}"

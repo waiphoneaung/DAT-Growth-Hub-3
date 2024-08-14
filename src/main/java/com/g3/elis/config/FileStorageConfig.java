@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -27,38 +29,41 @@ public class FileStorageConfig {
 	
 	public Path getProfileImageDir()
 	{
-		return Paths.get(profileImageDir + "/profile/admin-profile").toAbsolutePath().normalize();
+		return Paths.get(profileImageDir + "/profile/user-profile").toAbsolutePath().normalize();
 	}
 	
-	public void saveProfileImageFile(MultipartFile file,String fileName) throws IOException
-	{
-		Path targetLocation = getProfileImageDir().resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
-	}
+	 public void saveProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	        String newFileName = timestamp + "_" + originalFileName;
+	        Path targetLocation = getProfileImageDir().resolve(newFileName);
+	        Files.copy(file.getInputStream(), targetLocation);
+	    }
 	public void deleteProfileImageFile(String fileName) throws IOException
 	{
 		Path targetLocation = getProfileImageDir().resolve(fileName);
 		Files.delete(targetLocation);
 	}
 	
-	//STUDENT
-	public Path getStudentProfileImageDir()
-	{
-		return Paths.get(uploadStudentImageDir + "/profile/student-profile").toAbsolutePath().normalize();
-	}
-	
-	public void saveStudentProfileImageFile(MultipartFile file,String fileName) throws IOException
-	{
-		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
-	}
-	public void deleteStudentProfileImageFile(String fileName) throws IOException
-	{
-		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
-		Files.delete(targetLocation);
-	}
-	
-	//END STUDENT
+//	//STUDENT
+//	public Path getStudentProfileImageDir()
+//	{
+//		return Paths.get(uploadStudentImageDir + "/profile/student-profile").toAbsolutePath().normalize();
+//	}
+//	
+//	public void saveStudentProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+//        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+//        String newFileName = timestamp + "_" + originalFileName;
+//        Path targetLocation = getStudentProfileImageDir().resolve(newFileName);
+//        Files.copy(file.getInputStream(), targetLocation);
+//    }
+//
+//	public void deleteStudentProfileImageFile(String fileName) throws IOException
+//	{
+//		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
+//		Files.delete(targetLocation);
+//	}
+//	
+//	//END STUDENT
 	public Path getBlogImageUploadDir()
 	{
 		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();

@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 		user.setEnabled(enabled);
-		user.setStatus(enabled ? "Active" : "Unactive");
+		user.setStatus(enabled ? "Active" : "Inactive");
 		userRepository.save(user);
 	}
 
@@ -129,6 +129,14 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
 		userRepository.save(user);
 	}
+
+	@Override
+	public User getCurrentUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 
 

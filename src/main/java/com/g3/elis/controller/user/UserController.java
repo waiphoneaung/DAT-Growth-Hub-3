@@ -25,6 +25,12 @@ public class UserController {
 		return "/user/layout";
 	}
 	
+	@GetMapping("/courses")
+	public String courses(Model model) {
+		model.addAttribute("content","user/courses");
+		return "/user/layout";
+	}
+	
 	@GetMapping("/contactus")
 	public String contactUs(Model model) {
 		model.addAttribute("content","user/contactus");
@@ -53,7 +59,7 @@ public class UserController {
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		
-		return "/authenticated-user/blog-detail";
+		return "/user/blog-detail";
 	}
 	
 	

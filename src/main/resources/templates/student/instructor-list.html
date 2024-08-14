@@ -1,277 +1,98 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
-    <title>Student Page</title>
+    <title>Instructor Page</title>
 </head>
 <body>
- <th:block th:fragment="instructor-list">
- 
- 
- <!-- Instructor list START -->
-			<div class="col-xl-9">
-				<div class="row g-4 justify-content-center">
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/01.jpg}" class="rounded-3" alt="...">
-						</div>
+<th:block th:fragment="instructor-list">
 
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div><a th:href="@{/instructor-single}">
-										<h5 class="card-title mb-0"><a href="">U Aung</a></h5>
-										<p class="small mb-2 mb-sm-0">OffShore Division</p>
-									</a></div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Perceived end knowledge certainly day sweetness why cordially. Ask a quick six seven offer see among.</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
+    <!-- Instructor list START -->
+    <div class="col-xl-9">
+        <div class="row g-4 justify-content-center">
+            <!-- Loop through instructors -->
+            <div th:each="user : ${users}" class="col-lg-10 col-xl-6">
+                <!-- Card item START -->
+                <div class="card shadow p-2">
+                    <div class="row g-0">
+    <!-- Image -->
+    <div class="col-md-4">
+        <!-- Avatar -->
+        <div class="avatar me-3 mb-3">
+            <img 
+                th:if="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+                alt="avatar">
+            <img 
+                th:unless="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/public/assets/images/avatar/06.jpg'}"
+                alt="avatar">
+        </div>
+    </div>
 
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/02.jpg}" class="rounded-3" alt="...">
-						</div>
+    <!-- Card body -->
+    <div class="col-md-8">
+        <div class="card-body">
+            <!-- Title -->
+            <div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
+                <div>
+                    <a th:href="@{/instructor-list/{id}(id=${user.id})}"></a>
+                    <h5 class="card-title mb-0" th:text="${user.name}">Instructor Name</h5>
+                    <p class="small mb-2 mb-sm-0" th:text="${user.division}">Division</p>
+                    <span th:if="${user.profile != null && user.profile.description != null}" 
+                          class="text-truncate-2 mb-3"
+                          th:text="${user.profile.description}">Instructor Description</span>
+                </div>
+            </div>
+            <!-- Content -->
+        </div>
+    </div>
+</div>
 
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Ma Phyu</a></h5>
-										<p class="small mb-2 mb-sm-0">OffShore Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Passage its ten led hearted removal cordial. Preference any astonished unreserved Mrs.</p>
-								<!-- Info -->
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+            </div>
+            <!-- End loop -->
+        </div>
 
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/03.jpg}" class="rounded-3" alt="...">
-						</div>
+        <!-- Pagination Controls -->
+<div class="row justify-content-center mt-4">
+    <nav class="d-flex justify-content-center mb-0" aria-label="Page navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+            <!-- Previous button: only show if not on the first page -->
+            <li th:if="${currentPage > 0}" class="page-item mb-0">
+                <a class="page-link"
+                   th:href="@{/student/instructor-list(page=${currentPage - 1})}"
+                   tabindex="-1">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
 
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Mg Hla</a></h5>
-										<p class="small mb-2 mb-sm-0">PMO Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Passage its ten led hearted removal cordial. Preference any astonished unreserved Mrs.</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-									
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
+            <!-- Page numbers: show only if totalPages > 1 -->
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active' : ''"
+                th:if="${totalPages > 1}"
+                class="page-item mb-0">
+                <a class="page-link"
+                   th:text="${i + 1}"
+                   th:href="@{/student/instructor-list(page=${i})}"></a>
+            </li>
 
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/04.jpg}" class="rounded-3" alt="...">
-						</div>
+            <!-- Next button: only show if not on the last page -->
+            <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+                <a class="page-link"
+                   th:href="@{/student/instructor-list(page=${currentPage + 1})}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Ma Khine</a></h5>
-										<p class="small mb-2 mb-sm-0">Local Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">As it so contrasted oh estimating instrument. Size like body some one had. Are conduct viewing boy minutes warrant the expense</p>
-								<!-- Info -->
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
+    </div>
+    <!-- Instructor list END -->
 
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/06.jpg}" class="rounded-3" alt="...">
-						</div>
-
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Ma Zin</a></h5>
-										<p class="small mb-2 mb-sm-0">Local Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Contrasted oh estimating instrument. Size like body some one had. Are conduct viewing boy minutes warrant the expense</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-									
-								</div>
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/07.jpg}" class="rounded-3" alt="...">
-						</div>
-
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Ma Ni</a></h5>
-										<p class="small mb-2 mb-sm-0">OffShore Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Yet no jokes worse her why. Bed one supposing breakfast day fulfilled off depending questions. Whatever boy her exertion his extended. Ecstatic followed handsome drawings</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/08.jpg}" class="rounded-3" alt="...">
-						</div>
-
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Mg Soe</a></h5>
-										<p class="small mb-2 mb-sm-0">PMO Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">As it so contrasted oh estimating instrument. Size like body some one had. Are conduct viewing boy minutes warrant the expense</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-lg-10 col-xl-6">
-				<div class="card shadow p-2">
-					<div class="row g-0">
-						<!-- Image -->
-						<div class="col-md-4">
-							<img th:src="@{/public/assets/images/instructor/09.jpg}" class="rounded-3" alt="...">
-						</div>
-
-						<!-- Card body -->
-						<div class="col-md-8">
-							<div class="card-body">
-								<!-- Title -->
-								<div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-3">
-									<div>
-										<h5 class="card-title mb-0"><a href="">Ma Mon</a></h5>
-										<p class="small mb-2 mb-sm-0">Local Division</p>
-									</div>
-								</div>
-								<!-- Content -->
-								<p class="text-truncate-2 mb-3">Tt so contrasted oh estimating instrument. Size like body some one had. Are conduct viewing boy minutes warrant the expense</p>
-								<!-- Info -->
-								<div class="d-sm-flex justify-content-sm-between align-items-center">
-									
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-		</div>
-	</div>
-		<!-- Instructor list END -->
- </th:block>
- </body>
- </html>
+</th:block>
+</body>
+</html>
