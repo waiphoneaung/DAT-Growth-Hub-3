@@ -49,7 +49,7 @@ public class User {
 	private Profile profile;
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
-	private Set<EnrolledCourse> enrolledCourses = new HashSet<>();
+	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Report> reports = new HashSet<>();
@@ -187,11 +187,11 @@ public class User {
 		this.profile = profile;
 	}
 
-	public Set<EnrolledCourse> getEnrolledCourses() {
+	public List<EnrolledCourse> getEnrolledCourses() {
 		return enrolledCourses;
 	}
 
-	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
+	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
 	}
 
@@ -237,8 +237,12 @@ public class User {
 
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-			Set<Course> courses, Profile profile, Set<EnrolledCourse> enrolledCourses, Set<Report> reports,
+
+
 			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
+
+			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
+
 			Set<CourseCategory> courseCategories) {
 		super();
 		this.id = id;

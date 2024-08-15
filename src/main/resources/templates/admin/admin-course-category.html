@@ -17,8 +17,8 @@
 										class="badge bg-orange bg-opacity-10 text-orange"
 										th:text="${categoryCount}"></span>
 								</h1>
-								<a class="btn btn-sm btn-primary mb-0" data-toggle="modal"
-									data-target="#createCategory" data-whatever="Category">Create
+								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
+									data-bs-target="#createCategory" data-whatever="Category">Create
 									a Course Category</a>
 							</div>
 						</div>
@@ -44,7 +44,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
+										data-bs-dismiss="modal">Close</button>
 										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
 								</form>
@@ -167,6 +167,7 @@
 
 			<!-- Edit Modal Start -->
 			<div th:each="category : ${courseCategories}">
+
 				<div class="modal fade" id="editCategory" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -186,6 +187,7 @@
 											id="edit-category-name" name="categoryName"
 											th:value="${category.categoryName}"> <input
 											type="hidden" id="categoryId" name="categoryId">
+
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -211,23 +213,13 @@
 			var button = event.relatedTarget;
 			var categoryId = button.getAttribute('data-id');
 			var input = myModal.querySelector('#categoryId');
+			var display = myModal.querySelector('#edit-category-name');
 			input.value = categoryId;
+			//display.value = 
+			
+			console.log(categoryId);
 		});
 
-		//function editCategoryModal(element) {
-		//	var categoryId = element.getAttribute("data-id");
-		//	var categoryName = element.getAttribute("data-name");
-
-		//	var form = document.getElementById("editCategory");
-		//	form.action = "/admin-course-category/edit/" + categoryId;
-
-		//	var categoryNameInput = document
-		//			.getElementById("edit-category-name");
-		//	categoryNameInput.value = categoryName;
-
-		//	var categoryIdInput = document.getElementById("edit-category-id");
-		//	categoryIdInput.value = categoryId;
-		//}
 	</script>
 
 </body>

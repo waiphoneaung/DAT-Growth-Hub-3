@@ -103,8 +103,8 @@ public class UserViewBlogController {
 		            
 		            model.addAttribute("content", "user/user-blog-detail");
 		            model.addAttribute("blogPost", blogPost);
-           return "/user/blog-detail";
 
+		            return "/user/blog-detail";
 		        }
 
 		        return "redirect:/user/blog";
