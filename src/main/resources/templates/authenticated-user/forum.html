@@ -95,7 +95,7 @@
 						th:if="${#authentication.principal.isAdmin()}"> <img
 							class="avatar-img rounded-circle"
 							th:if="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
 							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
@@ -103,7 +103,7 @@
 						th:if="${#authentication.principal.isInstructor()}"> <img
 							class="avatar-img rounded-circle"
 							th:if="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
 							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
@@ -111,7 +111,7 @@
 						th:if="${#authentication.principal.isStudent()}"> <img
 							class="avatar-img rounded-circle"
 							th:if="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
 							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
@@ -128,7 +128,7 @@
 									<span th:if="${#authentication.principal.isAdmin()}"> <img
 										class="avatar-img rounded-circle shadow"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
@@ -137,7 +137,7 @@
 										<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 										alt="avatar"> <img
 										sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
@@ -146,7 +146,7 @@
 									</span> <span th:if="${#authentication.principal.isStudent()}">
 										<img class="avatar-img rounded-circle shadow"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
@@ -318,15 +318,15 @@
 									th:each="role : ${forum.users.roles}">
 									<span th:if="${role.name} == 'ROLE_ADMIN'"> <img
 										class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{'/private/profile/admin-profile/' + ${forum.users.profile.profileImg}}"
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
 										alt="avatar" />
 									</span> <span th:if="${role.name} == 'ROLE_INSTRUCTOR'"> <img
 										class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{'/private/profile/instructor-profile/' + ${forum.users.profile.profileImg}} "
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}} "
 										alt="avatar" />
 									</span> <span th:if="${role.name} == 'ROLE_STUDENT'"> <img
 										class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{'/private/profile/student-profile/' + ${forum.users.profile.profileImg}}"
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
 										alt="avatar" />
 									</span>
 								</div>
@@ -343,6 +343,7 @@
 										<!-- Title -->
 										<div>
 											<h5 class="m-0" th:text="${forum.users.name}"></h5>
+											<p th:text="${forum.users.profile.address}"></p>
 
 											<span class="me-3 small"
 												th:text="${#dates.format(forum.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
