@@ -166,7 +166,6 @@
 
 
 			<!-- Edit Modal Start -->
-			<div th:each="category : ${courseCategories}">
 				<div class="modal fade" id="editCategory" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -182,10 +181,9 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="edit-category-name" class="col-form-label">Category
-											Name:</label> <input type="text" class="form-control"
-											id="edit-category-name" name="categoryName"
-											th:value="${category.categoryName}"> <input
-											type="hidden" id="categoryId" name="categoryId">
+											Name:</label> 
+											<input type="text" class="form-control" id="edit-category-name" name="categoryName"> 
+											<input type="hidden" id="categoryId" name="categoryId">
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -198,7 +196,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</th:block>
 		<!-- Edit Modal End -->
 	</main>
@@ -211,23 +208,13 @@
 			var button = event.relatedTarget;
 			var categoryId = button.getAttribute('data-id');
 			var input = myModal.querySelector('#categoryId');
+			var display = myModal.querySelector('#edit-category-name');
 			input.value = categoryId;
+			//display.value = 
+			
+			console.log(categoryId);
 		});
 
-		//function editCategoryModal(element) {
-		//	var categoryId = element.getAttribute("data-id");
-		//	var categoryName = element.getAttribute("data-name");
-
-		//	var form = document.getElementById("editCategory");
-		//	form.action = "/admin-course-category/edit/" + categoryId;
-
-		//	var categoryNameInput = document
-		//			.getElementById("edit-category-name");
-		//	categoryNameInput.value = categoryName;
-
-		//	var categoryIdInput = document.getElementById("edit-category-id");
-		//	categoryIdInput.value = categoryId;
-		//}
 	</script>
 
 </body>

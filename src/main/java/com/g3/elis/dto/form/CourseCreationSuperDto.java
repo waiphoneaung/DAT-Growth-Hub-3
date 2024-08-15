@@ -11,6 +11,8 @@ public class CourseCreationSuperDto
 	private List<QuestionDto> questionDtoList;
 	private List<AnswerDto> answerDtoList;
 	private InputFileDto inputFileDto;
+	private Integer courseId;
+	private String action;
 	
 	public CourseCreationSuperDto(){
 		
@@ -72,9 +74,26 @@ public class CourseCreationSuperDto
 		this.inputFileDto = inputFileDto;
 	}
 
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
 	public CourseCreationSuperDto(CourseDto courseDto, List<CourseModuleDto> courseModuleDtoList,
 			List<CourseMaterialDto> courseMaterialDtoList, List<CourseAssignmentDto> courseAssignmentDtoList,
-			List<QuestionDto> questionDtoList, List<AnswerDto> answerDtoList, InputFileDto inputFileDto) {
+			List<QuestionDto> questionDtoList, List<AnswerDto> answerDtoList, InputFileDto inputFileDto,
+			Integer courseId, String action) {
 		super();
 		this.courseDto = courseDto;
 		this.courseModuleDtoList = courseModuleDtoList;
@@ -83,6 +102,9 @@ public class CourseCreationSuperDto
 		this.questionDtoList = questionDtoList;
 		this.answerDtoList = answerDtoList;
 		this.inputFileDto = inputFileDto;
+		this.courseId = courseId;
+		this.action = action;
 	}
-	
+
+
 }

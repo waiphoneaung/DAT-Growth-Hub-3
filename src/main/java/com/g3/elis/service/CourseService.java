@@ -11,6 +11,9 @@ import com.g3.elis.model.User;
 
 
 public interface CourseService {
-	void createCourse(CourseCreationSuperDto superDto,User user,MultipartFile imgFile)  throws IOException;
+	void createCourse(CourseCreationSuperDto superDto,User user,MultipartFile imgFile,int courseCategoryId)  throws IOException;
+	void editCourse(int courseId,String status); //Set Status for Pending to Activated or Rejected. DO NOT DELETE THIS METHOD BY ACCIDENT
+	void editCourse(CourseCreationSuperDto superDto,User user,MultipartFile imgFile,int courseCategoryId,int courseId) throws IOException;
 	List<Course> getAllCourse();
+	Course getCourseById(int id);
 }
