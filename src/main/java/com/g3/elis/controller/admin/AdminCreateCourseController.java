@@ -116,6 +116,7 @@ public class AdminCreateCourseController
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -172,6 +173,7 @@ public class AdminCreateCourseController
 		}
 		MultipartFile imageFile = imgFile;
 		newSuperDto.setAction(action);
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",newSuperDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);

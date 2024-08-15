@@ -3,12 +3,15 @@ package com.g3.elis.serviceImpl;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +26,10 @@ import com.g3.elis.model.CourseModule;
 import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseCategoryRepository;
+import com.g3.elis.repository.CourseMaterialRepository;
+import com.g3.elis.repository.CourseModuleRepository;
 import com.g3.elis.repository.CourseRepository;
+import com.g3.elis.repository.EnrolledCourseRepository;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.CourseMaterialService;
 import com.g3.elis.service.CourseModuleService;
@@ -31,11 +37,14 @@ import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.UserService;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
 	private final String courseInputFilePath = "/course/course-image-file";
 	
@@ -45,11 +54,11 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository courseRepository;
 	
 	@Autowired
-	private CourseModuleService courseModuleService;
+	private CourseModuleRepository courseModuleRepository;
 	
 	@Autowired
-	private CourseMaterialService courseMaterialService;
-	
+	private CourseMaterialRepository courseMaterialRepository;
+
 	@Autowired
 	private EnrolledCourseService enrolledCourseService;
 	
@@ -60,7 +69,13 @@ public class CourseServiceImpl implements CourseService {
 	private UserRepository userRepository;
 	
 	@Autowired
+	private EnrolledCourseRepository enrolledCourseRepository;
+	
+	@Autowired
 	private FileStorageConfig fileStorageConfig;
+	
+	@Autowired
+	private EntityManager entityManager;
 	
 	@Override
 	@Transactional
@@ -123,6 +138,7 @@ public class CourseServiceImpl implements CourseService {
 		course.setCourseModule(courseModuleList);
 		course.setUsers(user);
 		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
+		
 		courseRepository.save(course);
 	}
 	
@@ -153,10 +169,9 @@ public class CourseServiceImpl implements CourseService {
 //		
 //		for(CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList())
 //		{
-//			CourseModule courseModule;
+//			CourseModule courseModule = new CourseModule();
 //			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
 //			{
-//				courseModule = new CourseModule();
 //				courseModule.setCourses(course);
 //				courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 //			}
@@ -198,6 +213,7 @@ public class CourseServiceImpl implements CourseService {
 //			courseModuleIterationIndex++;
 //			
 //			courseModule.setCourseMaterials(courseMaterialList);
+//			courseModule.getCourseMaterials().clear();
 //			courseModule.setCourses(course);
 //			courseModule.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 //			courseModuleList.add(courseModule);
@@ -210,84 +226,93 @@ public class CourseServiceImpl implements CourseService {
 //	}
 	
 	@Override
-	@Transactional
-	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException {
-	    // Fetch the existing course
-	    Course existingCourse = courseRepository.findById(courseId).orElse(null);
-	    if (existingCourse == null) return;
+	// @Transactional
+	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException 
+	{
+	    Course course = courseRepository.findById(courseId).orElse(null);
+	    if(course == null) return;
 
-	    // Preserve the existing user-course relationships
-	    List<User> enrolledUsers = new ArrayList<>(enrolledCourseService.findAllUserByCourseId(courseId));
-
-	    // Delete the old course along with its modules and materials
-	    courseRepository.delete(existingCourse);
-
-	    // Create a new course (essentially the same as the createCourse method)
-	    Course newCourse = new Course();
-	    newCourse.setCourseTitle(superDto.getCourseDto().getCourseTitle());
-	    newCourse.setCourseDescription(superDto.getCourseDto().getCourseDescription());
-	    newCourse.setCourseInfo(superDto.getCourseDto().getCourseInfo());
-	    newCourse.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-	    newCourse.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	    newCourse.setStatus("Pending");
-
-	    if (superDto.getCourseDto().getDurationHour() > 0) {
-	        newCourse.setDuration(superDto.getCourseDto().getDurationHour());
+	    course.setCourseTitle(superDto.getCourseDto().getCourseTitle());
+	    course.setCourseDescription(superDto.getCourseDto().getCourseDescription());
+	    course.setCourseInfo(superDto.getCourseDto().getCourseInfo());
+	    course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	    course.setStatus("Pending");
+	    
+	    if(superDto.getCourseDto().getDurationHour() > 0) {
+	        course.setDuration(superDto.getCourseDto().getDurationHour());
 	    }
-
-	    if (imgFile != null && !imgFile.isEmpty()) {
+	    
+	    if(imgFile != null && !imgFile.isEmpty()) {
 	        fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
-	        newCourse.setCourseImageFileName(imgFile.getOriginalFilename());
+	        course.setCourseImageFileName(imgFile.getOriginalFilename());
 	    }
 
-	    List<CourseModule> newCourseModuleList = new ArrayList<>();
+	    List<CourseModule> existingModules = course.getCourseModule();
+	    List<CourseModule> updatedModules = new ArrayList<>();
+
 	    int moduleIndex = 0;
+	    for (CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList()) 
+	    {
+	        CourseModule courseModule;
+	        if (moduleIndex < existingModules.size()) 
+	        {
+	            courseModule = existingModules.get(moduleIndex);
+	        } 
+	        else 
+	        {
+	            courseModule = new CourseModule();
+	            courseModule.setCourses(course);
+	            courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+	        }
 
-	    for (CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList()) {
-	        CourseModule courseModule = new CourseModule();
 	        courseModule.setModuleTitle(courseModuleDto.getModuleTitle());
-	        courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 	        courseModule.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-	        courseModule.setCourses(newCourse);
 
-	        List<CourseMaterial> courseMaterialList = new ArrayList<>();
-	        for (CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList()) {
-	            if (moduleIndex == courseMaterialDto.getIndex()) {
-	                CourseMaterial courseMaterial = new CourseMaterial();
+	        List<CourseMaterial> existingMaterials = courseModule.getCourseMaterials();
+	        List<CourseMaterial> updatedMaterials = new ArrayList<>();
+
+	        int materialIndex = 0;
+	        for (CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList()) 
+	        {
+	            if (courseMaterialDto.getIndex() == moduleIndex) 
+	            {
+	                CourseMaterial courseMaterial;
+	                if (materialIndex < existingMaterials.size()) 
+	                {
+	                    courseMaterial = existingMaterials.get(materialIndex);
+	                } 
+	                else 
+	                {
+	                    courseMaterial = new CourseMaterial();
+	                    courseMaterial.setCourseModules(courseModule);
+	                }
+
 	                String fileName = UUID.randomUUID().toString() + ".html";
 	                courseMaterial.setTitle(courseMaterialDto.getTitle());
 	                courseMaterial.setContent(fileName);
 	                fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
-	                courseMaterial.setCourseModules(courseModule);
 
-	                courseMaterialList.add(courseMaterial);
+	                updatedMaterials.add(courseMaterial);
+	                materialIndex++;
 	            }
 	        }
+
+	        courseModule.getCourseMaterials().clear();  // Clear old materials to handle orphan removal
+	        courseModule.getCourseMaterials().addAll(updatedMaterials);
+
+	        updatedModules.add(courseModule);
 	        moduleIndex++;
-	        courseModule.setCourseMaterials(courseMaterialList);
-	        newCourseModuleList.add(courseModule);
 	    }
 
-	    newCourse.setCourseModule(newCourseModuleList);
-	    newCourse.setUsers(user);
-	    newCourse.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
+	    course.getCourseModule().clear();  // Clear old modules to handle orphan removal
+	    course.getCourseModule().addAll(updatedModules);
 
-	    // Save the new course
-	    courseRepository.save(newCourse);
-	    
-	    
-	    EnrolledCourse enrolledCourse = new EnrolledCourse();
-	    // Re-establish the relationships with users
-	    for (User enrolledUser : enrolledUsers) {
-	    	enrolledCourse.setUsers(enrolledUser);
-	    	enrolledCourse.setCourses(newCourse);
-	    }
-	    
-	    // Save users with updated course relationships
-	    for (User enrolledUser : enrolledUsers) {
-	        userRepository.save(enrolledUser);
-	    }
+	    course.setUsers(user);
+	    course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
+
+	    courseRepository.save(course);
 	}
+
 
 
 	// Set Status for Pending to Activated or Rejected

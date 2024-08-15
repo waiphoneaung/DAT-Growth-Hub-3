@@ -8,17 +8,9 @@ import jakarta.validation.constraints.Size;
 
 public class CourseModuleDto {
 
-//	@NotBlank(message = "Module title cannot be blank")
-//	@Size(max = 255, message = "Module title cannot exceed 255 characters")
 	private String moduleTitle;
-	
-//	@NotNull(message = "Duration cannot be null")
 	private String duration;
-	
-//	@NotNull(message = "Max score cannot be null")
 	private int maxScore;
-	
-//	@NotNull(message = "Toal score cannot be null")
 	private int totalResultScore;
 	
 	private Timestamp createdAt;
@@ -84,11 +76,7 @@ public class CourseModuleDto {
 		this.index = index;
 	}
 
-	public CourseModuleDto(
-			@NotBlank(message = "Module title cannot be blank") @Size(max = 255, message = "Module title cannot exceed 255 characters") String moduleTitle,
-			@NotNull(message = "Duration cannot be null") String duration,
-			@NotNull(message = "Max score cannot be null") int maxScore,
-			@NotNull(message = "Toal score cannot be null") int totalResultScore, Timestamp createdAt,
+	public CourseModuleDto(String moduleTitle, String duration, int maxScore, int totalResultScore, Timestamp createdAt,
 			Timestamp updatedAt, int index) {
 		super();
 		this.moduleTitle = moduleTitle;

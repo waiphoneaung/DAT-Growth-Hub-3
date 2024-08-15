@@ -57,11 +57,15 @@ Page Banner START -->
 					<div class="row">
 						<div class="col-12 text-center">
 							<!-- Title -->
-							<h1 class="text-white">Submit a new Course</h1>
-							<p class="text-white mb-0">
-								Read our <a href="#" class="text-white"><u>"Before you
-										create a course"</u></a> article before submitting!
+							
+							<span th:if="${action} == 'add'">
+								<h1 class="text-white">Submit a new Course</h1>
+								<p class="text-white mb-0"> Read our <a href="#" class="text-white"><u>"Before you create a course"</u></a> article before submitting!
 							</p>
+							</span>
+							<span th:unless="${action} == 'add'">
+								<h1 class="text-white">Edit Your Course</h1>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -76,10 +80,14 @@ Steps START -->
 					<div class="row">
 						<div class="col-md-8 mx-auto text-center">
 							<!-- Content -->
-							<p class="text-center">Use this interface to add a new Course
+							<p class="text-center" th:if="${action} == 'add'">Use this interface to add a new Course
 								to the portal. Once you are done adding the item it will be
 								requested to admin. If admin approved, your course will appear
-								and inform to studentsthat your course has been accepted.</p>
+								and inform to students that your course has been accepted.</p>
+							<p class="text-center" th:unless="${action} == 'add'">Use this interface to edit your Course
+								to the portal. Once you are done editing the item it will be
+								requested to admin. If admin approved, your course will appear
+								and inform to students that your course has been accepted.</p>
 						</div>
 					</div>
 
@@ -206,7 +214,7 @@ Steps START -->
 												<div class="d-flex justify-content-between mt-3">
 													<a class="btn btn-warning next-btn mb-0"
 														th:href="@{/admin/admin-dashboard}">Dashboard</a>
-													<button class="btn btn-primary next-btn mb-0">Next</button>
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 
 												</div>
 											</div>
@@ -258,8 +266,8 @@ Steps START -->
 
 												<!-- Step 2 button -->
 												<div class="d-flex justify-content-between mt-3">
-													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
-													<button class="btn btn-primary next-btn mb-0">Next</button>
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 												</div>
 											</div>
 										</div>
@@ -279,7 +287,7 @@ Steps START -->
 												<div
 													class="d-sm-flex justify-content-sm-between align-items-center mb-3">
 													<h5 class="mb-2 mb-sm-0">Upload Module</h5>
-													<a href="#" class="btn btn-sm btn-primary-soft mb-0"
+													<a href="#" class="btn btn-sm btn-primary-soft mb-0" th:if="${action} == 'add'"
 														data-bs-toggle="modal" data-bs-target="#addLecture"><i
 														class="bi bi-plus-circle me-2"></i>Add Module</a>
 												</div>
@@ -331,7 +339,7 @@ Steps START -->
 																						th:data-index="${courseMaterialStat.index}"
 																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
 																						class="far fa-fw fa-edit"></i></a>
-																					<button
+																					<button th:if="${action} == 'add'"
 																						class="btn btn-sm btn-danger-soft btn-round mb-0">
 																						<i class="fas fa-fw fa-times"></i>
 																					</button>
@@ -344,7 +352,7 @@ Steps START -->
 																	</div>
 																	<!-- Material item END -->
 																	<!-- Add course Material -->
-																	<a href="#" class="btn btn-sm btn-dark mb-0"
+																	<a href="#" class="btn btn-sm btn-dark mb-0" th:if="${action} == 'add'"
 																		data-bs-toggle="modal" data-bs-target="#addTopic"
 																		data-action="add" th:data-id="${iterStat.index}"><i
 																		class="bi bi-plus-circle me-2"></i>Add Course Material</a>
@@ -369,7 +377,7 @@ Steps START -->
 
 												<!-- Step 3 button -->
 												<div class="d-flex justify-content-between">
-													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
 													<div class="text-md-end">
 														<button type="submit" class="btn btn-success mb-2 mb-sm-0">Submit
 															a Course</button>

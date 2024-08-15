@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,7 +49,7 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Profile profile;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
