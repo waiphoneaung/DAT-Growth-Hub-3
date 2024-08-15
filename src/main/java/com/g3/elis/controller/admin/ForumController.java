@@ -59,14 +59,14 @@ public class ForumController {
 
 		Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		Page<Forum> forumPage = forumService.getAllForums(pageable);
-		List<User> users = userService.getAllUsers();
+	//	List<User> users = userService.getAllUsers();
 		
 		
 		ForumDto forumDto = new ForumDto();
 		ForumCommentDto forumCommentDto = new ForumCommentDto();
 
 
-		model.addAttribute("users", users);
+//		model.addAttribute("users", users);
 		model.addAttribute("forumCommentDto", forumCommentDto);
 		model.addAttribute("forumDto", forumDto);
 		model.addAttribute("forums", forumPage.getContent());
@@ -146,17 +146,17 @@ public class ForumController {
 		forumCommentDto.setUsers(user);
 		//forumCommentDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		forumCommentService.saveComment(forumCommentDto, forumId);
+		//return "redirect:/admin/forum";
 		
-		// Redirect based on user role
-				if (userDetail.isAdmin()) {
-					return "redirect:/admin/forum";
-				} else if (userDetail.isStudent()) {
-					return "redirect:/student/forum";
-				} else if (userDetail.isInstructor()) {
-					return "redirect:/instructor/forum";
-				} else {
-					return "redirect:/login";
-				}
-
+		if (userDetail.isAdmin()) {
+			return "redirect:/admin/forum";
+		} else if (userDetail.isStudent()) {
+			return "redirect:/student/forum";
+		} else if (userDetail.isInstructor()) {
+			return "redirect:/instructor/forum";
+		} else {
+			return "redirect:/login";
+		}
 	}
-}
+	
+	}

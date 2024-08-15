@@ -25,4 +25,6 @@ public interface ForumService {
 //	  getAllForums();
 	Page<Forum> searchPosts(String query, int page,int pagesize);
 	
+//	List<Forum> getForumByUser(int userId);
+	
 }

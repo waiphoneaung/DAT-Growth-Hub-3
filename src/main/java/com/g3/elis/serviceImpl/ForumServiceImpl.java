@@ -73,10 +73,12 @@ public class ForumServiceImpl implements ForumService{
 		if (query == null || query.trim().isEmpty()) {
          return forumRepository.findAll(pageable) ;// Return all posts with pagination if no query is provided
       }
-     return forumRepository.findByTitleContainingIgnoreCase(query,pageable);	
-     
-	}
+     return forumRepository.findByTitleContainingIgnoreCase(query,pageable);	}
 
-	
-	
+//	@Override
+//	public List<Forum> getForumByUser(int userId) {
+//		
+//		return forumRepository.findByUserId(userId);
+//	}
+
 }

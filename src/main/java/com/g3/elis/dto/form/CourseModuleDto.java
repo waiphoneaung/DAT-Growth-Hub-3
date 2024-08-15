@@ -104,4 +104,12 @@ public class CourseModuleDto {
 	{
 		
 	}
+
+	@Override
+	public String toString() {
+		return "CourseModuleDto [moduleTitle=" + moduleTitle + ", duration=" + duration + ", maxScore=" + maxScore
+				+ ", totalResultScore=" + totalResultScore + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", index=" + index + "]";
+	}
+	
 }

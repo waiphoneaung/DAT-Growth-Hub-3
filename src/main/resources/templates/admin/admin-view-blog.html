@@ -25,8 +25,8 @@
 								class="btn btn-success mb-0">Create a Blogs</a>
 						</div>
 						<div class="row g-4">
-							<!-- Card item START -->
 
+							<!-- Card item START -->
 							<div class="col-sm-6 col-lg-4 col-xl-3"
 								th:each="blogPost:${blogPosts}">
 								<div class="card bg-transparent"
@@ -41,70 +41,49 @@
 										<div class="bg-overlay bg-dark opacity-4"></div>
 									</div>
 
-									<!-- Card item START -->
-									<div class="col-sm-6 col-lg-4 col-xl-3"
-										th:each="blogPost:${blogPosts}">
-										<div class="card bg-transparent">
-											<div class="overflow-hidden rounded-3">
-												<!-- 	<img th:src="@{/public/assets/images/event/02.jpg}"
-											class="card-img" alt="course image"> -->
-
-												<img
-													th:src="@{'/private/blog/blog-images/' + ${blogPost.blogImage}}"
-													class="card-img" alt="blog image">
-												<!-- Overlay -->
-												<div class="bg-overlay bg-dark opacity-4"></div>
-												<!-- Card body -->
-												<div class="card-body"
-													style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
-													<!-- Title -->
-													<h5 class="card-title"
-														style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-														<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}"
-															th:text="${blogPost.title}"></a>
-													</h5>
-													<!-- Info -->
-													<div class="d-flex justify-content-between">
-														<h6 class="mb-0">
-															<a
-																th:href="@{/admin/admin-edit-blog/{id}(id=${blogPost.id})}"
-																class="btn btn-sm btn-warning me-2 mb-0"
-																title="Edit Blog"> <i class="fas fa-edit"></i> Edit
-															</a> <a
-																th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}"
-																onclick="return confirm('Are you sure you want to delete this blog?')"
-																class="btn btn-sm btn-danger mb-0" title="Delete Blog">
-																<i class="fas fa-trash-alt"></i> Delete
-															</a>
-														</h6>
+					<!-- Card body -->
+									<div class="card-body"
+										style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
+										<!-- Title -->
+										<h5 class="card-title"
+											style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}"
+												th:text="${blogPost.title}"></a>
+										</h5>
+										<!-- Info -->
+										<div class="d-flex justify-content-between">
+											<h6 class="mb-0">
+												<a
+													th:href="@{/admin/admin-edit-blog/{id}(id=${blogPost.id})}"
+													class="btn btn-sm btn-warning me-2 mb-0" title="Edit Blog">
+													<i class="fas fa-edit"></i> Edit
+												</a> <a
+													th:href="@{/admin/admin-delete-blog/{id}(id=${blogPost.id})}"
+													onclick="return confirm('Are you sure you want to delete this blog?')"
+													class="btn btn-sm btn-danger mb-0" title="Delete Blog">
+													<i class="fas fa-trash-alt"></i> Delete
+												</a>
+											</h6>
 
 
-
-														<!-- <a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>-->
-													</div>
-												</div>
-											</div>
+											<!-- <a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>-->
 										</div>
-										<!-- Card item END -->
 									</div>
+								</div>
+							</div>
+							<!-- Card item END -->
+						</div>
+						<!-- Row end -->
+						<!-- <a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>-->
+													</div>
+													
+								</section>
+												</div>
+												
+									
 									<!-- Row end -->
 
-									<!-- Pagination START -->
-									<!--  	<nav class="d-flex justify-content-center mt-5"
-							aria-label="navigation">
-							<ul class="pagination pagination-primary-soft rounded mb-0">
-								<li class="page-item mb-0"><a class="page-link" href="#"
-									tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-								<li class="page-item mb-0 active"><a class="page-link"
-									href="#">2</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#"><i
-										class="fas fa-angle-double-right"></i></a></li>
-							</ul>
-						</nav>-->
-									<!-- Pagination END -->
+							
 
 									<!-- Pagination START -->
 									<nav class="d-flex justify-content-center mt-5"
@@ -131,14 +110,8 @@
 									</nav>
 									<!-- Pagination END -->
 
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
 				<!-- ======================= Page content END -->
-			</div>
+			
 		</th:block>
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
