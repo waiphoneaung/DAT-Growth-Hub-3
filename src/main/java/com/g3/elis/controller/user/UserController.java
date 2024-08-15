@@ -20,6 +20,10 @@ public class UserController {
 		model.addAttribute("content","user/contactus");
 		return "/user/layout";
 	}
+	public String testing(Model model) {
+		model.addAttribute("content","user/contactus");
+		return "/user/layout";
+	}
 	
 	@GetMapping("/about")
 	public String about(Model model) {
