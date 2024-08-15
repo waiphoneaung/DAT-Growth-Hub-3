@@ -146,7 +146,17 @@ public class ForumController {
 		forumCommentDto.setUsers(user);
 		//forumCommentDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		forumCommentService.saveComment(forumCommentDto, forumId);
-		return "redirect:/admin/forum";
+		
+		// Redirect based on user role
+				if (userDetail.isAdmin()) {
+					return "redirect:/admin/forum";
+				} else if (userDetail.isStudent()) {
+					return "redirect:/student/forum";
+				} else if (userDetail.isInstructor()) {
+					return "redirect:/instructor/forum";
+				} else {
+					return "redirect:/login";
+				}
 
 	}
 }
