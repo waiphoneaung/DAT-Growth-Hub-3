@@ -1,6 +1,8 @@
 package com.g3.elis.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -52,6 +54,16 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Report> reports = new HashSet<>();
 
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+
+	private Set<BlogPost> blogposts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<Forum> forums = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<ForumComment> forumComments = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<CourseCategory> courseCategories = new HashSet<>();
 
@@ -191,6 +203,30 @@ public class User {
 		this.reports = reports;
 	}
 
+	public Set<BlogPost> getBlogposts() {
+		return blogposts;
+	}
+
+	public void setBlogposts(Set<BlogPost> blogposts) {
+		this.blogposts = blogposts;
+	}
+
+	public List<Forum> getForums() {
+		return forums;
+	}
+
+	public void setForums(List<Forum> forums) {
+		this.forums = forums;
+	}
+
+	public List<ForumComment> getForumComments() {
+		return forumComments;
+	}
+
+	public void setForumComments(List<ForumComment> forumComments) {
+		this.forumComments = forumComments;
+	}
+
 	public Set<CourseCategory> getCourseCategories() {
 		return courseCategories;
 	}
@@ -202,6 +238,7 @@ public class User {
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
 			Set<Course> courses, Profile profile, Set<EnrolledCourse> enrolledCourses, Set<Report> reports,
+			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
 			Set<CourseCategory> courseCategories) {
 		super();
 		this.id = id;
@@ -221,11 +258,13 @@ public class User {
 		this.profile = profile;
 		this.enrolledCourses = enrolledCourses;
 		this.reports = reports;
+		this.blogposts = blogposts;
+		this.forums = forums;
+		this.forumComments = forumComments;
 		this.courseCategories = courseCategories;
 	}
 
 	public User() {
-
+		
 	}
-
 }
