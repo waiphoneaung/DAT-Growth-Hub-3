@@ -44,6 +44,7 @@ public class AdminCourseListController {
 		model.addAttribute("content","admin/admin-course-list");
 		return "/admin/admin-layout";
 	}
+	
 	@GetMapping("/admin-course-list/approve")
 	public String adminApproveRequest(@RequestParam(name="courseId")int courseId)
 	{
