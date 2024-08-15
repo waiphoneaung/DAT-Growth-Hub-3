@@ -218,6 +218,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
 		model.addAttribute("superDto",superDto);
@@ -253,6 +254,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);

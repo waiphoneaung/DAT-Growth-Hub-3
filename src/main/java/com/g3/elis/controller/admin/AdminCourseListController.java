@@ -50,12 +50,28 @@ public class AdminCourseListController {
 		courseService.editCourse(courseId, "Activated");
 		return "redirect:/admin/admin-course-list";
 	}
+	
 	@GetMapping("/admin-course-list/reject")
 	public String adminRejectRequest(@RequestParam(name="courseId")int courseId)
 	{
 		courseService.editCourse(courseId, "Rejected");
 		return "redirect:/admin/admin-course-list";
 	}
+	
+	@GetMapping("/admin-course-list/delete")
+	public String adminDeleteCourse(@RequestParam(name="courseId")int courseId)
+	{
+		courseService.deleteCourse(courseId);
+		return "redirect:/admin/admin-course-list";
+	}
+	
+	@GetMapping("/admin-course-list/cancel")
+	public String adminCancelReject(@RequestParam(name="courseId")int courseId)
+	{
+		courseService.editCourse(courseId, "Pending");
+		return "redirect:/admin/admin-course-list";
+	}
+	
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)
 	{
