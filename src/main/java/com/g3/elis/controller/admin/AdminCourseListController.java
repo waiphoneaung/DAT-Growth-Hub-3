@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.model.Course;
 import com.g3.elis.service.CourseService;
@@ -31,7 +32,7 @@ public class AdminCourseListController {
 			{
 				pendingCourse++;
 			}
-			if(course.getStatus().equalsIgnoreCase("Live"))
+			if(course.getStatus().equalsIgnoreCase("Activated"))
 			{
 				activatedCourse++;
 			}
@@ -42,6 +43,18 @@ public class AdminCourseListController {
 		model.addAttribute("courses",courseList);
 		model.addAttribute("content","admin/admin-course-list");
 		return "/admin/admin-layout";
+	}
+	@GetMapping("/admin-course-list/approve")
+	public String adminApproveRequest(@RequestParam(name="courseId")int courseId)
+	{
+		courseService.editCourse(courseId, "Activated");
+		return "redirect:/admin/admin-course-list";
+	}
+	@GetMapping("/admin-course-list/reject")
+	public String adminRejectRequest(@RequestParam(name="courseId")int courseId)
+	{
+		courseService.editCourse(courseId, "Rejected");
+		return "redirect:/admin/admin-course-list";
 	}
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)

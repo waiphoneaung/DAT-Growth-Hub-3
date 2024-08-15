@@ -117,4 +117,13 @@ public class CourseDto {
 	public CourseDto() {
 		
 	}
+	@Override
+	public String toString() {
+		return "CourseDto [courseTitle=" + courseTitle + ", courseDescription=" + courseDescription + ", status="
+				+ status + ", createdAt=" + createdAt + ", durationHour=" + durationHour + ", courseCompletedStatus="
+				+ courseCompletedStatus + ", progress=" + progress + ", courseInfo=" + courseInfo
+				+ ", courseImageFileName=" + courseImageFileName + ", updatedDate=" + updatedDate + ", user_id="
+				+ user_id + ", course_category_id=" + course_category_id + ", course_tag_id=" + course_tag_id + "]";
+	}
+	
 }

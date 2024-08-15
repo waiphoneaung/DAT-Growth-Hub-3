@@ -1,5 +1,10 @@
 package com.g3.elis.service;
 
-public interface CourseMaterialService {
+import java.util.List;
 
+import com.g3.elis.model.CourseMaterial;
+
+public interface CourseMaterialService {
+	List<CourseMaterial> getAllCourseMaterialByCourseModuleId(int courseModuleId);
+	void deleteAllByCourseModuleId(int courseModuleId);
 }

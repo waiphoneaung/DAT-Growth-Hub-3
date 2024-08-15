@@ -170,11 +170,11 @@ Steps START -->
 
 												<!-- Course category -->
 												<div class="col-md-12">
-													<label class="form-label">Course category</label> <select
+													<label class="form-label">Course category</label> <select name="courseCategoryId"
 														class="form-select js-choice border-0 z-index-9 bg-transparent"
 														aria-label=".form-select-sm" data-search-enabled="true">
 														<option th:each="courseCategory : ${courseCategories}"
-															th:text="${courseCategory.categoryName}"
+															th:text="${courseCategory.categoryName}" 
 															th:value="${courseCategory.id}"></option>
 													</select>
 												</div>
@@ -310,7 +310,7 @@ Steps START -->
 																<div class="accordion-body mt-3">
 
 																	<!-- Material item START -->
-																	<div th:each="materialList : *{courseMaterialDtoList}">
+																	<div th:each="materialList,courseMaterialStat : *{courseMaterialDtoList}">
 
 																		<div
 																			th:if="${materialList.index} == ${iterStat.index}">
@@ -328,6 +328,7 @@ Steps START -->
 																					<a href="#" data-bs-toggle="modal"
 																						data-bs-target="#addTopic"
 																						th:data-id="${iterStat.index}" data-action="edit"
+																						th:data-index="${courseMaterialStat.index}"
 																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
 																						class="far fa-fw fa-edit"></i></a>
 																					<button
@@ -419,11 +420,11 @@ Steps END -->
 										placeholder="Enter module name">
 								</div>
 
-								<input type="hidden" id="courseTitleField" name="courseTitle">
-								<input type="hidden" id="courseDescriptionField" name="courseDescription"> 
-								<input type="number" class="d-none" id="durationHourField" name="durationHour">
-								<textarea class="d-none" id="courseInfoField" name="courseInfo"></textarea>
-								<input type="hidden" id="imageField" name="image">
+								<input type="hidden" id="courseTitleField1" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
+								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
+								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
+								<input type="hidden" id="imageField1" name="image">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
@@ -458,10 +459,10 @@ Steps END -->
 								<input type="hidden" id="index" name="courseModuleIndex">
 								<input type="hidden" id="action" name="action"> 
 								
-								<input type="hidden" id="courseTitleField" name="courseTitle">
-								<input type="hidden" id="courseDescriptionField" name="courseDescription"> 
-								<input type="number" id="durationHourField" name="durationHour" class="d-none">
-								<textarea class="d-none" id="courseInfoField" name="courseInfo"></textarea>
+								<input type="hidden" id="courseTitleField2" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
+								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
+								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
 								<input type="hidden" id="imageField" name="image">
 
 								<!-- Title name -->
@@ -539,7 +540,6 @@ Steps END -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
 									data-bs-dismiss="modal">Close</button>
-								<button type="button" onclick="copyValue()">Debug</button>
 								<button type="submit" class="btn btn-success my-0" onclick="copyValue()">Save
 									Course Material</button>
 							</div>
@@ -576,20 +576,35 @@ Steps END -->
         durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
    	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
    	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
-	   	if (document.getElementById('courseTitleField')) {
-	        document.getElementById('courseTitleField').value = courseTitle;
+	   	if (document.getElementById('courseTitleField1')) {
+	        document.getElementById('courseTitleField1').value = courseTitle;
 	    }
-	    if (document.getElementById('courseDescriptionField')) {
-	        document.getElementById('courseDescriptionField').value = courseDescription;
+		if (document.getElementById('courseTitleField2')) {
+	        document.getElementById('courseTitleField2').value = courseTitle;
 	    }
-	    if (document.getElementById('durationHourField')) {
-	        document.getElementById('durationHourField').value = durationHour;
+	    if (document.getElementById('courseDescriptionField1')) {
+	        document.getElementById('courseDescriptionField1').value = courseDescription;
 	    }
-	    if (document.getElementById('imageField')) {
-	        document.getElementById('imageField').value = image;
+	    if (document.getElementById('courseDescriptionField2')) {
+	        document.getElementById('courseDescriptionField2').value = courseDescription;
+	    }
+	    if (document.getElementById('durationHourField1')) {
+	        document.getElementById('durationHourField1').value = durationHour;
+	    }
+	    if (document.getElementById('durationHourField2')) {
+	        document.getElementById('durationHourField2').value = durationHour;
+	    }
+	    if (document.getElementById('imageField1')) {
+	        document.getElementById('imageField1').value = image;
      	}
-	    if (document.getElementById('courseInfoField')) {
-	    	document.getElementById('courseInfoField').value = courseInfo; 
+	    if (document.getElementById('imageField2')) {
+	        document.getElementById('imageField2').value = image;
+     	}
+	    if (document.getElementById('courseInfoField1')) {
+	    	document.getElementById('courseInfoField1').value = courseInfo; 
+	    }
+	    if (document.getElementById('courseInfoField2')) {
+	    	document.getElementById('courseInfoField2').value = courseInfo; 
 	    }
 
     	console.log(courseTitle);
@@ -608,9 +623,9 @@ Steps END -->
         var button = event.relatedTarget;
         
         // Extract info from data-* attributes
-        var courseMaterialId = button.getAttribute('data-id');
+        var courseModuleId = button.getAttribute('data-id');
+        var courseMaterialId = button.getAttribute('data-index')	;
         var action = button.getAttribute('data-action');
-        
         // Update the modal's content.
         var input = myModal.querySelector('#index');
         var inputAction = myModal.querySelector('#action');
@@ -620,23 +635,27 @@ Steps END -->
         
         if (Array.isArray(superDto.courseMaterialDtoList)) 
         {
-            superDto.courseMaterialDtoList.forEach(function(courseMaterial) 
+            for (let courseMaterial of superDto.courseMaterialDtoList) 
             {
-                if(courseMaterial.index == courseMaterialId)
+                if ((courseMaterial.index == courseModuleId) && (courseMaterialId != null)) 
                 {
-                	courseMaterialTitle = courseMaterial.title;
+                    courseMaterialTitle = superDto.courseMaterialDtoList[courseMaterialId].title;
+                    break; // Exit the loop once the condition is met
                 }
-            });
-        } else 
+            }
+        } 
+        else 
         {
             console.log("courseMaterialDtoList is not an array or does not exist.");
         }
+
         
         titleField.value = courseMaterialTitle;
-        input.value = courseMaterialId;
+        input.value = courseModuleId;
         inputAction.value = action;
         
         //Debug
+        console.log(courseModuleId);
         console.log(courseMaterialTitle);
         console.log(courseMaterialId);
         console.log(action);
