@@ -13,17 +13,15 @@ public interface UserService {
 	List<User> getAllUsers();
 
 
-	
+
+    public List<String> getEmailsByRole(String role);
+	User getCurrentUser();
+
 
 	User getUserById(int id);
 
 	void createUser(UserDto userDto);
 
-	public List<String> getEmailsByRole(String role);
-
-	
-
-	
 
 	public void updateUserStatus(int id, boolean enabled);
 	
@@ -31,7 +29,12 @@ public interface UserService {
 	 Page<User> searchUsersByName(String name, Pageable pageable);
 	 
 	 Page<User> getAllInstructors(Pageable pageable);
+	 
 	    Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable);
 
 	void changePassword(User user,String newPassword);
+
+
+
+	
 }

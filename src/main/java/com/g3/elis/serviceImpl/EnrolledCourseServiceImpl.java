@@ -70,5 +70,4 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 		}
 		return null;
 	}
-
 }

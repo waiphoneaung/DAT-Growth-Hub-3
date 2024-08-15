@@ -1,5 +1,6 @@
 package com.g3.elis.controller.admin;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -256,6 +257,7 @@ public class AdminCreateCourseController
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);
 		return "/admin/admin-create-course";
+
 	}
 	
 	@GetMapping("/admin-create-course/admin-quiz")
@@ -271,3 +273,4 @@ public class AdminCreateCourseController
 	}
 
 }
+

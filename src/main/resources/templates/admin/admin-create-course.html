@@ -240,7 +240,7 @@ Steps START -->
 														<img
 															th:if="${imgFile != null && imgFile.getOriginalFilename() != null}"
 															th:src="@{'/private/course/course-image-file/' + ${imgFile.getOriginalFilename()}}"
-															class="h-50px" alt>
+															class="h-50px">
 														<div>
 															<h6 class="my-2">
 																Upload course thumbnail here, or<a href="#!"
@@ -427,7 +427,6 @@ Steps END -->
 										name="module-title" class="form-control"
 										placeholder="Enter module name">
 								</div>
-
 								<input type="hidden" id="courseTitleField1" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
 								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
@@ -466,7 +465,6 @@ Steps END -->
 							
 								<input type="hidden" id="index" name="courseModuleIndex">
 								<input type="hidden" id="action" name="action"> 
-								
 								<input type="hidden" id="courseTitleField2" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
 								<input type="number" id="durationHourField2" name="durationHour" class="d-none">

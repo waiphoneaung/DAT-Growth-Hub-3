@@ -24,9 +24,7 @@ public class CourseCategoryServiceImpl implements CourseCategoryService{
 
    @Override
 	public void saveCourseCategory(CourseCategory courseCategory) {
-		courseCategoryRepository.save(courseCategory);
-		
-		
+		courseCategoryRepository.save(courseCategory);		
 		
 	}
 

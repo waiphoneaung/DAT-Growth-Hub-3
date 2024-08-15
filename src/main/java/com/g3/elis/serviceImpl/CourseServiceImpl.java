@@ -3,15 +3,10 @@ package com.g3.elis.serviceImpl;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.time.LocalDateTime;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,28 +18,15 @@ import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseMaterial;
 import com.g3.elis.model.CourseModule;
-import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseCategoryRepository;
-import com.g3.elis.repository.CourseMaterialRepository;
-import com.g3.elis.repository.CourseModuleRepository;
 import com.g3.elis.repository.CourseRepository;
-import com.g3.elis.repository.EnrolledCourseRepository;
-import com.g3.elis.repository.UserRepository;
-import com.g3.elis.service.CourseMaterialService;
-import com.g3.elis.service.CourseModuleService;
 import com.g3.elis.service.CourseService;
-import com.g3.elis.service.EnrolledCourseService;
-import com.g3.elis.service.UserService;
-
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
-	
-	private static final Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
 	private final String courseInputFilePath = "/course/course-image-file";
 	
@@ -54,28 +36,10 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository courseRepository;
 	
 	@Autowired
-	private CourseModuleRepository courseModuleRepository;
-	
-	@Autowired
-	private CourseMaterialRepository courseMaterialRepository;
-
-	@Autowired
-	private EnrolledCourseService enrolledCourseService;
-	
-	@Autowired
 	private CourseCategoryRepository courseCategoryRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private EnrolledCourseRepository enrolledCourseRepository;
-	
-	@Autowired
 	private FileStorageConfig fileStorageConfig;
-	
-	@Autowired
-	private EntityManager entityManager;
 	
 	@Override
 	@Transactional
@@ -138,7 +102,6 @@ public class CourseServiceImpl implements CourseService {
 		course.setCourseModule(courseModuleList);
 		course.setUsers(user);
 		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
-		
 		courseRepository.save(course);
 	}
 	
@@ -172,6 +135,10 @@ public class CourseServiceImpl implements CourseService {
 //			CourseModule courseModule = new CourseModule();
 //			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
 //			{
+//			CourseModule courseModule;
+//			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
+//			{
+//				courseModule = new CourseModule();
 //				courseModule.setCourses(course);
 //				courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 //			}
@@ -286,12 +253,10 @@ public class CourseServiceImpl implements CourseService {
 	                    courseMaterial = new CourseMaterial();
 	                    courseMaterial.setCourseModules(courseModule);
 	                }
-
 	                String fileName = UUID.randomUUID().toString() + ".html";
 	                courseMaterial.setTitle(courseMaterialDto.getTitle());
 	                courseMaterial.setContent(fileName);
 	                fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
-
 	                updatedMaterials.add(courseMaterial);
 	                materialIndex++;
 	            }
@@ -312,8 +277,6 @@ public class CourseServiceImpl implements CourseService {
 
 	    courseRepository.save(course);
 	}
-
-
 
 	// Set Status for Pending to Activated or Rejected
 	// DO NOT DELETE THIS METHOD BY ACCIDENT

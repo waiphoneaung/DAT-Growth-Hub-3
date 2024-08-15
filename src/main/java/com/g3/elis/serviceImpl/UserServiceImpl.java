@@ -1,6 +1,7 @@
 package com.g3.elis.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,9 +32,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(UserDto userDto) {
-		User user = new User();
+		
+		Optional<User> existingUser = userRepository.findByStaffId(userDto.getStaffId());
+	    if (existingUser.isPresent()) {
+	        return;
+	    }
+		
+		
 
-		if (userDto.getEmail() == null) {
+		
+		User user = new User();	
+		
+		if(userDto.getEmail() == null)
+		{
 			user.setEmail(userDto.getName().toLowerCase().replaceAll("\\s+", "") + "@diracetechnology.com");
 		} else {
 			user.setEmail(userDto.getEmail());
@@ -85,7 +96,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 		user.setEnabled(enabled);
-		user.setStatus(enabled ? "Active" : "Unactive");
+		user.setStatus(enabled ? "Active" : "Inactive");
 		userRepository.save(user);
 	}
 
@@ -109,6 +120,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable) {
 		// TODO Auto-generated method stub
+
 		return userRepository.searchInstructors(name, staffId, dept, division, pageable);
 	}
 
@@ -116,5 +128,16 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
 		userRepository.save(user);
 	}
+
+	@Override
+	public User getCurrentUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+
+
 
 }

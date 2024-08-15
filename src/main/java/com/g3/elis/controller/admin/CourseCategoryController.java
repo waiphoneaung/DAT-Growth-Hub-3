@@ -41,7 +41,7 @@ public class CourseCategoryController {
 	    List<CourseCategory> courseCategories = courseCategoryService.getAllCourseCategories();
 	    int categoryCount = courseCategories.size();
 	    
-	    //model.addAttribute("courseCategories", courseCategories);
+	    
 	    model.addAttribute("content", "admin/admin-course-category");
 	    model.addAttribute("categoryCount", categoryCount);
 	    return "/admin/admin-layout";

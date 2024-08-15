@@ -69,7 +69,14 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/public/**", "/public/assets/**", "/public/assets/css/**",
                                 "/public/assets/images/**","/public/assets/js/**",
-                                "/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
+
+                                "/public/assets/vendor/**","/fragments/**", "/private/profiles/**","/static/private/blog/**",
+                                "/public/assets/vendor/**","/fragments/**",  "/private/profile/admin-profile/**","private/profile/blog-profile/**",
+                                "/private/profile/course-profile/**","private/profile/instructor-profile/**",
+                                "/private/profile/student-profile/**", "/private/profile/user-profile/**",
+
+                                "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**",
+
                                 "/api/public/**").permitAll()
                         .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
