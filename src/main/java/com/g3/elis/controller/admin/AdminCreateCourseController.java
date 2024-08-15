@@ -29,6 +29,7 @@ import com.g3.elis.dto.form.CourseMaterialDto;
 import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.dto.form.InputFileDto;
 import com.g3.elis.dto.form.QuestionDto;
+
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
@@ -38,6 +39,7 @@ import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseCategoryService;
 import com.g3.elis.service.CourseMaterialService;
 import com.g3.elis.service.CourseModuleService;
+
 import com.g3.elis.service.CourseService;
 
 @Controller
@@ -58,6 +60,7 @@ public class AdminCreateCourseController
 	private CourseService courseService;
 	
 	@Autowired
+
 	private CourseModuleService courseModuleService;
 	
 	@Autowired
@@ -89,6 +92,7 @@ public class AdminCreateCourseController
 									@RequestParam(name = "courseInfo",required=false)String courseInfo,
 									@RequestParam(name = "image",required=false)MultipartFile imgFile,
 									@RequestParam(name = "action")String action,
+
 									Model model) 
 	{
 		List<CourseCategory> courseCategoryList = courseCategoryService.getAllCourseCategories();
@@ -103,6 +107,7 @@ public class AdminCreateCourseController
 			newSuperDto.setQuestionDtoList(new ArrayList<QuestionDto>());
 			newSuperDto.setAnswerDtoList(new ArrayList<AnswerDto>());
 			newSuperDto.setAction(action);
+
 			MultipartFile imageFile = imgFile;
 			model.addAttribute("superDto",newSuperDto);
 			model.addAttribute("imgFile",imageFile);
@@ -115,11 +120,13 @@ public class AdminCreateCourseController
 		if(durationHour != null) superDto.getCourseDto().setDurationHour(durationHour);
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
+
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
+
 		return "/admin/admin-create-course";
 	}
 	
@@ -254,7 +261,9 @@ public class AdminCreateCourseController
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);
+
 		return "/admin/admin-create-course";
+
 	}
 	
 	@GetMapping("/admin-create-course/admin-quiz")

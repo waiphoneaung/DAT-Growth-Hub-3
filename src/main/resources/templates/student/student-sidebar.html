@@ -50,7 +50,7 @@ Page Banner START -->
 							</div>
 							<!-- Button -->
 							<div class="mt-2 mt-sm-0">
-								<a th:href="@{/student/student-course-list}" class="btn btn-outline-primary mb-0">Edit Profile</a>
+								<a th:href="@{/student/student-edit-profile}" class="btn btn-outline-primary mb-0">Edit Profile</a>
 							</div>
 						</div>
 					</div>
@@ -122,13 +122,12 @@ Page content START -->
 				<!-- Responsive offcanvas body END -->
 			</div>
 			<!-- Left sidebar END -->
-			
-    
-    	
+
         <th:block th:replace="~{${content}}"></th:block>
     	
     </div>
 	</div>
+	</section>
 	<!-- =======================
 Page content END -->
 </main>

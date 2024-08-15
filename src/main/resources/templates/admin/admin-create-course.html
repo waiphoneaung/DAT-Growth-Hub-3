@@ -174,7 +174,9 @@ Steps START -->
 														class="form-select js-choice border-0 z-index-9 bg-transparent"
 														aria-label=".form-select-sm" data-search-enabled="true">
 														<option th:each="courseCategory : ${courseCategories}"
-															th:text="${courseCategory.categoryName}" 
+
+															th:text="${courseCategory.categoryName}"
+
 															th:value="${courseCategory.id}"></option>
 													</select>
 												</div>
@@ -328,6 +330,9 @@ Steps START -->
 																					<a href="#" data-bs-toggle="modal"
 																						data-bs-target="#addTopic"
 																						th:data-id="${iterStat.index}" data-action="edit"
+
+
+
 																						th:data-index="${courseMaterialStat.index}"
 																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
 																						class="far fa-fw fa-edit"></i></a>
@@ -420,11 +425,13 @@ Steps END -->
 										placeholder="Enter module name">
 								</div>
 
+
 								<input type="hidden" id="courseTitleField1" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
 								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
 								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
 								<input type="hidden" id="imageField1" name="image">
+
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
@@ -459,10 +466,12 @@ Steps END -->
 								<input type="hidden" id="index" name="courseModuleIndex">
 								<input type="hidden" id="action" name="action"> 
 								
+
 								<input type="hidden" id="courseTitleField2" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
 								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
 								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
+
 								<input type="hidden" id="imageField" name="image">
 
 								<!-- Title name -->
@@ -540,6 +549,7 @@ Steps END -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
 									data-bs-dismiss="modal">Close</button>
+
 								<button type="submit" class="btn btn-success my-0" onclick="copyValue()">Save
 									Course Material</button>
 							</div>
@@ -576,6 +586,9 @@ Steps END -->
         durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
    	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
    	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
+
+
+
 	   	if (document.getElementById('courseTitleField1')) {
 	        document.getElementById('courseTitleField1').value = courseTitle;
 	    }
@@ -605,6 +618,7 @@ Steps END -->
 	    }
 	    if (document.getElementById('courseInfoField2')) {
 	    	document.getElementById('courseInfoField2').value = courseInfo; 
+
 	    }
 
     	console.log(courseTitle);
@@ -623,9 +637,13 @@ Steps END -->
         var button = event.relatedTarget;
         
         // Extract info from data-* attributes
+
+
         var courseModuleId = button.getAttribute('data-id');
         var courseMaterialId = button.getAttribute('data-index')	;
         var action = button.getAttribute('data-action');
+
+
         // Update the modal's content.
         var input = myModal.querySelector('#index');
         var inputAction = myModal.querySelector('#action');
@@ -635,6 +653,7 @@ Steps END -->
         
         if (Array.isArray(superDto.courseMaterialDtoList)) 
         {
+
             for (let courseMaterial of superDto.courseMaterialDtoList) 
             {
                 if ((courseMaterial.index == courseModuleId) && (courseMaterialId != null)) 

@@ -11,4 +11,8 @@ public interface RoleService {
 
 	void initializeRoles(List<String>roles) throws Exception;
 	Role getRoleByName(String name);
+
+	Role getRoleByUserId(int userId);
+
+
 }

@@ -57,12 +57,6 @@ public class InstructorController {
 		return "instructor/instructor-layout";
 	}
 	
-	@GetMapping("/forum")
-	public String forum(Model model) {
-		 
-		model.addAttribute("currentPage", "forum");
-		return "instructor/forum";
-	}
 	
 //	@GetMapping("/instructor-view-blog")
 //	public String instructor_view_blog(Model model) {
