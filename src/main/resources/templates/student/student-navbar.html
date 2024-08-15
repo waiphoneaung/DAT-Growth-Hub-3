@@ -80,7 +80,7 @@
 							data-bs-display="static" data-bs-toggle="dropdown"
 							aria-expanded="false"> <img class="avatar-img rounded-circle"
 							th:if="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
 							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
@@ -95,7 +95,7 @@
 									<div class="avatar me-3">
 										<img class="avatar-img rounded-circle shadow"
 											th:if="${user.profile != null && user.profile.profileImg != null}"
-											th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+											th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 											alt="avatar"> <img
 											class="avatar-img rounded-circle shadow"
 											th:unless="${user.profile != null && user.profile.profileImg != null}"

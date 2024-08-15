@@ -39,6 +39,8 @@ public class UserServiceImpl implements UserService {
 	    }
 		
 		
+
+		
 		User user = new User();	
 		
 		if(userDto.getEmail() == null)
@@ -60,13 +62,21 @@ public class UserServiceImpl implements UserService {
 		user.setEnabled(true);
 		user.setPassword(new BCryptPasswordEncoder().encode("dirace@1234"));
 
-//		Role userRole = roleRepository.findById(2).orElseThrow(() -> new RuntimeException("Role is not found!"));
+		if (userDto.getRole() != null) {
+			String roleName = userDto.getRole().equalsIgnoreCase("Admin") ? "ROLE_ADMIN"
+					: userDto.getRole().equalsIgnoreCase("Instructor") ? "ROLE_INSTRUCTOR"
+							: userDto.getRole().equalsIgnoreCase("Student") ? "ROLE_STUDENT" : "";
+			Role userRole = roleRepository.findByName(roleName)
+					.orElseThrow(() -> new RuntimeException("Role is not found"));
+			userRole.getUsers().add(user);
+			user.getRoles().add(userRole);
+			userRepository.save(user);
+			return;
+		}
 		Role userRole = roleRepository.findByName("ROLE_STUDENT")
 				.orElseThrow(() -> new RuntimeException("Role is not found!"));
-
-		user.getRoles().add(userRole);
 		userRole.getUsers().add(user);
-
+		user.getRoles().add(userRole);
 		userRepository.save(user);
 	}
 
@@ -74,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
-  
+
 	@Override
 	public List<String> getEmailsByRole(String role) {
 		return userRepository.findEmailsByRole(role);
@@ -83,12 +93,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUserStatus(int id, boolean enabled) {
-		
-	        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-	        user.setEnabled(enabled);
-	        user.setStatus(enabled ? "Active" : "Unactive");
-	        userRepository.save(user);
-	    }
+
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		user.setEnabled(enabled);
+		user.setStatus(enabled ? "Active" : "Inactive");
+		userRepository.save(user);
+	}
 
 	@Override
 	public Page<User> getAllStudents(Pageable pageable) {
@@ -105,14 +116,14 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 
 		return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
-  }
+	}
 
 	@Override
 	public Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return userRepository.searchInstructors(name, staffId, dept, division,pageable);
-	}
 
+		return userRepository.searchInstructors(name, staffId, dept, division, pageable);
+	}
 
 	public void changePassword(User user, String newPassword) {
 		user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
@@ -124,5 +135,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+
+
+
 
 }

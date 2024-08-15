@@ -100,11 +100,16 @@
 													class="card-header bg-transparent border-bottom d-flex justify-content-between">
 													<div class="d-sm-flex align-items-center">
 														<!-- Avatar -->
-														<div class="avatar avatar-md flex-shrink-0">
-															<img class="avatar-img rounded-circle"
-																th:src="@{/public/assets/images/avatar/01.jpg}"
-																alt="avatar">
-														</div>
+														<div class="avatar avatar-md flex-shrink-0 rounded-circle">
+            <img class="avatar-img rounded-circle"
+                th:if="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+                alt="avatar">
+            <img class="avatar-img rounded-circle"
+                th:unless="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/public/assets/images/avatar/01.jpg'}"
+                alt="avatar">
+        </div>
 														<!-- Info -->
 														<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
 															<h5 class="mb-0">
@@ -127,10 +132,21 @@
 														<ul
 															class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
 															aria-labelledby="dropdownShare2">
-															<li><a class="dropdown-item" href="#"><i
-																	class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
-															<li><a class="dropdown-item" href="#"><i
-																	class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
+															<li>
+															<form th:action="@{/admin/change-instructor-status}"
+      method="post"
+      th:onsubmit="${user.enabled} ? 'return confirm(\'Are you sure you want to disable this user?\');' : 'return confirm(\'Are you sure you want to enable this user?\');'">
+    <input type="hidden" name="id" th:value="${user.id}" />
+    <input type="hidden" name="enabled" th:value="${user.enabled} ? 0 : 1" />
+    <button type="submit" class="btn"
+            th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+            th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+        <i class="bi" th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+        <a>Status</a>
+    </button>
+</form>
+
+														</li>
 														</ul>
 													</div>
 												</div>
@@ -293,16 +309,29 @@
     <div class="d-sm-flex justify-content-center align-items-sm-center">
         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
             <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                <li th:classappend="${currentPage == 0} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage - 1}, size=10)}" tabindex="-1">
+                <!-- Previous button: only show if not on the first page -->
+                <li th:if="${currentPage > 0}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${currentPage - 1}, search=${search})}" 
+                       tabindex="-1">
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active' : ''" class="page-item mb-0">
-                    <a class="page-link" th:text="${i + 1}" th:href="@{/admin/admin-instructor-list(page=${i}, size=10)}">1</a>
+
+                <!-- Page numbers: show only if totalPages > 1 -->
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active' : ''" 
+                    th:if="${totalPages > 1}" 
+                    class="page-item mb-0">
+                    <a class="page-link" 
+                       th:text="${i + 1}" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${i}, search=${search})}"></a>
                 </li>
-                <li th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''" class="page-item mb-0">
-                    <a class="page-link" th:href="@{/admin/admin-instructor-list(page=${currentPage + 1}, size=10)}">
+
+                <!-- Next button: only show if not on the last page -->
+                <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${currentPage + 1}, search=${search})}">
                         <i class="fas fa-angle-right"></i>
                     </a>
                 </li>
@@ -311,6 +340,7 @@
     </div>
 </div>
 <!-- Pagination END -->
+
 
 </div>
 

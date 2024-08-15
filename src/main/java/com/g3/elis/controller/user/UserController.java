@@ -12,15 +12,22 @@ import com.g3.elis.model.BlogPost;
 import com.g3.elis.service.BlogPostService;
 
 @Controller
-@RequestMapping({"/user","/"})
+@RequestMapping({"/user","/",""})
 public class UserController {
 	
 	@Autowired
     private BlogPostService blogPostService;
 	
-	@GetMapping({"/home","/"})
+	
+	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("content","user/main");
+		return "/user/layout";
+	}
+	
+	@GetMapping("/courses")
+	public String courses(Model model) {
+		model.addAttribute("content","user/courses");
 		return "/user/layout";
 	}
 	
@@ -36,17 +43,9 @@ public class UserController {
 		return "/user/layout";
 	}
 	
-//	@GetMapping("/blog")
-//	public String blogGrid(Model model) {
-//		 List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-//		 model.addAttribute("blogPosts", blogPosts);
-//		model.addAttribute("content","user/blog");
-//		return "/user/layout";
-//	}
-//	
-//	 
-	
-	@GetMapping("/courses")
+
+
+
 	public String courseList(Model model) {
 		model.addAttribute("content","user/courses");
 		return "/user/layout";
@@ -60,7 +59,7 @@ public class UserController {
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		
-		return "/authenticated-user/blog-detail";
+		return "/user/blog-detail";
 	}
 	
 	

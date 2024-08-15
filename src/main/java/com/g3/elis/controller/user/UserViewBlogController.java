@@ -1,5 +1,6 @@
 package com.g3.elis.controller.user;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -102,7 +103,8 @@ public class UserViewBlogController {
 		            
 		            model.addAttribute("content", "user/user-blog-detail");
 		            model.addAttribute("blogPost", blogPost);
-		            return "/user/layout";
+           return "/user/blog-detail";
+
 		        }
 
 		        return "redirect:/user/blog";
@@ -164,6 +166,7 @@ public class UserViewBlogController {
 		        }
 		    }
 		}
+
 
 
 

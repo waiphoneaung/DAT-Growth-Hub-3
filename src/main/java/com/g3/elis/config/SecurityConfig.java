@@ -69,6 +69,9 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/public/**", "/public/assets/**", "/public/assets/css/**",
                                 "/public/assets/images/**","/public/assets/js/**",
+
+                                "/public/assets/vendor/**","/fragments/**", "/private/profiles/**","/static/private/blog/**",
+
                                 "/public/assets/vendor/**","/fragments/**", "/private/profiles/**",
                                 "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**",
                                 "/api/public/**").permitAll()
