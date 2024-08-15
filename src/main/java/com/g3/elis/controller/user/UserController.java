@@ -1,6 +1,5 @@
 package com.g3.elis.controller.user;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,17 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.g3.elis.model.BlogPost;
 import com.g3.elis.service.BlogPostService;
 
 @Controller
 @RequestMapping({"/user","/",""})
 public class UserController {
 	
+
 	@Autowired
     private BlogPostService blogPostService;
-	
-	
+
 	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("content","user/main");

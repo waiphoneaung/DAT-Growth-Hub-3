@@ -52,7 +52,7 @@ public class AdminEditProfileController {
 			profileDto.setDescription(profile.getDescription());
 			profileDto.setPhNo(profile.getPhNo());
 
-			String imageName = profileService.getProfileByUser(user).getProfileImg();
+			String imageName =  profileService.getProfileByUser(user).getProfileImg();
 			model.addAttribute("profileImg", imageName);
 			model.addAttribute("user", user);
 			model.addAttribute("profileDto", profileDto);

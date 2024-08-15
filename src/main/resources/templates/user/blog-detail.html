@@ -128,6 +128,7 @@
 					<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
 					<a class="nav-link" th:href="@{/instructor/instructor-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
 					</div>
+
 					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
 					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
@@ -147,33 +148,123 @@
 					</div>
 				</div>
 				<!-- Nav Search END -->
+
 			</div>
 			<!-- Main navbar END -->
 
 			<!-- Profile START -->
-			<div class="dropdown ms-1 ms-lg-0">
-				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-					<img class="avatar-img rounded-circle" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
-				</a>
-				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-					<!-- Profile info -->
-					<li class="px-3 mb-3">
-						<div class="d-flex align-items-center">
-							<!-- Avatar -->
-							<div class="avatar me-3">
-								<img class="avatar-img rounded-circle shadow" th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
-							</div>
-							<div>
-								<a class="h6" th:href="@{/admin/admin-dashboard}" th:text="${user.name}"></a>
-								<p class="small m-0" th:text="${user.email}"> dathr@diracetechnology.com</p>
-							</div>
-						</div>
-					</li>
-          <li> <hr class="dropdown-divider"></li>
-					<!-- Links -->
-					<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-					<li><a class="dropdown-item bg-danger-soft-hover" href="sign-in.html"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
-					<li> <hr class="dropdown-divider"></li>
+				<div sec:authorize="isAuthenticated()">
+						<div class="dropdown ms-1 ms-lg-0">
+							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+								role="button" data-bs-auto-close="outside"
+								data-bs-display="static" data-bs-toggle="dropdown"
+								aria-expanded="false"> <!-- Admin --> <span
+								th:if="${#authentication.principal.isAdmin()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							</span> <!-- Instructor --> <span
+								th:if="${#authentication.principal.isInstructor()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							</span> <!-- Student --> <span
+								th:if="${#authentication.principal.isStudent()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							</span>
+							</a>
+
+							<ul
+								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+								aria-labelledby="profileDropdown">
+								<li class="px-3 mb-3">
+									<div class="d-flex align-items-center">
+										<div class="avatar me-3">
+											<span th:if="${#authentication.principal.isAdmin()}">
+												<img class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												alt="avatar">
+											</span> <span th:if="${#authentication.principal.isInstructor()}">
+												<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+												class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												alt="avatar">
+											</span> <span th:if="${#authentication.principal.isStudent()}">
+												<img class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												alt="avatar">
+											</span>
+
+										</div>
+
+										<div>
+											<span th:if="${#authentication.principal.isAdmin()}">
+												<a class="h6" th:href="@{/admin/admin-dashboard}"
+												th:text="${user.name}"></a>
+											</span> <span th:if="${#authentication.principal.isStudent()}">
+												<a class="h6" th:href="@{/student/student-dashboard}"
+												th:text="${user.name}"></a>
+											</span> <span th:if="${#authentication.principal.isInstructor()}">
+												<a class="h6" th:href="@{/instructor/instructor-dashboard}"
+												th:text="${user.name}"></a>
+											</span>
+											<p class="small m-0" th:text="${user.email}"></p>
+										</div>
+
+									</div>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<!-- Links -->
+								<li><span th:if="${#authentication.principal.isAdmin()}">
+										<a class="dropdown-item"
+										th:href="@{/admin/admin-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="dropdown-item"
+										th:href="@{/student/student-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="dropdown-item"
+										th:href="@{/instructor/instructor-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span></li>
+
+								<li><a class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+										Out</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+
 					<!-- Dark mode options START -->
 					<li>
 						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
@@ -220,6 +311,7 @@ Main Content START -->
 
 				<!-- Title and Info START -->
 				<div class="row">
+
 					<!-- Avatar and Share -->
 					<div class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
 						<div class="text-lg-center">
@@ -235,17 +327,19 @@ Main Content START -->
 						</div>
 					</div>
 
+
 					<!-- Content -->
 					<div class="col-lg-12 order-1">
 						<!-- Pre title -->
 						
-						
-						
+
 						<!-- Title -->
 						
 						<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"> </h3>
 						
+
 						<a href="#" class="h5 stretched-link mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></a>
+
 						<ul class="list-inline list-unstyled">
 							
 								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
@@ -254,6 +348,7 @@ Main Content START -->
 						
 						<!-- Info -->
 						<!-- Main HTML Content Start -->
+
 				<div class="col-lg-9 order-1">
 					
 							
@@ -264,6 +359,7 @@ Main Content START -->
 							<div class="col-lg-9 order-1">
    									 <div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
 										</div>
+
 						</div>
 				</div>
 				<!-- Title and Info END -->
@@ -288,12 +384,11 @@ Main Content START -->
 
 				<hr> <!-- Divider -->
 
-				
-					
 				</div>
 				<!-- Comment review and form END -->
 			</div>
 		</div> <!-- Row END -->
+
 	</div>
 </section>
 <!-- =======================
@@ -304,6 +399,7 @@ Related blog START -->
 
 <!-- =======================
 Related blog END -->
+
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->

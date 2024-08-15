@@ -12,4 +12,8 @@ public interface ProfileService {
 
 	void updateProfile(User user, ProfileDto profileDto) throws IOException;
 	void createProfile(User user,ProfileDto profileDto) throws IOException;
+	
+	void updateStudentProfile(User user, ProfileDto profileDto) throws IOException;
+	void createStudentProfile(User user,ProfileDto profileDto) throws IOException;
+
 }

@@ -67,5 +67,5 @@ public class CourseMaterialDto {
 		return "CourseMaterialDto [status=" + status + ", title=" + title + ", content=" + content + ", index=" + index
 				+ "]";
 	}
-	
+
 }

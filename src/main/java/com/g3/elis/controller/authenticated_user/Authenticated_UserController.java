@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/authenticated-user")
 public class Authenticated_UserController {
 	
-	@GetMapping("/forum")
-	public String forum()
-	{
-		return "/authenticated-user/forum";
-	}
-	
-	@GetMapping("/blog-detail")
-	public String blogDetail()
-	{
-		return "/authenticated-user/blog-detail";
-	}
+//	@GetMapping("/forum")
+//	public String forum()
+//	{
+//		return "/authenticated-user/forum";
+//	}
+//	
+//	@GetMapping("/blog-detail")
+//	public String blogDetail()
+//	{
+//		return "/authenticated-user/blog-detail";
+//	}
 
 
 }

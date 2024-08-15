@@ -32,11 +32,17 @@ public class FileStorageConfig {
 		return Paths.get(profileImageDir + "/profile/user-profile").toAbsolutePath().normalize();
 	}
 	
-	 public void saveProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+
+	 public String saveProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+
 	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 	        String newFileName = timestamp + "_" + originalFileName;
 	        Path targetLocation = getProfileImageDir().resolve(newFileName);
 	        Files.copy(file.getInputStream(), targetLocation);
+
+	        
+	        return newFileName;
+
 	    }
 	public void deleteProfileImageFile(String fileName) throws IOException
 	{
@@ -133,4 +139,6 @@ public class FileStorageConfig {
 		Path targetLocation = getUploadDir(path).resolve(fileName);
 		Files.write(targetLocation, content.getBytes());
 	}
+	
+	
 }
