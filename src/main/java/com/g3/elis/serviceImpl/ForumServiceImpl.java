@@ -3,6 +3,9 @@ package com.g3.elis.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.ForumDto;
@@ -28,7 +31,7 @@ public class ForumServiceImpl implements ForumService{
 
 		Forum forum = new Forum();
 		forum.setUsers(forumDto.getUsers());
-		forum.setCreated_at(forumDto.getCreatedAt());
+		forum.setCreatedAt(forumDto.getCreatedAt());
 		forum.setTitle(forumDto.getTitle());
 		forum.setContent(forumDto.getContent());
 		forumRepository.save(forum);
@@ -39,6 +42,38 @@ public class ForumServiceImpl implements ForumService{
 		// TODO Auto-generated method stub
 		return forumRepository.findById(forumId).orElse(null);
 	}
+	
+	
+	//for searchPost
+	@Override
+	public List<Forum> searchPosts(String query) {
+		// TODO Auto-generated method stub
+		return forumRepository.findByTitleContainingIgnoreCase(query);
+	}
+	
+	//test search pagination
+//	public Page<Forum> searchPosts(String query, Pageable pageable) {
+//        // Ensure the query is not null or empty
+//        if (query == null || query.trim().isEmpty()) {
+//            return forumRepository.findAll(pageable); // Return all posts with pagination if no query is provided
+//        }
+//        return forumRepository.findByTitleContainingIgnoreCase(query, pageable);
+//    }
+
+	@Override
+	public Page<Forum> getAllForums(Pageable pageable) {
+		// TODO Auto-generated method stub
+    return forumRepository.findAll(pageable);
+
+	}
+
+	@Override
+	public Page<Forum> searchPosts(String query, int page, int pagesize) {
+		Pageable pageable=PageRequest.of(page, pagesize);
+		if (query == null || query.trim().isEmpty()) {
+         return forumRepository.findAll(pageable) ;// Return all posts with pagination if no query is provided
+      }
+     return forumRepository.findByTitleContainingIgnoreCase(query,pageable);	}
 
 	
 

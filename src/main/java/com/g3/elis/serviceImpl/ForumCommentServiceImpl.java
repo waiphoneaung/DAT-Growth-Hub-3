@@ -1,6 +1,10 @@
 package com.g3.elis.serviceImpl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,14 +33,16 @@ public class ForumCommentServiceImpl implements ForumCommentService{
 	}
 
 	
+	
 	@Override
 	public void saveComment(ForumCommentDto forumCommentDto,int forumId) {
 
 		ForumComment forumComment = new ForumComment();
 		Forum forum = forumRepository.findById(forumId).orElse(null);
 		
+		
 		forumComment.setUsers(forumCommentDto.getUsers());
-		forumComment.setCreatedAt(forumCommentDto.getCreatedAt());
+		forumComment.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		forumComment.setComment(forumCommentDto.getComment());
 		forumComment.setForums(forum);
 		

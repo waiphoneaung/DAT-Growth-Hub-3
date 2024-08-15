@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="forums")
@@ -22,10 +25,14 @@ public class Forum {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(length=5000)
 	private String title;
+	
+	@Lob
 	private String content;
-	private Timestamp created_at;
-	private Timestamp updated_at;
+	
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	
 	@OneToMany(mappedBy ="forums", cascade = CascadeType.ALL)
 	private List<ForumComment> forumComments = new ArrayList<>();
@@ -42,6 +49,7 @@ public class Forum {
 		this.id = id;
 	}
 
+	
 	public String getTitle() {
 		return title;
 	}
@@ -76,38 +84,38 @@ public class Forum {
 	
 	
 
-	public Timestamp getCreated_at() {
-		return created_at;
+		public Timestamp getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdated_at() {
-		return updated_at;
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Timestamp updated_at) {
-		this.updated_at = updated_at;
-	}
-	
-
-	public Forum(int id, String title, String content, Timestamp created_at, Timestamp updated_at,
-			List<ForumComment> forumComments, User users) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.forumComments = forumComments;
-		this.users = users;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public Forum() {
+		public Forum() {
 		super();
 	}
-	
+
+		public Forum(int id, String title, String content, Timestamp createdAt, Timestamp updatedAt,
+				List<ForumComment> forumComments, User users) {
+			super();
+			this.id = id;
+			this.title = title;
+			this.content = content;
+			this.createdAt = createdAt;
+			this.updatedAt = updatedAt;
+			this.forumComments = forumComments;
+			this.users = users;
+		}
+
+		
 
 }

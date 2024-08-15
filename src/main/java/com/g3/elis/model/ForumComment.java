@@ -2,11 +2,13 @@ package com.g3.elis.model;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -18,8 +20,13 @@ public class ForumComment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Lob
 	private String comment;
+	
+	
+	@Column(name = "created_at", nullable = false, updatable = false)
 	private Timestamp createdAt;
+
 	private Timestamp updatedAt;
 	
 	@ManyToOne
@@ -79,7 +86,7 @@ public class ForumComment {
 
 	public void setCreatedAt(Timestamp createdAt) {
 		// TODO Auto-generated method stub
-		
+		this.createdAt = createdAt;
 	}
 	
 	public ForumComment() {

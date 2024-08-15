@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping({"/user","/"})
 public class UserController {
 	
-	@GetMapping({"/home","/"})
+	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("content","user/main");
 		return "/user/layout";
