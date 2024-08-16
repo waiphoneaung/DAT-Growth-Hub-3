@@ -50,6 +50,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
+
+
 	public Role getRoleByName(String name) {
 		return roleRepository.findByName(name).orElse(null);
 	}
@@ -57,4 +59,6 @@ public class RoleServiceImpl implements RoleService {
 		return roleRepository.findRoleByUserId(userId);
 
 	}
+
+
 }

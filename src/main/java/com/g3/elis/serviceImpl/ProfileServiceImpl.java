@@ -16,8 +16,6 @@ import java.nio.file.Path;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
-	
-	private final String profileImageFilePath = "/profile/user-profile";
 
 	@Autowired
 	private ProfileRepository profileRepository;
@@ -39,13 +37,17 @@ public class ProfileServiceImpl implements ProfileService {
 			profile.setPhNo(profileDto.getPhNo());
 			profile.setUser(user);
 
-			Path targetLocation = fileStorageConfig.getUploadDir(profileImageFilePath).resolve(profile.getProfileImg());
+			Path targetLocation = fileStorageConfig.getProfileImageDir().resolve(profile.getProfileImg());
 			if (Files.exists(targetLocation)) {
-				fileStorageConfig.deleteFile(profile.getProfileImg(), profileImageFilePath);
+				fileStorageConfig.deleteProfileImageFile(profile.getProfileImg());
 			}
 			
+		
 			MultipartFile profileImage = profileDto.getProfileImg();
-			profile.setProfileImg(fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath));
+			//profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
+			profile.setProfileImg(fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename()));
+		//	System.out.println(fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename()));
+			//fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
 			profileRepository.save(profile);
 		}
 	}
@@ -57,8 +59,11 @@ public class ProfileServiceImpl implements ProfileService {
 		profile.setAddress(profileDto.getAddress());
 		profile.setDescription(profileDto.getDescription());
 		profile.setPhNo(profileDto.getPhNo());
-		profile.setProfileImg(fileStorageConfig.saveFile(createprofileImage, createprofileImage.getOriginalFilename(),profileImageFilePath));
+		profile.setProfileImg(fileStorageConfig.saveProfileImageFile(createprofileImage, createprofileImage.getOriginalFilename()));
 		profile.setUser(user);
+
+		
+		//fileStorageConfig.saveProfileImageFile(createprofileImage, createprofileImage.getOriginalFilename());
 
 		profileRepository.save(profile);
 	}
@@ -77,15 +82,15 @@ public class ProfileServiceImpl implements ProfileService {
 			profile.setPhNo(profileDto.getPhNo());
 			profile.setUser(user);
 
-			Path targetLocation = fileStorageConfig.getUploadDir(profileImageFilePath).resolve(profile.getProfileImg());
+			Path targetLocation = fileStorageConfig.getProfileImageDir().resolve(profile.getProfileImg());
 			if (Files.exists(targetLocation)) {
-				fileStorageConfig.deleteFile(profile.getProfileImg(),profileImageFilePath);
+				fileStorageConfig.deleteProfileImageFile(profile.getProfileImg());
 			}
 
 			profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
 
 			MultipartFile profileImage = profileDto.getProfileImg();
-			fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath);
+			fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
 			profileRepository.save(profile);
 		}
 	}
@@ -103,7 +108,7 @@ public class ProfileServiceImpl implements ProfileService {
 		profile.setUser(user);
 
 		MultipartFile profileImage = profileDto.getProfileImg();
-		fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath);
+		fileStorageConfig.saveProfileImageFile(profileImage, profileImage.getOriginalFilename());
 
 		profileRepository.save(profile);
 	}

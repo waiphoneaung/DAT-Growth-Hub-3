@@ -34,7 +34,4 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Integer>{
 
 	Page<BlogPost> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
-	
-	}
-
-
+}

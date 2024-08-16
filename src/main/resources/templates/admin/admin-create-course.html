@@ -59,15 +59,11 @@ Page Banner START -->
 					<div class="row">
 						<div class="col-12 text-center">
 							<!-- Title -->
-							
-							<span th:if="${action} == 'add'">
-								<h1 class="text-white">Submit a new Course</h1>
-								<p class="text-white mb-0"> Read our <a href="#" class="text-white"><u>"Before you create a course"</u></a> article before submitting!
+							<h1 class="text-white">Submit a new Course</h1>
+							<p class="text-white mb-0">
+								Read our <a href="#" class="text-white"><u>"Before you
+										create a course"</u></a> article before submitting!
 							</p>
-							</span>
-							<span th:unless="${action} == 'add'">
-								<h1 class="text-white">Edit Your Course</h1>
-							</span>
 						</div>
 					</div>
 				</div>
@@ -82,14 +78,10 @@ Steps START -->
 					<div class="row">
 						<div class="col-md-8 mx-auto text-center">
 							<!-- Content -->
-							<p class="text-center" th:if="${action} == 'add'">Use this interface to add a new Course
+							<p class="text-center">Use this interface to add a new Course
 								to the portal. Once you are done adding the item it will be
 								requested to admin. If admin approved, your course will appear
-								and inform to students that your course has been accepted.</p>
-							<p class="text-center" th:unless="${action} == 'add'">Use this interface to edit your Course
-								to the portal. Once you are done editing the item it will be
-								requested to admin. If admin approved, your course will appear
-								and inform to students that your course has been accepted.</p>
+								and inform to studentsthat your course has been accepted.</p>
 						</div>
 					</div>
 
@@ -184,7 +176,9 @@ Steps START -->
 														class="form-select js-choice border-0 z-index-9 bg-transparent"
 														aria-label=".form-select-sm" data-search-enabled="true">
 														<option th:each="courseCategory : ${courseCategories}"
+
 															th:text="${courseCategory.categoryName}"
+
 															th:value="${courseCategory.id}"></option>
 													</select>
 												</div>
@@ -216,7 +210,7 @@ Steps START -->
 												<div class="d-flex justify-content-between mt-3">
 													<a class="btn btn-warning next-btn mb-0"
 														th:href="@{/admin/admin-dashboard}">Dashboard</a>
-													<a class="btn btn-primary next-btn mb-0">Next</a>
+													<button class="btn btn-primary next-btn mb-0">Next</button>
 
 												</div>
 											</div>
@@ -242,7 +236,7 @@ Steps START -->
 														<img
 															th:if="${imgFile != null && imgFile.getOriginalFilename() != null}"
 															th:src="@{'/private/course/course-image-file/' + ${imgFile.getOriginalFilename()}}"
-															class="h-50px">
+															class="h-50px" alt>
 														<div>
 															<h6 class="my-2">
 																Upload course thumbnail here, or<a href="#!"
@@ -268,8 +262,8 @@ Steps START -->
 
 												<!-- Step 2 button -->
 												<div class="d-flex justify-content-between mt-3">
-													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
-													<a class="btn btn-primary next-btn mb-0">Next</a>
+													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<button class="btn btn-primary next-btn mb-0">Next</button>
 												</div>
 											</div>
 										</div>
@@ -289,7 +283,7 @@ Steps START -->
 												<div
 													class="d-sm-flex justify-content-sm-between align-items-center mb-3">
 													<h5 class="mb-2 mb-sm-0">Upload Module</h5>
-													<a href="#" class="btn btn-sm btn-primary-soft mb-0" th:if="${action} == 'add'"
+													<a href="#" class="btn btn-sm btn-primary-soft mb-0"
 														data-bs-toggle="modal" data-bs-target="#addLecture"><i
 														class="bi bi-plus-circle me-2"></i>Add Module</a>
 												</div>
@@ -338,10 +332,13 @@ Steps START -->
 																					<a href="#" data-bs-toggle="modal"
 																						data-bs-target="#addTopic"
 																						th:data-id="${iterStat.index}" data-action="edit"
+
+
+
 																						th:data-index="${courseMaterialStat.index}"
 																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
 																						class="far fa-fw fa-edit"></i></a>
-																					<button th:if="${action} == 'add'"
+																					<button
 																						class="btn btn-sm btn-danger-soft btn-round mb-0">
 																						<i class="fas fa-fw fa-times"></i>
 																					</button>
@@ -354,7 +351,7 @@ Steps START -->
 																	</div>
 																	<!-- Material item END -->
 																	<!-- Add course Material -->
-																	<a href="#" class="btn btn-sm btn-dark mb-0" th:if="${action} == 'add'"
+																	<a href="#" class="btn btn-sm btn-dark mb-0"
 																		data-bs-toggle="modal" data-bs-target="#addTopic"
 																		data-action="add" th:data-id="${iterStat.index}"><i
 																		class="bi bi-plus-circle me-2"></i>Add Course Material</a>
@@ -379,7 +376,7 @@ Steps START -->
 
 												<!-- Step 3 button -->
 												<div class="d-flex justify-content-between">
-													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
+													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
 													<div class="text-md-end">
 														<button type="submit" class="btn btn-success mb-2 mb-sm-0">Submit
 															a Course</button>
@@ -429,11 +426,14 @@ Steps END -->
 										name="module-title" class="form-control"
 										placeholder="Enter module name">
 								</div>
+
+
 								<input type="hidden" id="courseTitleField1" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
 								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
 								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
 								<input type="hidden" id="imageField1" name="image">
+
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
@@ -467,10 +467,13 @@ Steps END -->
 							
 								<input type="hidden" id="index" name="courseModuleIndex">
 								<input type="hidden" id="action" name="action"> 
+								
+
 								<input type="hidden" id="courseTitleField2" name="courseTitle">
 								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
 								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
 								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
+
 								<input type="hidden" id="imageField" name="image">
 
 								<!-- Title name -->
@@ -548,6 +551,7 @@ Steps END -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
 									data-bs-dismiss="modal">Close</button>
+
 								<button type="submit" class="btn btn-success my-0" onclick="copyValue()">Save
 									Course Material</button>
 							</div>
@@ -586,6 +590,9 @@ Steps END -->
         durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
    	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
    	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
+
+
+
 	   	if (document.getElementById('courseTitleField1')) {
 	        document.getElementById('courseTitleField1').value = courseTitle;
 	    }
@@ -615,6 +622,7 @@ Steps END -->
 	    }
 	    if (document.getElementById('courseInfoField2')) {
 	    	document.getElementById('courseInfoField2').value = courseInfo; 
+
 	    }
 
     	console.log(courseTitle);
@@ -633,9 +641,13 @@ Steps END -->
         var button = event.relatedTarget;
         
         // Extract info from data-* attributes
+
+
         var courseModuleId = button.getAttribute('data-id');
-        var courseMaterialId = button.getAttribute('data-index');
+        var courseMaterialId = button.getAttribute('data-index')	;
         var action = button.getAttribute('data-action');
+
+
         // Update the modal's content.
         var input = myModal.querySelector('#index');
         var inputAction = myModal.querySelector('#action');
@@ -645,6 +657,7 @@ Steps END -->
         
         if (Array.isArray(superDto.courseMaterialDtoList)) 
         {
+
             for (let courseMaterial of superDto.courseMaterialDtoList) 
             {
                 if ((courseMaterial.index == courseModuleId) && (courseMaterialId != null)) 

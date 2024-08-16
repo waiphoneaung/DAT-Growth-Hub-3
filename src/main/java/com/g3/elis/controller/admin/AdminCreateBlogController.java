@@ -1,10 +1,10 @@
 package com.g3.elis.controller.admin;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -104,11 +104,11 @@ public class AdminCreateBlogController {
 		return Files.readString(htmlFilePath);
 	}
 
-//	@GetMapping("/admin-create-blog")
-//	public String adminCreateBlog(Model model) {
-//		model.addAttribute("blogPostDto", new BlogPostDto());
-//		return "/admin/admin-create-blog";
-//	}
+	@GetMapping("/admin-create-blog")
+	public String adminCreateBlog(Model model) {
+		model.addAttribute("blogPostDto", new BlogPostDto());
+		return "/admin/admin-create-blog";
+	}
 
 	@PostMapping("/admin-save-blog")
 	public String adminCreateBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
@@ -174,73 +174,43 @@ public class AdminCreateBlogController {
 		return "redirect:/admin/admin-view-blog";
 	}
 	
-//	@GetMapping("/admin-edit-blog/{id}")
-//    public String adminEditBlog(@PathVariable("id") int id, Model model) {
-//        BlogPost blogPost = blogPostService.findById(id);
-//        if (blogPost != null) {
-//            model.addAttribute("htmlContent", blogPostService.getBlogPostContent(blogPost));
-//            model.addAttribute("blogPost", blogPost);
-//            return "/authenticated-user/blog-detail";
-//        }
-//        return "redirect:/admin/admin-view-blog";
-//    }
-
-    @GetMapping("/admin-create-blog")
-    public String adminCreateBlog(Model model) {
-        model.addAttribute("blogPostDto", new BlogPostDto());
-        return "/admin/admin-create-blog";
-    }
-
-  /*  @PostMapping("/admin-save-blog")
-    public String adminSaveBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
-                                @RequestParam String htmlContent,
-                                @RequestParam(name = "img-file", required = false) MultipartFile imgFile,
-                                BindingResult result, Authentication authentication, Model model) throws IOException {
-        if (result.hasErrors()) {
+	@GetMapping("/admin-edit-blog/{id}")
+    public String adminEditBlog(@PathVariable("id") int id, Model model) {
+        BlogPost blogPost = blogPostService.findById(id);
+        if (blogPost != null) {
+            BlogPostDto blogPostDto = new BlogPostDto();
+            blogPostDto.setId(blogPost.getId());
+            blogPostDto.setTitle(blogPost.getTitle());
+            blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
+            blogPostDto.setImageFile(blogPost.getBlogImage());
             model.addAttribute("blogPostDto", blogPostDto);
-            return "/admin/admin-create-blog";
+            return "/admin/admin-edit-blog";
         }
-
-        LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
-        blogPostDto.setUsers(userDetail.getUser());
-
-        if (blogPostDto.getId() >0 && blogPostService.findById(blogPostDto.getId()) != null) {
-            // If the ID exists, update the existing blog post
-            blogPostService.updateBlogPost(blogPostDto, htmlContent, imgFile);
-        } else {
-            // If the ID does not exist, create a new blog post
-            blogPostService.saveBlogPost(blogPostDto, htmlContent, imgFile);
-        }
-
         return "redirect:/admin/admin-view-blog";
     }
-    
-    */
-//
-//    @GetMapping("/admin-delete-blog/{id}")
-//    public String adminDeleteBlog(@PathVariable int id) throws IOException {
-//        blogPostService.deleteBlogPost(id);
-//        return "redirect:/admin/admin-view-blog";
-//    }
 
-    @GetMapping("/admin-edit-blog/{id}")
-    public String adminEditBlog(@Valid @PathVariable int id, Model model) throws IOException {
-        BlogPost blogPost = blogPostService.findById(id);
-        if (blogPost == null) {
-            return "redirect:/admin/admin-view-blog";
+    @PostMapping("/admin-update-blog")
+    public String adminUpdateBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
+                                  @RequestParam String content,
+                                  @RequestParam(name = "img-file", required = false) MultipartFile imgFile,
+                                  BindingResult result, Authentication authentication, Model model) throws IOException {
+        if (result.hasErrors()) {
+            model.addAttribute("blogPostDto", blogPostDto);
+            return "/admin/admin-edit-blog";
+        }
+        
+        // Handle image file upload
+        if (!imgFile.isEmpty()) {
+            String originalFileName = imgFile.getOriginalFilename();
+            String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+            String newImageFileName = dateTime + "_" + originalFileName;
+            String imagePath = IMAGE_FILE_PATH + newImageFileName;
+            Files.write(Paths.get(imagePath), imgFile.getBytes());
+            blogPostDto.setImageFile(newImageFileName);
         }
 
-        String htmlContent = new String(Files.readAllBytes(Paths.get(HTML_FILE_PATH + blogPost.getHtmlFileName())));
-
-        BlogPostDto blogPostDto = new BlogPostDto();
-        blogPostDto.setId(blogPost.getId());
-        blogPostDto.setTitle(blogPost.getTitle());
-        blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
-        blogPostDto.setCreatedAt(blogPost.getCreatedAt());
-        blogPostDto.setUsers(blogPost.getUsers());
-
-        model.addAttribute("blogPostDto", blogPostDto);
-        model.addAttribute("htmlContent", htmlContent);
-        return "/admin/admin-edit-blog";
+        // Update the blog post
+        blogPostService.updateBlogPost(blogPostDto);
+        return "redirect:/admin/admin-view-blog";
     }
 }

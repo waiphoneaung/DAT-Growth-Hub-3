@@ -47,6 +47,9 @@ public class UserController {
 		model.addAttribute("content","user/about");
 		return "/user/layout";
 	}
+	
+
+
 
 	public String courseList(Model model) {
 		model.addAttribute("content","user/courses");

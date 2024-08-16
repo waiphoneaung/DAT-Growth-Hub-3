@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.model.Course;
-import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseRepository;
-import com.g3.elis.repository.EnrolledCourseRepository;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.EnrolledCourseService;
 
@@ -22,9 +20,6 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 	
 	@Autowired
 	private CourseRepository courseRepository;
-	
-	@Autowired
-	private EnrolledCourseRepository enrolledCourseRepository;
 	
 	@Override
 	public List<User> findAllUserByCourseId(int courseId) {
@@ -58,21 +53,4 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 		return courseAndUserList;
 	}
 
-	@Override
-	public EnrolledCourse findEnrollCourseByCourseId(int courseId) {
-		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
-		for(EnrolledCourse enrolledCourse : enrolledCourseList)
-		{
-			if(enrolledCourse.getCourses().getId() == courseId)
-			{
-				return enrolledCourse;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public List<EnrolledCourse> getAllEnrolledCourse() {
-		return enrolledCourseRepository.findAll();
-	}
 }

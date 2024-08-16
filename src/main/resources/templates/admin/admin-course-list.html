@@ -110,8 +110,10 @@
 											<td>
 												<div class="d-flex align-items-center position-relative">
 													<!-- Image -->
-													<div class="w-100px">
-														<img th:if="${course != null && course.courseImageFileName != null}" th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}" class="rounded">
+													<div class="w-60px">
+														<img
+															th:if="${course.courseImageFileName != null}" th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+															class="rounded" alt="">
 													</div>
 													<!-- Title -->
 													<h6 class="table-responsive-title mb-0 ms-2">
@@ -126,11 +128,18 @@
 												<div class="d-flex align-items-center mb-3">
 													<!-- Avatar --> 
 													<div class="avatar avatar-xs flex-shrink-0">
-														<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
-														<img class="avatar-img rounded-circle" th:unless="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+														<span th:if="${#authentication.principal.isAdmin()}">
+															<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
+															<img class="avatar-img rounded-circle" th:unless="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+														</span>
+														<span th:if="${#authentication.principal.isInstructor()}">
+													
+														</span> 
+														
 													</div>
 													<!-- Info -->
 													<div class="ms-2">
+													
 														<h6 class="mb-0 fw-light" th:text="${course.users.name}"></h6>
 													</div>
 												</div>
@@ -153,14 +162,10 @@
 													<a th:href="@{/admin/admin-course-list/approve(courseId=${course.id})}" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
 													<a th:href="@{/admin/admin-course-list/reject(courseId=${course.id})}"class="btn btn-sm btn-secondary-soft mb-0">Reject</a>
 												</div>
-												<div th:if="${course.status} == 'Activated'">
+												<div th:unless="${course.status} == 'Pending'">
 													<a th:href="@{/admin/admin-create-course/{courseId}/{action}(courseId=${course.id}, action='edit')}" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-													<a th:href="@{/admin/admin-edit-course-detail(courseId=${course.id})}" class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Modify</a>
-													<a th:href="@{/admin/admin-course-list/cancel(courseId=${course.id})}" class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Ban</a>
-												</div>
-												<div th:if="${course.status} == 'Rejected'">
-													<a th:href="@{/admin/admin-course-list/delete(courseId=${course.id})}" onsubmit="return confirm('Are you sure?');" class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Delete</a>
-													<a th:href="@{/admin/admin-course-list/cancel(courseId=${course.id})}" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Cancel</a>
+													<a th:href="@{/admin/admin-course-detail}"
+														class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Details</a>
 												</div>
 											</td>
 										</tr>
@@ -220,14 +225,10 @@
 			<!-- Page content END -->
 
 			<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
-<<<<<<< HEAD
 			<script
 				th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-=======
-			<script th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
->>>>>>> aed093b7595cb70907e30205df0e42fa10605613
 		</th:block>
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->

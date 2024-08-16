@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,17 @@ import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
 import com.g3.elis.model.CourseModule;
+import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseCategoryRepository;
 import com.g3.elis.repository.CourseRepository;
+import com.g3.elis.repository.UserRepository;
+import com.g3.elis.service.CourseMaterialService;
+import com.g3.elis.service.CourseModuleService;
 import com.g3.elis.service.CourseService;
+import com.g3.elis.service.EnrolledCourseService;
+import com.g3.elis.service.UserService;
+
 import jakarta.transaction.Transactional;
 
 @Service
@@ -40,7 +49,19 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository courseRepository;
 	
 	@Autowired
+	private CourseModuleService courseModuleService;
+	
+	@Autowired
+	private CourseMaterialService courseMaterialService;
+	
+	@Autowired
+	private EnrolledCourseService enrolledCourseService;
+	
+	@Autowired
 	private CourseCategoryRepository courseCategoryRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
@@ -64,7 +85,8 @@ public class CourseServiceImpl implements CourseService {
 		}
 		if(!(imgFile.isEmpty())|| imgFile != null)
 		{
-	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
+			fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
+			course.setCourseImageFileName(imgFile.getOriginalFilename());
 		}
 		
 		List<CourseModule> courseModuleList = new ArrayList<>();
@@ -107,91 +129,89 @@ public class CourseServiceImpl implements CourseService {
 		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
 		courseRepository.save(course);
 	}
+	
 
+	
 	@Override
 	@Transactional
-	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException 
-	{
-	    Course course = courseRepository.findById(courseId).orElse(null);
-	    if(course == null) return;
+	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException {
+	    // Fetch the existing course
+	    Course existingCourse = courseRepository.findById(courseId).orElse(null);
+	    if (existingCourse == null) return;
 
-	    course.setCourseTitle(superDto.getCourseDto().getCourseTitle());
-	    course.setCourseDescription(superDto.getCourseDto().getCourseDescription());
-	    course.setCourseInfo(superDto.getCourseDto().getCourseInfo());
-	    course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	    course.setStatus("Activated");
-	    
-	    if(superDto.getCourseDto().getDurationHour() > 0) {
-	        course.setDuration(superDto.getCourseDto().getDurationHour());
+	    // Preserve the existing user-course relationships
+	    List<User> enrolledUsers = new ArrayList<>(enrolledCourseService.findAllUserByCourseId(courseId));
+
+	    // Delete the old course along with its modules and materials
+	    courseRepository.delete(existingCourse);
+
+	    // Create a new course (essentially the same as the createCourse method)
+	    Course newCourse = new Course();
+	    newCourse.setCourseTitle(superDto.getCourseDto().getCourseTitle());
+	    newCourse.setCourseDescription(superDto.getCourseDto().getCourseDescription());
+	    newCourse.setCourseInfo(superDto.getCourseDto().getCourseInfo());
+	    newCourse.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+	    newCourse.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
+	    newCourse.setStatus("Pending");
+
+	    if (superDto.getCourseDto().getDurationHour() > 0) {
+	        newCourse.setDuration(superDto.getCourseDto().getDurationHour());
 	    }
-	    
-	    if(imgFile != null && !imgFile.isEmpty()) {
-	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
+
+	    if (imgFile != null && !imgFile.isEmpty()) {
+	        fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
+	        newCourse.setCourseImageFileName(imgFile.getOriginalFilename());
 	    }
 
-	    List<CourseModule> existingModules = course.getCourseModule();
-	    List<CourseModule> updatedModules = new ArrayList<>();
-
+	    List<CourseModule> newCourseModuleList = new ArrayList<>();
 	    int moduleIndex = 0;
-	    for (CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList()) 
-	    {
-	        CourseModule courseModule;
-	        if (moduleIndex < existingModules.size()) 
-	        {
-	            courseModule = existingModules.get(moduleIndex);
-	        } 
-	        else 
-	        {
-	            courseModule = new CourseModule();
-	            courseModule.setCourses(course);
-	            courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-	        }
 
+	    for (CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList()) {
+	        CourseModule courseModule = new CourseModule();
 	        courseModule.setModuleTitle(courseModuleDto.getModuleTitle());
+	        courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 	        courseModule.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+	        courseModule.setCourses(newCourse);
 
-	        List<CourseMaterial> existingMaterials = courseModule.getCourseMaterials();
-	        List<CourseMaterial> updatedMaterials = new ArrayList<>();
-
-	        int materialIndex = 0;
-	        for (CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList()) 
-	        {
-	            if (courseMaterialDto.getIndex() == moduleIndex) 
-	            {
-	                CourseMaterial courseMaterial;
-	                if (materialIndex < existingMaterials.size()) 
-	                {
-	                    courseMaterial = existingMaterials.get(materialIndex);
-	                } 
-	                else 
-	                {
-	                    courseMaterial = new CourseMaterial();
-	                    courseMaterial.setCourseModules(courseModule);
-	                }
+	        List<CourseMaterial> courseMaterialList = new ArrayList<>();
+	        for (CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList()) {
+	            if (moduleIndex == courseMaterialDto.getIndex()) {
+	                CourseMaterial courseMaterial = new CourseMaterial();
 	                String fileName = UUID.randomUUID().toString() + ".html";
 	                courseMaterial.setTitle(courseMaterialDto.getTitle());
 	                courseMaterial.setContent(fileName);
 	                fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
-	                updatedMaterials.add(courseMaterial);
-	                materialIndex++;
+	                courseMaterial.setCourseModules(courseModule);
+
+	                courseMaterialList.add(courseMaterial);
 	            }
 	        }
-
-	        courseModule.getCourseMaterials().clear();  // Clear old materials to handle orphan removal
-	        courseModule.getCourseMaterials().addAll(updatedMaterials);
-
-	        updatedModules.add(courseModule);
 	        moduleIndex++;
+	        courseModule.setCourseMaterials(courseMaterialList);
+	        newCourseModuleList.add(courseModule);
 	    }
 
-	    course.getCourseModule().clear();  // Clear old modules to handle orphan removal
-	    course.getCourseModule().addAll(updatedModules);
+	    newCourse.setCourseModule(newCourseModuleList);
+	    newCourse.setUsers(user);
+	    newCourse.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
 
-	    course.setUsers(user);
-	    course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
-
-	    courseRepository.save(course);
+	    // Save the new course
+	    courseRepository.save(newCourse);
+	    
+	    
+	    EnrolledCourse enrolledCourse = new EnrolledCourse();
+	    // Re-establish the relationships with users
+	    for (User enrolledUser : enrolledUsers) {
+	    	enrolledCourse.setUsers(enrolledUser);
+	    	enrolledCourse.setCourses(newCourse);
+	    }
+	    
+	    // Save users with updated course relationships
+	    for (User enrolledUser : enrolledUsers) {
+	        userRepository.save(enrolledUser);
+	    }
 	}
+
 
 	// Set Status for Pending to Activated or Rejected
 	// DO NOT DELETE THIS METHOD BY ACCIDENT
@@ -212,6 +232,8 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.findById(id).orElse(null);
 	}
 
+
+
 	@Override
 	public Page<Course> getPaginatedCourses(Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -225,12 +247,7 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.findByCourseTitleContainingIgnoreCase(keyword, pageable);
 	}
 
-	@Override
-	public void deleteCourse(int courseId) throws IOException {
-		Course course = courseRepository.findById(courseId).orElse(null);
-		fileStorageConfig.deleteFile(course.getCourseImageFileName(), courseInputFilePath);
-		
-		courseRepository.deleteById(courseId);
-	}
+
+
 	
 }
