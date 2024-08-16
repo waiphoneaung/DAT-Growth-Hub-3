@@ -3,6 +3,7 @@ package com.g3.elis.controller.admin;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -165,13 +166,13 @@ public class AdminCreateBlogController {
 	}
 
 	@GetMapping("/admin-delete-blog/{id}")
-	public String adminDeleteBlog(@PathVariable int id) throws IOException {
+	public String adminDeleteBlog1(@PathVariable int id) throws IOException {
 		blogPostService.deleteBlogPost(id);
 		return "redirect:/admin/admin-view-blog";
 	}
 	
 	@GetMapping("/admin-edit-blog/{id}")
-    public String adminEditBlog(@PathVariable("id") int id, Model model) {
+    public String adminEditBlog1(@PathVariable("id") int id, Model model) {
         BlogPost blogPost = blogPostService.findById(id);
         if (blogPost != null) {
             model.addAttribute("htmlContent", blogPostService.getBlogPostContent(blogPost));
@@ -182,7 +183,7 @@ public class AdminCreateBlogController {
     }
 
     @GetMapping("/admin-create-blog")
-    public String adminCreateBlog(Model model) {
+    public String adminCreateBlog1(Model model) {
         model.addAttribute("blogPostDto", new BlogPostDto());
         return "/admin/admin-create-blog";
     }

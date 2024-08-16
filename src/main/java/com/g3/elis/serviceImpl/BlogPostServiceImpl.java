@@ -89,9 +89,9 @@ public class BlogPostServiceImpl implements BlogPostService {
 		return blogPostRepository.findAll(pageable);
 	}
 
-	@Override
-	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
-		Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
+//	@Override
+//	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
+//		Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
 
     /*
     @Autowired
@@ -167,25 +167,25 @@ public class BlogPostServiceImpl implements BlogPostService {
     public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
         Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
 */
-        if (existingBlogPostOpt.isPresent()) {
-            BlogPost blogPost = existingBlogPostOpt.get();
-            blogPost.setTitle(blogPostDto.getTitle());
-            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-
-            fileStorageConfig.saveHTMLFile(content, BLOG_HTML_PATH, blogPost.getHtmlFileName());
-
-            if (imgFile != null && !imgFile.isEmpty()) {
-                fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());
-                String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
-                fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
-                blogPost.setBlogImage(newImageFileName);
-            }
-            
-            blogPostRepository.save(blogPost);
-        } else {
-            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
-        }
-    }
+//        if (existingBlogPostOpt.isPresent()) {
+//            BlogPost blogPost = existingBlogPostOpt.get();
+//            blogPost.setTitle(blogPostDto.getTitle());
+//            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//
+//            fileStorageConfig.saveHTMLFile(content, BLOG_HTML_PATH, blogPost.getHtmlFileName());
+//
+//            if (imgFile != null && !imgFile.isEmpty()) {
+//                fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());
+//                String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
+//                fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
+//                blogPost.setBlogImage(newImageFileName);
+//            }
+//            
+//            blogPostRepository.save(blogPost);
+//        } else {
+//            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
+//        }
+//    }
 
 	@Override
 	public void updateBlogPostStatus(int id, boolean enabled) {
@@ -216,13 +216,37 @@ public class BlogPostServiceImpl implements BlogPostService {
 		
 		return blogPostRepository.findByTitleContainingIgnoreCase(title, pageable);
 	}
-    @Override
-    public String getBlogPostContent(BlogPost blogPost) throws IOException {
-        return fileStorageConfig.readFileContent(blogPost.getHtmlFileName(), BLOG_HTML_PATH);
-    }
+//    @Override
+//    public String getBlogPostContent(BlogPost blogPost) throws IOException {
+//        return fileStorageConfig.readFileContent(blogPost.getHtmlFileName(), fileUploadDir);
+//    }
 
     private String generateNewFileName(String originalFileName) {
         String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
         return dateTime + "_" + originalFileName;
     }
+
+	@Override
+	public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getBlogPostContent(BlogPost blogPost) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
