@@ -66,11 +66,14 @@
 										role="button" data-bs-auto-close="outside"
 										data-bs-display="static" data-bs-toggle="dropdown"
 										aria-expanded="false"> <img
-										class="avatar-img rounded-circle" th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}" alt="avatar">
+
+										class="avatar-img rounded-circle"
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
 										<img
-										class="avatar-img rounded-circle" th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/' + 06.jpg}" alt="avatar">
+										class="avatar-img rounded-circle"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 									</a>
 
 									<!-- Profile dropdown START -->
@@ -82,8 +85,14 @@
 											<div class="d-flex align-items-center">
 												<!-- Avatar -->
 												<div class="avatar me-3 mb-3">
-													<img class="avatar-img rounded-circle shadow"  th:if="${user.profile != null && user.profile.profileImg != null}"
-														th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+
+													<img class="avatar-img rounded-circle shadow"
+														th:if="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+														alt="avatar">
+													<img class="avatar-img rounded-circle shadow"
+														th:unless="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/public/assets/images/avatar/06.jpg'}"
 														alt="avatar">
 														<img class="avatar-img rounded-circle shadow"  th:unless="${user.profile != null && user.profile.profileImg != null}"
 														th:src="@{'/public/assets/images/avatar/' + 06.jpg}"

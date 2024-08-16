@@ -32,4 +32,18 @@ public class AdminController {
 		model.addAttribute("content", "admin/admin-setting");
 		return "/admin/admin-layout";
 	}
+
+		
+//	@GetMapping("/admin-create-course")
+//	public String adminCreateCourse(Model model) {
+//		return "/admin/admin-create-course";
+//	}
+	@GetMapping("/admin-quiz")
+	public String adminQuiz(Model model) {
+		return "/admin/admin-quiz";
+	}
+	
+	
+	
+
 }

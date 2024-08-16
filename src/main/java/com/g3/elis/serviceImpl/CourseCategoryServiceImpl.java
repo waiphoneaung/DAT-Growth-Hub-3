@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,7 @@ public class CourseCategoryServiceImpl implements CourseCategoryService{
 
    @Override
 	public void saveCourseCategory(CourseCategory courseCategory) {
-		courseCategoryRepository.save(courseCategory);
-		
-		
+		courseCategoryRepository.save(courseCategory);		
 		
 	}
 
@@ -73,11 +72,22 @@ public List<CourseCategory> getCourseCategoryByUserId(int id) {
 	return null;
 }
 
+
+
+
 @Override
-public Page<CourseCategory> getPaginatedCourseCategories(Pageable pageable) {
-	// TODO Auto-generated method stub
-	return courseCategoryRepository.findAll(pageable);
+public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
+	Pageable pageable = PageRequest.of(page, size);
+    return courseCategoryRepository.findAll(pageable);
 }
+
+@Override
+public Page<CourseCategory> searchPaginatedCourseCategoriesByName(String search, int page, int pageSize) {
+	Pageable pageable = PageRequest.of(page, pageSize);
+    return courseCategoryRepository.findByCategoryNameContainingIgnoreCase(search, pageable);
+}
+
+
 
 
 

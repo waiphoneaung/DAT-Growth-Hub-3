@@ -28,7 +28,7 @@ public class Course {
 	private String courseInfo;
 	private String status;
 	private Timestamp createdAt;
-	private String duration;
+	private int duration;
 	private boolean courseCompletedStatus;
 	private double progress;
 	private String courseImageFileName;
@@ -46,13 +46,13 @@ public class Course {
 	@JoinColumn(name = "course_tag_id")
 	private CourseTag courseTags;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
 	private List<Report> reports = new ArrayList<>();
 
-	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<CourseModule> courseModule =  new ArrayList<>();
 
 	@OneToOne(mappedBy = "courses", fetch = FetchType.LAZY)
@@ -106,11 +106,11 @@ public class Course {
 		this.createdAt = createdAt;
 	}
 
-	public String getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
@@ -203,7 +203,7 @@ public class Course {
 	}
 
 	public Course(int id, String courseTitle, String courseDescription, String courseInfo, String status,
-			Timestamp createdAt, String duration, boolean courseCompletedStatus, double progress,
+			Timestamp createdAt, int duration, boolean courseCompletedStatus, double progress,
 			String courseImageFileName, Timestamp updatedDate, User users, CourseCategory courseCategories,
 			CourseTag courseTags, List<EnrolledCourse> enrolledCourses, List<Report> reports,
 			List<CourseModule> courseModule, Achievement achievements) {
@@ -227,6 +227,7 @@ public class Course {
 		this.courseModule = courseModule;
 		this.achievements = achievements;
 	}
+
 	public Course() {
 		
 	}

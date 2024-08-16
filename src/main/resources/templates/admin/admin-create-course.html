@@ -57,11 +57,15 @@ Page Banner START -->
 					<div class="row">
 						<div class="col-12 text-center">
 							<!-- Title -->
-							<h1 class="text-white">Submit a new Course</h1>
-							<p class="text-white mb-0">
-								Read our <a href="#" class="text-white"><u>"Before you
-										create a course"</u></a> article before submitting!
+							
+							<span th:if="${action} == 'add'">
+								<h1 class="text-white">Submit a new Course</h1>
+								<p class="text-white mb-0"> Read our <a href="#" class="text-white"><u>"Before you create a course"</u></a> article before submitting!
 							</p>
+							</span>
+							<span th:unless="${action} == 'add'">
+								<h1 class="text-white">Edit Your Course</h1>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -76,10 +80,14 @@ Steps START -->
 					<div class="row">
 						<div class="col-md-8 mx-auto text-center">
 							<!-- Content -->
-							<p class="text-center">Use this interface to add a new Course
+							<p class="text-center" th:if="${action} == 'add'">Use this interface to add a new Course
 								to the portal. Once you are done adding the item it will be
 								requested to admin. If admin approved, your course will appear
-								and inform to studentsthat your course has been accepted.</p>
+								and inform to students that your course has been accepted.</p>
+							<p class="text-center" th:unless="${action} == 'add'">Use this interface to edit your Course
+								to the portal. Once you are done editing the item it will be
+								requested to admin. If admin approved, your course will appear
+								and inform to students that your course has been accepted.</p>
 						</div>
 					</div>
 
@@ -152,8 +160,8 @@ Steps START -->
 												<!-- Course title -->
 												<div class="col-12">
 													<label class="form-label">Course title</label> <input
-														class="form-control" type="text"
-														th:field="*{courseDto.courseTitle}"
+														class="form-control" type="text" name="courseTitle"
+														id="courseTitle" th:field="*{courseDto.courseTitle}"
 														th:value="${superDto.courseDto.courseTitle}"
 														placeholder="Enter course title">
 												</div>
@@ -163,21 +171,19 @@ Steps START -->
 													<label class="form-label">Short description</label>
 													<textarea class="form-control" rows="2"
 														th:field="*{courseDto.courseDescription}"
+														name="courseDescription" id="courseDescription"
 														th:value="${superDto.courseDto.courseDescription}"
 														placeholder="Enter keywords"></textarea>
 												</div>
 
 												<!-- Course category -->
 												<div class="col-md-12">
-													<label class="form-label">Course category</label> <select
+													<label class="form-label">Course category</label> <select name="courseCategoryId"
 														class="form-select js-choice border-0 z-index-9 bg-transparent"
 														aria-label=".form-select-sm" data-search-enabled="true">
-														<option value>Select category</option>
-														<option>Engineer</option>
-														<option>Medical</option>
-														<option>Information technology</option>
-														<option>Finance</option>
-														<option>Marketing</option>
+														<option th:each="courseCategory : ${courseCategories}"
+															th:text="${courseCategory.categoryName}" 
+															th:value="${courseCategory.id}"></option>
 													</select>
 												</div>
 
@@ -187,7 +193,8 @@ Steps START -->
 													<div class="row">
 														<div class="col-12">
 															<input class="form-control" type="number"
-																th:field="*{courseDto.durationHour}"
+																th:field="*{courseDto.durationHour}" name="durationHour"
+																id="durationHour"
 																th:value="${superDto.courseDto.durationHour}"
 																placeholder="Enter course time by hour">
 														</div>
@@ -198,15 +205,16 @@ Steps START -->
 												<div class="col-12">
 													<label class="form-label">Add description</label>
 													<textarea th:field="*{courseDto.courseInfo}"
-														class="form-control" rows="12"
-														placeholder="Enter descriptions"></textarea>
+														th:value="${superDto.courseDto.courseInfo}"
+														class="form-control" rows="12" name="courseInfo"
+														id="courseInfo" placeholder="Enter descriptions"></textarea>
 												</div>
 
 												<!-- Step 1 button -->
 												<div class="d-flex justify-content-between mt-3">
 													<a class="btn btn-warning next-btn mb-0"
 														th:href="@{/admin/admin-dashboard}">Dashboard</a>
-													<button class="btn btn-primary next-btn mb-0">Next</button>
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 
 												</div>
 											</div>
@@ -229,8 +237,10 @@ Steps START -->
 													<div
 														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
 														<!-- Image -->
-														<img th:src="@{/public/assets/images/element/gallery.svg}"
-															class="h-50px" alt>
+														<img
+															th:if="${imgFile != null && imgFile.getOriginalFilename() != null}"
+															th:src="@{'/private/course/course-image-file/' + ${imgFile.getOriginalFilename()}}"
+															class="h-50px">
 														<div>
 															<h6 class="my-2">
 																Upload course thumbnail here, or<a href="#!"
@@ -238,7 +248,7 @@ Steps START -->
 															</h6>
 															<label style="cursor: pointer;"> <span> <input
 																	class="form-control stretched-link" type="file"
-																	name="imgFile" id="image"
+																	name="imgFile" id="image" th:value="${imgFile}"
 																	accept="image/gif, image/jpeg, image/png" />
 															</span>
 															</label>
@@ -256,8 +266,8 @@ Steps START -->
 
 												<!-- Step 2 button -->
 												<div class="d-flex justify-content-between mt-3">
-													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
-													<button class="btn btn-primary next-btn mb-0">Next</button>
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 												</div>
 											</div>
 										</div>
@@ -277,7 +287,7 @@ Steps START -->
 												<div
 													class="d-sm-flex justify-content-sm-between align-items-center mb-3">
 													<h5 class="mb-2 mb-sm-0">Upload Module</h5>
-													<a href="#" class="btn btn-sm btn-primary-soft mb-0"
+													<a href="#" class="btn btn-sm btn-primary-soft mb-0" th:if="${action} == 'add'"
 														data-bs-toggle="modal" data-bs-target="#addLecture"><i
 														class="bi bi-plus-circle me-2"></i>Add Module</a>
 												</div>
@@ -308,7 +318,7 @@ Steps START -->
 																<div class="accordion-body mt-3">
 
 																	<!-- Material item START -->
-																	<div th:each="materialList : *{courseMaterialDtoList}">
+																	<div th:each="materialList,courseMaterialStat : *{courseMaterialDtoList}">
 
 																		<div
 																			th:if="${materialList.index} == ${iterStat.index}">
@@ -323,10 +333,13 @@ Steps START -->
 																				</div>
 																				<!-- Edit and cancel button -->
 																				<div>
-																					<a href="#"
+																					<a href="#" data-bs-toggle="modal"
+																						data-bs-target="#addTopic"
+																						th:data-id="${iterStat.index}" data-action="edit"
+																						th:data-index="${courseMaterialStat.index}"
 																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
 																						class="far fa-fw fa-edit"></i></a>
-																					<button
+																					<button th:if="${action} == 'add'"
 																						class="btn btn-sm btn-danger-soft btn-round mb-0">
 																						<i class="fas fa-fw fa-times"></i>
 																					</button>
@@ -339,11 +352,10 @@ Steps START -->
 																	</div>
 																	<!-- Material item END -->
 																	<!-- Add course Material -->
-																	<a href="#" class="btn btn-sm btn-dark mb-0"
+																	<a href="#" class="btn btn-sm btn-dark mb-0" th:if="${action} == 'add'"
 																		data-bs-toggle="modal" data-bs-target="#addTopic"
-																		th:data-id="${iterStat.index}"><i
+																		data-action="add" th:data-id="${iterStat.index}"><i
 																		class="bi bi-plus-circle me-2"></i>Add Course Material</a>
-
 																	<!-- Add Quiz 
 																	<a th:href="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}"
 																		
@@ -365,7 +377,7 @@ Steps START -->
 
 												<!-- Step 3 button -->
 												<div class="d-flex justify-content-between">
-													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
 													<div class="text-md-end">
 														<button type="submit" class="btn btn-success mb-2 mb-sm-0">Submit
 															a Course</button>
@@ -415,13 +427,17 @@ Steps END -->
 										name="module-title" class="form-control"
 										placeholder="Enter module name">
 								</div>
-
+								<input type="hidden" id="courseTitleField1" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
+								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
+								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
+								<input type="hidden" id="imageField1" name="image">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
 									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-success my-0">Save
-									Module</button>
+								<button type="submit" class="btn btn-success my-0"
+									onclick="copyValue()">Save Module</button>
 							</div>
 						</form>
 					</div>
@@ -446,17 +462,24 @@ Steps END -->
 								</button>
 							</div>
 							<div class="modal-body">
-
+							
 								<input type="hidden" id="index" name="courseModuleIndex">
+								<input type="hidden" id="action" name="action"> 
+								<input type="hidden" id="courseTitleField2" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
+								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
+								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
+								<input type="hidden" id="imageField" name="image">
 
 								<!-- Title name -->
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<label class="form-label"></label> <input name="title"
-										class="form-control" type="text"
+										id="titleField" class="form-control" type="text"
 										placeholder="Enter name for title">
 								</div>
+
 								<!-- Video link -->
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<label class="form-label">Video link</label> <input
 										name="video" class="form-control" type="text"
 										placeholder="Enter Video link">
@@ -523,7 +546,7 @@ Steps END -->
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger-soft my-0"
 									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-success my-0">Save
+								<button type="submit" class="btn btn-success my-0" onclick="copyValue()">Save
 									Course Material</button>
 							</div>
 						</div>
@@ -532,44 +555,6 @@ Steps END -->
 			</div>
 			<!-- Popup modal for add material END -->
 
-			<!-- Popup modal for add Assignment START 
-			<div class="modal fade" id="addAssignment" tabindex="-1"
-				aria-labelledby="addAssignmentLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header bg-dark">
-							<h5 class="modal-title text-white" id="addAssignmentLabel">Add
-								Assignment</h5>
-							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
-								data-bs-dismiss="modal" aria-label="Close">
-								<i class="bi bi-x-lg"></i>
-							</button>
-						</div>
-						<form
-							th:action="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}"
-							method="POST" class="row text-start g-3">
-							<div class="modal-body">
-
-								<!-- Course name 
-								<div class="col-12">
-									<label class="form-label">Assignment name <span
-										class="text-danger">*</span></label> <input type="text"
-										name="assignment-title" class="form-control"
-										placeholder="Enter assignment name">
-								</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-danger-soft my-0"
-									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-success my-0">Save
-									Assignment</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- Popup modal for add Assignment END -->
 		</main>
 	</th:block>
 	<!-- Scripts -->
@@ -587,17 +572,101 @@ Steps END -->
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
 	<!-- Initialize Quill editors -->
-	<script>
+	<script th:inline="javascript">
+	function copyValue()
+    {
+    	console.log("copyValue function is running");
+    	var courseTitle = document.getElementById('courseTitle') ? document.getElementById('courseTitle').value : '';
+    	var courseDescription = document.getElementById('courseDescription') ? document.getElementById('courseDescription').value : '';
+        var durationHour = 0;
+        durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
+   	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
+   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
+	   	if (document.getElementById('courseTitleField1')) {
+	        document.getElementById('courseTitleField1').value = courseTitle;
+	    }
+		if (document.getElementById('courseTitleField2')) {
+	        document.getElementById('courseTitleField2').value = courseTitle;
+	    }
+	    if (document.getElementById('courseDescriptionField1')) {
+	        document.getElementById('courseDescriptionField1').value = courseDescription;
+	    }
+	    if (document.getElementById('courseDescriptionField2')) {
+	        document.getElementById('courseDescriptionField2').value = courseDescription;
+	    }
+	    if (document.getElementById('durationHourField1')) {
+	        document.getElementById('durationHourField1').value = durationHour;
+	    }
+	    if (document.getElementById('durationHourField2')) {
+	        document.getElementById('durationHourField2').value = durationHour;
+	    }
+	    if (document.getElementById('imageField1')) {
+	        document.getElementById('imageField1').value = image;
+     	}
+	    if (document.getElementById('imageField2')) {
+	        document.getElementById('imageField2').value = image;
+     	}
+	    if (document.getElementById('courseInfoField1')) {
+	    	document.getElementById('courseInfoField1').value = courseInfo; 
+	    }
+	    if (document.getElementById('courseInfoField2')) {
+	    	document.getElementById('courseInfoField2').value = courseInfo; 
+	    }
+
+    	console.log(courseTitle);
+    	console.log(courseDescription);
+    	console.log(durationHour);
+    	console.log(courseInfo);
+    	console.log(image);
+    }
 	var myModal = document.getElementById('addTopic');
     myModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
+        
+    	// This code is for debugging.
+    	// event.preventDefault();
+    	
+    	// Button that triggered the modal
         var button = event.relatedTarget;
+        
         // Extract info from data-* attributes
-        var courseMaterialId = button.getAttribute('data-id');
+        var courseModuleId = button.getAttribute('data-id');
+        var courseMaterialId = button.getAttribute('data-index')	;
+        var action = button.getAttribute('data-action');
         // Update the modal's content.
         var input = myModal.querySelector('#index');
-        input.value = courseMaterialId;
+        var inputAction = myModal.querySelector('#action');
+        var titleField = myModal.querySelector('#titleField');
+        var superDto = /*[[${superDto}]]*/ '';
+        var courseMaterialTitle = null;
+        
+        if (Array.isArray(superDto.courseMaterialDtoList)) 
+        {
+            for (let courseMaterial of superDto.courseMaterialDtoList) 
+            {
+                if ((courseMaterial.index == courseModuleId) && (courseMaterialId != null)) 
+                {
+                    courseMaterialTitle = superDto.courseMaterialDtoList[courseMaterialId].title;
+                    break; // Exit the loop once the condition is met
+                }
+            }
+        } 
+        else 
+        {
+            console.log("courseMaterialDtoList is not an array or does not exist.");
+        }
+
+        
+        titleField.value = courseMaterialTitle;
+        input.value = courseModuleId;
+        inputAction.value = action;
+        
+        //Debug
+        console.log(courseModuleId);
+        console.log(courseMaterialTitle);
+        console.log(courseMaterialId);
+        console.log(action);
     });
+
     var quill = new Quill('#quilleditor', {
         modules: {
             toolbar: '#quilltoolbar'
@@ -631,6 +700,7 @@ Steps END -->
         var completeHtml = headerContent + quillContent + footerContent;
         document.querySelector('#content').value = completeHtml;
     };
+    
 </script>
 
 </body>

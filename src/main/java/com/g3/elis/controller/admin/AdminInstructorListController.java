@@ -1,8 +1,9 @@
 package com.g3.elis.controller.admin;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,26 +22,37 @@ public class AdminInstructorListController {
 	private UserService userService;
 
 	@GetMapping("/admin-instructor-list")
-	public String adminInstructorList(Model model) {
-		List<User> users = userService.getAllInstructors();
-		model.addAttribute("users", users);
-		model.addAttribute("content", "admin/admin-instructor-list");
-		return "/admin/admin-layout";
-	}
+    public String adminInstructorList(Model model, 
+                                      @RequestParam(value = "page", defaultValue = "0") int page,
+                                      @RequestParam(value = "size", defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<User> userPage = userService.getAllInstructors(pageable);
 
-	@GetMapping("/admin-instructor-list/search")
-	public String searchInstructors(@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "staffId", required = false) String staffId,
-			@RequestParam(value = "dept", required = false) String dept,
-			@RequestParam(value = "division", required = false) String division, Model model) {
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("content", "admin/admin-instructor-list");
+        return "/admin/admin-layout";
+    }
 
-		List<User> users = userService.searchInstructors(name, staffId, dept, division);
+    @GetMapping("/admin-instructor-list/search")
+    public String searchInstructors(@RequestParam(value = "name", required = false) String name,
+                                    @RequestParam(value = "staffId", required = false) String staffId,
+                                    @RequestParam(value = "dept", required = false) String dept,
+                                    @RequestParam(value = "division", required = false) String division,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size,
+                                    Model model) {
 
-		model.addAttribute("users", users);
-		model.addAttribute("content", "admin/admin-instructor-list");
-		return "/admin/admin-layout";
-	}
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> userPage = userService.searchInstructors(name, staffId, dept, division, pageable);
 
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("content", "admin/admin-instructor-list");
+        return "/admin/admin-layout";
+    }
 	@PostMapping("/change-instructor-status")
 	public String changeInstructorStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
 		userService.updateUserStatus(id, enabled);

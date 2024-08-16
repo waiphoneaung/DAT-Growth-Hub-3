@@ -41,7 +41,7 @@
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-dashboard' ? ' active' : '' }"	th:href="@{/instructor/instructor-dashboard}">Dashboard</a>
 							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-manage-course}">Courses</a>
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}" th:href="@{/instructor/instructor-view-blog}">Blogs</a>
-							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/forum}">Forum</a>
+							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/instructor/forum}">Forum</a>
 
 
 						</ul>
@@ -71,7 +71,7 @@
 							role="button" data-bs-auto-close="outside"
 							data-bs-display="static" data-bs-toggle="dropdown"
 							aria-expanded="false"> 
-							<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}" alt="avatar">
+							<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
 							<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 						</a>
 						<ul
