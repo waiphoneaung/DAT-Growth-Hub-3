@@ -56,12 +56,11 @@ public class ForumController {
 			String mapping = "/instructor";
 			model.addAttribute("map", mapping);
 		}
-
+		
 		Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		Page<Forum> forumPage = forumService.getAllForums(pageable);
 		List<User> users = userService.getAllUsers();
-		
-		
+	
 		ForumDto forumDto = new ForumDto();
 		ForumCommentDto forumCommentDto = new ForumCommentDto();
 

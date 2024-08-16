@@ -23,7 +23,9 @@ public class GlobalControllerAdvice {
             if (principal instanceof LoginUserDetail) {
                 LoginUserDetail userDetails = (LoginUserDetail) principal;
                 User user = userDetails.getUser();
+                int userId = user.getId();
                 model.addAttribute("user", user);
+                model.addAttribute("userId", userId);
             }
         }
     }
