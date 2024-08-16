@@ -70,4 +70,9 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 		}
 		return null;
 	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourse() {
+		return enrolledCourseRepository.findAll();
+	}
 }

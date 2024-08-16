@@ -60,8 +60,7 @@ public class CourseServiceImpl implements CourseService {
 		}
 		if(!(imgFile.isEmpty())|| imgFile != null)
 		{
-			fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
-			course.setCourseImageFileName(imgFile.getOriginalFilename());
+	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
 		}
 		
 		List<CourseModule> courseModuleList = new ArrayList<>();
@@ -104,96 +103,9 @@ public class CourseServiceImpl implements CourseService {
 		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
 		courseRepository.save(course);
 	}
-	
-//	@Override
-//	@Transactional
-//	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException 
-//	{
-//		Course course = courseRepository.findById(courseId).orElse(null);
-//		if(course== null) return;
-//		course.setCourseTitle(superDto.getCourseDto().getCourseTitle());
-//		course.setCourseDescription(superDto.getCourseDto().getCourseDescription());
-//		course.setCourseInfo(superDto.getCourseDto().getCourseInfo());
-//		course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-//		course.setStatus("Pending");
-//		if(superDto.getCourseDto().getDurationHour()>0)
-//		{
-//			course.setDuration(superDto.getCourseDto().getDurationHour());
-//		}
-//		if(!(imgFile.isEmpty())|| imgFile != null)
-//		{
-//			fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
-//			course.setCourseImageFileName(imgFile.getOriginalFilename());
-//		}
-//		
-//		List<CourseModule> courseModuleList = new ArrayList<>();
-//		List<CourseModule> courseModuleListFromCourse = course.getCourseModule();
-//		int courseModuleIterationIndex = 0;
-//		
-//		for(CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList())
-//		{
-//			CourseModule courseModule = new CourseModule();
-//			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
-//			{
-//			CourseModule courseModule;
-//			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
-//			{
-//				courseModule = new CourseModule();
-//				courseModule.setCourses(course);
-//				courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//			}
-//			else
-//			{	
-//				courseModule = courseModuleListFromCourse.get(courseModuleIterationIndex);
-//			}
-//			courseModule.setModuleTitle(courseModuleDto.getModuleTitle());
-//			
-//			List<CourseMaterial> courseMaterialList = new ArrayList<>();
-//			List<CourseMaterial> courseMaterialListFromCourseModule = courseModule.getCourseMaterials();
-//			
-//			for(CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList())
-//			{
-//				int courseMaterialIterationIndex = 0;
-//				if(courseModuleIterationIndex == courseMaterialDto.getIndex())
-//				{
-//					CourseMaterial courseMaterial;
-//					if(courseMaterialIterationIndex > courseMaterialListFromCourseModule.size())
-//					{
-//						courseMaterial = new CourseMaterial();
-//						courseMaterial.setCourseModules(courseModule);
-//					}
-//					else
-//					{
-//						courseMaterial = courseMaterialListFromCourseModule.get(courseMaterialIterationIndex);
-//					}
-//					String fileName = UUID.randomUUID().toString() + ".html";
-//					courseMaterial.setTitle(courseMaterialDto.getTitle());
-//					courseMaterial.setContent(fileName);
-//					courseMaterial.setCourseModules(courseModule);
-//					
-//					fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
-//					
-//					courseMaterialList.add(courseMaterial);
-//				}
-//				courseMaterialIterationIndex++;
-//			}
-//			courseModuleIterationIndex++;
-//			
-//			courseModule.setCourseMaterials(courseMaterialList);
-//			courseModule.getCourseMaterials().clear();
-//			courseModule.setCourses(course);
-//			courseModule.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//			courseModuleList.add(courseModule);
-//
-//		}
-//		course.setCourseModule(courseModuleList);
-//		course.setUsers(user);
-//		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
-//		courseRepository.save(course);
-//	}
-	
+
 	@Override
-	// @Transactional
+	@Transactional
 	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException 
 	{
 	    Course course = courseRepository.findById(courseId).orElse(null);
@@ -203,15 +115,14 @@ public class CourseServiceImpl implements CourseService {
 	    course.setCourseDescription(superDto.getCourseDto().getCourseDescription());
 	    course.setCourseInfo(superDto.getCourseDto().getCourseInfo());
 	    course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-	    course.setStatus("Pending");
+	    course.setStatus("Activated");
 	    
 	    if(superDto.getCourseDto().getDurationHour() > 0) {
 	        course.setDuration(superDto.getCourseDto().getDurationHour());
 	    }
 	    
 	    if(imgFile != null && !imgFile.isEmpty()) {
-	        fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
-	        course.setCourseImageFileName(imgFile.getOriginalFilename());
+	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
 	    }
 
 	    List<CourseModule> existingModules = course.getCourseModule();
@@ -298,7 +209,10 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public void deleteCourse(int courseId) {
+	public void deleteCourse(int courseId) throws IOException {
+		Course course = courseRepository.findById(courseId).orElse(null);
+		fileStorageConfig.deleteFile(course.getCourseImageFileName(), courseInputFilePath);
+		
 		courseRepository.deleteById(courseId);
 	}
 	

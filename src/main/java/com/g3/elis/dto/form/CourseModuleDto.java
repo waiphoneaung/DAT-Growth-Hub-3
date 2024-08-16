@@ -2,10 +2,6 @@ package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 public class CourseModuleDto {
 
 	private String moduleTitle;
@@ -92,12 +88,4 @@ public class CourseModuleDto {
 	{
 		
 	}
-
-	@Override
-	public String toString() {
-		return "CourseModuleDto [moduleTitle=" + moduleTitle + ", duration=" + duration + ", maxScore=" + maxScore
-				+ ", totalResultScore=" + totalResultScore + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-				+ ", index=" + index + "]";
-	}
-	
 }

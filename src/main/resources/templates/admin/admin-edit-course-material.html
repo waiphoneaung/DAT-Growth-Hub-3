@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT Growth Hub</title>
+<!-- Stylesheets -->
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+</head>
+<body>
+	<!-- Sidebar -->
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
+
+	<!-- Include navbar -->
+
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+	<!-- Page content START -->
+	<div class="page-content">
+		<!-- Page main content START -->
+		<div class="page-content-wrapper border">
+			<div class="container" th:if="${action} == 'add'">
+				<form
+					th:action="@{/admin/admin-edit-course-detail/add-material(courseId=${courseId}, courseModuleId=${courseModuleId})}"
+					th:object="${courseMaterialDto}" method="POST"
+					enctype="multipart/form-data">
+					<!-- Step 1 content START -->
+					<div>
+						<!-- Title -->
+						<h4>Materials details</h4>
+
+						<hr>
+						<!-- Divider Basic information START -->
+						<div class="row g-4">
+							<!-- Course title -->
+							<div class="col-12">
+								<label class="form-label">Material Title</label> <input
+									class="form-control" type="text" th:field="*{title}"
+									placeholder="Enter Material title">
+							</div>
+
+							<!-- Short description -->
+							<div class="col-12">
+								<label class="form-label">Content</label>
+								<textarea class="form-control" rows="2"
+									placeholder="Enter keywords"></textarea>
+							</div>
+
+							<!-- Step 1 button -->
+							<div class="d-flex justify-content-between mt-3">
+								<a class="btn btn-warning next-btn mb-0"
+									th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+								<button class="btn btn-primary next-btn mb-0"
+									type="submit">Confirm</button>
+							</div>
+						</div>
+						<!-- Basic information START -->
+					</div>
+					<!-- Step 1 content END -->
+				</form>
+			</div>
+			<div th:if="${action} == 'edit'">
+				<form
+					th:action="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}"
+					th:object="${courseMaterialDto}" method="POST" enctype="multipart/form-data">
+					<!-- Step 1 content START -->
+					<div class="content fade">
+						<!-- Title -->
+						<h4>Materials details</h4>
+
+						<hr>
+						<!-- Divider Basic information START -->
+						<div class="row g-4">
+							<!-- Course title -->
+							<div class="col-12">
+								<label class="form-label">Material Title</label> <input
+									class="form-control" type="text" th:field="*{title}"
+									th:value="${courseMaterialDto.title}"
+									placeholder="Enter Material title">
+							</div>
+
+							<!-- Short description -->
+							<div class="col-12">
+								<label class="form-label">Content</label>
+								<textarea class="form-control" rows="2"
+									placeholder="Enter keywords"></textarea>
+							</div>
+
+							<!-- Step 1 button -->
+							<div class="d-flex justify-content-between mt-3">
+								<a class="btn btn-warning next-btn mb-0"
+									th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+								<a class="btn btn-primary next-btn mb-0"
+									th:href="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}">Confirm</a>
+							</div>
+						</div>
+						<!-- Basic information START -->
+					</div>
+					<!-- Step 1 content END -->
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Scripts -->
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

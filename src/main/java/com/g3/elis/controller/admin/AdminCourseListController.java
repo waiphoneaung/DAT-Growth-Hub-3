@@ -1,5 +1,6 @@
 package com.g3.elis.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class AdminCourseListController {
 	}
 	
 	@GetMapping("/admin-course-list/delete")
-	public String adminDeleteCourse(@RequestParam(name="courseId")int courseId)
+	public String adminDeleteCourse(@RequestParam(name="courseId")int courseId) throws IOException
 	{
 		courseService.deleteCourse(courseId);
 		return "redirect:/admin/admin-course-list";
@@ -75,13 +76,6 @@ public class AdminCourseListController {
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)
 	{
-		model.addAttribute("content","admin/admin-course-detail");
-		return "/admin/admin-layout";
-	}
-	@GetMapping("/admin-edit-course-detail")
-	public String adminEditCourseDetail(Model model)
-	{
-		model.addAttribute("content","admin/admin-edit-course-detail");
-		return "/admin/admin-layout";
+		return "/admin/admin-course-detail";
 	}
 }

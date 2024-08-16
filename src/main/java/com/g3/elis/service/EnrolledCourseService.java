@@ -10,4 +10,5 @@ public interface EnrolledCourseService {
 	List<User> findAllUserByCourseId(int courseId);
 	List<Course> findAllCourseByUserId(int userId);
 	EnrolledCourse findEnrollCourseByCourseId(int courseId);
+	List<EnrolledCourse> getAllEnrolledCourse();
 }
