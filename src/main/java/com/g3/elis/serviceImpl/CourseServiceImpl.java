@@ -8,6 +8,9 @@ import java.util.UUID;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +19,7 @@ import com.g3.elis.dto.form.CourseCreationSuperDto;
 import com.g3.elis.dto.form.CourseMaterialDto;
 import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.model.Course;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
 import com.g3.elis.model.CourseModule;
 import com.g3.elis.model.User;
@@ -208,6 +212,7 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.findById(id).orElse(null);
 	}
 
+
 	@Override
 	public void deleteCourse(int courseId) throws IOException {
 		Course course = courseRepository.findById(courseId).orElse(null);
@@ -215,5 +220,24 @@ public class CourseServiceImpl implements CourseService {
 		
 		courseRepository.deleteById(courseId);
 	}
+
+
+
+	@Override
+	public Page<Course> getPaginatedCourses(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return courseRepository.findAll(pageable);
+	}
+
+
+
+	@Override
+	public Page<Course> searchCoursesByTitle(String keyword, Pageable pageable) {
+		return courseRepository.findByCourseTitleContainingIgnoreCase(keyword, pageable);
+	}
+
+
+
+
 	
 }
