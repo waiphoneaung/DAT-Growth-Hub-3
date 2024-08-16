@@ -277,7 +277,7 @@ Steps START -->
 												<div class="form-group">
 
 													<!-- Editor toolbar -->
-													<label for="content">Content</label>
+													<label for="htmlContent">Content</label>
 													<div
 														class="bg-light border border-bottom-0 rounded-top py-3"
 														id="quilltoolbar1">
@@ -319,10 +319,10 @@ Steps START -->
 													<div
 														class="bg-body border rounded-bottom h-400px overflow-hidden"
 														id="quilleditor1"></div>
-													<input type="hidden" id="content" name="content">
+													<input type="hidden" id="htmlContent" name="htmlContent" >
 													
 													<th:block th:utext="${blogPostDto.htmlFileName}"></th:block>
-													<th:block th:utext="${content}"></th:block>
+													<th:block th:utext="${htmlContent}"></th:block>
 													
 												</div>
 
@@ -427,7 +427,7 @@ Steps END -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
 
 	<script th:inline="javascript">
-    var quill = new Quill('#quilleditor1', {
+    var blogPost = new Quill('#quilleditor1', {
         modules: {
             toolbar: '#quilltoolbar1'
         },
@@ -435,12 +435,12 @@ Steps END -->
         theme: 'snow'
     });
 
-    var content = /*[[${content}]]*/ '';
-    console.log(content); 
-    quill.setContents(quill.clipboard.convert(content)); 
+    var htmlContent = /*[[${htmlContent}]]*/ '';
+    console.log(htmlContent); 
+    blogPost.setContents(blogPost.clipboard.convert(htmlContent)); 
     
-    quill.on('text-change', function(delta, source) {
-        var quillContent = quill.root.innerHTML;
+    blogPost.on('text-change', function(delta, source) {
+        var blogPostContent = blogPost.root.innerHTML;
 
         // Creating the complete HTML content
         var headerContent = `
@@ -463,10 +463,10 @@ Steps END -->
             </body>
             </html>
         `;
-        var completeHtml = headerContent + quillContent + footerContent;
+        var completeHtml = headerContent + blogPostContent + footerContent;
 
         // Updating the hidden input with the complete HTML
-        document.querySelector('#content').value = completeHtml;
+        document.querySelector('#htmlContent').value = completeHtml;
     });
 </script>
  
