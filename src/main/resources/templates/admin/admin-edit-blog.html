@@ -36,20 +36,20 @@
 	th:href="@{/public/assets/css/style.css}">
 
 <style>
-                    .ql-video {
-                        width: 100%;
-                        max-width: 100%;
-                        height: 100%;
-                        aspect-ratio: 16 / 9;
-                    }
-                </style>
+.ql-video {
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	aspect-ratio: 16/9;
+}
+</style>
 </head>
 <body>
 
 
 	<!-- **************** MAIN CONTENT START **************** -->
 
-	<th:block th:fragment="admin-edit-blog">
+	<th:block th:fragment="admin-create-blog">
 
 		<!-- Top bar START -->
 		<nav class="navbar top-bar navbar-light border-bottom py-0 py-xl-3">
@@ -58,7 +58,8 @@
 
 					<!-- Top bar left -->
 					<div class="navbar-expand-lg ms-auto ms-xl-0">
-							<a th:href="@{/admin/admin-view-blog}" class="btn btn-primary">Back To Blog</a>
+						<a th:href="@{/admin/admin-view-blog}" class="btn btn-primary">Back
+							To Blog</a>
 					</div>
 					<!-- Top bar left END -->
 
@@ -249,7 +250,7 @@ Steps START -->
 							<div class="card-body">
 								<!-- Step content START -->
 								<div class="bs-stepper-content">
-									<form th:action="@{/admin/admin-update-blog}"
+									<form th:action="@{/admin/admin-save-blog}"
 										th:object="${blogPostDto}" method="post"
 										enctype="multipart/form-data">
 
@@ -263,82 +264,80 @@ Steps START -->
 											<!-- Divider -->
 
 											<!-- Basic information START -->
-				<div class="row g-4">
-					<!-- Course title -->
-					<div class="col-12">
-					<input type="hidden" name="id" th:value="${blogPostDto.id}">
-						<label class="form-label">Blog title</label> <input
-								class="form-control" type="text"
-							placeholder="Enter course title" th:field="${blogPostDto.title}" required>
-							<div class="text-danger"
-							th:if="${#fields.hasErrors('title')}" th:errors="${blogPostDto.title}"></div>
-					</div>
-			<div class="form-group">
-               <div id="content" class="quill-editor" th:data-placeholder="*{htmlFileName}">
-                <!-- Editor toolbar -->
-                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar2">
-                    <span class="ql-formats">
-    <select class="ql-font"></select>
-    <select class="ql-size"></select>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-bold"></button>
-    <button class="ql-italic"></button>
-    <button class="ql-underline"></button>
-    <button class="ql-strike"></button>
-  </span>
-  <span class="ql-formats">
-    <select class="ql-color"></select>
-    <select class="ql-background"></select>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-script" value="sub"></button>
-    <button class="ql-script" value="super"></button>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-header" value="1"></button>
-    <button class="ql-header" value="2"></button>
-    <button class="ql-blockquote"></button>
-    <button class="ql-code-block"></button>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-list" value="ordered"></button>
-    <button class="ql-list" value="bullet"></button>
-    <button class="ql-indent" value="-1"></button>
-    <button class="ql-indent" value="+1"></button>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-direction" value="rtl"></button>
-    <select class="ql-align"></select>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-link"></button>
-    <button class="ql-image"></button>
-    <button class="ql-video"></button>
-    <button class="ql-formula"></button>
-  </span>
-  <span class="ql-formats">
-    <button class="ql-clean"></button>
-  </span>
-                </div>
-                <!-- Main toolbar -->
-                 <div id="quilleditor2" style="height: 400px" class="border rounded"></div>
-                <input type="hidden" id="content" name="content">
-           
-            </div>
+											<div class="row g-4">
+												<!-- Course title -->
+												<div class="col-12">
+													<label class="form-label">Blog title</label> <input
+														class="form-control" type="text"
+														placeholder="Title" th:field="*{title}"
+														required>
+													<div class="text-danger"
+														th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+												</div>
+												<div class="form-group">
 
-		<!-- Step 1 button -->
-		<div class="d-flex justify-content-end mt-3">
-				 <a	class="btn btn-primary next-btn mb-0">Next</a>
+													<!-- Editor toolbar -->
+													<label for="htmlContent">Content</label>
+													<div
+														class="bg-light border border-bottom-0 rounded-top py-3"
+														id="quilltoolbar1">
+														<span class="ql-formats"> <select class="ql-font"></select>
+															<select class="ql-size"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-bold"></button>
+															<button class="ql-italic"></button>
+															<button class="ql-underline"></button>
+															<button class="ql-strike"></button>
+														</span> <span class="ql-formats"> <select class="ql-color"></select>
+															<select class="ql-background"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-script" value="sub"></button>
+															<button class="ql-script" value="super"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-header" value="1"></button>
+															<button class="ql-header" value="2"></button>
+															<button class="ql-blockquote"></button>
+															<button class="ql-code-block"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-list" value="ordered"></button>
+															<button class="ql-list" value="bullet"></button>
+															<button class="ql-indent" value="-1"></button>
+															<button class="ql-indent" value="+1"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-direction" value="rtl"></button> <select
+															class="ql-align"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-link"></button>
+															<button class="ql-image"></button>
+															<button class="ql-video"></button>
+															<button class="ql-formula"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-clean"></button>
+														</span>
+													</div>
+													<!-- Main toolbar -->
+													<div
+														class="bg-body border rounded-bottom h-400px overflow-hidden"
+														id="quilleditor1"></div>
+													<input type="hidden" id="htmlContent" name="htmlContent" >
+													
+													<th:block th:utext="${blogPostDto.htmlFileName}"></th:block>
+													<th:block th:utext="${htmlContent}"></th:block>
+													
+												</div>
 
-		</div>
-	</div>
-			<!-- Basic information START -->
-				</div>
-			<!-- Step 1 content END -->
+												<!-- Step 1 button -->
+												<div class="d-flex justify-content-end mt-3">
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 
-								<!-- Step 2 content START -->
-								<div id="step-2" role="tabpanel" class="content fade"
+												</div>
+											</div>
+											<!-- Basic information START -->
+										</div>
+										<!-- Step 1 content END -->
+
+										<!-- Step 2 content START -->
+										<div id="step-2" role="tabpanel" class="content fade"
 											aria-labelledby="steppertrigger2">
 											<!-- Title -->
 											<h4>Blog thumbnail</h4>
@@ -382,22 +381,20 @@ Steps START -->
 												</div>
 												<!-- Upload image END -->
 
-
-
 												<!-- Step 2 button -->
 												<div class="d-flex justify-content-between mt-3">
-													<button class="btn btn-secondary prev-btn mb-0">Previous</button>
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
 													<div class="text-md-end">
-														<button class="btn btn-success mb-2 mb-sm-0" type="submit">Update
+														<button class="btn btn-success mb-2 mb-sm-0" type="submit">Submit
 															Blog</button>
-														<p class="mb-0 small mt-1">Once you click "Update
-															Blog", your blog will be uploaded.</p>
+														
 													</div>
+													
 												</div>
 											</div>
 										</div>
 										<!-- Step 2 content END -->
-</div>
+
 									</form>
 								</div>
 							</div>
@@ -408,7 +405,7 @@ Steps START -->
 			</section>
 			<!-- =======================
 Steps END -->
- 
+
 		</main>
 	</th:block>
 
@@ -422,27 +419,28 @@ Steps END -->
 	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
 	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
 	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
-	<script th:src="@{/public/assets/vendor/jquery/jquery-3.5.1.slim.min.js}"></script>
-	
-	
+	<script
+		th:src="@{/public/assets/vendor/jquery/jquery-3.5.1.slim.min.js}"></script>
+
+
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
-	
+
 	<script th:inline="javascript">
-    var quill = new Quill('#quilleditor2', {
+    var blogPost = new Quill('#quilleditor1', {
         modules: {
-            toolbar: '#quilltoolbar2'
+            toolbar: '#quilltoolbar1'
         },
+        placeholder: 'Write your blog post here...',
         theme: 'snow'
     });
 
-    var content = /*[[${content}]]*/ '';
-    console.log(content); 
-    quill.setContents(quill.clipboard.convert(content)); 
+    var htmlContent = /*[[${htmlContent}]]*/ '';
+    console.log(htmlContent); 
+    blogPost.setContents(blogPost.clipboard.convert(htmlContent)); 
     
-    quill.on('text-change', function(delta, source) {
-        var quillContent = quill.root.innerHTML;
-
+    blogPost.on('text-change', function(delta, source) {
+        var blogPostContent = blogPost.root.innerHTML; 
         // Creating the complete HTML content
         var headerContent = `
             <!DOCTYPE html>
@@ -464,12 +462,68 @@ Steps END -->
             </body>
             </html>
         `;
-        var completeHtml = headerContent + quillContent + footerContent;
+        var completeHtml = headerContent + blogPostContent + footerContent;
 
         // Updating the hidden input with the complete HTML
-        document.querySelector('#content').value = completeHtml;
+        document.querySelector('#htmlContent').value = completeHtml;
     });
 </script>
+ 
+ <!-- 
+ <script>
+    // Initialize Quill editor
+    var quill = new Quill('#quilleditor1', {
+        modules: {
+            toolbar: '#quilltoolbar1'
+        },
+        theme: 'snow'
+    });
 
-    </body>
+    // Load existing content into Quill editor
+    var content = /*[[${content}]]*/ '';
+    console.log(content);
+    quill.setContents(quill.clipboard.convert(content));
+
+    // Update the hidden field with Quill content on text change
+    quill.on('text-change', function(delta, source) {
+        document.querySelector('#content').value = sanitize(quill.root.innerHTML);
+    });
+
+    // Handle form submission
+    document.querySelector('form').onsubmit = function() {
+        // Get the sanitized Quill content
+        var quillContent = sanitize(quill.root.innerHTML);
+
+        // Wrap the content within a complete HTML structure
+        var headerContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                .ql-video {
+                    width: 100%;
+                    max-width: 100%;
+                    height: 100%;
+                    aspect-ratio: 16 / 9;
+                }
+                /* Add additional styles here */
+            </style>
+            </head>
+            <body>
+        `;
+        var footerContent = `
+            </body>
+            </html>
+        `;
+        var completeHtml = headerContent + quillContent + footerContent;
+
+        // Store the complete HTML in the hidden field
+        document.querySelector('#content').value = completeHtml;
+        return true; // Proceed with form submission
+    };
+</script>
+ -->
+ 
+</body>
 </html>

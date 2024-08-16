@@ -59,7 +59,7 @@ public class AdminCreateBlogController {
 
     @PostMapping("/admin-save-blog")
     public String adminSaveBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
-                                @RequestParam String content,
+                                @RequestParam String htmlContent,
                                 @RequestParam(name = "img-file", required = false) MultipartFile imgFile,
                                 BindingResult result, Authentication authentication, Model model) throws IOException {
         if (result.hasErrors()) {
@@ -72,10 +72,10 @@ public class AdminCreateBlogController {
 
         if (blogPostDto.getId() >0 && blogPostService.findById(blogPostDto.getId()) != null) {
             // If the ID exists, update the existing blog post
-            blogPostService.updateBlogPost(blogPostDto, content, imgFile);
+            blogPostService.updateBlogPost(blogPostDto, htmlContent, imgFile);
         } else {
             // If the ID does not exist, create a new blog post
-            blogPostService.saveBlogPost(blogPostDto, content, imgFile);
+            blogPostService.saveBlogPost(blogPostDto, htmlContent, imgFile);
         }
 
         return "redirect:/admin/admin-view-blog";
@@ -94,7 +94,7 @@ public class AdminCreateBlogController {
             return "redirect:/admin/admin-view-blog";
         }
 
-        String content = new String(Files.readAllBytes(Paths.get(HTML_PATH + blogPost.getHtmlFileName())));
+        String htmlContent = new String(Files.readAllBytes(Paths.get(HTML_PATH + blogPost.getHtmlFileName())));
 
         BlogPostDto blogPostDto = new BlogPostDto();
         blogPostDto.setId(blogPost.getId());
@@ -104,7 +104,7 @@ public class AdminCreateBlogController {
         blogPostDto.setUsers(blogPost.getUsers());
 
         model.addAttribute("blogPostDto", blogPostDto);
-        model.addAttribute("content", content);
-        return "/admin/admin-create-blog";
+        model.addAttribute("htmlContent", htmlContent);
+        return "/admin/admin-edit-blog";
     }
 }
