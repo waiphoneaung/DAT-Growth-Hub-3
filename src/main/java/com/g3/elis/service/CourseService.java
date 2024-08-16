@@ -17,6 +17,7 @@ public interface CourseService {
 	void createCourse(CourseCreationSuperDto superDto,User user,MultipartFile imgFile,int courseCategoryId)  throws IOException;
 	void editCourse(int courseId,String status); //Set Status for Pending to Activated or Rejected. DO NOT DELETE THIS METHOD BY ACCIDENT
 	void editCourse(CourseCreationSuperDto superDto,User user,MultipartFile imgFile,int courseCategoryId,int courseId) throws IOException;
+	void deleteCourse(int courseId) throws IOException;
 	List<Course> getAllCourse();
 	Course getCourseById(int id);
 	 Page<Course> getPaginatedCourses(Pageable pageable);

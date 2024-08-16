@@ -46,13 +46,13 @@ public class Course {
 	@JoinColumn(name = "course_tag_id")
 	private CourseTag courseTags;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
 	private List<Report> reports = new ArrayList<>();
 
-	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<CourseModule> courseModule =  new ArrayList<>();
 
 	@OneToOne(mappedBy = "courses", fetch = FetchType.LAZY)

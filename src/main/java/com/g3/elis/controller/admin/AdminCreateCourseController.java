@@ -29,7 +29,10 @@ import com.g3.elis.dto.form.CourseMaterialDto;
 import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.dto.form.InputFileDto;
 import com.g3.elis.dto.form.QuestionDto;
+<<<<<<< HEAD
 
+=======
+>>>>>>> aed093b7595cb70907e30205df0e42fa10605613
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
@@ -39,7 +42,10 @@ import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseCategoryService;
 import com.g3.elis.service.CourseMaterialService;
 import com.g3.elis.service.CourseModuleService;
+<<<<<<< HEAD
 
+=======
+>>>>>>> aed093b7595cb70907e30205df0e42fa10605613
 import com.g3.elis.service.CourseService;
 
 @Controller
@@ -60,7 +66,6 @@ public class AdminCreateCourseController
 	private CourseService courseService;
 	
 	@Autowired
-
 	private CourseModuleService courseModuleService;
 	
 	@Autowired
@@ -91,9 +96,7 @@ public class AdminCreateCourseController
 									@RequestParam(name = "durationHour",required=false)Integer durationHour,
 									@RequestParam(name = "courseInfo",required=false)String courseInfo,
 									@RequestParam(name = "image",required=false)MultipartFile imgFile,
-									@RequestParam(name = "action")String action,
-
-									Model model) 
+									@RequestParam(name = "action")String action,Model model) 
 	{
 		List<CourseCategory> courseCategoryList = courseCategoryService.getAllCourseCategories();
 		if(superDto == null)
@@ -123,9 +126,11 @@ public class AdminCreateCourseController
 
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
+
 
 		return "/admin/admin-create-course";
 	}
@@ -180,6 +185,7 @@ public class AdminCreateCourseController
 		}
 		MultipartFile imageFile = imgFile;
 		newSuperDto.setAction(action);
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",newSuperDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -223,6 +229,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
 		model.addAttribute("superDto",superDto);
@@ -258,6 +265,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);

@@ -1,18 +1,11 @@
 package com.g3.elis.dto.form;
 
 
-
 public class CourseMaterialDto {
 
-
 	private boolean status;
-
-
     private String title;
-	
-
     private String content;
-	
 	private int index;
 
 	public boolean isStatus() {
@@ -47,12 +40,7 @@ public class CourseMaterialDto {
 		this.index = index;
 	}
 
-	
 
-	public CourseMaterialDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public CourseMaterialDto(boolean status, String title, String content, int index) {
 		super();
@@ -66,6 +54,11 @@ public class CourseMaterialDto {
 	public String toString() {
 		return "CourseMaterialDto [status=" + status + ", title=" + title + ", content=" + content + ", index=" + index
 				+ "]";
+	}
+
+	public CourseMaterialDto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 }

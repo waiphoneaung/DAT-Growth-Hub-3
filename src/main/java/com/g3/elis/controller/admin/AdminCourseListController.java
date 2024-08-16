@@ -1,5 +1,10 @@
 package com.g3.elis.controller.admin;
 
+
+import java.io.IOException;
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,22 +60,31 @@ public class AdminCourseListController {
 		courseService.editCourse(courseId, "Activated");
 		return "redirect:/admin/admin-course-list";
 	}
+	
 	@GetMapping("/admin-course-list/reject")
 	public String adminRejectRequest(@RequestParam(name="courseId")int courseId)
 	{
 		courseService.editCourse(courseId, "Rejected");
 		return "redirect:/admin/admin-course-list";
 	}
+	
+	@GetMapping("/admin-course-list/delete")
+	public String adminDeleteCourse(@RequestParam(name="courseId")int courseId) throws IOException
+	{
+		courseService.deleteCourse(courseId);
+		return "redirect:/admin/admin-course-list";
+	}
+	
+	@GetMapping("/admin-course-list/cancel")
+	public String adminCancelReject(@RequestParam(name="courseId")int courseId)
+	{
+		courseService.editCourse(courseId, "Pending");
+		return "redirect:/admin/admin-course-list";
+	}
+	
 	@GetMapping("/admin-course-detail")
 	public String adminCourseDetail(Model model)
 	{
-		model.addAttribute("content","admin/admin-course-detail");
-		return "/admin/admin-layout";
-	}
-	@GetMapping("/admin-edit-course-detail")
-	public String adminEditCourseDetail(Model model)
-	{
-		model.addAttribute("content","admin/admin-edit-course-detail");
-		return "/admin/admin-layout";
+		return "/admin/admin-course-detail";
 	}
 }
