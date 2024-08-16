@@ -26,8 +26,8 @@ public class FileStorageConfig {
 	{
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String newFileName = timestamp + "_" + fileName;
-		Path targetLocation = getUploadDir(filePath).resolve(newFileName);
-		Files.copy(file.getInputStream(), targetLocation);
+		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
+		    Files.copy(file.getInputStream(), targetLocation);
 		
 		return newFileName;
 	}

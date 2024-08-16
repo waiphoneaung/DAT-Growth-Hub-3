@@ -266,16 +266,17 @@ Steps START -->
 				<div class="row g-4">
 					<!-- Course title -->
 					<div class="col-12">
+					<input type="hidden" name="id" th:value="${blogPostDto.id}">
 						<label class="form-label">Blog title</label> <input
 								class="form-control" type="text"
-							placeholder="Enter course title" th:field="*{title}" required>
+							placeholder="Enter course title" th:field="${blogPostDto.title}" required>
 							<div class="text-danger"
-							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+							th:if="${#fields.hasErrors('title')}" th:errors="${blogPostDto.title}"></div>
 					</div>
 			<div class="form-group">
-               
+               <div id="content" class="quill-editor" th:data-placeholder="*{htmlFileName}">
                 <!-- Editor toolbar -->
-                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar1">
+                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar2">
                     <span class="ql-formats">
     <select class="ql-font"></select>
     <select class="ql-size"></select>
@@ -321,14 +322,9 @@ Steps START -->
   </span>
                 </div>
                 <!-- Main toolbar -->
-                <div class="bg-body border rounded-bottom h-400px overflow-hidden" id="quilleditor1">
-                 
-                    <h1>Header</h1>
-                    <br>
-                    <p>Enter Body Text Here.</p>
-                    <br>
-                </div>
+                 <div id="quilleditor2" style="height: 400px" class="border rounded"></div>
                 <input type="hidden" id="content" name="content">
+           
             </div>
 
 		<!-- Step 1 button -->
@@ -401,7 +397,7 @@ Steps START -->
 											</div>
 										</div>
 										<!-- Step 2 content END -->
-
+</div>
 									</form>
 								</div>
 							</div>
@@ -431,42 +427,49 @@ Steps END -->
 	
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
-	 
-	  <script>
-        var quill = new Quill('#quilleditor1', {
-            modules: {
-                toolbar: '#quilltoolbar1'
-            },
-            theme: 'snow'
-        });
-        
-        document.querySelector('form').onsubmit = function() {
-            var quillContent = quill.root.innerHTML;
-            var headerContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <style>
-                    .ql-video {
-                        width: 100%;
-                        max-width: 100%;
-                        height: 100%;
-                        aspect-ratio: 16 / 9;
-                    }
-                </style>
-                
-                </head>
-                <body>
-            `;
-            var footerContent = `
-                </body>
-                </html>
-            `;
-            var completeHtml = headerContent + quillContent + footerContent;
-            document.querySelector('#content').value = completeHtml;
-        };
-    </script>
+	
+	<script th:inline="javascript">
+    var quill = new Quill('#quilleditor2', {
+        modules: {
+            toolbar: '#quilltoolbar2'
+        },
+        theme: 'snow'
+    });
+
+    var content = /*[[${content}]]*/ '';
+    console.log(content); 
+    quill.setContents(quill.clipboard.convert(content)); 
     
+    quill.on('text-change', function(delta, source) {
+        var quillContent = quill.root.innerHTML;
+
+        // Creating the complete HTML content
+        var headerContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                .ql-video {
+                    width: 50%;
+                    max-width: 100%;
+                    height: 50%;
+                    aspect-ratio: 16 / 9;
+                }
+                </style>
+            </head>
+            <body>
+        `;
+        var footerContent = `
+            </body>
+            </html>
+        `;
+        var completeHtml = headerContent + quillContent + footerContent;
+
+        // Updating the hidden input with the complete HTML
+        document.querySelector('#content').value = completeHtml;
+    });
+</script>
+
     </body>
 </html>
