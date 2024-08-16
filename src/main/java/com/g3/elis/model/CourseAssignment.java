@@ -3,7 +3,6 @@ package com.g3.elis.model;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,24 +20,16 @@ public class CourseAssignment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name = "title", nullable = false, length = 50)
 	private String title;
-	
-	@Column(name = "finished_status")
 	private boolean finishedStatus;
-	
-	@Column(name = "time_limit")
 	private int timeLimit;
-	
-	@Column(name = "score")
 	private int score;
 	
 	@ManyToOne
-	@JoinColumn(name = "course_module_id", nullable = false)
+	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
 	
-	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
 	List<Question> questions;
 
 	public int getId() {

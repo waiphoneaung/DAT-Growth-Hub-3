@@ -57,20 +57,14 @@ public class InstructorController {
 		return "instructor/instructor-layout";
 	}
 	
-	@GetMapping("/forum")
-	public String forum(Model model) {
-		 
-		model.addAttribute("currentPage", "forum");
-		return "instructor/forum";
-	}
 	
-	@GetMapping("/instructor-view-blog")
-	public String instructor_view_blog(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-view-blog");
-		model.addAttribute("content", "instructor/instructor-view-blog");
-		return "instructor/instructor-layout";
-	}
+//	@GetMapping("/instructor-view-blog")
+//	public String instructor_view_blog(Model model) {
+//		
+//		model.addAttribute("currentPage", "instructor-view-blog");
+//		model.addAttribute("content", "instructor/instructor-view-blog");
+//		return "instructor/instructor-layout";
+//	}
 	
 	@GetMapping("/blog-detail")
 	public String blogDetail()
@@ -79,11 +73,20 @@ public class InstructorController {
 	}
 	
 	
-	@GetMapping("/instructor-edit-profile")
-	public String instructor_edit_profile(Model model) {
+
+//	@GetMapping("/instructor-edit-profile")
+//	public String instructor_edit_profile(Model model) {
+//		
+//		model.addAttribute("currentPage", "instructor-edit-profile");
+//		model.addAttribute("content", "instructor/instructor-edit-profile");
+//		return "instructor/instructor-layout";
+//	}
+	
+	@GetMapping("/blog_detail")
+	public String BlogDetail(Model model) {
 		
-		model.addAttribute("currentPage", "instructor-edit-profile");
-		model.addAttribute("content", "instructor/instructor-edit-profile");
-		return "instructor/instructor-layout";
+		return "/authenticated-user/blog-detail";
 	}
+	
 }
+

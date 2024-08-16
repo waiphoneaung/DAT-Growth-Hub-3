@@ -53,11 +53,11 @@ public class InputFileServiceImpl implements InputFileService {
 	}
 
 	@Override
-	public void saveFile(MultipartFile file) {
+	public void saveFile(MultipartFile file,String filePath) {
 		InputFile inputFile = new InputFile();
 		inputFile.setFileName(file.getOriginalFilename());
 		try {
-			fileStorageConfig.saveFile(file, file.getOriginalFilename());
+			fileStorageConfig.saveFile(file, file.getOriginalFilename(),filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -232,7 +232,6 @@ public class InputFileServiceImpl implements InputFileService {
 							}
 							if(getCellValue(formulaEvaluator,cell).contains("25-") || getCellValue(formulaEvaluator,cell).contains("26-"))
 							{
-								userDto.setStaffId(getCellValue(formulaEvaluator,cell));
 								if (getCellValue(formulaEvaluator,cell).contains("25-"))
 								{
 									userDto.setGender("Male");
@@ -245,6 +244,7 @@ public class InputFileServiceImpl implements InputFileService {
 								{
 									userDto.setGender("Other");
 								}
+								userDto.setStaffId(getCellValue(formulaEvaluator,cell));
 							}
 							if(getCellValue(formulaEvaluator,cell).contains("Dept"))
 							{
@@ -271,7 +271,10 @@ public class InputFileServiceImpl implements InputFileService {
 							{
 								userDto.setStatus(getCellValue(formulaEvaluator,row.getCell(8)));
 							}
-							
+							if(getCellValue(formulaEvaluator,row.getCell(9))!=null)
+							{
+								userDto.setRole(getCellValue(formulaEvaluator,row.getCell(9)));
+							}
 						}
 					}
 					if(userDto.getName()!=null)
@@ -279,7 +282,7 @@ public class InputFileServiceImpl implements InputFileService {
 						userService.createUser(userDto);
 					}
 				}
-			}
+			}	
 		}
 		workbook.close();
 	}

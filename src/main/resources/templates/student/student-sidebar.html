@@ -24,14 +24,14 @@ Page Banner START -->
 						<!-- Avatar -->
 						<div class="col-auto">
 							<div class="avatar avatar-xxl position-relative mt-n3">
-								<img class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{/public/assets/images/avatar/09.jpg}" alt="">
-								 
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" th:if="${user.profile != null && user.profile.profileImg != null}"th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" th:unless="${user.profile != null && user.profile.profileImg != null}" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 							</div>
 						</div>
 						<!-- Profile info -->
 						<div class="col d-sm-flex justify-content-between align-items-center">
 							<div>
-								<h1 class="my-1 fs-4">Student</h1>
+								<h1 class="my-1 fs-4" th:text="${user.name}">Student</h1>
 								<ul class="list-inline mb-0">
 									
 									<li class="list-inline-item me-3 mb-1 mb-sm-0">
@@ -50,7 +50,7 @@ Page Banner START -->
 							</div>
 							<!-- Button -->
 							<div class="mt-2 mt-sm-0">
-								<a th:href="@{/student/student-course-list}" class="btn btn-outline-primary mb-0">Edit Profile</a>
+								<a th:href="@{/student/student-edit-profile}" class="btn btn-outline-primary mb-0">Edit Profile</a>
 							</div>
 						</div>
 					</div>
@@ -122,13 +122,12 @@ Page content START -->
 				<!-- Responsive offcanvas body END -->
 			</div>
 			<!-- Left sidebar END -->
-			
-    
-    	
+
         <th:block th:replace="~{${content}}"></th:block>
     	
     </div>
 	</div>
+	</section>
 	<!-- =======================
 Page content END -->
 </main>

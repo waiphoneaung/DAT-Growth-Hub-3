@@ -22,17 +22,15 @@ public class Question {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "question", nullable = false, columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT")
 	private String question;
-	
-	@Column(name = "correct_status", nullable = false)
 	private boolean correctStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "course_assignment_id", nullable = false)
 	private CourseAssignment courseAssignments;
 	
-	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
 	List<Answer> answers;
 
 	public int getId() {

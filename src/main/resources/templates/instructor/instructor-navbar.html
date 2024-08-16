@@ -13,7 +13,7 @@
 			<nav class="navbar navbar-expand-xl">
 				<div class="container-fluid px-3 px-xl-5">
 					<!-- Logo START -->
-					<a class="navbar-brand" th:href="@{/instructor/instructor-dashboard}"> <img
+					<a class="navbar-brand" th:href="@{/user/home}"> <img
 						class="light-mode-item navbar-brand-item"
 						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo"> <img
 						class="dark-mode-item navbar-brand-item"
@@ -41,7 +41,7 @@
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-dashboard' ? ' active' : '' }"	th:href="@{/instructor/instructor-dashboard}">Dashboard</a>
 							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-manage-course}">Courses</a>
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}" th:href="@{/instructor/instructor-view-blog}">Blogs</a>
-							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/forum}">Forum</a>
+							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/instructor/forum}">Forum</a>
 
 
 						</ul>
@@ -70,8 +70,9 @@
 						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 							role="button" data-bs-auto-close="outside"
 							data-bs-display="static" data-bs-toggle="dropdown"
-							aria-expanded="false"> <img class="avatar-img rounded-circle"
-							th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+							aria-expanded="false"> 
+							<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
+							<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 						</a>
 						<ul
 							class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -81,12 +82,12 @@
 								<div class="d-flex align-items-center">
 									<!-- Avatar -->
 									<div class="avatar me-3">
-										<img class="avatar-img rounded-circle shadow"
-											th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle shadow" th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}" alt="avatar">
+										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle shadow" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 									</div>
 									<div>
-										<a class="h6" th:href="@{/instructor/instructor-dashboard}">Student</a>
-										<p class="small m-0">dathr@diracetechnology.com</p>
+										<a class="h6" th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}">Student</a>
+										<p class="small m-0" th:text="${user.email}">dathr@diracetechnology.com</p>
 									</div>
 								</div>
 							</li>

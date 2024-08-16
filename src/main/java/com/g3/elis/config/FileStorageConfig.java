@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -15,46 +17,32 @@ public class FileStorageConfig {
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 	
-	@Value("${file.upload-dir}")
-	private String uploadBlogImageDir;
-	
-	public Path getBlogImageUploadDir()
+	public Path getUploadDir(String filePath)
 	{
-		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
+		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
 	}
 	
-	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
+	public String saveFile(MultipartFile file,String fileName,String filePath) throws IOException
 	{
-		Path targetLocation = getBlogImageUploadDir().resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String newFileName = timestamp + "_" + fileName;
+		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
+		    Files.copy(file.getInputStream(), targetLocation);
+		
+		return newFileName;
 	}
 	
-//	public void deleteBlogImage(String blogFileName) throws IOException {
-//		
-//		Path targetLocation = getBlogImageUploadDir().resolve(blogFileName);
-//		Files.delete(targetLocation);
-//	}
-	
-	public void deleteBlogImage(String fileName) throws IOException {
-	    Path filePath = getBlogImageUploadDir().resolve(fileName).normalize();
-	    Files.deleteIfExists(filePath);
-	}
-
-	
-	
-	public Path getUploadDir()
+	public void deleteFile(String fileName,String filePath) throws IOException
 	{
-		return Paths.get(uploadDir).toAbsolutePath().normalize();
-	}
-	
-	public void saveFile(MultipartFile file,String fileName) throws IOException
-	{
-		Path targetLocation = getUploadDir().resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
-	}
-	public void deleteFile(String fileName) throws IOException
-	{
-		Path targetLocation = getUploadDir().resolve(fileName);
+		Path targetLocation = getUploadDir(filePath).resolve(fileName);
 		Files.delete(targetLocation);
 	}
+	
+	public void saveHTMLFile(String content,String path,String fileName) throws IOException
+	{
+		Path targetLocation = getUploadDir(path).resolve(fileName);
+		Files.write(targetLocation, content.getBytes());
+	}
+	
+	
 }

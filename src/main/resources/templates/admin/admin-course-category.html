@@ -2,321 +2,218 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <body>
-
-
-<!-- **************** MAIN CONTENT START **************** -->
-<main>
-<th:block th:fragment = "admin-course-category">
-
-
-<!-- Page content START -->
-<div class="page-content">
-	
-
-
-	<!-- Page main content START -->
-	<div class="page-content-wrapper border">
-
-		<!-- Title -->
-		<div class="row mb-3">
-			<div class="col-12 d-sm-flex justify-content-between align-items-center">
-				<h1 class="h3 mb-2 mb-sm-0">Course Categories<span class="badge bg-orange bg-opacity-10 text-orange">245</span></h1>
-				<a href="#" class="btn btn-sm btn-primary mb-0">Create a Course Category</a>
-			</div>
-		</div>
-
-		<!-- Card START -->
-		<div class="card bg-transparent border">
-
-			<!-- Card header START -->
-			<div class="card-header bg-light border-bottom">
-				<!-- Search and select START -->
-				<div class="row g-3 align-items-center justify-content-between">
-
-					<!-- Search bar -->
-					<div class="col-md-8"></div>
-					<div class="col-md-4">
-						<form class="rounded position-relative">
-							<input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
-							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-								<i class="fas fa-search fs-6 "></i>
-							</button>
-						</form>
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="admin-course-category">
+			<!-- Page content START -->
+			<div class="page-content">
+				<div class="page-content-wrapper border">
+					<div class="container mt-4">
+						<div class="row mb-3">
+							<div
+								class="col-12 d-sm-flex justify-content-between align-items-center">
+								<h1 class="h3 mb-2 mb-sm-0">
+									Course Categories <span
+										class="badge bg-orange bg-opacity-10 text-orange"
+										th:text="${categoryCount}"></span>
+								</h1>
+								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
+									data-bs-target="#createCategory" data-whatever="Category">Create
+									a Course Category</a>
+							</div>
+						</div>
 					</div>
 
+					<!-- Create Modal Start -->
+					<div class="modal fade" id="createCategory" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Course
+										Category</h5>
+								</div>
+								<form th:action="@{/admin/admin-course-category}" method="post">
+									<div class="modal-body">
+										<div class="form-group">
+											<label for="category-name" class="col-form-label">Category
+												Name:</label> <input type="text" class="form-control"
+												id="category-name" name="categoryName">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- Create Modal End -->
+
+					<!-- Card START -->
+					<div class="card bg-transparent border">
+						<div class="card-header bg-light border-bottom">
+							<div class="row g-3 align-items-center justify-content-between">
+								<div class="col-md-8"></div>
+								<div class="col-md-4">
+									<form class="rounded position-relative"
+										th:action="@{/admin/admin-course-category/search}"
+										method="get">
+										<input class="form-control bg-body" type="search"
+											name="search" th:value="${search}" placeholder="Search"
+											aria-label="Search">
+										<button
+											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+											type="submit">
+											<i class="fas fa-search fs-6"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<div class="table-responsive border-0 rounded-3">
+								<table
+									class="table table-dark-gray align-middle p-4 mb-0 table-hover table-striped">
+									<thead>
+										<tr>
+											<th scope="col" class="border-0 rounded-start">Course
+												Category</th>
+											<th scope="col" class="border-0">Courses</th>
+											<th scope="col" class="border-0">Category Created By</th>
+											<th scope="col" class="border-0 rounded-end">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="category : ${courseCategories}">
+											<td>
+												<div class="d-flex align-items-center position-relative">
+													<h6 class="table-responsive-title mb-0 ms-2">
+														<a href="#" class="stretched-link"
+															th:text="${category.categoryName}"></a>
+													</h6>
+												</div>
+											</td>
+											<td>
+												<ul>
+													<li th:each="course : ${category.courses}"
+														th:text="${course.courseTitle}"></li>
+												</ul>
+											</td>
+											<td th:text="${category.users.name}"></td>
+											<td><a class="btn btn-sm btn-success me-1 mb-1 mb-md-0"
+												th:data-id="${category.id}" data-bs-toggle="modal"
+												data-bs-target="#editCategory">Edit</a>
+												<form
+													th:action="@{/admin/admin-course-category/delete/{id}(id=${category.id})}"
+													method="post" style="display: inline;"
+													onsubmit="return confirm('Are you sure?');">
+													<button type="submit" class="btn btn-sm btn-danger mb-0">Delete</button>
+												</form></td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+
+						<div class="card-footer bg-transparent pt-0">
+							<div
+								class="d-sm-flex justify-content-center align-items-sm-center">
+								<nav class="d-flex justify-content-center mb-0"
+									aria-label="navigation">
+									<ul
+										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+										<!-- Previous button: only show if not on the first page -->
+										<li th:if="${currentPage > 0}" class="page-item mb-0"><a
+											class="page-link"
+											th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}"
+											tabindex="-1"> <i class="fas fa-angle-left"></i>
+										</a></li>
+
+										<!-- Page numbers: show only if totalPages > 1 -->
+										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+											th:classappend="${i == currentPage} ? 'active' : ''"
+											th:if="${totalPages > 1}" class="page-item mb-0"><a
+											class="page-link" th:text="${i + 1}"
+											th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
+										</li>
+
+										<!-- Next button: only show if not on the last page -->
+										<li th:if="${currentPage < totalPages - 1}"
+											class="page-item mb-0"><a class="page-link"
+											th:href="@{/admin/admin-course-category/search(page=${currentPage + 1}, search=${search})}">
+												<i class="fas fa-angle-right"></i>
+										</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+
+					</div>
 				</div>
-				<!-- Search and select END -->
+
+
 			</div>
-			<!-- Card header END -->
 
-			<!-- Card body START -->
-			<div class="card-body">
-				<!-- Course table START -->
-				<div class="table-responsive border-0 rounded-3">
-					<!-- Table START -->
-					<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-						<!-- Table head -->
-						<thead>
-							<tr>
-								<th scope="col" class="border-0 rounded-start">Course Category</th>
-								<!-- <th scope="col" class="border-0">Rating</th> -->
-								<th scope="col" class="border-0">Courses</th>
-								<th scope="col" class="border-0 rounded-end">Action</th>
-							</tr>
-						</thead>
 
-						<!-- Table body START -->
-						<tbody>
-							
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Building Scalable APIs with GraphQL</a>
-										</h6>
+
+			<!-- Edit Modal Start -->
+			<div th:each="category : ${courseCategories}">
+				<div class="modal fade" id="editCategory" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editCategory">Edit Course
+									Category</h5>
+
+							</div>
+							<form th:action="@{/admin/admin-course-category/edit}"
+								method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="edit-category-name" class="col-form-label">Category
+											Name:</label> <input type="text" class="form-control"
+											id="edit-category-name" name="categoryName"> <input
+											type="hidden" id="categoryId" name="categoryId">
 									</div>
-								</td>
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/10.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Bootstrap 5 From Scratch</a>
-										</h6>
-									</div>
-								</td>
-
-
-
-
-								<!-- Table data -->
-								<td> </td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Graphic Design Masterclass</a>
-										</h6>
-									</div>
-								</td>
-
-
-
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-1 me-1 mb-md-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Learn Invision</a>
-										</h6>
-									</div>
-								</td>
-
-
-
-
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/09.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">JavaScript: Full Understanding</a>
-										</h6>
-									</div>
-								</td>
-
-
-
-
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/11.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Build Responsive Websites with HTML</a>
-										</h6>
-									</div>
-								</td>
-
-	
-
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img th:src="@{/public/assets/images/courses/4by3/12.jpg}" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Build Websites with CSS</a>
-										</h6>
-									</div>
-								</td>
-
-	
-
-
-								<!-- Table data -->
-								<td></td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-									<button class="btn btn-sm btn-danger mb-0">Delete</button>
-									 
-								</td>
-							</tr>
-
-						</tbody>
-						<!-- Table body END -->
-					</table>
-					<!-- Table END -->
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save
+										changes</button>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
-				<!-- Course table END -->
 			</div>
-			<!-- Card body END -->
+		</th:block>
+		<!-- Edit Modal End -->
+	</main>
 
-			<!-- Card footer START -->
-			<div class="card-footer bg-transparent pt-0">
-				<!-- Pagination START -->
-				<div class="d-sm-flex justify-content-center align-items-sm-center">
-					<!-- Content -->
-					<!-- <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p> -->
-					<!-- Pagination -->
-					<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-						<ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-							<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-							<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-							<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-							<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-							<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-						</ul>
-					</nav>
-				</div>
-				<!-- Pagination END -->
-			</div>
-			<!-- Card footer END -->
-		</div>
-		<!-- Card END -->
-	</div>
-	<!-- Page main content END -->
-</div>
-<!-- Page content END -->
-</th:block>
-</main>
-<!-- **************** MAIN CONTENT END **************** -->
+	<!-- **************** MAIN CONTENT END **************** -->
+	<script>
+		var myModal = document.getElementById('editCategory');
+		myModal.addEventListener('show.bs.modal', function(event) {
+			var button = event.relatedTarget;
+			var categoryId = button.getAttribute('data-id');
+			var input = myModal.querySelector('#categoryId');
+			var display = myModal.querySelector('#edit-category-name');
+			input.value = categoryId;
+			//display.value = 
+			
+			console.log(categoryId);
+		});
 
+	</script>
 </body>
-
-<!-- Mirrored from diracetechnology.com/admin-course-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:24:23 GMT -->
 </html>

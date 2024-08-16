@@ -26,20 +26,19 @@ Page Banner START -->
 									<!-- Avatar -->
 									<div class="col-auto">
 										<div class="avatar avatar-xxl position-relative mt-n3">
-											<img
-												class="avatar-img rounded-circle border border-white border-3 shadow"
-												th:src="@{/public/assets/images/avatar/09.jpg}" alt="">
-
+										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
+										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 										</div>
 									</div>
 									<!-- Profile info -->
 									<div
 										class="col d-sm-flex justify-content-between align-items-center">
 										<div>
-											<h1 class="my-1 fs-4">
+											<h1 class="my-1 fs-4" th:text="${user.name}">
 												Instructors <i
 													class="bi bi-patch-check-fill text-info small"></i>
 											</h1>
+													
 											<ul class="list-inline mb-0">
 												<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
 													class="fas fa-user-graduate text-orange me-2"></i>12k
@@ -116,7 +115,7 @@ Page content START -->
 												class="bi bi-people fa-fw me-2"></i>Students</a> <a
 												class="list-group-item"
 												th:classappend="${currentPage == 'forum' ? ' active' : ''}"
-												th:href="@{/forum}"><i
+												th:href="@{/instructor/forum}"><i
 												class="bi bi-chat-dots fa-fw me-2"></i>Forum</a> <a
 												class="list-group-item"
 												th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}"

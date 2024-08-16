@@ -43,8 +43,6 @@ public class EnrolledCourse {
 		this.id = id;
 	}
 
-	
-
 	public EnrolledCourse(int id, Timestamp enrolledAt, Timestamp completedAt, User users, Course courses) {
 		super();
 		this.id = id;
@@ -85,10 +83,9 @@ public class EnrolledCourse {
 	public void setCourses(Course courses) {
 		this.courses = courses;
 	}
-
 	
-	
-	
-	
-
+	public EnrolledCourse()
+	{
+		
+	}
 }

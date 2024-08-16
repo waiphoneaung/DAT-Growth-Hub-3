@@ -26,16 +26,37 @@
 
 								<!-- Search bar -->
 								<div class="col-md-8">
-									<form th:action="@{/admin/admin-instructor-list/search}"
-										method="GET" class="rounded position-relative">
-										<input class="form-control bg-transparent" type="search"
-											placeholder="Search" aria-label="Search">
-										<button
-											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-											type="submit">
-											<i class="fas fa-search fs-6 "></i>
-										</button>
+									<form class="rounded position-relative"
+										th:action="@{/admin/admin-instructor-list/search}"
+										method="get">
+										<div class="row g-3">
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="name" placeholder="Name" aria-label="Search by Name">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="staffId" placeholder="Staff ID"
+													aria-label="Search by Staff ID">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="department" placeholder="Department"
+													aria-label="Search by Department">
+											</div>
+											<div class="col-md-3">
+												<input class="form-control bg-body" type="search"
+													name="division" placeholder="Division"
+													aria-label="Search by Division">
+											</div>
+											<div class="col-md-3">
+												<button class="btn btn-primary" type="submit">
+													<i class="fas fa-search fs-6"></i> Search
+												</button>
+											</div>
+										</div>
 									</form>
+
 								</div>
 
 								<!-- Tab buttons -->
@@ -79,11 +100,16 @@
 													class="card-header bg-transparent border-bottom d-flex justify-content-between">
 													<div class="d-sm-flex align-items-center">
 														<!-- Avatar -->
-														<div class="avatar avatar-md flex-shrink-0">
-															<img class="avatar-img rounded-circle"
-																th:src="@{/public/assets/images/avatar/01.jpg}"
-																alt="avatar">
-														</div>
+														<div class="avatar avatar-md flex-shrink-0 rounded-circle">
+            <img class="avatar-img rounded-circle"
+                th:if="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+                alt="avatar">
+            <img class="avatar-img rounded-circle"
+                th:unless="${user.profile != null && user.profile.profileImg != null}"
+                th:src="@{'/public/assets/images/avatar/01.jpg'}"
+                alt="avatar">
+        </div>
 														<!-- Info -->
 														<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
 															<h5 class="mb-0">
@@ -106,10 +132,21 @@
 														<ul
 															class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
 															aria-labelledby="dropdownShare2">
-															<li><a class="dropdown-item" href="#"><i
-																	class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
-															<li><a class="dropdown-item" href="#"><i
-																	class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
+															<li>
+															<form th:action="@{/admin/change-instructor-status}"
+      method="post"
+      th:onsubmit="${user.enabled} ? 'return confirm(\'Are you sure you want to disable this user?\');' : 'return confirm(\'Are you sure you want to enable this user?\');'">
+    <input type="hidden" name="id" th:value="${user.id}" />
+    <input type="hidden" name="enabled" th:value="${user.enabled} ? 0 : 1" />
+    <button type="submit" class="btn"
+            th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+            th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+        <i class="bi" th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+        <a>Status</a>
+    </button>
+</form>
+
+														</li>
 														</ul>
 													</div>
 												</div>
@@ -181,7 +218,7 @@
 													<th scope="col" class="border-0">Team</th>
 													<th scope="col" class="border-0">Email</th>
 													<th scope="col" class="border-0">Status</th>
-													<th scope="col" class="border-0">Total students</th>
+
 													<th scope="col" class="border-0 rounded-end">Action</th>
 												</tr>
 											</thead>
@@ -190,7 +227,7 @@
 											<tbody>
 
 												<!-- Table row -->
-												<tr th:each="user : ${users}">
+												<tr  th:if="${#lists.isEmpty(users) == false}" th:each="user : ${users}" >
 													<!-- Table data -->
 													<td>
 														<div class="d-flex align-items-center position-relative">
@@ -212,9 +249,10 @@
 													</td>
 
 													<!-- Table data -->
-													<!--<td th:text="${user.gender}"></td>-->
+
 
 													<td th:text="${user.staffId}"></td>
+													<td th:text="${user.courses}"></td>
 
 													<!-- Table data -->
 													<!--<td th:text="${user.doorLogNo}"></td>-->
@@ -232,16 +270,22 @@
 													<td th:text="${user.status}"></td>
 
 													<!-- Table data -->
-													<td><a href="#"
-														class="btn btn-success-soft btn-round me-1 mb-1 mb-md-0"
-														data-bs-toggle="tooltip" data-bs-placement="top"
-														title="Edit"> <i class="bi bi-pencil-square"></i>
-													</a>
-														<button class="btn btn-danger-soft btn-round mb-0"
-															data-bs-toggle="tooltip" data-bs-placement="top"
-															title="Delete">
-															<i class="bi bi-trash"></i>
-														</button></td>
+													<td>
+														<form th:action="@{/admin/change-instructor-status}"
+															method="post"
+															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
+															<input type="hidden" name="id" th:value="${user.id}" />
+															<input type="hidden" name="enabled"
+																th:value="${user.enabled} ? 0 : 1" />
+															<button type="submit" class="btn"
+																th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+																th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																<i class="bi"
+																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+															</button>
+														</form>
+													</td>
+
 												</tr>
 
 											</tbody>
@@ -259,28 +303,47 @@
 
 						<!-- Card footer START -->
 						<div class="card-footer bg-transparent p-0">
-							<!-- Pagination START -->
-							<div
-								class="d-sm-flex justify-content-sm-center align-items-sm-center">
-								<!-- Content -->
-								<!-- Pagination -->
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-							<!-- Pagination END -->
-						</div>
+							<div class="card-footer bg-transparent p-0">
+   <!-- Pagination START -->
+<div class="card-footer bg-transparent pt-0">
+    <div class="d-sm-flex justify-content-center align-items-sm-center">
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <!-- Previous button: only show if not on the first page -->
+                <li th:if="${currentPage > 0}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${currentPage - 1}, search=${search})}" 
+                       tabindex="-1">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- Page numbers: show only if totalPages > 1 -->
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active' : ''" 
+                    th:if="${totalPages > 1}" 
+                    class="page-item mb-0">
+                    <a class="page-link" 
+                       th:text="${i + 1}" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${i}, search=${search})}"></a>
+                </li>
+
+                <!-- Next button: only show if not on the last page -->
+                <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-instructor-list/search(page=${currentPage + 1}, search=${search})}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- Pagination END -->
+
+
+</div>
+
 						<!-- Card footer END -->
 					</div>
 					<!-- Card END -->

@@ -1,8 +1,11 @@
 package com.g3.elis.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,21 +46,27 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 
-	@OneToOne(mappedBy = "users", fetch = FetchType.LAZY)
-	private Profile profiles;
+	@OneToOne(mappedBy = "user")
+	private Profile profile;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
-	private Set<EnrolledCourse> enrolledCourses = new HashSet<>();
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Report> reports = new HashSet<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+
 	private Set<BlogPost> blogposts = new HashSet<>();
-
-	public User() {
-
-	}
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<Forum> forums = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private List<ForumComment> forumComments = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	private Set<CourseCategory> courseCategories = new HashSet<>();
 
 	public int getId() {
 		return id;
@@ -171,25 +180,67 @@ public class User {
 		this.courses = courses;
 	}
 
-	public Profile getProfiles() {
-		return profiles;
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setProfiles(Profile profiles) {
-		this.profiles = profiles;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
-	public Set<EnrolledCourse> getEnrolledCourses() {
+	public List<EnrolledCourse> getEnrolledCourses() {
 		return enrolledCourses;
 	}
 
-	public void setEnrolledCourses(Set<EnrolledCourse> enrolledCourses) {
+	public void setEnrolledCourses(List<EnrolledCourse> enrolledCourses) {
 		this.enrolledCourses = enrolledCourses;
+	}
+
+	public Set<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
+	public Set<BlogPost> getBlogposts() {
+		return blogposts;
+	}
+
+	public void setBlogposts(Set<BlogPost> blogposts) {
+		this.blogposts = blogposts;
+	}
+
+	public List<Forum> getForums() {
+		return forums;
+	}
+
+	public void setForums(List<Forum> forums) {
+		this.forums = forums;
+	}
+
+	public List<ForumComment> getForumComments() {
+		return forumComments;
+	}
+
+	public void setForumComments(List<ForumComment> forumComments) {
+		this.forumComments = forumComments;
+	}
+
+	public Set<CourseCategory> getCourseCategories() {
+		return courseCategories;
+	}
+
+	public void setCourseCategories(Set<CourseCategory> courseCategories) {
+		this.courseCategories = courseCategories;
 	}
 
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-			Set<Course> courses, Profile profile, Set<EnrolledCourse> enrolledCourses) {
+			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
+			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
+			Set<CourseCategory> courseCategories) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -205,8 +256,16 @@ public class User {
 		this.enabled = enabled;
 		this.roles = roles;
 		this.courses = courses;
-		this.profiles = profile;
+		this.profile = profile;
 		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+		this.blogposts = blogposts;
+		this.forums = forums;
+		this.forumComments = forumComments;
+		this.courseCategories = courseCategories;
 	}
 
+	public User() {
+		
+	}
 }
