@@ -315,20 +315,11 @@
 
 								<div
 									th:if="${forum.users.profile!= null && forum.users.profile.profileImg != null}"
-									th:each="role : ${forum.users.roles}">
-									<span th:if="${role.name} == 'ROLE_ADMIN'"> <img
+									>
+									 <img
 										class="avatar avatar-lg rounded-circle float-start me-3"
 										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
 										alt="avatar" />
-									</span> <span th:if="${role.name} == 'ROLE_INSTRUCTOR'"> <img
-										class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}} "
-										alt="avatar" />
-									</span> <span th:if="${role.name} == 'ROLE_STUDENT'"> <img
-										class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
-										alt="avatar" />
-									</span>
 								</div>
 								<div
 									th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}">
@@ -343,7 +334,7 @@
 										<!-- Title -->
 										<div>
 											<h5 class="m-0" th:text="${forum.users.name}"></h5>
-											<p th:text="${forum.users.profile.address}"></p>
+										
 
 											<span class="me-3 small"
 												th:text="${#dates.format(forum.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>

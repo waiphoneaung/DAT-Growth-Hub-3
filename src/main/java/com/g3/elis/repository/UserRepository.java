@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.g3.elis.model.Course;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
 
 @Repository
@@ -47,4 +49,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	
     
 	Optional<User> findById(int userId);
+
+	boolean existsByNameAndId(String name, Long courseId);
+	
+	
 }

@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +21,7 @@ import com.g3.elis.dto.form.CourseCreationSuperDto;
 import com.g3.elis.dto.form.CourseMaterialDto;
 import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.model.Course;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
 import com.g3.elis.model.CourseModule;
 import com.g3.elis.model.EnrolledCourse;
@@ -126,88 +130,7 @@ public class CourseServiceImpl implements CourseService {
 		courseRepository.save(course);
 	}
 	
-//	@Override
-//	@Transactional
-//	public void editCourse(CourseCreationSuperDto superDto, User user, MultipartFile imgFile, int courseCategoryId, int courseId) throws IOException 
-//	{
-//		Course course = courseRepository.findById(courseId).orElse(null);
-//		if(course== null) return;
-//		course.setCourseTitle(superDto.getCourseDto().getCourseTitle());
-//		course.setCourseDescription(superDto.getCourseDto().getCourseDescription());
-//		course.setCourseInfo(superDto.getCourseDto().getCourseInfo());
-//		course.setUpdatedDate(Timestamp.valueOf(LocalDateTime.now()));
-//		course.setStatus("Pending");
-//		if(superDto.getCourseDto().getDurationHour()>0)
-//		{
-//			course.setDuration(superDto.getCourseDto().getDurationHour());
-//		}
-//		if(!(imgFile.isEmpty())|| imgFile != null)
-//		{
-//			fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath);
-//			course.setCourseImageFileName(imgFile.getOriginalFilename());
-//		}
-//		
-//		List<CourseModule> courseModuleList = new ArrayList<>();
-//		List<CourseModule> courseModuleListFromCourse = course.getCourseModule();
-//		int courseModuleIterationIndex = 0;
-//		
-//		for(CourseModuleDto courseModuleDto : superDto.getCourseModuleDtoList())
-//		{
-//			CourseModule courseModule;
-//			if(courseModuleIterationIndex > courseModuleListFromCourse.size())
-//			{
-//				courseModule = new CourseModule();
-//				courseModule.setCourses(course);
-//				courseModule.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//			}
-//			else
-//			{	
-//				courseModule = courseModuleListFromCourse.get(courseModuleIterationIndex);
-//			}
-//			courseModule.setModuleTitle(courseModuleDto.getModuleTitle());
-//			
-//			List<CourseMaterial> courseMaterialList = new ArrayList<>();
-//			List<CourseMaterial> courseMaterialListFromCourseModule = courseModule.getCourseMaterials();
-//			
-//			for(CourseMaterialDto courseMaterialDto : superDto.getCourseMaterialDtoList())
-//			{
-//				int courseMaterialIterationIndex = 0;
-//				if(courseModuleIterationIndex == courseMaterialDto.getIndex())
-//				{
-//					CourseMaterial courseMaterial;
-//					if(courseMaterialIterationIndex > courseMaterialListFromCourseModule.size())
-//					{
-//						courseMaterial = new CourseMaterial();
-//						courseMaterial.setCourseModules(courseModule);
-//					}
-//					else
-//					{
-//						courseMaterial = courseMaterialListFromCourseModule.get(courseMaterialIterationIndex);
-//					}
-//					String fileName = UUID.randomUUID().toString() + ".html";
-//					courseMaterial.setTitle(courseMaterialDto.getTitle());
-//					courseMaterial.setContent(fileName);
-//					courseMaterial.setCourseModules(courseModule);
-//					
-//					fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
-//					
-//					courseMaterialList.add(courseMaterial);
-//				}
-//				courseMaterialIterationIndex++;
-//			}
-//			courseModuleIterationIndex++;
-//			
-//			courseModule.setCourseMaterials(courseMaterialList);
-//			courseModule.setCourses(course);
-//			courseModule.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-//			courseModuleList.add(courseModule);
-//
-//		}
-//		course.setCourseModule(courseModuleList);
-//		course.setUsers(user);
-//		course.setCourseCategories(courseCategoryRepository.findById(courseCategoryId).orElse(null));
-//		courseRepository.save(course);
-//	}
+
 	
 	@Override
 	@Transactional
@@ -308,5 +231,23 @@ public class CourseServiceImpl implements CourseService {
 	public Course getCourseById(int id) {
 		return courseRepository.findById(id).orElse(null);
 	}
+
+
+
+	@Override
+	public Page<Course> getPaginatedCourses(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return courseRepository.findAll(pageable);
+	}
+
+
+
+	@Override
+	public Page<Course> searchCoursesByTitle(String keyword, Pageable pageable) {
+		return courseRepository.findByCourseTitleContainingIgnoreCase(keyword, pageable);
+	}
+
+
+
 	
 }

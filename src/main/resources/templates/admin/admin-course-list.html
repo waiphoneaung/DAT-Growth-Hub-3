@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
@@ -9,7 +10,7 @@
 			<link rel="stylesheet" type="text/css"
 				th:href="@{/public/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css}">
 
-
+	
 			<!-- Page content START -->
 			<div class="page-content">
 				<!-- Page main content START -->
@@ -66,15 +67,15 @@
 								<!-- Search bar -->
 								<div class="col-md-8"></div>
 								<div class="col-md-4">
-									<form class="rounded position-relative">
-										<input class="form-control bg-body" type="search"
-											placeholder="Search" aria-label="Search">
-										<button
-											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-											type="submit">
-											<i class="fas fa-search fs-6 "></i>
-										</button>
-									</form>
+									<form class="rounded position-relative" th:action="@{/admin/admin-course-list}" method="get">
+    <input class="form-control bg-body" type="search" name="keyword"
+           placeholder="Search" aria-label="Search">
+    <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+            type="submit">
+        <i class="fas fa-search fs-6"></i>
+    </button>
+</form>
+
 								</div>
 							</div>
 							<!-- Search and select END -->
@@ -128,7 +129,7 @@
 													<!-- Avatar --> 
 													<div class="avatar avatar-xs flex-shrink-0">
 														<span th:if="${#authentication.principal.isAdmin()}">
-															<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/admin-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
+															<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
 															<img class="avatar-img rounded-circle" th:unless="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 														</span>
 														<span th:if="${#authentication.principal.isInstructor()}">
@@ -179,28 +180,41 @@
 
 						<!-- Card footer START -->
 						<div class="card-footer bg-transparent pt-0">
-							<!-- Pagination START -->
-							<div
-								class="d-sm-flex justify-content-sm-center align-items-sm-center">
-								<!-- Content -->
-								<!-- Pagination -->
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-							<!-- Pagination END -->
-						</div>
+    <div class="row justify-content-center mt-4">
+    <nav class="d-flex justify-content-center mb-0" aria-label="Page navigation">
+        <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+            <!-- Previous button: only show if not on the first page -->
+            <li th:if="${currentPage > 0}" class="page-item mb-0">
+    <a class="page-link"
+       th:href="@{/admin/admin-course-list(page=${currentPage - 1}, keyword=${keyword})}"
+       tabindex="-1">
+        <i class="fas fa-angle-left"></i>
+    </a>
+</li>
+
+<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+    th:classappend="${i == currentPage} ? 'active' : ''"
+    th:if="${totalPages > 1}"
+    class="page-item mb-0">
+    <a class="page-link"
+       th:text="${i + 1}"
+       th:href="@{/admin/admin-course-list(page=${i}, keyword=${keyword})}"></a>
+</li>
+
+<li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+    <a class="page-link"
+       th:href="@{/admin/admin-course-list(page=${currentPage + 1}, keyword=${keyword})}">
+        <i class="fas fa-angle-right"></i>
+    </a>
+</li>
+
+        </ul>
+    </nav>
+</div>
+
+
+</div>
+
 						<!-- Card footer END -->
 					</div>
 					<!-- Card END -->
@@ -213,6 +227,7 @@
 			<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
 			<script
 				th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 		</th:block>
 	</main>
