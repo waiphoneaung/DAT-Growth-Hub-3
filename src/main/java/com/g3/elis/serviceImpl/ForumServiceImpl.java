@@ -75,6 +75,10 @@ public class ForumServiceImpl implements ForumService{
       }
      return forumRepository.findByTitleContainingIgnoreCase(query,pageable);	}
 
-	
+//	@Override
+//	public List<Forum> getForumByUser(int userId) {
+//		
+//		return forumRepository.findByUserId(userId);
+//	}
 
 }

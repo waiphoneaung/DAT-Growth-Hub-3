@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +28,20 @@ public class CourseCategoryController {
 	private CourseCategoryService courseCategoryService;
 
 	@GetMapping("/admin-course-category")
-	public String getAllCourseCategories(Model model) {
+	public String getAllCourseCategories(Model model,@RequestParam(defaultValue = "0") int page) {
+		
+		int pageSize = 5;
+	    Page<CourseCategory> courseCategoriesPage = courseCategoryService.getPaginatedCourseCategories(page, pageSize);
+	    
+	    model.addAttribute("courseCategories", courseCategoriesPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", courseCategoriesPage.getTotalPages());
+	    model.addAttribute("categoryCount", courseCategoriesPage.getTotalElements());
+	    
 	    List<CourseCategory> courseCategories = courseCategoryService.getAllCourseCategories();
 	    int categoryCount = courseCategories.size();
 	    
-	    model.addAttribute("courseCategories", courseCategories);
+	    
 	    model.addAttribute("content", "admin/admin-course-category");
 	    model.addAttribute("categoryCount", categoryCount);
 	    return "/admin/admin-layout";
@@ -77,18 +87,26 @@ public class CourseCategoryController {
 	}
 
 	@GetMapping("/admin-course-category/search")
-	public String getCourseCategories(@RequestParam(value = "search", required = false) String search, Model model) {
+	public String getCourseCategories(@RequestParam(value = "search", required = false) String search,
+	                                  @RequestParam(defaultValue = "0") int page,
+	                                  Model model) {
+		int pageSize = 5; 
+	    Page<CourseCategory> courseCategoriesPage;
+
 	    if (search != null && !search.isEmpty()) {
-	        List<CourseCategory> courseCategories = courseCategoryService.searchCourseCategoriesByName(search);
-	        int categoryCount = courseCategories.size();
-	        model.addAttribute("courseCategories", courseCategories);
-	        model.addAttribute("categoryCount", categoryCount);
+	    	courseCategoriesPage = courseCategoryService.searchPaginatedCourseCategoriesByName(search, page, pageSize);
+	    	       
 	    } else {
-	        List<CourseCategory> courseCategories = courseCategoryService.getAllCourseCategories();
-	        int categoryCount = courseCategories.size();
-	        model.addAttribute("courseCategories", courseCategories);
-	        model.addAttribute("categoryCount", categoryCount);
+	        courseCategoriesPage = courseCategoryService.getPaginatedCourseCategories(page, pageSize);
+
+       
 	    }
+
+	    model.addAttribute("courseCategories", courseCategoriesPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", courseCategoriesPage.getTotalPages());
+	    model.addAttribute("categoryCount", courseCategoriesPage.getTotalElements());
+	    model.addAttribute("search", search);
 	    model.addAttribute("content", "admin/admin-course-category");
 	    return "/admin/admin-layout";
 	}

@@ -62,4 +62,11 @@ public class CourseMaterialDto {
 	{
 		
 	}
+
+	@Override
+	public String toString() {
+		return "CourseMaterialDto [status=" + status + ", title=" + title + ", content=" + content + ", index=" + index
+				+ "]";
+	}
+	
 }

@@ -57,17 +57,16 @@
 
 						<!-- Nav Search START -->
 						<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-							<div class="nav-item w-100">
+						<!--  	<div class="nav-item w-100">
 								<form class="position-relative">
-									<input class="form-control pe-5 bg-transparent" type="search"
-										placeholder="Search" aria-label="Search">
+									
 									<button
 										class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
 										type="submit">
 										<i class="fas fa-search fs-6"></i>
 									</button>
 								</form>
-							</div>
+							</div>-->
 						</div>
 						<!-- Nav Search END -->
 					</div>
@@ -239,7 +238,7 @@
 						<!-- Profile START -->
 					</div>
 					<div sec:authorize="!isAuthenticated()">
-						<a class="btn btn-success" th:href="@{/auth/login}">Sign in</a>
+						<a class="btn btn-info" th:href="@{/auth/login}">Sign in</a>
 					</div>
 				</div>
 			</nav>

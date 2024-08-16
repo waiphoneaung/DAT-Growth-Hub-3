@@ -10,6 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
@@ -27,11 +30,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
 
-	@Override
-	public List<BlogPost> getAllBlogPosts() {
-
-		return blogPostRepository.findAll();
-	}
 
 	@Override
 	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException {
@@ -91,22 +89,55 @@ public class BlogPostServiceImpl implements BlogPostService {
 	@Override
 	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
 		Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
-		if (existingBlogPostOpt.isPresent()) {
-			BlogPost blogPost = existingBlogPostOpt.get();
-			blogPost.setTitle(blogPostDto.getTitle());
-			blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
-			blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
-			if (blogPostDto.getImageFile() != null && !blogPostDto.getImageFile().isEmpty()) {
-				// Delete the old image if a new one is uploaded
-				fileStorageConfig.deleteFile(blogPost.getBlogImage(), fileUploadDir);
-				blogPost.setBlogImage(blogPostDto.getImageFile());
-			}
 
-			blogPostRepository.save(blogPost);
-		} else {
-			throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
-		}
+        if (existingBlogPostOpt.isPresent()) {
+            BlogPost blogPost = existingBlogPostOpt.get();
+            blogPost.setTitle(blogPostDto.getTitle());
+            blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
+            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            
+            if (blogPostDto.getImageFile() != null && !blogPostDto.getImageFile().isEmpty()) {
+                // Delete the old image if a new one is uploaded
+                fileStorageConfig.deleteFile(blogPost.getBlogImage(), fileUploadDir);
+                blogPost.setBlogImage(blogPostDto.getImageFile());
+            }
+            
+            blogPostRepository.save(blogPost);
+        } else {
+            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
+        }
+    }
+
+	@Override
+	public void updateBlogPostStatus(int id, boolean enabled) {
+		// TODO Auto-generated method stub
+		
 	}
 
+
+//	@Override
+//	public Page<BlogPost> searchBlogPostsByName(String name, Pageable pageable) {
+//		return BlogPostRepository.findByNameContainingIgnoreCaseAndRole(name, "ROLE_STUDENT", pageable);
+//	}
+
+	@Override
+	public List<BlogPost> getAllBlogPosts() {
+		// TODO Auto-generated method stub
+		return blogPostRepository.findAll();
+	}
+
+	@Override
+	public Page<BlogPost> getAllBlogPosts(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return blogPostRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<BlogPost> searchBlogPostsByTitle(String title, Pageable pageable) {
+		
+		return blogPostRepository.findByTitleContainingIgnoreCase(title, pageable);
+	}
+	
 }
+	

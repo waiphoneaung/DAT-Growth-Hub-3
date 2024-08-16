@@ -128,25 +128,12 @@
 					<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
 					<a class="nav-link" th:href="@{/instructor/instructor-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
 					</div>
-					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
+					<a class="nav-link" th:href="@{/user/courses}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
-					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
+					<a class="nav-link" th:href="@{/user/contactus}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
 					<a class="nav-link" th:href="@{/user/about}" id="demoMenu" aria-haspopup="true" aria-expanded="false">About</a>
 				</ul>
 				<!-- Nav Main menu END -->
-
-				<!-- Nav Search START -->
-				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-					<div class="nav-item w-100">
-						<form class="position-relative">
-							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
-							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-								<i class="fas fa-search fs-6 "></i>
-							</button>
-						</form>
-					</div>
-				</div>
-				<!-- Nav Search END -->
 			</div>
 			<!-- Main navbar END -->
 
@@ -220,32 +207,16 @@ Main Content START -->
 
 				<!-- Title and Info START -->
 				<div class="row">
-					<!-- Avatar and Share -->
-					<div class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
-						<div class="text-lg-center">
-							<!-- Author info -->
-							<div class="position-relative">
-								<!-- Avatar -->
-								
-								
-								
-							</div>
-							<!-- Info -->
-							
-						</div>
-					</div>
 
 					<!-- Content -->
 					<div class="col-lg-12 order-1">
 						<!-- Pre title -->
 						
-						
-						
 						<!-- Title -->
 						
 						<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"> </h3>
 						
-						<a href="#" class="h5 stretched-link mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></a>
+						<p class="h5 mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></p>
 						<ul class="list-inline list-unstyled">
 							
 								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
@@ -254,16 +225,11 @@ Main Content START -->
 						
 						<!-- Info -->
 						<!-- Main HTML Content Start -->
-				<div class="col-lg-9 order-1">
-					
-							
-						<a th:href="@{'/private/blog/blog-files/'+ ${blogPost.htmlFileName}}" target="_blank" class="btn btn-secondary">View Post</a>
-            
-				</div>
-				<!-- Main HTML Content End -->
-							<div class="col-lg-9 order-1">
+								<div class="col-lg-9 order-1">
    									 <div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
-										</div>
+								</div>
+						<!-- Main HTML Content End -->
+							
 						</div>
 				</div>
 				<!-- Title and Info END -->
@@ -287,24 +253,14 @@ Main Content START -->
 				<!-- Tags and share END -->
 
 				<hr> <!-- Divider -->
-
 				
-					
 				</div>
 				<!-- Comment review and form END -->
 			</div>
 		</div> <!-- Row END -->
-	</div>
 </section>
 <!-- =======================
 Main Content END -->
-
-<!-- =======================
-Related blog START -->
-
-<!-- =======================
-Related blog END -->
-
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 

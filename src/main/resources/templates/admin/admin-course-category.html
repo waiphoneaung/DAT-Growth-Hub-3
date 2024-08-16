@@ -1,47 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="shortcut icon" th:href="@{public/assets/images/favicon.ico}">
 
-<!-- Google Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
-
-<!-- Plugins CSS -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/aos/aos.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css}">
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
-
-<!-- Theme CSS -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/css/style.css}">
-
-<!-- Favicon -->
-<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
-
-<!-- Theme CSS -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/public/assets/css/style.css}">
-
-
-</head>
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
@@ -58,8 +17,8 @@
 										class="badge bg-orange bg-opacity-10 text-orange"
 										th:text="${categoryCount}"></span>
 								</h1>
-								<a class="btn btn-sm btn-primary mb-0" data-toggle="modal"
-									data-target="#createCategory" data-whatever="Category">Create
+								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
+									data-bs-target="#createCategory" data-whatever="Category">Create
 									a Course Category</a>
 							</div>
 						</div>
@@ -85,7 +44,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
+										data-bs-dismiss="modal">Close</button>
 										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
 								</form>
@@ -104,13 +63,15 @@
 										th:action="@{/admin/admin-course-category/search}"
 										method="get">
 										<input class="form-control bg-body" type="search"
-											name="search" placeholder="Search" aria-label="Search">
+											name="search" th:value="${search}" placeholder="Search"
+											aria-label="Search">
 										<button
 											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
 											type="submit">
 											<i class="fas fa-search fs-6"></i>
 										</button>
 									</form>
+
 								</div>
 							</div>
 						</div>
@@ -144,9 +105,7 @@
 														th:text="${course.courseTitle}"></li>
 												</ul>
 											</td>
-											
 											<td th:text="${category.users.name}"></td>
-											
 											<td><a class="btn btn-sm btn-success me-1 mb-1 mb-md-0"
 												th:data-id="${category.id}" data-bs-toggle="modal"
 												data-bs-target="#editCategory">Edit</a>
@@ -158,126 +117,110 @@
 												</form></td>
 										</tr>
 									</tbody>
+
 								</table>
 							</div>
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
-							<div
-								class="d-sm-flex justify-content-center align-items-sm-center">
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-						</div> 
-                    </div>
-                </div>
+    <div class="d-sm-flex justify-content-center align-items-sm-center">
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <!-- Previous button: only show if not on the first page -->
+                <li th:if="${currentPage > 0}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}" 
+                       tabindex="-1">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
 
+                <!-- Page numbers: show only if totalPages > 1 -->
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active' : ''" 
+                    th:if="${totalPages > 1}" 
+                    class="page-item mb-0">
+                    <a class="page-link" 
+                       th:text="${i + 1}" 
+                       th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
+                </li>
+
+                <!-- Next button: only show if not on the last page -->
+                <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-course-category/search(page=${currentPage + 1}, search=${search})}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
 					</div>
-				
+				</div>
 
-				<!-- Edit Modal Start -->
-				<div th:each="category : ${courseCategories}">
-					<div class="modal fade" id="editCategory" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="editCategory">Edit Course
-										Category</h5>
 
-								</div>
-								<form id="editCategory"
-									th:action="@{/admin/admin-course-category/edit}" method="post">
-									<div class="modal-body">
-										<div class="form-group">
-											<label for="edit-category-name" class="col-form-label">Category
-												Name:</label> <input type="text" class="form-control"
-												id="edit-category-name" name="categoryName"
-												th:value="${category.categoryName}"> <input
-												type="hidden" id="categoryId" name="categoryId">
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Save
-											changes</button>
-									</div>
-								</form>
+			</div>
+
+
+
+			<!-- Edit Modal Start -->
+			<div th:each="category : ${courseCategories}">
+
+				<div class="modal fade" id="editCategory" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="editCategory">Edit Course
+									Category</h5>
+
 							</div>
+							<form th:action="@{/admin/admin-course-category/edit}"
+								method="post">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="edit-category-name" class="col-form-label">Category
+											Name:</label> <input type="text" class="form-control"
+											id="edit-category-name" name="categoryName"
+											th:value="${category.categoryName}"> <input
+											type="hidden" id="categoryId" name="categoryId">
+
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Save
+										changes</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
+			</div>
 		</th:block>
 		<!-- Edit Modal End -->
 	</main>
+
 	<!-- **************** MAIN CONTENT END **************** -->
-	<!-- Bootstrap JS -->
-	<script
-		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
-	<!-- Vendors -->
-	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
-	<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
-	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
-	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
-	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
-	<script
-		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
-	<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
-	<script
-		th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
-
-	<!-- Template Functions -->
-	<script th:src="@{/public/assets/js/functions.js}"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-
-
-	<!-- Template Functions -->
-	<script th:src="@{/public/assets/js/functions.js}"></script>
 	<script>
 		var myModal = document.getElementById('editCategory');
 		myModal.addEventListener('show.bs.modal', function(event) {
 			var button = event.relatedTarget;
 			var categoryId = button.getAttribute('data-id');
 			var input = myModal.querySelector('#categoryId');
+			var display = myModal.querySelector('#edit-category-name');
 			input.value = categoryId;
+			//display.value = 
+			
+			console.log(categoryId);
 		});
 
-		//function editCategoryModal(element) {
-		//	var categoryId = element.getAttribute("data-id");
-		//	var categoryName = element.getAttribute("data-name");
-
-		//	var form = document.getElementById("editCategory");
-		//	form.action = "/admin-course-category/edit/" + categoryId;
-
-		//	var categoryNameInput = document
-		//			.getElementById("edit-category-name");
-		//	categoryNameInput.value = categoryName;
-
-		//	var categoryIdInput = document.getElementById("edit-category-id");
-		//	categoryIdInput.value = categoryId;
-		//}
 	</script>
+
 </body>
 </html>
