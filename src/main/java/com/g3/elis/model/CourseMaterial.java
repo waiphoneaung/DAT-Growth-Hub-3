@@ -30,7 +30,7 @@ public class CourseMaterial {
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
 	
-	@OneToMany(mappedBy = "courseMaterials", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courseMaterials", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
 	private List<InputFile> inputFiles;
 
 	public int getId() {

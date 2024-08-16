@@ -29,7 +29,6 @@ import com.g3.elis.dto.form.CourseMaterialDto;
 import com.g3.elis.dto.form.CourseModuleDto;
 import com.g3.elis.dto.form.InputFileDto;
 import com.g3.elis.dto.form.QuestionDto;
-
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.CourseMaterial;
@@ -39,7 +38,6 @@ import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseCategoryService;
 import com.g3.elis.service.CourseMaterialService;
 import com.g3.elis.service.CourseModuleService;
-
 import com.g3.elis.service.CourseService;
 
 @Controller
@@ -123,6 +121,7 @@ public class AdminCreateCourseController
 
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -180,6 +179,7 @@ public class AdminCreateCourseController
 		}
 		MultipartFile imageFile = imgFile;
 		newSuperDto.setAction(action);
+		model.addAttribute("action",action);
 		model.addAttribute("superDto",newSuperDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -223,6 +223,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
 		model.addAttribute("superDto",superDto);
@@ -258,6 +259,7 @@ public class AdminCreateCourseController
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
 		MultipartFile imageFile = imgFile;
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);
