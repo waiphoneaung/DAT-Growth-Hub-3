@@ -13,7 +13,7 @@ import com.g3.elis.util.SheetData;
 public interface InputFileService {
 	String determineFileType(MultipartFile file);
 	void WriteEmployeeDataFromExcel(MultipartFile excelFile) throws IOException;
-	void saveFile(MultipartFile file);
+	void saveFile(MultipartFile file,String filePath);
 	void saveYouTubeVideoFile(String url);
 	List<InputFile> getAllInputFiles();
 	List<InputFile> getAllImageFiles();

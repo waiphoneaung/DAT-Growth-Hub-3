@@ -3,18 +3,18 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Layout</title>
+<title>DAT - Growth Hub</title>
 <!-- Stylesheets -->
-<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+<th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
 
 <!-- Dark Mode Script -->
-<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+<th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
 </head>
 <body>
 
 	<!-- Header START -->
-	<header class="navbar-light navbar-sticky header-static">
-		<!-- Nav START -->
+	<header class="navbar-light navbar-sticky">
+		<!-- Logo Nav START -->
 		<nav class="navbar navbar-expand-xl">
 			<div class="container-fluid px-3 px-xl-5">
 				<!-- Logo START -->
@@ -35,6 +35,7 @@
 						<span></span>
 					</span>
 				</button>
+
 				<!-- Main navbar START -->
 				<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
 
@@ -42,25 +43,37 @@
 					<ul
 						class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 
-						<a class="nav-link active" th:href="@{/home}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Home</a>
-						<a class="nav-link" th:href="@{/course-list}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Courses</a>
-						<a class="nav-link" th:href="@{/blog}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Blogs</a>
-						<a class="nav-link" th:href="@{/contact-us}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Contact Us</a>
-						<a class="nav-link" href="@{/about}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">About</a>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
+							th:href="@{/admin/admin-dashboard}" id="demoMenu"
+							aria-haspopup="true" aria-expanded="false">Home</a></li>
+						<li sec:authorize="hasRole('ROLE_STUDENT')"><a
+							class="nav-link" th:href="@{/student/student-dashboard}"
+							id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+						</li>
+						<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
+							class="nav-link" th:href="@{/instructor/instructor-dashboard}"
+							id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+						</li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							class="nav-link active" th:href="@{/admin/forum}" id="demoMenu"
+							aria-haspopup="true" aria-expanded="false">Forum</a></li>
+						<li sec:authorize="hasRole('ROLE_STUDENT')"><a
+							class="nav-link active" th:href="@{/student/forum}" id="demoMenu"
+							aria-haspopup="true" aria-expanded="false">Forum</a></li>
+						<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
+							class="nav-link active" th:href="@{/instructor/forum}"
+							id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
+						</li>
 					</ul>
 					<!-- Nav Main menu END -->
 
 					<!-- Nav Search START -->
 					<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
 						<div class="nav-item w-100">
-							<form class="position-relative">
+							<form class="position-relative" method="get" action="#"
+								th:action="@{${map} + '/forum/search'}">
 								<input class="form-control pe-5 bg-transparent" type="search"
-									placeholder="Search" aria-label="Search">
+									name="query" placeholder="Search posts" aria-label="Search">
 								<button
 									class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
 									type="submit">
@@ -72,13 +85,37 @@
 					<!-- Nav Search END -->
 				</div>
 				<!-- Main navbar END -->
+
 				<!-- Profile START -->
 				<div class="dropdown ms-1 ms-lg-0">
 					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 						role="button" data-bs-auto-close="outside"
 						data-bs-display="static" data-bs-toggle="dropdown"
-						aria-expanded="false"> <img class="avatar-img rounded-circle"
-						th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+						aria-expanded="false"> <span
+						th:if="${#authentication.principal.isAdmin()}"> <img
+							class="avatar-img rounded-circle"
+							th:if="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+							alt="avatar"> <img class="avatar-img rounded-circle"
+							th:unless="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+					</span> <!-- Instructor --> <span
+						th:if="${#authentication.principal.isInstructor()}"> <img
+							class="avatar-img rounded-circle"
+							th:if="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+							alt="avatar"> <img class="avatar-img rounded-circle"
+							th:unless="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+					</span> <!-- Student --> <span
+						th:if="${#authentication.principal.isStudent()}"> <img
+							class="avatar-img rounded-circle"
+							th:if="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+							alt="avatar"> <img class="avatar-img rounded-circle"
+							th:unless="${user.profile != null && user.profile.profileImg != null}"
+							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+					</span>
 					</a>
 					<ul
 						class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -88,13 +125,47 @@
 							<div class="d-flex align-items-center">
 								<!-- Avatar -->
 								<div class="avatar me-3">
-									<img class="avatar-img rounded-circle shadow"
-										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+									<span th:if="${#authentication.principal.isAdmin()}"> <img
+										class="avatar-img rounded-circle shadow"
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img
+										class="avatar-img rounded-circle shadow"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+									</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+										class="avatar-img rounded-circle shadow"
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img
+										sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+										class="avatar-img rounded-circle shadow"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+									</span> <span th:if="${#authentication.principal.isStudent()}">
+										<img class="avatar-img rounded-circle shadow"
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img
+										class="avatar-img rounded-circle shadow"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+									</span>
+
 								</div>
 								<div>
-									<a class="h6" th:href="@{/home}">Khine Khine
-										Soe</a>
-									<p class="small m-0">dathr@diracetechnology.com</p>
+									<span th:if="${#authentication.principal.isAdmin()}"> <a
+										class="h6" th:href="@{/admin/admin-dashboard}"
+										th:text="${user.name}"></a>
+									</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="h6" th:href="@{/student/student-dashboard}"
+										th:text="${user.name}"></a>
+									</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="h6" th:href="@{/instructor/instructor-dashboard}"
+										th:text="${user.name}"></a>
+									</span>
+									<p class="small m-0" th:text="${user.email}"></p>
 								</div>
 							</div>
 						</li>
@@ -102,14 +173,20 @@
 							<hr class="dropdown-divider">
 						</li>
 						<!-- Links -->
-						<li><a class="dropdown-item" href="#"><i
-								class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-						<li><a class="dropdown-item" href="#"><i
-								class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
-						<li><a class="dropdown-item" href="#"><i
-								class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
-						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i
-								class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li><span th:if="${#authentication.principal.isAdmin()}">
+								<a class="dropdown-item" th:href="@{/admin/admin-edit-profile}"><i
+									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+						</span> <span th:if="${#authentication.principal.isStudent()}"> <a
+								class="dropdown-item" th:href="@{/student/student-edit-profile}"><i
+									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+						</span> <span th:if="${#authentication.principal.isInstructor()}">
+								<a class="dropdown-item"
+								th:href="@{/instructor/instructor-edit-profile}"><i
+									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+						</span></li>
+						<li><a class="dropdown-item bg-danger-soft-hover"
+							href="/sign-out"><i class="bi bi-power fa-fw me-2"></i>Sign
+								Out</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
@@ -161,323 +238,217 @@
 				<!-- Profile START -->
 			</div>
 		</nav>
-		<!-- Nav END -->
+		<!-- Logo Nav END -->
 	</header>
 	<!-- Header END -->
-
 	<!-- **************** MAIN CONTENT START **************** -->
 	<main>
 		<!-- =======================Inner part START -->
 		<section class="pt-0">
 			<div class="container">
-				<div class="row">
+				<div class="d-flex justify-content-end ">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Add new post</button>
 
-					<!-- Main content START -->
-					<div class="col-xl-12">
-						<!-- Student review START -->
-						<div class="card border bg-transparent rounded-3">
-							<!-- Header START -->
-							<!-- Title -->
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Create
+										a new post</h1>
+								</div>
+								<div class="modal-body">
+									<form method="post" th:action="@{${map} + '/forum'}"
+										th:object="${forumDto}">
+										<div class="mb-3">
+											<label for="recipient-name" class="col-form-label">Enter
+												title</label> <input type="text" class="form-control"
+												id="recipient-name" th:field="*{title}" required />
+										</div>
 
-							<!-- Facebook post button -->
-							<div class="container mt-5">
-								<div class="card">
-									<div class="card-body">
-										<div class="d-flex align-items-center">
-											<img th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar"
-												class="rounded-circle mr-2 me-3 img-small"
-												style="width: 40px; height: 40px;">
-											<button type="button"
-												class="btn btn-light flex-grow-1 text-left rounded-pill"
-												data-bs-toggle="modal" data-bs-target="#addPost">What's
-												on your mind?</button>
+										<div class="mb-3">
+											<label for="message-text" class="col-form-label">Enter
+												your description</label>
+											<textarea class="form-control" id="message-text" rows="7"
+												th:field="*{content}" required></textarea>
+										</div>
+
+										<div class="mb-3">
+											<a class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+											<button type="submit" class="btn btn-primary">Create
+												Post</button>
+										</div>
+									</form>
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+					<!-- Modal end -->
+				</div>
+			</div>
+			<!--  end test form-->
+
+			<div class="row">
+				<!-- Review item END -->
+				<!-- Main content START -->
+				<div class="col-xl-12">
+					<!-- Student review START -->
+					<div class="card border bg-transparent rounded-3 container">
+						<!-- Header START -->
+						<!-- Title -->
+
+						<!-- Reviews START -->
+						<div class="card-body mt-2 mt-sm-4">
+
+
+							<!-- Review item START -->
+							<div class="d-sm-flex mb-5 " th:each="forum : ${forums}">
+								<!-- Avatar image -->
+
+								<div
+									th:if="${forum.users.profile!= null && forum.users.profile.profileImg != null}"
+									th:each="role : ${forum.users.roles}">
+									<span th:if="${role.name} == 'ROLE_ADMIN'"> <img
+										class="avatar avatar-lg rounded-circle float-start me-3"
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
+										alt="avatar" />
+									</span> <span th:if="${role.name} == 'ROLE_INSTRUCTOR'"> <img
+										class="avatar avatar-lg rounded-circle float-start me-3"
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}} "
+										alt="avatar" />
+									</span> <span th:if="${role.name} == 'ROLE_STUDENT'"> <img
+										class="avatar avatar-lg rounded-circle float-start me-3"
+										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
+										alt="avatar" />
+									</span>
+								</div>
+								<div
+									th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}">
+									<img class="avatar avatar-lg rounded-circle float-start me-3"
+										th:unless="${forum.users.profile != null && forum.users.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar" />
+								</div>
+
+								<div class=" " style="width: 100%">
+									<div
+										class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+										<!-- Title -->
+										<div>
+											<h5 class="m-0" th:text="${forum.users.name}"></h5>
+											<p th:text="${forum.users.profile.address}"></p>
+
+											<span class="me-3 small"
+												th:text="${#dates.format(forum.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
+
+										</div>
+										<!-- Review star -->
+									</div>
+									<!-- Content -->
+
+									<h3 th:text="${forum.title}"></h3>
+
+									<p th:utext="${forum.content}"></p>
+									<!-- Comment -->
+									<div th:each="forumComment : ${forum.forumComments}"
+										class="mb-2">
+										<div th:if="${forum.id} == ${forumComment.forums.id}">
+											Replied by: <span class=""
+												style="color: red; font-size: 1rem;"
+												th:text="${forumComment.users.name}"></span>
+												 <span
+												class="me-3 small"
+											 	th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
+
+ 
+ 					<p th:text="${forumComment.comment}"></p>
 										</div>
 									</div>
-								</div>
-							</div>
-							<!-- Popup modal for add lecture START -->
-							<div class="modal fade" id="addPost" tabindex="-1"
-								aria-labelledby="postLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-dark">
-											<h5 class="modal-title text-white" id="postLabel">Add
-												Lecture</h5>
-											<button type="button"
-												class="btn btn-sm btn-light mb-0 ms-auto"
-												data-bs-dismiss="modal" aria-label="Close">
-												<i class="bi bi-x-lg"></i>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form class="row text-start g-3">
-												<!-- Course name -->
-												<div class="col-12">
-													<label class="form-label">Course name <span
-														class="text-danger">*</span></label> <input type="text"
-														class="form-control" placeholder="Enter course name">
-												</div>
+									<!-- Button -->
+									<div class="text-end">
+										<a class="btn  btn-primary mb-0 " data-bs-toggle="collapse"
+											th:href="'#collapseComment' + ${forum.id}" role="button"
+											aria-expanded="false"
+											aria-controls="'collapseComment' + ${forum.id}"> Add
+											Comment </a>
+										<!-- collapse textarea -->
+										<div class="collapse" th:id="'collapseComment' + ${forum.id}">
+											<form class="d-flex mt-3" method="post"
+												th:action="@{${map} + '/comment'(forumId=${forum.id})}"
+												th:object="${forumCommentDto}">
+												<textarea class="form-control mb-0"
+													placeholder="Add a comment..." rows="2" style="width: 100%"
+													spellcheck="false" th:field=*{comment} required></textarea>
+												<button type="submit"
+													class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
+													<i class="fas fa-paper-plane fs-5"></i>
+												</button>
 											</form>
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger-soft my-0"
-												data-bs-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-success my-0">Save
-												Lecture</button>
-										</div>
 									</div>
+									<hr class="mt-4">
 								</div>
+
 							</div>
-							<!-- Popup modal for add lecture END -->
 
-							<!-- Reviews START -->
-							<div class="card-body mt-2 mt-sm-4">
 
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Frances Guerrero</h5>
-												<span class="me-3 small">June 11, 2021 at 6:01 am </span>
-											</div>
-											<!-- Review star -->
 
-										</div>
-										<!-- Content -->
-										
-										<p>Satisfied conveying a dependent contented he gentleman
-											agreeable do be. Warrant private blushes removed an in
-											equally totally if. Delivered dejection necessary objection
-											do Mr prevailed. Mr feeling does chiefly cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											
-												<a class="btn btn-sm btn-light mb-0"
-												data-bs-toggle="collapse" href="#collapseComment"
-												role="button" aria-expanded="false"
-												aria-controls="collapseComment"> Reply </a>
-											<!-- collapse textarea -->
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
+							<!-- Review item END -->
+
+							<div class="card-footer">
+								<!-- Check if there are no results -->
+								<div th:if="${totalPages == 0}" class="text-center">
+									<p>No results found.</p>
 								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
 
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/03.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Louis Ferguson</h5>
-												<span class="me-3 small">June 18, 2021 at 11:55 am</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Far advanced settling say finished raillery. Offered
-											chiefly farther Satisfied conveying a dependent contented he
-											gentleman agreeable do be. Warrant private blushes removed an
-											in equally totally if. Delivered dejection necessary
-											objection do Mr prevailed. Mr feeling does chiefly cordial in
-											do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											 
-												<a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{publlic/assets/images/avatar/05.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Carolyn Ortiz</h5>
-												<span class="me-3 small">August 28, 2021 at 3:08 pm</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Offered chiefly farther Satisfied conveying a dependent
-											contented he gentleman agreeable do be. Warrant private
-											blushes removed an in equally totally if. Delivered dejection
-											necessary objection do Mr prevailed. Mr feeling does chiefly
-											cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											
-												<a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/08.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Dennis Barrett</h5>
-												<span class="me-3 small">August 29, 2021 at 5:35 pm</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Chiefly farther Satisfied conveying a dependent
-											contented he gentleman agreeable do be. Warrant private
-											blushes removed an in equally totally if. Delivered dejection
-											necessary objection do Mr prevailed. Mr feeling does chiefly
-											cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											 <a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Divider -->
-								<hr>
-								<!-- Review item END -->
-
-								<!-- Review item START -->
-								<div class="d-sm-flex">
-									<!-- Avatar image -->
-									<img class="avatar avatar-lg rounded-circle float-start me-3"
-										th:src="@{/public/assets/images/avatar/09.jpg}" alt="avatar">
-									<div>
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0">Carolyn Ortiz</h5>
-												<span class="me-3 small">September 15, 2021 at 8:28
-													am</span>
-											</div>
-											<!-- Review star -->
-
-										</div>
-										<!-- Content -->
-										
-										<p>Chiefly farther Satisfied conveying a dependent
-											contented he gentleman agreeable do be. Warrant private
-											blushes removed an in equally totally if. Delivered dejection
-											necessary objection do Mr prevailed. Mr feeling does chiefly
-											cordial in do.</p>
-										<!-- Button -->
-										<div class="text-end">
-											 <a href="#" class="btn btn-sm btn-light mb-0">Reply</a>
-											<div class="collapse show" id="collapseComment">
-												<div class="d-flex mt-3">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2" spellcheck="false"></textarea>
-													<button
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Review item END -->
-							</div>
-							<!-- Reviews END -->
-
-							<div class="card-footer border-top">
 								<!-- Pagination START -->
-								<div
+								<div th:if="${totalPages > 0}"
 									class="d-sm-flex justify-content-sm-center align-items-sm-center">
-									<!-- Content -->
-									<!-- Pagination -->
 									<nav class="d-flex justify-content-center mb-0"
 										aria-label="navigation">
 										<ul
 											class="pagination pagination-sm pagination-primary-soft my-0 py-0">
-											<li class="page-item my-0"><a class="page-link" href="#"
-												tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-											<li class="page-item my-0"><a class="page-link" href="#">1</a></li>
-											<li class="page-item my-0 active"><a class="page-link"
-												href="#">2</a></li>
-											<li class="page-item my-0"><a class="page-link" href="#">3</a></li>
-											<li class="page-item my-0"><a class="page-link" href="#"><i
-													class="fas fa-angle-right"></i></a></li>
+
+											<!-- Previous Page Link -->
+											<li class="page-item my-0"
+												th:classappend="${currentPage == 0} ? 'disabled' : ''">
+												<a class="page-link"
+												th:href="@{${map} + '/forum'(page=${currentPage - 1}, size=${size})}"
+												tabindex="-1"> <i class="fas fa-angle-left"
+													th:classappend="${currentPage == 0} ? 'd-none' : ''"></i>
+											</a>
+											</li>
+
+											<!-- Page Number Links -->
+											<li class="page-item my-0"
+												th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+												th:classappend="${i == currentPage} ? 'active' : ''"><a
+												class="page-link"
+												th:href="@{${map} + '/forum'(page=${i}, size=${size})}"
+												th:text="${i + 1}"></a></li>
+
+											<!-- Next Page Link -->
+											<li class="page-item my-0"
+												th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''">
+												<a class="page-link"
+												th:href="@{${map} + '/forum'(page=${currentPage + 1}, size=${size})}">
+													<i class="fas fa-angle-right"
+													th:classappend="${currentPage + 1 >= totalPages} ? 'd-none' : ''"></i>
+											</a>
+											</li>
+
 										</ul>
 									</nav>
 								</div>
 								<!-- Pagination END -->
+
 							</div>
 						</div>
 						<!-- Student review END -->
@@ -489,63 +460,15 @@
 		</section>
 		<!-- =======================
 Inner part END -->
-
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
 
-	<!-- =======================
-Footer START -->
-	<footer class="bg-dark p-3">
-		<div class="container">
-			<div class="row align-items-center">
-				<!-- Widget -->
-				<div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-					<!-- Logo START -->
-					<a th:href="@{/home"> <img class="h-20px"
-						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
-					</a>
-				</div>
 
-				<!-- Widget -->
-				<div class="col-md-4 mb-3 mb-md-0">
-					<div class="text-center text-white text-primary-hover">
-						Copyrights ©2024 DAT . Build by <a
-							href="https://www.diracetechnology.com/" target="_blank"
-							class="text-white">DAT - Elearning Hub</a>.
-					</div>
-				</div>
-				<!-- Widget -->
-				<div class="col-md-4">
-					<!-- Rating -->
-					<ul class="list-inline mb-0 text-center text-md-end">
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-facebook"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-instagram"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-linkedin-in"></i></a></li>
-						<li class="list-inline-item ms-2"><a href="#"><i
-								class="text-white fab fa-twitter"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- =======================
-Footer END -->
 
-	<!-- Back to top -->
-	<div class="back-top">
-		<i
-			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
-	</div>
+	<!-- Include footer -->
+	<div th:replace="instructor/instructor-footer :: instructor-footer"></div>
 
 	<!-- Scripts -->
-	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
-	<!-- Template Functions -->
-	<script th:src="@{/public/assets/js/functions.js}"></script>
-
+	<th:block th:replace="fragments/scripts :: scripts"></th:block>
 </body>
-
-<!-- Mirrored from diracetechnology.com/instructor-review.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:23:00 GMT -->
 </html>
