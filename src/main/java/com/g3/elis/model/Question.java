@@ -30,7 +30,7 @@ public class Question {
 	@JoinColumn(name = "course_assignment_id", nullable = false)
 	private CourseAssignment courseAssignments;
 	
-	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	List<Answer> answers;
 
 	public int getId() {

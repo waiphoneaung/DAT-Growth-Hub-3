@@ -16,8 +16,6 @@ import com.g3.elis.repository.CourseModuleRepository;
 import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.service.CourseModuleService;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class CourseModuleServiceImpl implements CourseModuleService{
 
@@ -69,15 +67,19 @@ public class CourseModuleServiceImpl implements CourseModuleService{
 	@Override
 	public void deleteCourseModuleById(int moduleId) {
 	    CourseModule courseModule = courseModuleRepository.findById(moduleId).orElse(null);
+	    List<CourseMaterial> deleteCourseMaterialList = new ArrayList<CourseMaterial>();
 	    if (courseModule != null) 
 	    {
 	        courseModule.setCourses(null);
 	        for (CourseMaterial courseMaterial : courseModule.getCourseMaterials()) 
 	        {
 	            courseMaterial.setCourseModules(null);
-	            courseMaterialRepository.delete(courseMaterial);
+	            deleteCourseMaterialList.add(courseMaterial);
 	        }
+	        courseModule.setCourses(null);
 	        courseModuleRepository.delete(courseModule);
+	        
+	        for(CourseMaterial courseMaterial : deleteCourseMaterialList) courseMaterialRepository.delete(courseMaterial);
 	    }
 	}
 

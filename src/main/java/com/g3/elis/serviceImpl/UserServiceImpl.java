@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.g3.elis.model.Role;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.RoleRepository;
 import com.g3.elis.repository.UserRepository;
+import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.UserService;
 
 @Service
@@ -131,8 +134,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getCurrentUser() {
-		// TODO Auto-generated method stub
-		return null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		User user = userDetail.getUser();
+		return user;
 	}
 
 	

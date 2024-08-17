@@ -65,7 +65,7 @@
 					th:action="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}"
 					th:object="${courseMaterialDto}" method="POST" enctype="multipart/form-data">
 					<!-- Step 1 content START -->
-					<div class="content fade">
+					<div>
 						<!-- Title -->
 						<h4>Materials details</h4>
 
@@ -91,8 +91,7 @@
 							<div class="d-flex justify-content-between mt-3">
 								<a class="btn btn-warning next-btn mb-0"
 									th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
-								<a class="btn btn-primary next-btn mb-0"
-									th:href="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}">Confirm</a>
+								<button class="btn btn-primary next-btn mb-0" type="submit">Confirm</button>
 							</div>
 						</div>
 						<!-- Basic information START -->

@@ -29,10 +29,10 @@ public class CourseModule {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	
-	@OneToMany(mappedBy = "courseModules", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "courseModules", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<CourseMaterial> courseMaterials;
 	
-	@OneToMany(mappedBy = "courseModules", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "courseModules", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<CourseAssignment> courseAssignment;
 	
 	@ManyToOne

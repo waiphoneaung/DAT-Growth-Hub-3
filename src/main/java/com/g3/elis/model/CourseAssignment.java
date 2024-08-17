@@ -29,7 +29,7 @@ public class CourseAssignment {
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
 	
-	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	List<Question> questions;
 
 	public int getId() {
