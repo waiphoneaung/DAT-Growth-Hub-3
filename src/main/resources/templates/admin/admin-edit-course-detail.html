@@ -44,8 +44,7 @@
 									<div class="row g-4">
 										<!-- Course image -->
 										<div class="col-md-6">
-											<img
-												th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+											<img th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
 												class="rounded" alt="">
 										</div>
 										<!-- Course info and avatar -->
@@ -245,8 +244,8 @@
 																class="d-flex justify-content-between align-items-center mb-2">
 																<div class="position-relative d-flex align-items-center">
 																	<a href="#"
-																		class="btn btn-success btn-round btn-sm mb-0 stretched-link position-static">
-																		<i class="fas fa-play me-0"></i>
+																		class="btn btn-primary btn-round btn-sm mb-0 stretched-link position-static">
+																		<i class="fas fa-question me-0"></i>
 																	</a> <span
 																		class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-150px w-sm-200px"
 																		th:text="${courseAssignment.title}"></span>
@@ -256,7 +255,7 @@
 															<a  th:href="@{/admin/admin-edit-course-detail/edit-assignment(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
 																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
-																th:href="@{/admin/admin-edit-course-detail/delete-assignment(courseId=${courseId}, courseAssignmentId=${courseMaterials.id})}"
+																th:href="@{/admin/admin-edit-course-detail/delete-assignment(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-danger mb-0">Delete</a>
 															<hr class="mb-0">
 														</div>

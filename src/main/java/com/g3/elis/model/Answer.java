@@ -20,7 +20,7 @@ public class Answer {
     private boolean correctStatus;
 	
 	@ManyToOne
-	@JoinColumn(name ="question_id", nullable = false)
+	@JoinColumn(name ="question_id")
 	private Question questions;
 
 	public int getId() {

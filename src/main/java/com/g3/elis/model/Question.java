@@ -27,7 +27,7 @@ public class Question {
 	private boolean correctStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "course_assignment_id", nullable = false)
+	@JoinColumn(name = "course_assignment_id")
 	private CourseAssignment courseAssignments;
 	
 	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
