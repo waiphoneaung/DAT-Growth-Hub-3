@@ -17,7 +17,7 @@ public interface BlogPostService {
 
 	 List<BlogPost> getAllBlogPosts();
 
-	void saveBlogPost(@Valid BlogPostDto blogPostDto) throws IOException;
+	//void saveBlogPost(@Valid BlogPostDto blogPostDto) throws IOException;
 
 	 BlogPost findById(int id);
 	
@@ -37,7 +37,7 @@ public interface BlogPostService {
 
 	Page<BlogPost> getPaginatedBlogPosts(int page, int size);
     
- // void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
+  void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
   void deleteBlogPost(int id) throws IOException;
     

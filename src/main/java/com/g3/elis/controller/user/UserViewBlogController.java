@@ -157,7 +157,7 @@ public class UserViewBlogController {
 		                Files.write(Paths.get(filePath), content.getBytes());
 		            }
 
-		            blogPostService.saveBlogPost(blogPostDto);
+		            blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
 		            return "redirect:/user/user-blog-detail";
 
 		        } catch (IOException e) {

@@ -277,7 +277,7 @@ Steps START -->
 												<div class="form-group">
 
 													<!-- Editor toolbar -->
-													<label for="htmlContent">Content</label>
+													<label for="content">Content</label>
 													<div
 														class="bg-light border border-bottom-0 rounded-top py-3"
 														id="quilltoolbar1">
@@ -319,10 +319,10 @@ Steps START -->
 													<div
 														class="bg-body border rounded-bottom h-400px overflow-hidden"
 														id="quilleditor1"></div>
-													<input type="hidden" id="htmlContent" name="htmlContent" >
+													<input type="hidden" id="content" name="content" >
 													
 													<th:block th:utext="${blogPostDto.htmlFileName}"></th:block>
-													<th:block th:utext="${htmlContent}"></th:block>
+													<th:block th:utext="${content}"></th:block>
 													
 												</div>
 
@@ -435,9 +435,9 @@ Steps END -->
         theme: 'snow'
     });
 
-    var htmlContent = /*[[${htmlContent}]]*/ '';
-    console.log(htmlContent); 
-    blogPost.setContents(blogPost.clipboard.convert(htmlContent)); 
+    var content = /*[[${content}]]*/ '';
+    console.log(content); 
+    blogPost.setContents(blogPost.clipboard.convert(content)); 
     
     blogPost.on('text-change', function(delta, source) {
         var blogPostContent = blogPost.root.innerHTML;
@@ -466,7 +466,7 @@ Steps END -->
         var completeHtml = headerContent + blogPostContent + footerContent;
 
         // Updating the hidden input with the complete HTML
-        document.querySelector('#htmlContent').value = completeHtml;
+        document.querySelector('#content').value = completeHtml;
     });
 </script>
  

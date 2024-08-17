@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
+
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
@@ -26,15 +26,15 @@ import com.g3.elis.service.BlogPostService;
 public class BlogPostServiceImpl implements BlogPostService {
 
 	
-	private final String fileUploadDir = "/blog/blog-images";
+	private final String fileUploadDir =  "/blog/blog-images";
+	public final String BLOG_HTML_PATH = "/blog/blog-files/";
 
 	@Autowired
 	private BlogPostRepository blogPostRepository;
 
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
-
-	
+/*	
 	@Override
 	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException {
 
@@ -55,6 +55,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 		blogPostRepository.save(blogPost);
 
 	}
+	*/
 
 	@Override
 	public BlogPost findById(int id) {
@@ -114,16 +115,16 @@ public class BlogPostServiceImpl implements BlogPostService {
     public BlogPost findById(int id) {
         return blogPostRepository.findById(id).orElse(null);
     }
-
+*/
     @Override
-    public void saveBlogPost(BlogPostDto blogPostDto, String htmlContent, MultipartFile imgFile) throws IOException {
+    public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
         BlogPost blogPost = new BlogPost();
 
         if (blogPostDto.getId() > 0) {
             BlogPost existingBlogPost = blogPostRepository.findById(blogPostDto.getId()).orElse(null);
             if (existingBlogPost != null) {
           //      blogPost = existingBlogPost;
-            	updateBlogPost(blogPostDto, htmlContent, imgFile);
+            	//updateBlogPost(blogPostDto, content, imgFile);
                 blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
                 
                 
@@ -134,19 +135,21 @@ public class BlogPostServiceImpl implements BlogPostService {
             blogPost.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         }
 
-        fileStorageConfig.saveHTMLFile(htmlContent, BLOG_HTML_PATH, blogPostDto.getHtmlFileName());
+        fileStorageConfig.saveHTMLFile(content, BLOG_HTML_PATH, blogPostDto.getHtmlFileName());
         blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setUsers(blogPostDto.getUsers());
 
         if (imgFile != null && !imgFile.isEmpty()) {
             String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
-            fileStorageConfig.saveFile(imgFile, newImageFileName, htmlContent);
+            fileStorageConfig.saveFile(imgFile, newImageFileName, fileUploadDir);
             blogPost.setBlogImage(newImageFileName);
         }
         
         blogPostRepository.save(blogPost);
     }
+    
+    /*
 
     @Override
     public void deleteBlogPost(int id) throws IOException {
@@ -169,7 +172,7 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public void updateBlogPost(BlogPostDto blogPostDto, String htmlContent, MultipartFile imgFile) throws IOException {
+    public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
         Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
 
         if (existingBlogPostOpt.isPresent()) {
@@ -177,7 +180,7 @@ public class BlogPostServiceImpl implements BlogPostService {
             blogPost.setTitle(blogPostDto.getTitle());
             blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
-            fileStorageConfig.saveHTMLFile(htmlContent, BLOG_HTML_PATH, blogPost.getHtmlFileName());
+            fileStorageConfig.saveHTMLFile(content, BLOG_HTML_PATH, blogPost.getHtmlFileName());
 
             if (imgFile != null && !imgFile.isEmpty()) {
                 fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());

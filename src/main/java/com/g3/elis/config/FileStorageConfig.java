@@ -43,6 +43,9 @@ public class FileStorageConfig {
 		Path targetLocation = getUploadDir(path).resolve(fileName);
 		Files.write(targetLocation, content.getBytes());
 	}
-	
+	 public String readFileContent(String fileName, String path) throws IOException {
+	        Path filePath = getUploadDir(path).resolve(fileName);
+	        return Files.readString(filePath);
+	    }
 	
 }

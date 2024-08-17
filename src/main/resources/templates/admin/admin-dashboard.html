@@ -186,6 +186,8 @@
 			<!-- Ticket END -->
 		</div>
 		<!-- Chart and Ticket END -->
+		
+		
 
 		<!-- Top listed Cards START -->
 		<div class="row g-3">
@@ -494,6 +496,9 @@
 
 		</div>
 		<!-- Top listed Cards END -->
+		
+		<!-- Tabs content item START -->
+
 
 		<!-- Report Table Row Starts Here-->
 		<div class="container mt-5">
@@ -530,15 +535,104 @@
 			<div class="row justify-content-end">
 				<form>
 					<div class="col-4">
-						<button>Export Data.</button>
+						<a class= "btn btn-primary b">Export Data.</a>
 					</div>
 				</form>
 			</div>
 		</div>
 		<!-- Report Table Row Ends Here-->
-	</div>
+		
+										
+									<!-- Table START -->
+									<div class="table-responsive border-0 mt-3 mb-3">
+									<h2>Course Progress & Completion Report Table</h2>
+										<table
+											class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+											<!-- Table head -->
+											<thead>
+												<tr>
+													<th scope="col" class="border-0 rounded-start">Student
+														Name</th>
+													<th scope="col" class="border-0">Staff-ID</th>
+													<th scope="col" class="border-0">Course Name</th>
+													<th scope="col" class="border-0">Module Completed</th>
+													<th scope="col" class="border-0">Assignment Submitted</th>
+													<th scope="col" class="border-0">Exam Status</th>
+													<th scope="col" class="border-0">Final Grade</th>
+													<th scope="col" class="border-0">Progress Percentage</th>
+													<th scope="col" class="border-0">Completion Status</th>
+													<th scope="col" class="border-0">Final Grade</th>
+
+													<th scope="col" class="border-0 rounded-end">Action</th>
+												</tr>
+											</thead>
+
+											<!-- Table body START -->
+											<tbody>
+
+												<!-- Table row -->
+												<tr  th:if="${#lists.isEmpty(users) == false}" th:each="user : ${users}" >
+													<!-- Table data -->
+													<td>
+														<div class="d-flex align-items-center position-relative">
+															<!-- Image -->
+															<div class="avatar avatar-md">
+																<img th:src="@{/public/assets/images/avatar/09.jpg}"
+																	class="rounded-circle" alt>
+															</div>
+															<div class="mb-0 ms-3">
+																<!-- Title -->
+																<h6 class="mb-0">
+																	<a href="#" class="stretched-link"
+																		th:text="${user.name}"></a>
+																</h6>
+																<span class="text-body small" th:text="${user.division}"><i
+																	class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i></span>
+															</div>
+														</div>
+													</td>
+
+													<!-- Table data -->
+
+
+													<td th:text="${user.staffId}"></td>
+													<td th:text="${user.courses}"></td>
+
+													<!-- Table data -->
+													<!--<td th:text="${user.doorLogNo}"></td>-->
+
+													<!-- Table data -->
+													<td th:text="${user.dept}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.team}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.email}"></td>
+
+													<!-- Table data -->
+													<td th:text="${user.status}"></td>
+
+													<!-- Table data -->
+													<td>
+														
+													</td>
+
+												</tr>
+
+											</tbody>
+											<!-- Table body END -->
+										</table>
+									</div>
+									<!-- Table END -->
+								</div>
+								<!-- Tabs content item END -->
+
+							</div>
+							<!-- Tabs content END -->
+	
+	
 	<!-- Page main content END -->
-</div>
 <!-- Page content END -->
 </th:block>
 </main>
