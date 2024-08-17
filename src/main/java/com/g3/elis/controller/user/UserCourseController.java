@@ -1,28 +1,39 @@
-package com.g3.elis.controller.admin;
+package com.g3.elis.controller.user;
 
 
-import java.io.IOException;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.model.Course;
+
 import com.g3.elis.service.CourseService;
 
-@Controller
-@RequestMapping("/admin")
-public class AdminCourseListController {
 
+@Controller
+@RequestMapping("/user")
+public class UserCourseController {
 	@Autowired
 	private CourseService courseService;
 	
-	@GetMapping("/admin-course-list")
+	
+//	@GetMapping("/courses")
+//	public String getAllCourses(Model model) {
+//	    List<Course> courses = courseService.getAllCourse();
+//	    
+//	    model.addAttribute("courses", courses);
+//	    model.addAttribute("content","user/courses");
+//	    return "/user/layout";
+//	}
+	
+	@GetMapping("/courses")
 	public String adminCourseList(Model model,
 	                              @RequestParam(name = "page", defaultValue = "0") int page,
 	                              @RequestParam(name = "size", defaultValue = "10") int size,
@@ -47,42 +58,12 @@ public class AdminCourseListController {
 	    model.addAttribute("courses", coursePage.getContent());
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", coursePage.getTotalPages());
-	    model.addAttribute("content", "admin/admin-course-list");
+	    model.addAttribute("content","user/courses");
+         return "/user/layout";
+	}
+	
+	
 
-	    return "/admin/admin-layout";
-	}
 
-	@GetMapping("/admin-course-list/approve")
-	public String adminApproveRequest(@RequestParam(name="courseId")int courseId)
-	{
-		courseService.editCourse(courseId, "Activated");
-		return "redirect:/admin/admin-course-list";
-	}
-	
-	@GetMapping("/admin-course-list/reject")
-	public String adminRejectRequest(@RequestParam(name="courseId")int courseId)
-	{
-		courseService.editCourse(courseId, "Rejected");
-		return "redirect:/admin/admin-course-list";
-	}
-	
-	@GetMapping("/admin-course-list/delete")
-	public String adminDeleteCourse(@RequestParam(name="courseId")int courseId) throws IOException
-	{
-		courseService.deleteCourse(courseId);
-		return "redirect:/admin/admin-course-list";
-	}
-	
-	@GetMapping("/admin-course-list/cancel")
-	public String adminCancelReject(@RequestParam(name="courseId")int courseId)
-	{
-		courseService.editCourse(courseId, "Pending");
-		return "redirect:/admin/admin-course-list";
-	}
-	
-	@GetMapping("/admin-course-detail")
-	public String adminCourseDetail(Model model)
-	{
-		return "/admin/admin-course-detail";
-	}
+
 }

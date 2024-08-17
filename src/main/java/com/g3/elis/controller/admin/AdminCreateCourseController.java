@@ -58,6 +58,7 @@ public class AdminCreateCourseController
 	private CourseService courseService;
 	
 	@Autowired
+
 	private CourseModuleService courseModuleService;
 	
 	@Autowired
@@ -89,6 +90,7 @@ public class AdminCreateCourseController
 									@RequestParam(name = "courseInfo",required=false)String courseInfo,
 									@RequestParam(name = "image",required=false)MultipartFile imgFile,
 									@RequestParam(name = "action")String action,
+
 									Model model) 
 	{
 		List<CourseCategory> courseCategoryList = courseCategoryService.getAllCourseCategories();
@@ -103,6 +105,7 @@ public class AdminCreateCourseController
 			newSuperDto.setQuestionDtoList(new ArrayList<QuestionDto>());
 			newSuperDto.setAnswerDtoList(new ArrayList<AnswerDto>());
 			newSuperDto.setAction(action);
+
 			MultipartFile imageFile = imgFile;
 			model.addAttribute("superDto",newSuperDto);
 			model.addAttribute("imgFile",imageFile);
@@ -115,12 +118,14 @@ public class AdminCreateCourseController
 		if(durationHour != null) superDto.getCourseDto().setDurationHour(durationHour);
 		else superDto.getCourseDto().setDurationHour(0);
 		superDto.getCourseDto().setCourseInfo(courseInfo);
+
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
 		model.addAttribute("action",action);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
+
 		return "/admin/admin-create-course";
 	}
 	
@@ -258,6 +263,7 @@ public class AdminCreateCourseController
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("imgFile",imageFile);
+
 		return "/admin/admin-create-course";
 
 	}

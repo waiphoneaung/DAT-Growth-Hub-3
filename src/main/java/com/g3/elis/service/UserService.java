@@ -7,7 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 
 import com.g3.elis.dto.form.UserDto;
-
+import com.g3.elis.model.Course;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
 
 public interface UserService {
@@ -32,5 +33,7 @@ public interface UserService {
 	Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable);
 
 	void changePassword(User user, String newPassword);
+	
+	public boolean isUserEnrolled(String username, Long courseId);
 
 }
