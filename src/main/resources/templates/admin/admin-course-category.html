@@ -41,17 +41,11 @@
 										<div class="form-group">
 											<label for="category-name" class="col-form-label">Category
 												Name:</label> <input type="text" class="form-control"
-												id="category-name" name="categoryName">
+												id="category-name" name="categoryName" required>
 										</div>
 									</div>
 									<div class="modal-footer">
-<<<<<<< HEAD
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">Close</button>
-=======
-										<button type="button" class="btn btn-secondary data-bs-dismiss="modal">Close</button>
-
->>>>>>> 5a91fa1a8cb685b4bc91ef3150016811a2685600
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
 								</form>
@@ -130,20 +124,6 @@
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
-<<<<<<< HEAD
-							<div
-								class="d-sm-flex justify-content-center align-items-sm-center">
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<!-- Previous button: only show if not on the first page -->
-										<li th:if="${currentPage > 0}" class="page-item mb-0"><a
-											class="page-link"
-											th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}"
-											tabindex="-1"> <i class="fas fa-angle-left"></i>
-										</a></li>
-=======
 
     <div class="d-sm-flex justify-content-center align-items-sm-center">
         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
@@ -156,7 +136,6 @@
                         <i class="fas fa-angle-left"></i>
                     </a>
                 </li>
->>>>>>> 5a91fa1a8cb685b4bc91ef3150016811a2685600
 
 										<!-- Page numbers: show only if totalPages > 1 -->
 										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
