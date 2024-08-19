@@ -176,11 +176,11 @@
 														class="btn btn-sm btn-secondary-soft mb-0">Reject</a>
 												</div>
 												<div th:if="${course.status} == 'Activated'">
-													<a
-														th:href="@{/admin/admin-create-course/{courseId}/{action}(courseId=${course.id}, action='edit')}"
-														class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a> <a
+													<!-- <a
+														th:href="@{/admin/create-course/{courseId}/{action}(courseId=${course.id}, action='edit')}"
+														class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a> --> <a
 														th:href="@{/admin/edit-course-detail(courseId=${course.id})}"
-														class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Modify</a>
+														class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit</a>
 													<a
 														th:href="@{/admin/admin-course-list/cancel(courseId=${course.id})}"
 														class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Ban</a>
