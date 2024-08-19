@@ -87,7 +87,6 @@ public class CreateCourseController
 									@RequestParam(name = "courseInfo",required=false)String courseInfo,
 									@RequestParam(name = "image",required=false)MultipartFile imgFile,
 									@RequestParam(name = "action")String action,
-
 									Model model) 
 	{
 		List<CourseCategory> courseCategoryList = courseCategoryService.getAllCourseCategories();
@@ -116,7 +115,7 @@ public class CreateCourseController
 
 		superDto.setAction(action);
 		MultipartFile imageFile = imgFile;
-		model.addAttribute("action",action);
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("superDto",superDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -172,7 +171,7 @@ public class CreateCourseController
 		}
 		MultipartFile imageFile = imgFile;
 		newSuperDto.setAction(action);
-		model.addAttribute("action",action);
+		model.addAttribute("action",superDto.getAction());
 		model.addAttribute("superDto",newSuperDto);
 		model.addAttribute("courseCategories",courseCategoryList);
 		model.addAttribute("imgFile",imageFile);
@@ -239,11 +238,11 @@ public class CreateCourseController
 									  @RequestParam(name = "image",required=false)MultipartFile imgFile,
 									  Model model)
 	{
-		if(action.equalsIgnoreCase("add"))
+		if(superDto.getAction().equalsIgnoreCase("add"))
 		{
 			superDto.getCourseMaterialDtoList().add(courseMaterialDtoService.createMaterialDto(index,title,content));
 		}
-		else if(action.equalsIgnoreCase("edit"))
+		else if(superDto.getAction().equalsIgnoreCase("edit"))
 		{
 			superDto.setCourseMaterialDtoList(courseMaterialDtoService.editMaterialDto(index, title, content, superDto));
 		}
@@ -264,18 +263,6 @@ public class CreateCourseController
 
 	}
 	
-	@GetMapping("/create-course/quiz")
-	public String adminCreateQuiz(@ModelAttribute("superDto")CourseCreationSuperDto superDto,
-								  @RequestParam("courseModuleId")int moduleId,
-								  @RequestParam(name = "assignment-title",required = false)String assignmentTitle,
-					      	 	  Model model)
-	{
-		superDto.getCourseAssignmentDtoList().add(courseAssignmentDtoService.createAssignmentDto(assignmentTitle));
-		model.addAttribute("moduleId",moduleId);
-		model.addAttribute("superDto",superDto);
-		model.addAttribute("map",determineMapping());
-		return "/authenticated-user/quiz";
-	}
 	private String determineMapping()
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

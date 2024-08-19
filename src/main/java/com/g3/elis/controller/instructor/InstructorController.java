@@ -18,15 +18,6 @@ public class InstructorController {
 		return "instructor/instructor-layout";
 	}
 	
-	
-	@GetMapping("/instructor-manage-course")
-	public String instructor_manage_course(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-manage-course");
-		model.addAttribute("content", "instructor/instructor-manage-course");
-		return "instructor/instructor-layout";
-	}
-	
 	@GetMapping("/instructor-create-course")
 	public String instructor_create_course(Model model) {
 		
