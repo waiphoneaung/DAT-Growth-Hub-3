@@ -14,9 +14,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="course_assignments")
+@Table(name = "course_assignments")
 public class CourseAssignment {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,12 +24,12 @@ public class CourseAssignment {
 	private boolean finishedStatus;
 	private int timeLimit;
 	private int score;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
-	
-	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	List<Question> questions;
 
 	public int getId() {
@@ -80,12 +80,20 @@ public class CourseAssignment {
 		this.courseModules = courseModule;
 	}
 
-	public List<Question> getQuestion() {
+	public CourseModule getCourseModules() {
+		return courseModules;
+	}
+
+	public void setCourseModules(CourseModule courseModules) {
+		this.courseModules = courseModules;
+	}
+
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestion(List<Question> question) {
-		this.questions = question;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	public CourseAssignment(int id, String title, boolean finishedStatus, int timeLimit, int score,
@@ -104,5 +112,4 @@ public class CourseAssignment {
 		super();
 	}
 
-	
 }

@@ -46,7 +46,7 @@ public class Course {
 	@JoinColumn(name = "course_tag_id")
 	private CourseTag courseTags;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)

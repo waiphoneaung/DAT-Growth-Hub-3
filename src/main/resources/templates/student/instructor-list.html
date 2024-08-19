@@ -37,6 +37,7 @@
                 <div>
                     <a th:href="@{/instructor-list/{id}(id=${user.id})}"></a>
                     <h5 class="card-title mb-0" th:text="${user.name}">Instructor Name</h5>
+
                     <p class="small mb-2 mb-sm-0" th:text="${user.division}">Division</p>
 <!--                     <span th:if="${user.profile != null && user.profile.description != null}" 
                           class="text-truncate-2 mb-3"
@@ -54,7 +55,9 @@
                 <!-- Card item END -->
             </div>
             <!-- End loop -->
-        </div>
+
+        
+
 
         <!-- Pagination Controls -->
 <div class="row justify-content-center mt-4">
@@ -90,8 +93,10 @@
     </nav>
 </div>
 
-    </div>
+
+   
     <!-- Instructor list END -->
+
 
 </th:block>
 </body>

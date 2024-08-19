@@ -1,19 +1,11 @@
 package com.g3.elis.dto.form;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 public class CourseMaterialDto {
 
-//    @NotNull(message = "Status cannot be null")
 	private boolean status;
-
-//	@Size(max = 50, message = "Title cannot exceed 50 characters")
     private String title;
-	
-//	@Size(max = 255, message = "Content cannot exceed 255 characters")
+
     private String content;
-	
 	private int index;
 
 	public boolean isStatus() {
@@ -48,9 +40,14 @@ public class CourseMaterialDto {
 		this.index = index;
 	}
 
-	public CourseMaterialDto(@NotNull(message = "Status cannot be null") boolean status,
-			@Size(max = 50, message = "Title cannot exceed 50 characters") String title,
-			@Size(max = 255, message = "Content cannot exceed 255 characters") String content, int index) {
+
+	public CourseMaterialDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public CourseMaterialDto(boolean status, String title, String content, int index) {
 		super();
 		this.status = status;
 		this.title = title;
@@ -58,15 +55,11 @@ public class CourseMaterialDto {
 		this.index = index;
 	}
 
-	public CourseMaterialDto()
-	{
-		
-	}
-
 	@Override
 	public String toString() {
 		return "CourseMaterialDto [status=" + status + ", title=" + title + ", content=" + content + ", index=" + index
 				+ "]";
 	}
-	
 }
+
+

@@ -53,11 +53,11 @@ public class InputFileServiceImpl implements InputFileService {
 	}
 
 	@Override
-	public void saveFile(MultipartFile file) {
+	public void saveFile(MultipartFile file,String filePath) {
 		InputFile inputFile = new InputFile();
 		inputFile.setFileName(file.getOriginalFilename());
 		try {
-			fileStorageConfig.saveFile(file, file.getOriginalFilename());
+			fileStorageConfig.saveFile(file, file.getOriginalFilename(),filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

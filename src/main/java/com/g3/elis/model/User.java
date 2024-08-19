@@ -49,7 +49,7 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Profile profile;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
@@ -235,17 +235,11 @@ public class User {
 	public void setCourseCategories(Set<CourseCategory> courseCategories) {
 		this.courseCategories = courseCategories;
 	}
-
+	
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-
-
-
-			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
-
 			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
-
-
+			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
 			Set<CourseCategory> courseCategories) {
 		super();
 		this.id = id;
