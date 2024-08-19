@@ -39,7 +39,7 @@
 			<hr>
 			<div class="container" th:if="${action} == 'add'">
 				<form
-					th:action="@{/admin/admin-edit-course-detail/add-material(courseId=${courseId}, courseModuleId=${courseModuleId})}"
+					th:action="@{|/${map}/edit-course-detail/add-material|(courseId=${courseId}, courseModuleId=${courseModuleId})}"
 					th:object="${courseMaterialDto}" method="POST"
 					enctype="multipart/form-data">
 					<!-- Step 1 content START -->
@@ -67,7 +67,7 @@
 							<!-- Step 1 button -->
 							<div class="d-flex justify-content-between mt-3">
 								<a class="btn btn-warning next-btn mb-0"
-									th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+									th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
 								<button class="btn btn-primary next-btn mb-0" type="submit">Confirm</button>
 							</div>
 						</div>
@@ -78,7 +78,7 @@
 			</div>
 			<div th:if="${action} == 'edit'">
 				<form
-					th:action="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}"
+					th:action="@{|/${map}/edit-course-detail/edit-material|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseMaterialId=${courseMaterialId})}"
 					th:object="${courseMaterialDto}" method="POST"
 					enctype="multipart/form-data">
 					<!-- Step 1 content START -->
@@ -107,7 +107,7 @@
 							<!-- Step 1 button -->
 							<div class="d-flex justify-content-between mt-3">
 								<a class="btn btn-warning next-btn mb-0"
-									th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+									th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
 								<button class="btn btn-primary next-btn mb-0" type="submit">Confirm</button>
 							</div>
 						</div>

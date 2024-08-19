@@ -42,7 +42,7 @@
 			<!-- Add START -->
 			<div class="container" th:if="${action} == 'add'">
 				<form
-					th:action="@{/admin/admin-edit-course-detail/add-module(courseId=${courseId})}"
+					th:action="@{|/${map}/edit-course-detail/add-module|(courseId=${courseId})}"
 					method="POST" th:object="${courseModuleDto}"
 					enctype="multipart/form-data">
 					<!-- Title -->
@@ -63,7 +63,7 @@
 						<!-- Buttons -->
 						<div class="d-flex justify-content-between mt-3">
 							<a class="btn btn-warning next-btn mb-0"
-								th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+								th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
 							<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
 						</div>
 					</div>
@@ -74,7 +74,7 @@
 			<!-- Edit START -->
 			<div class="container" th:if="${action} == 'edit'">
 				<form
-					th:action="@{/admin/admin-edit-course-detail/edit-module(courseId=${courseId}, courseModuleId=${courseModuleId})}"
+					th:action="@{|/${map}/edit-course-detail/edit-module|(courseId=${courseId}, courseModuleId=${courseModuleId})}"
 					method="POST" th:object="${courseModuleDto}"
 					enctype="multipart/form-data">
 					<!-- Title -->
@@ -95,7 +95,7 @@
 						<!-- Buttons -->
 						<div class="d-flex justify-content-between mt-3">
 							<a class="btn btn-warning next-btn mb-0"
-								th:href="@{/admin/admin-edit-course-detail(courseId=${courseId})}">Cancel</a>
+								th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
 							<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
 						</div>
 					</div>
