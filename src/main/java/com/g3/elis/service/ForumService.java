@@ -24,6 +24,13 @@ public interface ForumService {
 
 //	  getAllForums();
 	Page<Forum> searchPosts(String query, int page,int pagesize);
+
+	List<Forum> getAllForumsSortedByCreatedAtDesc();
+
+	void deletePost(int id);
+
+	Forum getForumById(int id);
+
 	
 //	List<Forum> getForumByUser(int userId);
 	

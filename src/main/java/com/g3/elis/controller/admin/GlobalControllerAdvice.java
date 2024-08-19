@@ -25,7 +25,7 @@ public class GlobalControllerAdvice {
                 User user = userDetails.getUser();
                 int userId = user.getId();
                 model.addAttribute("user", user);
-                model.addAttribute("userId", userId);
+                model.addAttribute("user_id", userId);
             }
         }
     }
