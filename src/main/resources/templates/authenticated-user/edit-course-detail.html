@@ -44,8 +44,7 @@
 									<div class="row g-4">
 										<!-- Course image -->
 										<div class="col-md-6">
-											<img
-												th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+											<img th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
 												class="rounded" alt="">
 										</div>
 										<!-- Course info and avatar -->
@@ -193,7 +192,7 @@
 									<div
 										class="d-sm-flex justify-content-sm-end align-items-center mb-3">
 										<a
-											th:href="@{/admin/admin-edit-course-detail/add-module(courseId=${courseId})}"
+											th:href="@{|/${map}/edit-course-detail/add-module|(courseId=${courseId})}"
 											class="btn btn-sm btn-primary-soft mb-0"><i
 											class="bi bi-plus-circle me-2"></i>Add Module</a>
 									</div>
@@ -218,9 +217,8 @@
 												data-bs-parent="#accordionExample2">
 												<div class="accordion-body mt-3">
 													<div class="vstack gap-3">
-														<!-- Course lecture -->
-														<div
-															th:each="courseMaterials : ${courseModule.courseMaterials}">
+														<!-- Course Materials -->
+														<div th:each="courseMaterials : ${courseModule.courseMaterials}">
 															<div
 																class="d-flex justify-content-between align-items-center mb-2">
 																<div class="position-relative d-flex align-items-center">
@@ -231,14 +229,33 @@
 																		class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-150px w-sm-200px"
 																		th:text="${courseMaterials.title}"></span>
 																</div>
-																<p class="mb-0 text-truncate">2m 10s</p>
 															</div>
 															<!-- Add Edit and Delete button -->
-															<a
-																th:href="@{/admin/admin-edit-course-detail/edit-material(courseId=${courseId})}"
+															<a  th:href="@{|/${map}/edit-course-detail/edit-material|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseMaterialId=${courseMaterials.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
 																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
-																href="@{/admin/admin-delete-course-detail/delete-material(courseId=${couresId})}"
+																th:href="@{|/${map}/edit-course-detail/delete-material|(courseId=${courseId}, courseMaterialId=${courseMaterials.id})}"
+																class="btn btn-xs btn-danger mb-0">Delete</a>
+															<hr class="mb-0">
+														</div>
+														<!-- Questions -->
+														<div th:each="courseAssignment : ${courseModule.courseAssignment}">
+															<div
+																class="d-flex justify-content-between align-items-center mb-2">
+																<div class="position-relative d-flex align-items-center">
+																	<a href="#"
+																		class="btn btn-primary btn-round btn-sm mb-0 stretched-link position-static">
+																		<i class="fas fa-question me-0"></i>
+																	</a> <span
+																		class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-150px w-sm-200px"
+																		th:text="${courseAssignment.title}"></span>
+																</div>
+															</div>
+															<!-- Add Edit and Delete button -->
+															<a  th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
+																class="btn btn-xs btn-warning mb-0"><i
+																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
+																th:href="@{|/${map}/edit-course-detail/delete-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-danger mb-0">Delete</a>
 															<hr class="mb-0">
 														</div>
@@ -246,12 +263,13 @@
 												</div>
 												<div
 													class="d-sm-flex justify-content-sm-between align-items-end mb-3">
-													<a
-														th:href="@{/admin/admin-edit-course-detail/add-material(courseId=${courseId}, courseModuleId=${courseModule.id})}"
-														class="btn btn-success-soft">Add Material</a> <a
-														th:href="@{/admin/admin-edit-course-detail/edit-module(courseId=${courseId}, courseModuleId=${courseModule.id})}"
+													<a  th:href="@{|/${map}/edit-course-detail/add-material|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
+														class="btn btn-success-soft">Add Material</a><a
+														th:href="@{|/${map}/edit-course-detail/add-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
+														class="btn btn-info-soft">Add Assignment</a> <a
+														th:href="@{|/${map}/edit-course-detail/edit-module|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
 														class="btn btn-warning-soft">Edit Module</a> <a
-														th:href="@{/admin/admin-edit-course-detail/delete-module(courseId=${courseId}, courseModuleId=${courseModule.id})}"
+														th:href="@{|/${map}/edit-course-detail/delete-module|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
 														class="btn btn-danger-soft"> <i
 														class="bi bi-minus-circle me-2"></i>Delete Module
 													</a>
