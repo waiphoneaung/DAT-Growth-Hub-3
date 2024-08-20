@@ -25,12 +25,13 @@ public class Question {
 	@Column(columnDefinition = "TEXT")
 	private String question;
 	private boolean correctStatus;
+	private int answerCount;
 	
 	@ManyToOne
-	@JoinColumn(name = "course_assignment_id", nullable = false)
+	@JoinColumn(name = "course_assignment_id")
 	private CourseAssignment courseAssignments;
 	
-	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
+	@OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	List<Answer> answers;
 
 	public int getId() {
@@ -73,12 +74,21 @@ public class Question {
 		this.answers = answers;
 	}
 
-	public Question(int id, String question, boolean correctStatus, CourseAssignment courseAssignments,
+	public int getAnswerCount() {
+		return answerCount;
+	}
+
+	public void setAnswerCount(int answerCount) {
+		this.answerCount = answerCount;
+	}
+
+	public Question(int id, String question, boolean correctStatus, int answerCount, CourseAssignment courseAssignments,
 			List<Answer> answers) {
 		super();
 		this.id = id;
 		this.question = question;
 		this.correctStatus = correctStatus;
+		this.answerCount = answerCount;
 		this.courseAssignments = courseAssignments;
 		this.answers = answers;
 	}
@@ -87,5 +97,4 @@ public class Question {
 		super();
 	}
 
-		
 }

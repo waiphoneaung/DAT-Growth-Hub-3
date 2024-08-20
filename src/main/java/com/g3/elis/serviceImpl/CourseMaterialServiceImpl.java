@@ -70,7 +70,9 @@ public class CourseMaterialServiceImpl implements CourseMaterialService{
 	@Override
 	public void deleteCourseMaterialById(int courseMaterialId) 
 	{
-		courseMaterialRepository.deleteById(courseMaterialId);
+		CourseMaterial courseMaterial = courseMaterialRepository.findById(courseMaterialId).orElse(null);
+		courseMaterial.setCourseModules(null);
+		courseMaterialRepository.delete(courseMaterial);
 	}
 
 	@Override

@@ -75,4 +75,52 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 	public List<EnrolledCourse> getAllEnrolledCourse() {
 		return enrolledCourseRepository.findAll();
 	}
+
+	@Override
+	public List<User> getEnrolledStudentsByCourseCreatedByInstructorId(int instructorId) {
+		User user = userRepository.findById(instructorId).orElse(null);
+		List<Course> courseList = courseRepository.findAll();
+		List<User> userReturnList = new ArrayList<User>();
+		
+		for(Course course : courseList)
+		{
+			if(course.getUsers().getId() == user.getId())
+			{
+				for(EnrolledCourse enrolledCourse : getAllEnrolledCourseByCourseId(course.getId()))
+				{
+					userReturnList.add(enrolledCourse.getUsers());
+				}
+			}
+		}
+		
+		return userReturnList;
+	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourseByCourseId(int courseId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();		
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getCourses().getId() == courseId)
+			{
+				enrolledCourseReturnList.add(enrolledCourse);
+			}
+		}
+		return enrolledCourseReturnList;
+	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCOurseByInstructorId(int instructorId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getCourses().getUsers().getId() == instructorId)
+			{
+				enrolledCourseReturnList.add(enrolledCourse);
+			}
+		}
+		return enrolledCourseReturnList;
+	}
 }

@@ -30,7 +30,7 @@
 			<nav class="navbar navbar-expand-xl">
 				<div class="container-fluid px-3 px-xl-5">
 					<!-- Logo START -->
-					<a class="navbar-brand" th:href="@{/admin/admin-dashboard}">
+					<a class="navbar-brand" th:href="@{|/${map}/admin-dashboard|}">
 						<img class="light-mode-item navbar-brand-item"
 							th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
 						<img class="dark-mode-item navbar-brand-item"
@@ -76,9 +76,9 @@
 							</li>
 							<li> <hr class="dropdown-divider"></li>
 							<!-- Links -->
-							<li><a class="dropdown-item" th;href="@{/admin-edit-profile}"><i
+							<li><a class="dropdown-item" th;href="@{|/${map}-edit-profile|}"><i
 										class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-							<li><a class="dropdown-item" th:href="@{/admin/admin-setting}"><i
+							<li><a class="dropdown-item" th:href="@{|/${map}/admin-setting|}"><i
 										class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
 							<li><a class="dropdown-item" href="#"><i
 										class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
@@ -141,7 +141,7 @@ Inner part START -->
 
 					<!-- add quiz button -->
 					<div class="d-flex justify-content-between mt-2 mb-2 mt-md-0">
-						<a th:href="@{/admin/admin-course-list}" class="btn btn-primary"
+						<a th:href="@{|/${map}/admin-course-list}|" class="btn btn-primary"
 							onclick="alert('Without clicking submit button, your creation of quiz will not be create, Are you sure you would not create quiz?') ">Back
 							to Course</a>
 						<button class="btn btn-primary" data-bs-toggle="modal"
@@ -294,7 +294,7 @@ Inner part START -->
 
 					<div class="container mt-2 d-flex justify-content-end">
 
-						<a th:href="@{/admin/admin-course-list}" class="btn btn-primary">Submit
+						<a th:href="@{|/${map}/admin-course-list|}" class="btn btn-primary">Submit
 							quiz</a>
 					</div>
 

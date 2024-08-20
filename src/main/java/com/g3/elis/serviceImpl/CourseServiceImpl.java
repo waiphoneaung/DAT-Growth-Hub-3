@@ -27,6 +27,7 @@ import com.g3.elis.model.CourseModule;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseCategoryRepository;
 import com.g3.elis.repository.CourseRepository;
+import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.CourseService;
 import jakarta.transaction.Transactional;
 
@@ -43,6 +44,9 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Autowired
 	private CourseCategoryRepository courseCategoryRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
@@ -227,7 +231,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Page<Course> getPaginatedCourses(Pageable pageable) {
-		// TODO Auto-generated method stub
+		
 		return courseRepository.findAll(pageable);
 	}
 
@@ -239,6 +243,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
 	public Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage) {
 		return coursePage.getContent().stream()
                 .collect(Collectors.toMap(
@@ -247,7 +252,23 @@ public class CourseServiceImpl implements CourseService {
                 ));
     }
 
+		
+	public List<Course> getAllCourseByUserId(int userId) 
+	{
+		User user = userRepository.findById(userId).orElse(null);
+		List<Course> courseList = courseRepository.findAll();
+		List<Course> courseReturnList = new ArrayList<Course>();
+		for(Course course : courseList)
+		{
+			if(course.getUsers().getId() == user.getId())
+			{
+				courseReturnList.add(course);
+			}
 		}
+		return courseReturnList;
+	}
+}
+
 
 
 
