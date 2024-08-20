@@ -52,5 +52,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
 	boolean existsByNameAndId(String name, Long courseId);
 	
+	@Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.name = :role")
+	long count(String role);
+
+	
 	
 }

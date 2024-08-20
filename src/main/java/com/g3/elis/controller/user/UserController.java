@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.g3.elis.service.BlogPostService;
+import com.g3.elis.service.CourseService;
 import com.g3.elis.service.UserService;
 
 @Controller
@@ -23,10 +24,20 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CourseService courseService;
 
 	@GetMapping("/home")
 	public String home(Model model) {
-		model.addAttribute("content","user/main");
+		long courseCount = courseService.countAllCourses();
+        model.addAttribute("courseCount", courseCount);
+        long instructorCount = userService.countAllInstructor();
+        model.addAttribute("instructorCount",instructorCount);
+        long studentCount = userService.countAllStudent();
+        model.addAttribute("studentCount",studentCount);
+        
+        model.addAttribute("content","user/main");
 		return "/user/layout";
 	}
 	

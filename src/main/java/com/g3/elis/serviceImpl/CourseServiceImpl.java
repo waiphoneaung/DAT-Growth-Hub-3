@@ -267,6 +267,13 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return courseReturnList;
 	}
+
+	@Override
+	public long countAllCourses() {
+		 return courseRepository.count();
+	}
+	
+	 
 }
 
 
