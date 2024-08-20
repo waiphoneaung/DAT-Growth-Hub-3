@@ -17,9 +17,11 @@
 										class="badge bg-orange bg-opacity-10 text-orange"
 										th:text="${categoryCount}"></span>
 								</h1>
+
 								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
 									data-bs-target="#createCategory" data-whatever="Category">Create
 									a Course Category</a>
+
 							</div>
 						</div>
 					</div>
@@ -43,10 +45,12 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
+
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+									
 								</form>
 							</div>
 						</div>
@@ -123,39 +127,43 @@
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
-							<div
-								class="d-sm-flex justify-content-center align-items-sm-center">
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<!-- Previous button: only show if not on the first page -->
-										<li th:if="${currentPage > 0}" class="page-item mb-0"><a
-											class="page-link"
-											th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}"
-											tabindex="-1"> <i class="fas fa-angle-left"></i>
-										</a></li>
 
-										<!-- Page numbers: show only if totalPages > 1 -->
-										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-											th:classappend="${i == currentPage} ? 'active' : ''"
-											th:if="${totalPages > 1}" class="page-item mb-0"><a
-											class="page-link" th:text="${i + 1}"
-											th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
-										</li>
+    <div class="d-sm-flex justify-content-center align-items-sm-center">
+        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <!-- Previous button: only show if not on the first page -->
+                <li th:if="${currentPage > 0}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-course-category/search(page=${currentPage - 1}, search=${search})}" 
+                       tabindex="-1">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
 
-										<!-- Next button: only show if not on the last page -->
-										<li th:if="${currentPage < totalPages - 1}"
-											class="page-item mb-0"><a class="page-link"
-											th:href="@{/admin/admin-course-category/search(page=${currentPage + 1}, search=${search})}">
-												<i class="fas fa-angle-right"></i>
-										</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
+                <!-- Page numbers: show only if totalPages > 1 -->
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                    th:classappend="${i == currentPage} ? 'active' : ''" 
+                    th:if="${totalPages > 1}" 
+                    class="page-item mb-0">
+                    <a class="page-link" 
+                       th:text="${i + 1}" 
+                       th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
+                </li>
 
-					</div>
+                <!-- Next button: only show if not on the last page -->
+                <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
+                    <a class="page-link" 
+                       th:href="@{/admin/admin-course-category/search(page=${currentPage + 1}, search=${search})}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+				</div>
+
 				</div>
 
 
@@ -164,7 +172,9 @@
 
 
 			<!-- Edit Modal Start -->
+
 			<div th:each="category : ${courseCategories}">
+
 				<div class="modal fade" id="editCategory" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -180,9 +190,15 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="edit-category-name" class="col-form-label">Category
-											Name:</label> <input type="text" class="form-control"
-											id="edit-category-name" name="categoryName"> <input
-											type="hidden" id="categoryId" name="categoryId">
+
+
+
+											Name:</label> 
+											<input type="text" class="form-control" id="edit-category-name" name="categoryName"> 
+											<input type="hidden" id="categoryId" name="categoryId">
+
+
+
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -201,6 +217,7 @@
 	</main>
 
 	<!-- **************** MAIN CONTENT END **************** -->
+
 	<script>
 		var myModal = document.getElementById('editCategory');
 		myModal.addEventListener('show.bs.modal', function(event) {
@@ -215,5 +232,6 @@
 		});
 
 	</script>
+
 </body>
 </html>

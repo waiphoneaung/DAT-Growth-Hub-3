@@ -5,15 +5,23 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.UserDto;
+import com.g3.elis.model.Course;
+import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.Role;
 import com.g3.elis.model.User;
+import com.g3.elis.repository.CourseRepository;
+import com.g3.elis.repository.EnrolledCourseRepository;
 import com.g3.elis.repository.RoleRepository;
 import com.g3.elis.repository.UserRepository;
+import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.UserService;
 
 @Service
@@ -24,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@Override
 	public User getUserById(int id) {
@@ -90,6 +101,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findEmailsByRole(role);
 	}
 
+
 	@Override
 	public void updateUserStatus(int id, boolean enabled) {
 
@@ -131,9 +143,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getCurrentUser() {
-		// TODO Auto-generated method stub
-		return null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		User user = userDetail.getUser();
+		return user;
 	}
+
+	@Override
+	public boolean isUserEnrolled(String username, Long courseId) {
+	    
+	    return userRepository.existsByNameAndId(username, courseId);
+	}
+
+	
+	
+	
+	
+
 
 	
 
