@@ -1,37 +1,20 @@
 package com.g3.elis.controller.user;
 
-
-import java.security.Principal;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.g3.elis.service.BlogPostService;
-import com.g3.elis.service.UserService;
 
 @Controller
 @RequestMapping({"/user","/",""})
 public class UserController {
-	
-
-	@Autowired
-    private BlogPostService blogPostService;
-	
-	@Autowired
-	private UserService userService;
 
 	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("content","user/main");
 		return "/user/layout";
 	}
-	
 
-	
 	@GetMapping("/contactus")
 	public String contactUs(Model model) {
 		model.addAttribute("content","user/contactus");
