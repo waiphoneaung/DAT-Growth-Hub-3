@@ -10,5 +10,5 @@ import com.g3.elis.model.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 	Page<Course> findByCourseTitleContainingIgnoreCase(String courseTitle, Pageable pageable);
-
+	long count(); 
 }
