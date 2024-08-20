@@ -45,10 +45,12 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+									
 								</form>
 							</div>
 						</div>
@@ -159,9 +161,9 @@
         </nav>
     </div>
 </div>
-							
 
-					</div>
+				</div>
+
 				</div>
 
 
@@ -188,9 +190,15 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="edit-category-name" class="col-form-label">Category
+
+
+
 											Name:</label> 
 											<input type="text" class="form-control" id="edit-category-name" name="categoryName"> 
 											<input type="hidden" id="categoryId" name="categoryId">
+
+
+
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -209,6 +217,7 @@
 	</main>
 
 	<!-- **************** MAIN CONTENT END **************** -->
+
 	<script>
 		var myModal = document.getElementById('editCategory');
 		myModal.addEventListener('show.bs.modal', function(event) {
@@ -223,5 +232,6 @@
 		});
 
 	</script>
+
 </body>
 </html>

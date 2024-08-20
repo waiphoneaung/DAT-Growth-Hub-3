@@ -55,6 +55,8 @@ public Path getBlogImageUploadDir()
 	{
 		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
 	}
+
+
 	
 	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
 	{
@@ -74,6 +76,7 @@ public Path getBlogImageUploadDir()
 		return Paths.get(uploadDir).toAbsolutePath().normalize();
 	}
 	
+	
 	public void saveFile(MultipartFile file,String fileName) throws IOException
 	{
 		Path targetLocation = getUploadDir().resolve(fileName);
@@ -86,12 +89,6 @@ public Path getBlogImageUploadDir()
 		Files.delete(targetLocation);
 	}
 	
-	
-	
-	
-	
-	
-
 	public Path getUploadDir(String filePath)
 	{
 		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
