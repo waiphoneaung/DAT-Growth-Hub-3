@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -236,8 +238,19 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.findByCourseTitleContainingIgnoreCase(keyword, pageable);
 	}
 
+	@Override
+	public Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage) {
+		return coursePage.getContent().stream()
+                .collect(Collectors.toMap(
+                        Course::getId,
+                        course -> (long) course.getCourseModule().size()
+                ));
+    }
+
+		}
+
 
 
 
 	
-}
+

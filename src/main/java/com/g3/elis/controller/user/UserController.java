@@ -30,11 +30,7 @@ public class UserController {
 		return "/user/layout";
 	}
 	
-//	@GetMapping("/courses")
-//	public String courses(Model model) {
-//		model.addAttribute("content","user/courses");
-//		return "/user/layout";
-//	}
+
 	
 	@GetMapping("/contactus")
 	public String contactUs(Model model) {
@@ -63,17 +59,5 @@ public class UserController {
 		
 		return "/user/blog-detail";
 	}
-	
-	
-	
-//	@GetMapping("/course/{id}")
-//   public String getCourseDetail(@PathVariable("id") Long id, Model model, Principal principal) {
-//	    // Fetch course details and user enrollment status
-//    boolean isEnrolled = userService.isUserEnrolled(principal.getName(), id);
-//	    model.addAttribute("isEnrolled", isEnrolled);
-//	    return "course-detail";
-//	}
-
-	
 	
 }

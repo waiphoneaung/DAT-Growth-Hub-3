@@ -71,36 +71,45 @@ Page content START -->
 <div class="row g-4">
 
     <!-- Card item START -->
-    <div class="col-sm-6 col-lg-4 col-xl-3" th:each="course : ${courses}">
-        <div class="card shadow h-100">
-            <!-- Image -->
-         <!-- <img th:src="${course.courseImageFileName}" class="card-img-top" alt="course image"> --> 
-             <img class="avatar-img"
-										th:if="${course.courseImageFileName != null}"
-										th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}" alt="avatar">
-										<img
-										class="avatar-img"
-										th:unless="${course.courseImageFileName != null}"
+<div class="col-sm-6 col-lg-4 col-xl-3" th:each="course : ${courses}"
+     th:if="${course.status} == 'Activated'">
+    <div class="card shadow h-100">
+        <!-- Image -->
+        <img class="card-img-top" th:if="${course != null && course.courseImageFileName != null}"
+             th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+             alt="course image" style="height: 200px; object-fit: cover;">
 
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
-            <!-- Card body -->
-            <div class="card-body pb-0">
-                <!-- Title -->
-                <h5 class="card-title">
-                    <a th:href="@{/user/user-course-detail/{id}(id=${course.id})}" th:text="${course.courseTitle}">Course Title</a>
-                </h5>
-            </div>
-            <!-- Card footer -->
-            <div class="card-footer pt-0 pb-3">
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-                    <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-                </div>
+        <img class="card-img-top" th:unless="${course != null && course.courseImageFileName != null}"
+             th:src="@{'/public/assets/images/avatar/06.jpg'}"
+             alt="default image" style="height: 200px; object-fit: cover;">
+        
+        <!-- Card body -->
+        <div class="card-body pb-0">
+            <!-- Title -->
+            <h5 class="card-title">
+                <a th:href="@{/user/user-course-detail/{id}(id=${course.id})}"
+                   th:text="${course.courseTitle}">Course Title</a>
+            </h5>
+        </div>
+        <!-- Card footer -->
+        <div class="card-footer pt-0 pb-3">
+            <hr>
+            <div class="d-flex justify-content-between">
+                <span class="h6 fw-light mb-0">
+                    <i class="far fa-clock text-danger me-2"></i>
+                    <span th:text="${course.duration} + 'h'"></span>
+                </span>
+
+                <!-- Display the count of course modules dynamically -->
+                <span class="h6 fw-light mb-0">
+                    <i class="fas fa-table text-orange me-2"></i>
+                    <span th:text="${courseModuleCounts[course.id]} + ' Modules'"></span>
+                </span>
             </div>
         </div>
     </div>
-    <!-- Card item END -->
+</div>
+<!-- Card item END -->
 
 </div>
 <!-- Course Grid END -->

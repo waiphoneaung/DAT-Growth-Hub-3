@@ -77,8 +77,9 @@ public class SecurityConfig {
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("ROLE_INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/authenticated-user/**", "/static/private/blog/**", "/static/private/course/**")
-                                .hasAnyAuthority("ROLE_STUDENT", "ROLE_INSTRUCTOR", "ROLE_ADMIN")
+                        .requestMatchers("/authenticated-user/**", "/private/blog/**", "/private/course/**",
+                        				 "/private/course/course-image-file/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> 
                     exceptionHandling.accessDeniedHandler(accessDeniedHandler())

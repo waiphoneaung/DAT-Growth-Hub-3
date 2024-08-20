@@ -2,6 +2,7 @@ package com.g3.elis.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,5 +24,8 @@ public interface CourseService {
 	 Page<Course> getPaginatedCourses(Pageable pageable);
 	 Page<Course> searchCoursesByTitle(String keyword, Pageable pageable);
 	
+	 Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage);
+	 
 	
+
 }
