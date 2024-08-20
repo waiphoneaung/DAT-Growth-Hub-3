@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head >
+    <meta charset="UTF-8">
+    <title>Course Detail</title>
+</head>
+<body>
+ <th:block th:fragment="user-course-detail">
+ <main>
+
+<!-- =======================
+Page intro START -->
+<section class="bg-light py-0 py-sm-5">
+	<div class="container" th:each="course : ${courses}" >
+		<div class="row py-5">
+			<div class="col-lg-8">
+				<!-- Badge -->
+				
+				<!-- Title -->
+				<div class="row"><h1 th:text="${course.courseTitle}"></h1></div>
+				<dic class="row"><p class="mb-3" th:text="${course.courseDescription}"></p></div>
+				<!-- Content -->
+				<div class="row">
+					<div class="col-lg-10">
+
+						<ul class="list-inline mb-0">
+					
+							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate text-orange me-2"></i>12k Enrolled</li>
+							
+							<li class="list-inline-item h6 me-3 mb-1 mb-sm-0"><i class="bi bi-patch-exclamation-fill text-danger me-2"></i>Last updated 09/2021</li>
+					
+						</ul>
+					</div>
+					
+					<div class="col-lg-2">
+    <a th:href="@{/user/sign-in}" 
+       th:classappend="${isEnrolled} ? 'disabled' : ''" 
+       th:text="${isEnrolled} ? 'Already Enrolled' : 'Enroll Course'" 
+       th:if="${!isEnrolled}" 
+       class="btn btn-primary mb-3 w-100">
+    </a>
+    <button th:if="${isEnrolled}" class="btn btn-primary mb-3 w-100" disabled>
+        Already Enrolled
+    </button>
+</div>
+
+				</div>
+			</div>	
+		</div>
+			
+			
+			
+	</div>
+	
+</section>
+<!-- =======================
+Page intro END -->
+
+<!-- =======================
+Page content START -->
+<section class="pb-0 py-lg-5">
+	<div class="container">
+		<div class="row">
+			<!-- Main content START -->
+			<div class="col-lg-8">
+				<div class="card shadow rounded-2 p-0">
+					<!-- Tabs START -->
+					<div class="card-header border-bottom px-4 py-3">
+						<ul class="nav nav-pills nav-tabs-line py-0" id="course-pills-tab" role="tablist">
+							<!-- Tab item -->
+							<li class="nav-item me-2 me-sm-4" role="presentation">
+								<button class="nav-link mb-2 mb-md-0 active" id="course-pills-tab-1" data-bs-toggle="pill" data-bs-target="#course-pills-1" type="button" role="tab" aria-controls="course-pills-1" aria-selected="true">Overview</button>
+							</li>
+							<!-- Tab item -->
+							<li class="nav-item me-2 me-sm-4" role="presentation">
+								<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bs-toggle="pill" data-bs-target="#course-pills-2" type="button" role="tab" aria-controls="course-pills-2" aria-selected="false">Curriculum</button>
+							</li>
+							<!-- Tab item -->
+							<li class="nav-item me-2 me-sm-4" role="presentation">
+								<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bs-toggle="pill" data-bs-target="#course-pills-3" type="button" role="tab" aria-controls="course-pills-3" aria-selected="false">Instructor</button>
+							</li>
+							
+							
+							
+						</ul>
+					</div>
+					<!-- Tabs END -->
+
+					<!-- Tab contents START -->
+					<div class="card-body p-4">
+						<div class="tab-content pt-2" id="course-pills-tabContent">
+							<!-- Content START -->
+							<div class="tab-pane fade show active" id="course-pills-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
+								<!-- Course detail START -->
+								<h5 class="mb-3">Course Description</h5>
+								<p class="mb-3"  th:text="${course.courseInfo}"></p>
+   
+						<!-- Course detail END -->
+
+							</div>
+							<!-- Content END -->
+
+							<!-- Content START -->
+							<div class="tab-pane fade" id="course-pills-2" role="tabpanel" aria-labelledby="course-pills-tab-2">
+								<!-- Course accordion START -->
+								<div class="accordion accordion-icon accordion-bg-light" id="accordionExample2">
+									<!-- Item -->
+									<div class="accordion-item mb-3">
+										<h6 class="accordion-header font-base" id="heading-1">
+											<button class="accordion-button fw-bold rounded d-sm-flex d-inline-block collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+												Introduction of Digital Marketing 
+												<span class="small ms-0 ms-sm-2">(3 Lectures)</span> 
+											</button>
+										</h6>
+										<div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionExample2">
+											<div class="accordion-body mt-3">
+												<!-- Course lecture -->
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="position-relative d-flex align-items-center">
+														<a href="#" class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+															<i class="fas fa-play me-0"></i>
+														</a>
+														<span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">Introduction</span>
+													</div>
+													<p class="mb-0">2m 10s</p>
+												</div>
+
+												
+											</div>
+										</div>
+									</div>
+
+									<!-- Item -->
+									<div class="accordion-item mb-3">
+										<h6 class="accordion-header font-base" id="heading-2">
+											<button class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+												Customer Life cycle
+												<span class="small ms-0 ms-sm-2">(4 Lectures)</span> 
+											</button>
+										</h6>
+										<div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2" data-bs-parent="#accordionExample2">
+											<!-- Accordion body START -->
+											<div class="accordion-body mt-3">
+												<!-- Course lecture -->
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="position-relative d-flex align-items-center">
+														<a href="#" class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+															<i class="fas fa-play me-0"></i>
+														</a>
+														<span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">What is Digital Marketing</span>
+													</div>
+													<p class="mb-0">11m 20s</p>
+												</div>
+
+												
+											</div>
+											<!-- Accordion body END -->
+										</div>
+									</div>
+
+													
+									<!-- Item -->
+									<div class="accordion-item mb-0">
+										<h6 class="accordion-header font-base" id="heading-10">
+											<button class="accordion-button fw-bold collapsed rounded d-sm-flex d-inline-block" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-10" aria-expanded="false" aria-controls="collapse-10">
+												Integration with Website 
+												<span class="small ms-0 ms-sm-2">(3 Lectures)</span> 
+											</button>
+										</h6>
+										<div id="collapse-10" class="accordion-collapse collapse" aria-labelledby="heading-10" data-bs-parent="#accordionExample2">
+											<!-- Accordion body START -->
+											<div class="accordion-body mt-3">
+												<!-- Course lecture -->
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="position-relative d-flex align-items-center">
+														<a href="#" class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+															<i class="fas fa-play me-0"></i>
+														</a>
+														<span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">Creating LinkedIn Account</span>
+													</div>
+													<p class="mb-0 text-truncate">13m 20s</p>
+												</div>
+												
+												<hr> <!-- Divider -->
+
+												<!-- Course lecture -->
+												<div class="d-flex justify-content-between align-items-center">
+													<div class="position-relative d-flex align-items-center">
+														<a href="#" class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static">
+															<i class="fas fa-play me-0"></i>
+														</a>
+														<span class="d-inline-block text-truncate ms-2 mb-0 h6 fw-light w-100px w-sm-200px w-md-400px">Advance Searching</span>
+													</div>
+													<p class="mb-0">31m 20s</p>
+												</div>
+
+											</div>
+											<!-- Accordion body END -->
+										</div>
+									</div>	
+
+								</div>
+								<!-- Course accordion END -->
+							</div>
+							<!-- Content END -->
+
+							<!-- Content START -->
+							<div class="tab-pane fade" id="course-pills-3" role="tabpanel" aria-labelledby="course-pills-tab-3">
+								<!-- Card START -->
+								<div class="card mb-0 mb-md-4">
+									<div class="row g-0 align-items-center">
+										<div class="col-md-5">
+											<!-- Image -->
+											<img th:src="@{/public/assets/images/instructor/01.jpg}" class="img-fluid rounded-3" alt="instructor-image">
+										</div>
+										<div class="col-md-7">
+											<!-- Card body -->
+											<div class="card-body">
+												<!-- Title -->
+												<h3 class="card-title mb-0">Louis Ferguson</h3>
+												<p class="mb-2">Instructor of Marketing</p>
+											
+												<!-- Info -->
+												<ul class="list-inline">
+													<li class="list-inline-item">
+														<div class="d-flex align-items-center me-3 mb-2">
+															<span class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle"><i class="fas fa-user-graduate"></i></span>
+															<span class="h6 fw-light mb-0 ms-2">9.1k</span>
+														</div>
+													</li>
+													
+													<li class="list-inline-item">
+														<div class="d-flex align-items-center me-3 mb-2">
+															<span class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle"><i class="fas fa-play"></i></span>
+															<span class="h6 fw-light mb-0 ms-2">29 Courses</span>
+														</div>
+													</li>
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Card END -->
+								
+								<!-- Instructor info -->
+								<h5 class="mb-3">About Instructor</h5>
+								<p class="mb-3">Fulfilled direction use continual set him propriety continued. Saw met applauded favorite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther related bed and passage comfort civilly. Dashboard see frankness objection abilities. As hastened oh produced prospect formerly up am. Placing forming nay looking old married few has. Margaret disposed of add screened rendered six say his striking confined. </p>
+								
+								<!-- Email address -->
+								<div class="col-12">
+									<ul class="list-group list-group-borderless mb-0">
+										<li class="list-group-item pb-0">Mail ID:<a href="#" class="ms-2">hello@email.com</a></li>
+										
+									</ul>
+								</div>
+							</div>
+							<!-- Content END -->
+
+							
+							
+						</div>
+					</div>
+					<!-- Tab contents END -->
+				</div>
+			</div>
+			<!-- Main content END -->
+
+			<!-- Right sidebar START -->
+			<div class="col-lg-4 pt-5 pt-lg-0">
+				<div class="row mb-5 mb-lg-0">
+					<div class="col-md-6 col-lg-12">
+						<!-- Video START -->
+						<div class="card shadow p-2 mb-4 z-index-9">
+							<div class="overflow-hidden rounded-3">
+								<img src="assets/images/courses/4by3/01.jpg" class="card-img" alt="course image">
+								<!-- Overlay -->
+								<div class="bg-overlay bg-dark opacity-6"></div>
+								<div class="card-img-overlay d-flex align-items-start flex-column p-3">
+									<!-- Video button and link -->
+									<div class="m-auto">
+										<a href="https://www.youtube.com/embed/tXHviS-4ygo" class="btn btn-lg text-danger btn-round btn-white-shadow mb-0" data-glightbox="" data-gallery="course-video">
+											<i class="fas fa-play"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+		
+							
+						</div>
+						<!-- Video END -->
+
+						<!-- Course info START -->
+						<div class="card card-body shadow p-4 mb-4">
+							<!-- Title -->
+							<h4 class="mb-3">This course includes</h4>
+							<ul class="list-group list-group-borderless">
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<span class="h6 fw-light mb-0"><i class="fas fa-fw fa-book-open text-primary"></i>Lectures</span>
+									<span>30</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<span class="h6 fw-light mb-0"><i class="fas fa-fw fa-clock text-primary"></i>Duration</span>
+									<span>4h 50m</span>
+								</li>
+								
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<span class="h6 fw-light mb-0"><i class="fas fa-fw fa-user-clock text-primary"></i>Deadline</span>
+									<span>Nov 30 2021</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<span class="h6 fw-light mb-0"><i class="fas fa-fw fa-medal text-primary"></i>Certificate</span>
+									<span>Yes</span>
+								</li>
+							</ul>
+						</div>
+						<!-- Course info END -->
+					</div>
+
+					
+							
+
+						<!-- Tags START -->
+						<div class="card card-body shadow p-4">
+							<h4 class="mb-3">Popular Tags</h4>
+							<ul class="list-inline mb-0">
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">blog</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">business</a> </li>
+								<li class="list-inline-item"> <a class="btn btn-outline-light btn-sm" href="#">theme</a> </li>
+								
+							</ul>
+						</div>	
+						<!-- Tags END -->
+					</div>
+				</div><!-- Row End -->
+			</div>
+			<!-- Right sidebar END -->
+
+		</div><!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+<!-- =======================
+Listed courses START -->
+
+</main>
+</th:block>
+</body>
+</html>

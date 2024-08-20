@@ -69,17 +69,17 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/public/**", "/public/assets/**", "/public/assets/css/**",
                                 "/public/assets/images/**","/public/assets/js/**",
-                                "/public/assets/vendor/**","/fragments/**", "/private/profiles/**","/private/blog/**",
+                           "/public/assets/vendor/**","/fragments/**", "/private/profiles/**","/private/blog/**",
                                 "/public/assets/vendor/**","/private/profile/blog-profile/**",
                                 "/private/profile/course-profile/**","/private/profile/user-profile/**",
-                                "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**",
-                                "/api/public/**").permitAll()
+                                "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**","/api/public/**").permitAll()
                         .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("ROLE_INSTRUCTOR")
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/authenticated-user/**", "/static/private/blog/**", "/static/private/course/**")
-                                .hasAnyAuthority("ROLE_STUDENT", "ROLE_INSTRUCTOR", "ROLE_ADMIN")
+                        .requestMatchers("/authenticated-user/**", "/private/blog/**", "/private/course/**",
+                        				 "/private/course/course-image-file/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> 
                     exceptionHandling.accessDeniedHandler(accessDeniedHandler())

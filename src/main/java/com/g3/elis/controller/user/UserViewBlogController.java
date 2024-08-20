@@ -1,6 +1,5 @@
 package com.g3.elis.controller.user;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,138 +37,129 @@ import jakarta.validation.Valid;
 @RequestMapping("/user")
 
 public class UserViewBlogController {
-	
-	
-		    private final String HTML_FILE_PATH = "src/main/resources/static/private/blog/blog-files/";
-		    private final String IMAGE_FILE_PATH = "src/main/resources/static/private/blog/blog-images";
 
-		    @Autowired
-		    private BlogPostService blogPostService;
+	private final String HTML_FILE_PATH = "src/main/resources/static/private/blog/blog-files/";
+	private final String IMAGE_FILE_PATH = "src/main/resources/static/private/blog/blog-images";
 
-		    @Autowired
-		    private UserService userService;
+	@Autowired
+	private BlogPostService blogPostService;
 
-		    @Autowired
-		    private FileStorageConfig fileStorageConfig;
+	@Autowired
+	private UserService userService;
 
-		    // GET Mapping to view all blogs
-		    @GetMapping("/blog")
-		    public String studentViewBlog(@RequestParam(defaultValue = "0") int page,
-		    		@RequestParam(required = false) String keyword,
-		    		Model model) {
-		    	
-		    	int pageSize = 8; // Set the page size to 8
-		        Pageable pageable = PageRequest.of(page, pageSize);
-		        
-		        Page<BlogPost> blogPostsPage;
-		        
-		        if (keyword != null && !keyword.isEmpty()) {
-		            blogPostsPage = blogPostService.searchBlogPostsByTitle(keyword, pageable);
-		            model.addAttribute("keyword", keyword); // To preserve the search term in the search bar
-		        } else {
-		            blogPostsPage = blogPostService.getAllBlogPosts(pageable);
-		        }
-		        
-//		        List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-		        int previousPage = (page > 0) ? page - 1 : 0;
-		        int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
+	@Autowired
+	private FileStorageConfig fileStorageConfig;
 
-		        model.addAttribute("blogPosts", blogPostsPage);
-		        model.addAttribute("currentPage", page);
-		        model.addAttribute("nextPage", nextPage);
-		        model.addAttribute("previousPage", previousPage);
-		        model.addAttribute("totalPages", blogPostsPage.getTotalPages());
-		        model.addAttribute("content", "user/blog");
-		        return "/user/layout";
-		    }
-		  
-		    // GET Mapping to view blog details
-		    @GetMapping("/user-blog-detail/{id}")
-		    public String userViewBlogDetail(@PathVariable("id") int id, Model model) throws IOException {
-		        BlogPost blogPost = blogPostService.findById(id);
+	// GET Mapping to view all blogs
+	@GetMapping("/blog")
+	public String studentViewBlog(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(required = false) String keyword, Model model) {
 
-		        if (blogPost != null) {
-		            LocalDateTime createdAt = blogPost.getCreatedAt().toLocalDateTime();
-		            LocalDateTime now = LocalDateTime.now();
-		            Duration duration = Duration.between(createdAt, now);
-		            long days = duration.toDays();
-		            long hours = duration.toHours() % 24;
-		            long minutes = duration.toMinutes() % 60;
-		            String timeAgo = String.format("%d days, %d hours, %d minutes ago", days, hours, minutes);
+		int pageSize = 8; // Set the page size to 8
+		Pageable pageable = PageRequest.of(page, pageSize);
 
-		            model.addAttribute("timeAgo", timeAgo);
+		Page<BlogPost> blogPostsPage;
 
-		            // Read HTML file content
-		            
-		            model.addAttribute("content", "user/user-blog-detail");
-		            model.addAttribute("blogPost", blogPost);
-
-		            return "/user/blog-detail";
-		        }
-
-		        return "redirect:/user/blog";
-		    }
-
-		    // GET Mapping to return the HTML content of a blog file
-		    @GetMapping("/blog-html/{fileName}")
-		    @ResponseBody
-		    public String getBlogHtml(@PathVariable String fileName) throws IOException {
-		        java.nio.file.Path htmlFilePath = Paths.get(HTML_FILE_PATH + fileName);
-		        return Files.readString(htmlFilePath);
-		    }
-
-		    // POST Mapping to handle blog creation or update
-		    @PostMapping("/blog")
-		    public String saveBlogPost(@Valid BlogPostDto blogPostDto, MultipartFile imgFile, String content) {
-		        try {
-		            // Handle image file upload
-		            if (!imgFile.isEmpty()) {
-		                String originalFileName = imgFile.getOriginalFilename();
-		                String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
-		                String newImageFileName = dateTime + "_" + originalFileName;
-		                String imagePath = IMAGE_FILE_PATH + newImageFileName;
-
-		                Files.write(Paths.get(imagePath), imgFile.getBytes());
-		                blogPostDto.setImageFile(newImageFileName);
-		            }
-
-		            // Handle HTML file upload
-		            BlogPost blogPost;
-		            if (blogPostDto.getId() > 0) {
-		                blogPost = blogPostService.findById(blogPostDto.getId());
-		                if (blogPost == null) {
-		                    return "redirect:/edit/{id}";
-		                }
-		            } else {
-		                blogPost = new BlogPost();
-		                String fileName = UUID.randomUUID().toString() + ".html";
-		                blogPostDto.setHtmlFileName(fileName);
-		            }
-
-		            String filePath = HTML_FILE_PATH + blogPostDto.getHtmlFileName();
-		            if (Files.exists(Paths.get(filePath))) {
-		                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		                Files.write(Paths.get(filePath), content.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-		            } else {
-		                blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		                blogPostDto.setUsers(userService.getCurrentUser());
-		                Files.write(Paths.get(filePath), content.getBytes());
-		            }
-
-		            blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
-		            return "redirect:/user/user-blog-detail";
-
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		            return "redirect:/user/user-blog-detail";
-		        }
-		    }
+		if (keyword != null && !keyword.isEmpty()) {
+			blogPostsPage = blogPostService.searchBlogPostsByTitle(keyword, pageable);
+			model.addAttribute("keyword", keyword); // To preserve the search term in the search bar
+		} else {
+			blogPostsPage = blogPostService.getAllBlogPosts(pageable);
 		}
 
+//		        List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
+		int previousPage = (page > 0) ? page - 1 : 0;
+		int nextPage = (page < blogPostsPage.getTotalPages() - 1) ? page + 1 : blogPostsPage.getTotalPages() - 1;
 
+		model.addAttribute("blogPosts", blogPostsPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("nextPage", nextPage);
+		model.addAttribute("previousPage", previousPage);
+		model.addAttribute("totalPages", blogPostsPage.getTotalPages());
+		model.addAttribute("content", "user/blog");
+		return "/user/layout";
+	}
 
+	// GET Mapping to view blog details
+	@GetMapping("/user-blog-detail/{id}")
+	public String userViewBlogDetail(@PathVariable("id") int id, Model model) throws IOException {
+		BlogPost blogPost = blogPostService.findById(id);
 
+		if (blogPost != null) {
+			LocalDateTime createdAt = blogPost.getCreatedAt().toLocalDateTime();
+			LocalDateTime now = LocalDateTime.now();
+			Duration duration = Duration.between(createdAt, now);
+			long days = duration.toDays();
+			long hours = duration.toHours() % 24;
+			long minutes = duration.toMinutes() % 60;
+			String timeAgo = String.format("%d days, %d hours, %d minutes ago", days, hours, minutes);
 
+			model.addAttribute("timeAgo", timeAgo);
 
+			// Read HTML file content
 
+			model.addAttribute("content", "user/user-blog-detail");
+			model.addAttribute("blogPost", blogPost);
+
+			return "/user/blog-detail";
+		}
+
+		return "redirect:/user/blog";
+	}
+
+	// GET Mapping to return the HTML content of a blog file
+	@GetMapping("/blog-html/{fileName}")
+	@ResponseBody
+	public String getBlogHtml(@PathVariable String fileName) throws IOException {
+		java.nio.file.Path htmlFilePath = Paths.get(HTML_FILE_PATH + fileName);
+		return Files.readString(htmlFilePath);
+	}
+
+	// POST Mapping to handle blog creation or update
+	@PostMapping("/blog")
+	public String saveBlogPost(@Valid BlogPostDto blogPostDto, MultipartFile imgFile, String content) {
+		try {
+			// Handle image file upload
+			if (!imgFile.isEmpty()) {
+				String originalFileName = imgFile.getOriginalFilename();
+				String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+				String newImageFileName = dateTime + "_" + originalFileName;
+				String imagePath = IMAGE_FILE_PATH + newImageFileName;
+
+				Files.write(Paths.get(imagePath), imgFile.getBytes());
+				blogPostDto.setImageFile(newImageFileName);
+			}
+
+			// Handle HTML file upload
+			BlogPost blogPost;
+			if (blogPostDto.getId() > 0) {
+				blogPost = blogPostService.findById(blogPostDto.getId());
+				if (blogPost == null) {
+					return "redirect:/edit/{id}";
+				}
+			} else {
+				blogPost = new BlogPost();
+				String fileName = UUID.randomUUID().toString() + ".html";
+				blogPostDto.setHtmlFileName(fileName);
+			}
+
+			String filePath = HTML_FILE_PATH + blogPostDto.getHtmlFileName();
+			if (Files.exists(Paths.get(filePath))) {
+				blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+				Files.write(Paths.get(filePath), content.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+			} else {
+				blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+				blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+				blogPostDto.setUsers(userService.getCurrentUser());
+				Files.write(Paths.get(filePath), content.getBytes());
+			}
+
+			blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
+			return "redirect:/user/user-blog-detail";
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "redirect:/user/user-blog-detail";
+		}
+	}
+}

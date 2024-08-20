@@ -31,12 +31,13 @@ public class BlogPostServiceImpl implements BlogPostService {
 	private final String imgUploadDir =  "/blog/blog-images/";
 	public final String htmlUploadDir = "/blog/blog-files/";
 
+
 	@Autowired
 	private BlogPostRepository blogPostRepository;
 
 	@Autowired
 	private FileStorageConfig fileStorageConfig;
-/*	
+/*
 	@Override
 	public void saveBlogPost(BlogPostDto blogPostDto) throws IOException {
 
@@ -91,6 +92,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 		PageRequest pageable = PageRequest.of(page, size);
 		return blogPostRepository.findAll(pageable);
 	}
+
 
 		/*
     
@@ -221,12 +223,10 @@ public class BlogPostServiceImpl implements BlogPostService {
 		
 	}
 
-*/
-//	@Override
+*///	@Override
 //	public Page<BlogPost> searchBlogPostsByName(String name, Pageable pageable) {
 //		return BlogPostRepository.findByNameContainingIgnoreCaseAndRole(name, "ROLE_STUDENT", pageable);
 //	}
-
 
 	@Override
 	public Page<BlogPost> getAllBlogPosts(Pageable pageable) {
@@ -236,7 +236,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 	@Override
 	public Page<BlogPost> searchBlogPostsByTitle(String title, Pageable pageable) {
-		
+
 		return blogPostRepository.findByTitleContainingIgnoreCase(title, pageable);
 	}
 //    @Override
@@ -244,26 +244,22 @@ public class BlogPostServiceImpl implements BlogPostService {
 //        return fileStorageConfig.readFileContent(blogPost.getHtmlFileName(), BLOG_HTML_PATH);
 //    }
 
-    private String generateNewFileName(String originalFileName) {
-        String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
-        return dateTime + "_" + originalFileName;
-    }
-    
-    @Override
-    public List<BlogPost> getAllBlogPosts() {
-        return blogPostRepository.findAll();
-    }
+	private String generateNewFileName(String originalFileName) {
+		String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+		return dateTime + "_" + originalFileName;
+	}
 
-	
+	@Override
+	public List<BlogPost> getAllBlogPosts() {
+		return blogPostRepository.findAll();
+	}
+
 //
 //	@Override
 //	public void updateBlogPostStatus(int id, boolean enabled) {
 //		// TODO Auto-generated method stub
 //		
 //	}
-
-
-	
 
 	// for page pagination
 //	@Override
@@ -273,6 +269,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 //		return blogPostRepository.findAll(pageable);
 //	}
 //	
+
 	
     @Override
     public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
@@ -300,3 +297,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	
 		
 }
+
+
+
+

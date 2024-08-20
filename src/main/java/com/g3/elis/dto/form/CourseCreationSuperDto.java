@@ -2,20 +2,17 @@ package com.g3.elis.dto.form;
 
 import java.util.List;
 
-public class CourseCreationSuperDto 
-{
+public class CourseCreationSuperDto {
 	private CourseDto courseDto;
 	private List<CourseModuleDto> courseModuleDtoList;
 	private List<CourseMaterialDto> courseMaterialDtoList;
 	private List<CourseAssignmentDto> courseAssignmentDtoList;
-	private List<QuestionDto> questionDtoList;
-	private List<AnswerDto> answerDtoList;
 	private InputFileDto inputFileDto;
 	private Integer courseId;
 	private String action;
-	
-	public CourseCreationSuperDto(){
-		
+
+	public CourseCreationSuperDto() {
+
 	}
 
 	public CourseDto getCourseDto() {
@@ -50,22 +47,6 @@ public class CourseCreationSuperDto
 		this.courseAssignmentDtoList = courseAssignmentDtoList;
 	}
 
-	public List<QuestionDto> getQuestionDtoList() {
-		return questionDtoList;
-	}
-
-	public void setQuestionDtoList(List<QuestionDto> questionDtoList) {
-		this.questionDtoList = questionDtoList;
-	}
-
-	public List<AnswerDto> getAnswerDtoList() {
-		return answerDtoList;
-	}
-
-	public void setAnswerDtoList(List<AnswerDto> answerDtoList) {
-		this.answerDtoList = answerDtoList;
-	}
-
 	public InputFileDto getInputFileDto() {
 		return inputFileDto;
 	}
@@ -92,19 +73,15 @@ public class CourseCreationSuperDto
 
 	public CourseCreationSuperDto(CourseDto courseDto, List<CourseModuleDto> courseModuleDtoList,
 			List<CourseMaterialDto> courseMaterialDtoList, List<CourseAssignmentDto> courseAssignmentDtoList,
-			List<QuestionDto> questionDtoList, List<AnswerDto> answerDtoList, InputFileDto inputFileDto,
-			Integer courseId, String action) {
+			InputFileDto inputFileDto, Integer courseId, String action) {
 		super();
 		this.courseDto = courseDto;
 		this.courseModuleDtoList = courseModuleDtoList;
 		this.courseMaterialDtoList = courseMaterialDtoList;
 		this.courseAssignmentDtoList = courseAssignmentDtoList;
-		this.questionDtoList = questionDtoList;
-		this.answerDtoList = answerDtoList;
 		this.inputFileDto = inputFileDto;
 		this.courseId = courseId;
 		this.action = action;
 	}
-
 
 }

@@ -1,14 +1,15 @@
 package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.g3.elis.model.User;
 
 import jakarta.validation.constraints.NotNull;
 
 public class EnrolledCourseDto {
 	
-	
-
-   
+	private List<User> userList;
     private Timestamp enrolledAt;
     private Timestamp completedAt;
 
@@ -49,16 +50,28 @@ public class EnrolledCourseDto {
 	public void setCourse_id(int course_id) {
 		this.course_id = course_id;
 	}
+	
+	public List<User> getUserList() {
+		return userList;
+	}
 
-	public EnrolledCourseDto(Timestamp enrolledAt, Timestamp completedAt,
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+	
+	public EnrolledCourseDto() {
+		
+	}
+
+	public EnrolledCourseDto(List<User> userList, Timestamp enrolledAt, Timestamp completedAt,
 			@NotNull(message = "User ID is required") int user_id,
 			@NotNull(message = "Course ID is required") int course_id) {
 		super();
+		this.userList = userList;
 		this.enrolledAt = enrolledAt;
 		this.completedAt = completedAt;
 		this.user_id = user_id;
 		this.course_id = course_id;
 	}
-
-    
+	
 }

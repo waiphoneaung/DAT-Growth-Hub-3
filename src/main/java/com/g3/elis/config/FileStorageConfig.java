@@ -17,6 +17,78 @@ public class FileStorageConfig {
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 	
+
+	@Value("${file.upload-dir}")
+	private String profileImageDir;
+	
+	@Value("${file.upload-dir}")
+	private String uploadBlogImageDir;
+	
+	@Value("${file.upload-dir}")
+	private String uploadStudentImageDir;
+	
+	
+	public Path getProfileImageDir()
+	{
+		return Paths.get(profileImageDir + "/profile/user-profile").toAbsolutePath().normalize();
+	}
+	
+
+	 public String saveProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+
+	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	        String newFileName = timestamp + "_" + originalFileName;
+	        Path targetLocation = getProfileImageDir().resolve(newFileName);
+	        Files.copy(file.getInputStream(), targetLocation);
+
+	        
+	        return newFileName;
+
+	    }
+	public void deleteProfileImageFile(String fileName) throws IOException
+	{
+		Path targetLocation = getProfileImageDir().resolve(fileName);
+		Files.delete(targetLocation);
+	}
+	
+public Path getBlogImageUploadDir()
+	{
+		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
+	}
+
+
+	
+	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
+	{
+		Path targetLocation = getBlogImageUploadDir().resolve(fileName);
+		Files.copy(file.getInputStream(), targetLocation);
+	}
+	
+
+	
+	public void deleteBlogImage(String fileName) throws IOException {
+	    Path filePath = getBlogImageUploadDir().resolve(fileName).normalize();
+	    Files.deleteIfExists(filePath);
+	}
+	
+	public Path getUploadDir()
+	{
+		return Paths.get(uploadDir).toAbsolutePath().normalize();
+	}
+	
+	
+	public void saveFile(MultipartFile file,String fileName) throws IOException
+	{
+		Path targetLocation = getUploadDir().resolve(fileName);
+		Files.copy(file.getInputStream(), targetLocation);
+	}
+	
+	public void deleteFile(String fileName) throws IOException
+	{
+		Path targetLocation = getUploadDir().resolve(fileName);
+		Files.delete(targetLocation);
+	}
+	
 	public Path getUploadDir(String filePath)
 	{
 		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
