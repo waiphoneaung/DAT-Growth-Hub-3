@@ -24,6 +24,7 @@ import com.g3.elis.model.Course;
 import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
+import com.g3.elis.service.EnrollService;
 import com.g3.elis.service.UserService;
 
 @Controller
@@ -35,6 +36,9 @@ public class AdminCourseListController {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private EnrollService enrollService;
 	
 	@GetMapping("/admin-course-list")
 	public String adminCourseList(Model model,
@@ -109,7 +113,7 @@ public class AdminCourseListController {
 	public String submitEnrollStudent(@ModelAttribute("enrolledCourseDto")EnrolledCourseDto enrolledCourseDto,
 									  @RequestParam(name = "courseId")int courseId)
 	{
-		
+		enrollService.enrollStudents(enrolledCourseDto.getUserList(), courseId);
 		return "redirect:/admin/admin-course-list";
 	}
 	

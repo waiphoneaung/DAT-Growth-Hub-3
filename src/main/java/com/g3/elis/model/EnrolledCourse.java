@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class EnrolledCourse {
 	@OneToMany(mappedBy = "enrolledCourses",fetch = FetchType.LAZY)
 	private Set<Report> reports=new HashSet<>();
 	
-	@OneToMany(mappedBy = "enrolledCourse",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "enrolledCourse",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EnrolledModule> enrolledModules;
 	
 	public EnrolledCourse()

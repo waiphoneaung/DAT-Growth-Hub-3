@@ -2,6 +2,7 @@ package com.g3.elis.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,10 +32,10 @@ public class EnrolledModule
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModule;
 	
-	@OneToMany(mappedBy = "enrolledModule", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "enrolledModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EnrolledAssignment> enrolledAssignment;
 	
-	@OneToMany(mappedBy = "enrolledModule", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "enrolledModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EnrolledMaterial> enrolledMaterial;
 
 	public int getId() {
