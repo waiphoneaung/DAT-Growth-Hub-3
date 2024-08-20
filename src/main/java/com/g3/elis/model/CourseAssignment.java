@@ -21,13 +21,14 @@ public class CourseAssignment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	private boolean finishedStatus;
 	private int timeLimit;
-	private int score;
 
 	@ManyToOne
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
+	
+	@OneToMany(mappedBy = "courseAssignment", fetch = FetchType.LAZY)
+	private List<EnrolledAssignment> enrolledAssignment;
 
 	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	List<Question> questions;
@@ -48,28 +49,12 @@ public class CourseAssignment {
 		this.title = title;
 	}
 
-	public boolean isFinishedStatus() {
-		return finishedStatus;
-	}
-
-	public void setFinishedStatus(boolean finishedStatus) {
-		this.finishedStatus = finishedStatus;
-	}
-
 	public int getTimeLimit() {
 		return timeLimit;
 	}
 
 	public void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	public CourseModule getCourseModule() {
@@ -96,16 +81,13 @@ public class CourseAssignment {
 		this.questions = questions;
 	}
 
-	public CourseAssignment(int id, String title, boolean finishedStatus, int timeLimit, int score,
-			CourseModule courseModule, List<Question> question) {
+	public CourseAssignment(int id, String title, int timeLimit, CourseModule courseModules, List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.finishedStatus = finishedStatus;
 		this.timeLimit = timeLimit;
-		this.score = score;
-		this.courseModules = courseModule;
-		this.questions = question;
+		this.courseModules = courseModules;
+		this.questions = questions;
 	}
 
 	public CourseAssignment() {

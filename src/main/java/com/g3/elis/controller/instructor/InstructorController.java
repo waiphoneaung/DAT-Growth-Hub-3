@@ -39,16 +39,6 @@ public class InstructorController {
 		model.addAttribute("content", "instructor/instructor-quiz-result");
 		return "instructor/instructor-layout";
 	}
-	
-	@GetMapping("/instructor-studentlist")
-	public String instructor_studentlist(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-studentlist");
-		model.addAttribute("content", "instructor/instructor-studentlist");
-		return "instructor/instructor-layout";
-	}
-	
-	
 //	@GetMapping("/instructor-view-blog")
 //	public String instructor_view_blog(Model model) {
 //		
