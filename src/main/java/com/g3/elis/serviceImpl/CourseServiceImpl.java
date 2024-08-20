@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -307,6 +309,12 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public Course getCourseById(int id) {
 		return courseRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Page<Course> findCourses(PageRequest of) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

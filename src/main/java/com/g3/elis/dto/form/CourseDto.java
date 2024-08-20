@@ -2,6 +2,8 @@ package com.g3.elis.dto.form;
 
 import java.sql.Timestamp;
 
+import com.g3.elis.model.User;
+
 public class CourseDto {
 
     private String courseTitle;
@@ -124,6 +126,30 @@ public class CourseDto {
 				+ courseCompletedStatus + ", progress=" + progress + ", courseInfo=" + courseInfo
 				+ ", courseImageFileName=" + courseImageFileName + ", updatedDate=" + updatedDate + ", user_id="
 				+ user_id + ", course_category_id=" + course_category_id + ", course_tag_id=" + course_tag_id + "]";
+	}
+	public void setImageFile(String newImageFileName) {
+		// TODO Auto-generated method stub
+		
+	}
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void setHtmlFileName(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getHtmlFileName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setUpdatedAt(Timestamp timestamp) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setUsers(User currentUser) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

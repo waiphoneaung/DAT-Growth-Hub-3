@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -136,5 +137,8 @@ public class FileStorageConfig {
 		Files.write(targetLocation, content.getBytes());
 	}
 	
-	
+	public void saveFile(Path source, Path destination) throws IOException {
+        // Overwrite the file if it already exists
+        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+    }
 }

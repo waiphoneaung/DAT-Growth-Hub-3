@@ -35,17 +35,13 @@ public class StudentController {
 	}
 	
 	
-	@GetMapping("/student-course-list")
-	public String studentCourseList(Model model) {
-		model.addAttribute("content","student/student-course-list");
-		return "/student/student-layout";
-	}
-	
-	@GetMapping("/student-view-allcourses")
-	public String studentAllCourse(Model model) {
-		
-		return "/student/student-view-allcourses";
-	}
+//	@GetMapping("/student-course-list")
+//	public String studentCourseList(Model model) {
+//		model.addAttribute("content","student/student-course-list");
+//		return "/student/student-layout";
+//	}
+//	
+//	
 	
 
 	@GetMapping("/instructor-list")
@@ -92,7 +88,12 @@ public class StudentController {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	
+	@GetMapping("/authenticated-user/course-detail")
+	public String showCourseDetail(Model model) {
+	    // Logic for displaying course details
+	    return "course-detail";
+	}
+
 	
 	
 }

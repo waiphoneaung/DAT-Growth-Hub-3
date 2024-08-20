@@ -76,6 +76,7 @@ public class SecurityConfig {
                                 "/private/profile/student-profile/**", "/private/profile/user-profile/**",
 
                                 "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**",
+                                "/private/course/course-images/**","/private/course/course-files/**","/authenticated-user/**",
 
                                 "/api/public/**").permitAll()
                         .requestMatchers("/user/**","/auth/**").permitAll()

@@ -28,11 +28,6 @@ import com.g3.elis.service.UserService;
 @RequestMapping("/student")
 public class StudentEditProfileController {
 	
-
-	
-		
-
-			
 				@Autowired
 				private ProfileService profileService;
 

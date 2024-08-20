@@ -1,5 +1,6 @@
 package com.g3.elis.model;
 
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -230,5 +231,15 @@ public class Course {
 
 	public Course() {
 		
+	}
+
+	public String getHtmlFileName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Path gethtmlFileName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

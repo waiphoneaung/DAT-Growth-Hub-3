@@ -128,7 +128,7 @@
 													<!-- Avatar --> 
 													<div class="avatar avatar-xs flex-shrink-0">
 														<span th:if="${#authentication.principal.isAdmin()}">
-															<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/admin-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
+															<img class="avatar-img rounded-circle" th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}" alt="avatar">
 															<img class="avatar-img rounded-circle" th:unless="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 														</span>
 														<span th:if="${#authentication.principal.isInstructor()}">
