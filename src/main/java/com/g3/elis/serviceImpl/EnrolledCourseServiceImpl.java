@@ -111,16 +111,31 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 	}
 
 	@Override
-	public List<EnrolledCourse> getAllEnrolledCOurseByInstructorId(int instructorId) {
+	public List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId) {
 		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
 		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();
 		for(EnrolledCourse enrolledCourse : enrolledCourseList)
 		{
-			if(enrolledCourse.getCourses().getUsers().getId() == instructorId)
+			if(enrolledCourse.getUsers().getId() == userId)
 			{
 				enrolledCourseReturnList.add(enrolledCourse);
 			}
 		}
 		return enrolledCourseReturnList;
 	}
+
+	@Override
+	public boolean isUserEnrolledToCourse(int userId,int courseId) 
+	{
+		for(EnrolledCourse enrolledCourse : enrolledCourseRepository.findAll())
+		{
+			if(enrolledCourse.getCourses().getId() == courseId && enrolledCourse.getUsers().getId() == userId)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }

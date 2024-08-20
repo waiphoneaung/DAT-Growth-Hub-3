@@ -7,16 +7,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.model.Course;
-
+import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
+import com.g3.elis.service.EnrollService;
+import com.g3.elis.service.EnrolledCourseService;
+import com.g3.elis.service.UserService;
 
 
 @Controller
@@ -25,6 +29,14 @@ public class UserCourseController {
 	@Autowired
 	private CourseService courseService;
 	
+	@Autowired
+	private EnrolledCourseService enrolledCourseService;
+
+	@Autowired
+	private EnrollService enrollService;
+	
+	@Autowired
+	private UserService userService;
 	
 //	@GetMapping("/courses")
 //	public String getAllCourses(Model model) {
@@ -67,5 +79,23 @@ public class UserCourseController {
         model.addAttribute("content", "user/courses");
         return "/user/layout";
     }
-	
+	@GetMapping("/courses/course-detail")
+	public String courseDetail(@RequestParam(name = "courseId")int courseId,
+							   Authentication authentication,Model model)
+	{
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		Course course = courseService.getCourseById(courseId);
+		model.addAttribute("isEnroll",enrolledCourseService.isUserEnrolledToCourse(userDetail.getUser().getId(),courseId));
+		model.addAttribute("course",course);
+		model.addAttribute("content","user/user-course-detail");
+		return "/user/layout";
+	}
+	@GetMapping("/courses/course-detail/enroll")
+	public String enrollCourse(@RequestParam(name = "courseId")int courseId,
+							   Authentication authentication)
+	{
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		enrollService.enrollStudent(userDetail.getUser().getId(), courseId);
+		return "redirect:/student/student-course-resume";
+	}
 }

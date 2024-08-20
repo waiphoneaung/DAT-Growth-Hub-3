@@ -31,7 +31,7 @@ public class CourseAssignment {
 	private List<EnrolledAssignment> enrolledAssignment;
 
 	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	List<Question> questions;
+	private List<Question> questions;
 
 	public int getId() {
 		return id;

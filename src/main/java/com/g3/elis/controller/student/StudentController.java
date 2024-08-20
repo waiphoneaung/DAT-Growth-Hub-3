@@ -1,7 +1,5 @@
 package com.g3.elis.controller.student;
 
-
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,6 @@ public class StudentController {
 		model.addAttribute("content","student/student-dashboard");
 		return "/student/student-layout";
 	}
-
 	
 	@GetMapping("/blog-detail")
 	public String blogDetail()
@@ -107,14 +104,6 @@ public class StudentController {
 	@GetMapping("/student-grade")
 	public String studentGrade(Model model) {
 		model.addAttribute("content","student/student-grade");
-		return "/student/student-layout";
-	}
-	
-	
-	
-	@GetMapping("/student-course-resume")
-	public String studentCourseResume(Model model) {
-		model.addAttribute("content","student/student-course-resume");
 		return "/student/student-layout";
 	}
 	
