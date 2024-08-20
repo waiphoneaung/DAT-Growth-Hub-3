@@ -21,7 +21,7 @@ public interface BlogPostService {
 
 	 BlogPost findById(int id);
 	
-	void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
+	//void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
 	
 	
 //	void updateBlogPostStatus(int id, boolean enabled);
@@ -40,6 +40,8 @@ public interface BlogPostService {
   void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
   void deleteBlogPost(int id) throws IOException;
+
+void updateBlogPost( BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
 //  void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     

@@ -209,10 +209,10 @@ public class AdminCreateBlogController {
 
         if (blogPostDto.getId() >0 && blogPostService.findById(blogPostDto.getId()) != null) {
             // If the ID exists, update the existing blog post
-            blogPostService.saveBlogPost(blogPostDto, content, imgFile);
+            blogPostService.updateBlogPost(blogPostDto, content, imgFile);
         } else {
             // If the ID does not exist, create a new blog post
-           // blogPostService.updateBlogPost(blogPostDto, content, imgFile);
+            blogPostService.saveBlogPost(blogPostDto, content, imgFile);
         }
 
         return "redirect:/admin/admin-view-blog";

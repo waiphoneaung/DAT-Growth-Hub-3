@@ -24,7 +24,7 @@ public class FileStorageConfig {
 	
 	public String saveFile(MultipartFile file,String fileName,String filePath) throws IOException
 	{
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
         String newFileName = timestamp + "_" + fileName;
 		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
 		    Files.copy(file.getInputStream(), targetLocation);
