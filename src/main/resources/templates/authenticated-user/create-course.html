@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- Bootstrap JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<head>
+
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+<!-- Favicon -->
+<link rel="shortcut icon" th:href="@{public/assets/images/favicon.ico}">
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/choices/css/choices.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/aos/aos.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/quill/css/quill.snow.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/stepper/css/bs-stepper.min.css}">
+
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/css/style.css}">
+
+</head>
+
+<body>
+
+
+	<!-- **************** MAIN CONTENT START **************** -->
+	<th:block th:fragment="'${map}' + '-edit-course-detail'">
+
+		<div th:replace="~{|${map}/${map}-navbar| :: |${map}-navbar|}"></div>
+
+		<main>
+
+			<!-- =======================
+Page Banner START -->
+			<section
+				class="py-0 bg-blue h-100px align-items-center d-flex h-200px rounded-0"
+				style="background: url(/public/assets/images/pattern/04.png) no-repeat center center; background-size: cover;">
+				<!-- Main banner background image -->
+				<div class="container">
+					<div class="row">
+						<div class="col-12 text-center">
+							<!-- Title -->
+
+							<span th:if="${action} == 'add'">
+								<h1 class="text-white">Submit a new Course</h1>
+								<p class="text-white mb-0">
+									Read our <a href="#" class="text-white"><u>"Before you
+											create a course"</u></a> article before submitting!
+								</p>
+							</span> <span th:unless="${action} == 'add'">
+								<h1 class="text-white">Edit Your Course</h1>
+							</span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
+Page Banner END -->
+
+			<!-- =======================
+Steps START -->
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 mx-auto text-center">
+							<!-- Content -->
+							<p class="text-center" th:if="${action} == 'add'">Use this
+								interface to add a new Course to the portal. Once you are done
+								adding the item it will be requested to admin. If admin
+								approved, your course will appear and inform to students that
+								your course has been accepted.</p>
+							<p class="text-center" th:unless="${action} == 'add'">Use
+								this interface to edit your Course to the portal. Once you are
+								done editing the item it will be requested to admin. If admin
+								approved, your course will appear and inform to students that
+								your course has been accepted.</p>
+						</div>
+					</div>
+
+					<div class="card bg-transparent border rounded-3 mb-5">
+						<div id="stepper" class="bs-stepper stepper-outline">
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom px-lg-5">
+								<!-- Step Buttons START -->
+								<div class="bs-stepper-header" role="tablist">
+									<!-- Step 1 -->
+									<div class="step" data-target="#step-1">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger1" aria-controls="step-1">
+												<span class="bs-stepper-circle">1</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Course
+												details</h6>
+										</div>
+									</div>
+									<div class="line"></div>
+
+									<!-- Step 2 -->
+									<div class="step" data-target="#step-2">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger2" aria-controls="step-2">
+												<span class="bs-stepper-circle">2</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Course
+												thumbnail</h6>
+										</div>
+									</div>
+									<div class="line"></div>
+
+									<!-- Step 3 -->
+									<div class="step" data-target="#step-3">
+										<div class="d-grid text-center align-items-center">
+											<button type="button" class="btn btn-link step-trigger mb-0"
+												role="tab" id="steppertrigger3" aria-controls="step-3">
+												<span class="bs-stepper-circle">3</span>
+											</button>
+											<h6 class="bs-stepper-label d-none d-md-block">Curriculum</h6>
+										</div>
+									</div>
+
+								</div>
+								<!-- Step Buttons END -->
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body">
+								<!-- Step content START -->
+								<div class="bs-stepper-content">
+									<form th:action="@{|/${map}/create-course|}"
+										th:object="${superDto}" method="POST"
+										enctype="multipart/form-data">
+
+										<!-- Step 1 content START -->
+										<div id="step-1" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger1">
+											<!-- Title -->
+											<h4>Course details</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<!-- Basic information START -->
+											<div class="row g-4">
+												<!-- Course title -->
+												<div class="col-12">
+													<label class="form-label">Course title</label> <input
+														class="form-control" type="text" name="courseTitle"
+														id="courseTitle" th:field="*{courseDto.courseTitle}"
+														th:value="${superDto.courseDto.courseTitle}"
+														placeholder="Enter course title">
+												</div>
+
+												<!-- Short description -->
+												<div class="col-12">
+													<label class="form-label">Short description</label>
+													<textarea class="form-control" rows="2"
+														th:field="*{courseDto.courseDescription}"
+														name="courseDescription" id="courseDescription"
+														th:value="${superDto.courseDto.courseDescription}"
+														placeholder="Enter keywords"></textarea>
+												</div>
+
+												<!-- Course category -->
+												<div class="col-md-12">
+													<label class="form-label">Course category</label> <select
+														name="courseCategoryId"
+														class="form-select js-choice border-0 z-index-9 bg-transparent"
+														aria-label=".form-select-sm" data-search-enabled="true">
+														<option th:each="courseCategory : ${courseCategories}"
+															th:text="${courseCategory.categoryName}"
+															th:value="${courseCategory.id}"></option>
+													</select>
+												</div>
+
+												<!-- Course time -->
+												<div class="col-md-12">
+													<label class="form-label">Course time</label>
+													<div class="row">
+														<div class="col-12">
+															<input class="form-control" type="number"
+																th:field="*{courseDto.durationHour}" name="durationHour"
+																id="durationHour"
+																th:value="${superDto.courseDto.durationHour}"
+																placeholder="Enter course time by hour">
+														</div>
+													</div>
+												</div>
+
+												<!-- Course description -->
+												<div class="col-12">
+													<label class="form-label">Add description</label>
+													<textarea th:field="*{courseDto.courseInfo}"
+														th:value="${superDto.courseDto.courseInfo}"
+														class="form-control" rows="12" name="courseInfo"
+														id="courseInfo" placeholder="Enter descriptions"></textarea>
+												</div>
+
+												<!-- Step 1 button -->
+												<div class="d-flex justify-content-between mt-3">
+													<a class="btn btn-warning next-btn mb-0"
+														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> <a
+														class="btn btn-primary next-btn mb-0">Next</a>
+
+												</div>
+											</div>
+											<!-- Basic information START -->
+										</div>
+										<!-- Step 1 content END -->
+
+										<!-- Step 2 content START -->
+										<div id="step-2" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger2">
+											<!-- Title -->
+											<h4>Course Thumbnail</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<div class="row">
+												<!-- Upload image START -->
+												<div class="col-12">
+													<div
+														class="text-center justify-content-center align-items-center p-4 p-sm-5 border border-2 border-dashed position-relative rounded-3">
+														<!-- Image -->
+														<img
+															th:if="${imgFile != null && imgFile.getOriginalFilename() != null}"
+															th:src="@{'/private/course/course-image-file/' + ${imgFile.getOriginalFilename()}}"
+															class="h-50px">
+														<div>
+															<h6 class="my-2">
+																Upload course thumbnail here, or<a href="#!"
+																	class="text-primary"> Browse</a>
+															</h6>
+															<label style="cursor: pointer;"> <span> <input
+																	class="form-control stretched-link" type="file"
+																	name="imgFile" id="image" th:value="${imgFile}"
+																	accept="image/gif, image/jpeg, image/png" />
+															</span>
+															</label>
+															<p class="small mb-0 mt-2">
+																<b>Note:</b> Only JPG, JPEG and PNG. Our suggested
+																dimensions are 600px * 450px. Larger image will be
+																cropped to 4:3 to fit our thumbnails/previews.
+															</p>
+														</div>
+													</div>
+
+
+												</div>
+												<!-- Upload image END -->
+
+												<!-- Step 2 button -->
+												<div class="d-flex justify-content-between mt-3">
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a> <a
+														class="btn btn-primary next-btn mb-0">Next</a>
+												</div>
+											</div>
+										</div>
+										<!-- Step 2 content END -->
+
+										<!-- Step 3 content START -->
+										<div id="step-3" role="tabpanel" class="content fade"
+											aria-labelledby="steppertrigger3">
+											<!-- Title -->
+											<h4>Curriculum</h4>
+
+											<hr>
+											<!-- Divider -->
+
+											<div class="row">
+												<!-- Add Module Modal button -->
+												<div
+													class="d-sm-flex justify-content-sm-between align-items-center mb-3">
+													<h5 class="mb-2 mb-sm-0">Upload Module</h5>
+													<a href="#" class="btn btn-sm btn-primary-soft mb-0"
+														th:if="${action} == 'add'" data-bs-toggle="modal"
+														data-bs-target="#addLecture"><i
+														class="bi bi-plus-circle me-2"></i>Add Module</a>
+												</div>
+
+												<!-- Edit Module START -->
+												<div class="accordion accordion-icon accordion-bg-light"
+													id="accordionExample2">
+													<!-- Item START -->
+
+													<div th:each="moduleList,iterStat : *{courseModuleDtoList}">
+
+														<div class="accordion-item mb-3">
+															<h6 class="accordion-header font-base"
+																th:id="'heading-' + ${iterStat.index}">
+																<button
+																	class="accordion-button fw-bold rounded d-inline-block collapsed d-block pe-5"
+																	type="button" data-bs-toggle="collapse"
+																	th:attr="aria-controls='collapse-' + ${iterStat.index}, data-bs-target= '#collapse-' + ${iterStat.index}"
+																	aria-expanded="false"
+																	th:text="${moduleList.moduleTitle}"></button>
+															</h6>
+
+															<div th:id="'collapse-' + ${iterStat.index}"
+																class="accordion-collapse collapse show"
+																th:attr="aria-labelledby='heading-' + ${iterStat.index}"
+																data-bs-parent="#accordionExample2">
+																<!-- Material START -->
+																<div class="accordion-body mt-3">
+
+																	<!-- Material item START -->
+																	<div
+																		th:each="materialList,courseMaterialStat : *{courseMaterialDtoList}">
+
+																		<div
+																			th:if="${materialList.index} == ${iterStat.index}">
+																			<div
+																				class="d-flex justify-content-between align-items-center">
+																				<div class="position-relative">
+																					<a href="#"
+																						class="btn btn-danger-soft btn-round btn-sm mb-0 stretched-link position-static"><i
+																						class="fas fa-play"></i></a> <span
+																						th:text="${materialList.title}"
+																						class="ms-2 mb-0 h6 fw-light"></span>
+																				</div>
+																				<!-- Edit and cancel button -->
+																				<div>
+																					<!-- <a href="#" data-bs-toggle="modal"
+																						data-bs-target="#addTopic"
+																						th:data-id="${iterStat.index}" data-action="edit"
+																						th:data-index="${courseMaterialStat.index}"
+																						class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i
+																						class="far fa-fw fa-edit"></i></a> -->
+																					<button th:if="${action} == 'add'"
+																						class="btn btn-sm btn-danger-soft btn-round mb-0">
+																						<i class="fas fa-fw fa-times"></i>
+																					</button>
+																				</div>
+																			</div>
+																			<!-- Divider -->
+																			<hr>
+																		</div>
+
+																	</div>
+																	<!-- Material item END -->
+																	<!-- Add course Material -->
+																	<a href="#" class="btn btn-sm btn-dark mb-0"
+																		th:if="${action} == 'add'" data-bs-toggle="modal"
+																		data-bs-target="#addTopic" data-action="add"
+																		th:data-id="${iterStat.index}"><i
+																		class="bi bi-plus-circle me-2"></i>Add Course Material</a>
+																	<!-- Add Quiz 
+																	<a th:href="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}"
+																		
+																		class="btn btn-sm btn-dark mb-0"> <i
+																		class="bi bi-plus-circle me-2"></i>Add assignment
+																	</a>
+																	<!-- Material END th:href="@{/admin/admin-create-course/admin-quiz(courseModuleId=${iterStat.index})}" -->
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<!-- Item END -->
+
+
+
+												</div>
+												<!-- Edit Module END -->
+
+												<!-- Step 3 button -->
+												<div class="d-flex justify-content-between">
+													<a class="btn btn-secondary prev-btn mb-0">Previous</a>
+													<div class="text-md-end">
+														<button type="submit" class="btn btn-success mb-2 mb-sm-0">Submit
+															a Course</button>
+													</div>
+												</div>
+												<div class="mt-2">
+													<p class="mb-0 small mt-1">Once you click "Submit a
+														Course", your course will be uploaded and marked as
+														pending for review.</p>
+												</div>
+											</div>
+										</div>
+										<!-- Step 3 content END -->
+
+									</form>
+								</div>
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =======================
+Steps END -->
+
+			<!-- Popup modal for add module START -->
+			<div class="modal fade" id="addLecture" tabindex="-1"
+				aria-labelledby="addLectureLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header bg-dark">
+							<h5 class="modal-title text-white" id="addLectureLabel">Add
+								Module</h5>
+							<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+								data-bs-dismiss="modal" aria-label="Close">
+								<i class="bi bi-x-lg"></i>
+							</button>
+						</div>
+						<form th:action="@{|/${map}/create-course/add-module|}"
+							method="POST" class="row text-start g-3">
+							<div class="modal-body">
+
+								<!-- Course name -->
+								<div class="col-12">
+									<label class="form-label">Module name <span
+										class="text-danger">*</span></label> <input type="text"
+										name="module-title" class="form-control"
+										placeholder="Enter module name">
+								</div>
+
+								<input type="hidden" id="courseTitleField1" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
+								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
+								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
+								<input type="hidden" id="imageField1" name="image">
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger-soft my-0"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-success my-0"
+									onclick="copyValue()">Save Module</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- Popup modal for add module END -->
+
+			<!-- Popup modal for add Material START -->
+			<div class="modal modal-xl fade" id="addTopic" tabindex="-1"
+				aria-labelledby="addTopicLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<form th:action="@{|/${map}/create-course/add-material|}"
+						class="row text-start g-3" method="POST" id="courseMaterialId"
+						enctype="multipart/form-data">
+						<div class="modal-content">
+							<div class="modal-header bg-dark">
+								<h5 class="modal-title text-white" id="addTopicLabel">Add
+									course material</h5>
+								<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
+									data-bs-dismiss="modal" aria-label="Close">
+									<i class="bi bi-x-lg"></i>
+								</button>
+							</div>
+							<div class="modal-body">
+
+								<input type="hidden" id="index" name="courseModuleIndex">
+								<input type="hidden" id="action" name="action"> 
+								<input type="hidden" id="courseTitleField2" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
+								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
+								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
+
+								<input type="hidden" id="imageField" name="image">
+
+								<!-- Title name -->
+								<div class="col-md-12">
+									<label class="form-label"></label> <input name="title"
+										id="titleField" class="form-control" type="text"
+										placeholder="Enter name for title">
+								</div>
+
+								<!-- Video link -->
+								<div class="col-md-12">
+									<label class="form-label">Video link</label> <input
+										name="video" class="form-control" type="text"
+										placeholder="Enter Video link">
+								</div>
+								<!-- Course description -->
+								<div class="col-12">
+									<label class="form-label">Add description</label>
+									<div class="form-group">
+
+										<!-- Editor toolbar -->
+										<div class="bg-light border border-bottom-0 rounded-top py-3"
+											id="quilltoolbar">
+											<span class="ql-formats"> <select class="ql-font"></select>
+												<select class="ql-size"></select>
+											</span> <span class="ql-formats">
+												<button class="ql-bold"></button>
+												<button class="ql-italic"></button>
+												<button class="ql-underline"></button>
+												<button class="ql-strike"></button>
+											</span> <span class="ql-formats"> <select class="ql-color"></select>
+												<select class="ql-background"></select>
+											</span> <span class="ql-formats">
+												<button class="ql-script" value="sub"></button>
+												<button class="ql-script" value="super"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-header" value="1"></button>
+												<button class="ql-header" value="2"></button>
+												<button class="ql-blockquote"></button>
+												<button class="ql-code-block"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-list" value="ordered"></button>
+												<button class="ql-list" value="bullet"></button>
+												<button class="ql-indent" value="-1"></button>
+												<button class="ql-indent" value="+1"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-direction" value="rtl"></button> <select
+												class="ql-align"></select>
+											</span> <span class="ql-formats">
+												<button class="ql-link"></button>
+												<button class="ql-image"></button>
+												<button class="ql-video"></button>
+												<button class="ql-formula"></button>
+											</span> <span class="ql-formats">
+												<button class="ql-clean"></button>
+											</span>
+										</div>
+										<!-- Main toolbar -->
+										<div
+											class="bg-body border rounded-bottom h-400px overflow-hidden"
+											id="quilleditor">
+
+											<h1>Header</h1>
+											<br>
+											<p>Enter Body Text Here.</p>
+											<br>
+										</div>
+										<input type="hidden" id="content" name="content">
+									</div>
+								</div>
+								<!-- Buttons -->
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger-soft my-0"
+									data-bs-dismiss="modal">Close</button>
+
+								<button type="submit" class="btn btn-success my-0"
+									onclick="copyValue()">Save Course Material</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Popup modal for add material END -->
+
+		</main>
+	</th:block>
+	<!-- Scripts -->
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+	<script th:src="@{/public/assets/vendor/quill/js/quill.min.js}"></script>
+	<script th:src="@{/public/assets/vendor/stepper/js/bs-stepper.min.js}"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Initialize Quill editors -->
+	<script th:inline="javascript">
+	function copyValue()
+    {
+    	console.log("copyValue function is running");
+    	var courseTitle = document.getElementById('courseTitle') ? document.getElementById('courseTitle').value : '';
+    	var courseDescription = document.getElementById('courseDescription') ? document.getElementById('courseDescription').value : '';
+        var durationHour = 0;
+        durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
+   	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
+   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
+
+	   	if (document.getElementById('courseTitleField1')) {
+	        document.getElementById('courseTitleField1').value = courseTitle;
+	    }
+		if (document.getElementById('courseTitleField2')) {
+	        document.getElementById('courseTitleField2').value = courseTitle;
+	    }
+	    if (document.getElementById('courseDescriptionField1')) {
+	        document.getElementById('courseDescriptionField1').value = courseDescription;
+	    }
+	    if (document.getElementById('courseDescriptionField2')) {
+	        document.getElementById('courseDescriptionField2').value = courseDescription;
+	    }
+	    if (document.getElementById('durationHourField1')) {
+	        document.getElementById('durationHourField1').value = durationHour;
+	    }
+	    if (document.getElementById('durationHourField2')) {
+	        document.getElementById('durationHourField2').value = durationHour;
+	    }
+	    if (document.getElementById('imageField1')) {
+	        document.getElementById('imageField1').value = image;
+     	}
+	    if (document.getElementById('imageField2')) {
+	        document.getElementById('imageField2').value = image;
+     	}
+	    if (document.getElementById('courseInfoField1')) {
+	    	document.getElementById('courseInfoField1').value = courseInfo; 
+	    }
+	    if (document.getElementById('courseInfoField2')) {
+	    	document.getElementById('courseInfoField2').value = courseInfo; 
+
+	    }
+
+    	console.log(courseTitle);
+    	console.log(courseDescription);
+    	console.log(durationHour);
+    	console.log(courseInfo);
+    	console.log(image);
+    }
+	var myModal = document.getElementById('addTopic');
+    myModal.addEventListener('show.bs.modal', function (event) {
+        
+    	// This code is for debugging.
+    	// event.preventDefault();
+    	
+    	// Button that triggered the modal
+        var button = event.relatedTarget;
+        
+        // Extract info from data-* attributes
+
+        var courseModuleId = button.getAttribute('data-id');
+        var courseMaterialId = button.getAttribute('data-index');
+        var action = button.getAttribute('data-action');
+
+        // Update the modal's content.
+        var input = myModal.querySelector('#index');
+        var inputAction = myModal.querySelector('#action');
+        var titleField = myModal.querySelector('#titleField');
+        var superDto = /*[[${superDto}]]*/ '';
+        var courseMaterialTitle = null;
+        
+        if (Array.isArray(superDto.courseMaterialDtoList)) 
+        {
+
+            for (let courseMaterial of superDto.courseMaterialDtoList) 
+            {
+                if ((courseMaterial.index == courseModuleId) && (courseMaterialId != null)) 
+                {
+                    courseMaterialTitle = superDto.courseMaterialDtoList[courseMaterialId].title;
+                    break; // Exit the loop once the condition is met
+                }
+            }
+        } 
+        else 
+        {
+            console.log("courseMaterialDtoList is not an array or does not exist.");
+        }
+
+        
+        titleField.value = courseMaterialTitle;
+        input.value = courseModuleId;
+        inputAction.value = action;
+        
+        //Debug
+        console.log(courseModuleId);
+        console.log(courseMaterialTitle);
+        console.log(courseMaterialId);
+        console.log(action);
+    });
+
+    var quill = new Quill('#quilleditor', {
+        modules: {
+            toolbar: '#quilltoolbar'
+        },
+        theme: 'snow'
+    });
+    
+    document.querySelector('#courseMaterialId').onsubmit = function() {
+        var quillContent = quill.root.innerHTML;
+        var headerContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                .ql-video {
+                    width: 100%;
+                    max-width: 100%;
+                    height: 100%;
+                    aspect-ratio: 16 / 9;
+                }
+            </style>
+            
+            </head>
+            <body>
+        `;
+        var footerContent = `
+            </body>
+            </html>
+        `;
+        var completeHtml = headerContent + quillContent + footerContent;
+        document.querySelector('#content').value = completeHtml;
+    };
+    
+</script>
+
+</body>
+</html>
+

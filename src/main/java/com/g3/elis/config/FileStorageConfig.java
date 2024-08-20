@@ -17,6 +17,7 @@ public class FileStorageConfig {
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 	
+
 	@Value("${file.upload-dir}")
 	private String profileImageDir;
 	
@@ -32,13 +33,17 @@ public class FileStorageConfig {
 		return Paths.get(profileImageDir + "/profile/user-profile").toAbsolutePath().normalize();
 	}
 	
+
 	 public String saveProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
+
 	        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 	        String newFileName = timestamp + "_" + originalFileName;
 	        Path targetLocation = getProfileImageDir().resolve(newFileName);
 	        Files.copy(file.getInputStream(), targetLocation);
+
 	        
 	        return newFileName;
+
 	    }
 	public void deleteProfileImageFile(String fileName) throws IOException
 	{
@@ -46,30 +51,12 @@ public class FileStorageConfig {
 		Files.delete(targetLocation);
 	}
 	
-//	//STUDENT
-//	public Path getStudentProfileImageDir()
-//	{
-//		return Paths.get(uploadStudentImageDir + "/profile/student-profile").toAbsolutePath().normalize();
-//	}
-//	
-//	public void saveStudentProfileImageFile(MultipartFile file, String originalFileName) throws IOException {
-//        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-//        String newFileName = timestamp + "_" + originalFileName;
-//        Path targetLocation = getStudentProfileImageDir().resolve(newFileName);
-//        Files.copy(file.getInputStream(), targetLocation);
-//    }
-//
-//	public void deleteStudentProfileImageFile(String fileName) throws IOException
-//	{
-//		Path targetLocation = getStudentProfileImageDir().resolve(fileName);
-//		Files.delete(targetLocation);
-//	}
-//	
-//	//END STUDENT
-	public Path getBlogImageUploadDir()
+public Path getBlogImageUploadDir()
 	{
 		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
 	}
+
+
 	
 	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
 	{
@@ -77,11 +64,7 @@ public class FileStorageConfig {
 		Files.copy(file.getInputStream(), targetLocation);
 	}
 	
-//	public void deleteBlogImage(String blogFileName) throws IOException {
-//		
-//		Path targetLocation = getBlogImageUploadDir().resolve(blogFileName);
-//		Files.delete(targetLocation);
-//	}
+
 	
 	public void deleteBlogImage(String fileName) throws IOException {
 	    Path filePath = getBlogImageUploadDir().resolve(fileName).normalize();
@@ -92,6 +75,7 @@ public class FileStorageConfig {
 	{
 		return Paths.get(uploadDir).toAbsolutePath().normalize();
 	}
+	
 	
 	public void saveFile(MultipartFile file,String fileName) throws IOException
 	{
@@ -105,20 +89,19 @@ public class FileStorageConfig {
 		Files.delete(targetLocation);
 	}
 	
-	
-	
-	
-	
-	
 	public Path getUploadDir(String filePath)
 	{
 		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
 	}
 	
-	public void saveFile(MultipartFile file,String fileName,String filePath) throws IOException
+	public String saveFile(MultipartFile file,String fileName,String filePath) throws IOException
 	{
-		Path targetLocation = getUploadDir(filePath).resolve(fileName);
-		Files.copy(file.getInputStream(), targetLocation);
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String newFileName = timestamp + "_" + fileName;
+		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
+		    Files.copy(file.getInputStream(), targetLocation);
+		
+		return newFileName;
 	}
 	
 	public void deleteFile(String fileName,String filePath) throws IOException
@@ -126,9 +109,6 @@ public class FileStorageConfig {
 		Path targetLocation = getUploadDir(filePath).resolve(fileName);
 		Files.delete(targetLocation);
 	}
-	
-	
-	
 	
 	public void saveHTMLFile(String content,String path,String fileName) throws IOException
 	{
