@@ -128,6 +128,7 @@
 					<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
 					<a class="nav-link" th:href="@{/instructor/instructor-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
 					</div>
+
 					<a class="nav-link" th:href="@{/user/course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
 					<a class="nav-link active" th:href="@{/user/blog}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Blogs</a>
 					<a class="nav-link" th:href="@{/user/contact-us}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Contact Us</a>
@@ -147,11 +148,12 @@
 					</div>
 				</div>
 				<!-- Nav Search END -->
+
 			</div>
 			<!-- Main navbar END -->
 
 			<!-- Profile START -->
-					<div sec:authorize="isAuthenticated()">
+				<div sec:authorize="isAuthenticated()">
 						<div class="dropdown ms-1 ms-lg-0">
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 								role="button" data-bs-auto-close="outside"
@@ -262,6 +264,7 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
+
 					<!-- Dark mode options START -->
 					<li>
 						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
@@ -308,6 +311,7 @@ Main Content START -->
 
 				<!-- Title and Info START -->
 				<div class="row">
+
 					<!-- Avatar and Share -->
 					<div class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
 						<div class="text-lg-center">
@@ -323,17 +327,19 @@ Main Content START -->
 						</div>
 					</div>
 
+
 					<!-- Content -->
 					<div class="col-lg-12 order-1">
 						<!-- Pre title -->
 						
-						
-						
+
 						<!-- Title -->
 						
 						<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"> </h3>
 						
+
 						<a href="#" class="h5 stretched-link mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></a>
+
 						<ul class="list-inline list-unstyled">
 							
 								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
@@ -342,6 +348,7 @@ Main Content START -->
 						
 						<!-- Info -->
 						<!-- Main HTML Content Start -->
+
 				<div class="col-lg-9 order-1">
 					
 							
@@ -352,6 +359,7 @@ Main Content START -->
 							<div class="col-lg-9 order-1">
    									 <div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
 										</div>
+
 						</div>
 				</div>
 				<!-- Title and Info END -->
@@ -376,12 +384,11 @@ Main Content START -->
 
 				<hr> <!-- Divider -->
 
-				
-					
 				</div>
 				<!-- Comment review and form END -->
 			</div>
 		</div> <!-- Row END -->
+
 	</div>
 </section>
 <!-- =======================
@@ -392,6 +399,7 @@ Related blog START -->
 
 <!-- =======================
 Related blog END -->
+
 
 </main>
 <!-- **************** MAIN CONTENT END **************** -->

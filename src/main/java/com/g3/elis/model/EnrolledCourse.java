@@ -2,8 +2,10 @@ package com.g3.elis.model;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class EnrolledCourse {
 	private int id;
 	private Timestamp enrolledAt;
 	private Timestamp completedAt;
+	private double progress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -33,7 +36,15 @@ public class EnrolledCourse {
     private Course courses;
 	
 	@OneToMany(mappedBy = "enrolledCourses",fetch = FetchType.LAZY)
-	 private Set<Report> reports=new HashSet<>();
+	private Set<Report> reports=new HashSet<>();
+	
+	@OneToMany(mappedBy = "enrolledCourse",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EnrolledModule> enrolledModules;
+	
+	public EnrolledCourse()
+	{
+		
+	}
 
 	public int getId() {
 		return id;
@@ -43,13 +54,12 @@ public class EnrolledCourse {
 		this.id = id;
 	}
 
-	public EnrolledCourse(int id, Timestamp enrolledAt, Timestamp completedAt, User users, Course courses) {
-		super();
-		this.id = id;
+	public Timestamp getEnrolledAt() {
+		return enrolledAt;
+	}
+
+	public void setEnrolledAt(Timestamp enrolledAt) {
 		this.enrolledAt = enrolledAt;
-		this.completedAt = completedAt;
-		this.users = users;
-		this.courses = courses;
 	}
 
 	public Timestamp getCompletedAt() {
@@ -60,12 +70,12 @@ public class EnrolledCourse {
 		this.completedAt = completedAt;
 	}
 
-	public Timestamp getEnrolledAt() {
-		return enrolledAt;
+	public double getProgress() {
+		return progress;
 	}
 
-	public void setEnrolledAt(Timestamp enrolledDate) {
-		this.enrolledAt = enrolledDate;
+	public void setProgress(double progress) {
+		this.progress = progress;
 	}
 
 	public User getUsers() {
@@ -83,9 +93,35 @@ public class EnrolledCourse {
 	public void setCourses(Course courses) {
 		this.courses = courses;
 	}
-	
-	public EnrolledCourse()
-	{
-		
+
+	public Set<Report> getReports() {
+		return reports;
 	}
+
+	public void setReports(Set<Report> reports) {
+		this.reports = reports;
+	}
+
+	public List<EnrolledModule> getEnrolledModules() {
+		return enrolledModules;
+	}
+
+	public void setEnrolledModules(List<EnrolledModule> enrolledModules) {
+		this.enrolledModules = enrolledModules;
+	}
+
+	public EnrolledCourse(int id, Timestamp enrolledAt, Timestamp completedAt, double progress, User users,
+			Course courses, Set<Report> reports, List<EnrolledModule> enrolledModules) {
+		super();
+		this.id = id;
+		this.enrolledAt = enrolledAt;
+		this.completedAt = completedAt;
+		this.progress = progress;
+		this.users = users;
+		this.courses = courses;
+		this.reports = reports;
+		this.enrolledModules = enrolledModules;
+	}
+
+	
 }

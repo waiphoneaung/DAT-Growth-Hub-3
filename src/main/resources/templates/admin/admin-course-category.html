@@ -17,9 +17,11 @@
 										class="badge bg-orange bg-opacity-10 text-orange"
 										th:text="${categoryCount}"></span>
 								</h1>
+
 								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
 									data-bs-target="#createCategory" data-whatever="Category">Create
 									a Course Category</a>
+
 							</div>
 						</div>
 					</div>
@@ -43,10 +45,12 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
+
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+									
 								</form>
 							</div>
 						</div>
@@ -123,6 +127,7 @@
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
+
     <div class="d-sm-flex justify-content-center align-items-sm-center">
         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
             <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
@@ -157,7 +162,8 @@
     </div>
 </div>
 
-					</div>
+				</div>
+
 				</div>
 
 
@@ -166,6 +172,7 @@
 
 
 			<!-- Edit Modal Start -->
+
 			<div th:each="category : ${courseCategories}">
 
 				<div class="modal fade" id="editCategory" tabindex="-1"
@@ -183,10 +190,14 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="edit-category-name" class="col-form-label">Category
-											Name:</label> <input type="text" class="form-control"
-											id="edit-category-name" name="categoryName"
-											th:value="${category.categoryName}"> <input
-											type="hidden" id="categoryId" name="categoryId">
+
+
+
+											Name:</label> 
+											<input type="text" class="form-control" id="edit-category-name" name="categoryName"> 
+											<input type="hidden" id="categoryId" name="categoryId">
+
+
 
 									</div>
 								</div>

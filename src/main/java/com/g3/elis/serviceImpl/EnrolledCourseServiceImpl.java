@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.model.Course;
+import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseRepository;
+import com.g3.elis.repository.EnrolledCourseRepository;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.EnrolledCourseService;
 
@@ -20,6 +22,9 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 	
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private EnrolledCourseRepository enrolledCourseRepository;
 	
 	@Override
 	public List<User> findAllUserByCourseId(int courseId) {
@@ -51,6 +56,86 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 			}
 		}
 		return courseAndUserList;
+	}
+
+	@Override
+	public EnrolledCourse findEnrollCourseByCourseId(int courseId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getCourses().getId() == courseId)
+			{
+				return enrolledCourse;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourse() {
+		return enrolledCourseRepository.findAll();
+	}
+
+	@Override
+	public List<User> getEnrolledStudentsByCourseCreatedByInstructorId(int instructorId) {
+		User user = userRepository.findById(instructorId).orElse(null);
+		List<Course> courseList = courseRepository.findAll();
+		List<User> userReturnList = new ArrayList<User>();
+		
+		for(Course course : courseList)
+		{
+			if(course.getUsers().getId() == user.getId())
+			{
+				for(EnrolledCourse enrolledCourse : getAllEnrolledCourseByCourseId(course.getId()))
+				{
+					userReturnList.add(enrolledCourse.getUsers());
+				}
+			}
+		}
+		
+		return userReturnList;
+	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourseByCourseId(int courseId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();		
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getCourses().getId() == courseId)
+			{
+				enrolledCourseReturnList.add(enrolledCourse);
+			}
+		}
+		return enrolledCourseReturnList;
+	}
+
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getUsers().getId() == userId)
+			{
+				enrolledCourseReturnList.add(enrolledCourse);
+			}
+		}
+		return enrolledCourseReturnList;
+	}
+
+	@Override
+	public boolean isUserEnrolledToCourse(int userId,int courseId) 
+	{
+		for(EnrolledCourse enrolledCourse : enrolledCourseRepository.findAll())
+		{
+			if(enrolledCourse.getCourses().getId() == courseId && enrolledCourse.getUsers().getId() == userId)
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

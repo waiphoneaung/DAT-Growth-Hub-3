@@ -14,9 +14,11 @@
 					<!-- Title -->
 					<div class="row">
 						<div class="col-8">
-							<h1 class="h3 mb-2 mb-sm-0">Students</h1>
+							<h1 th:if="${action} != 'enroll'" class="h3 mb-2 mb-sm-0">Students</h1>
+							<h1 th:unless="${action} != 'enroll'" class="h3 mb-2 mb-sm-0">Enroll
+								Students</h1>
 						</div>
-						<div class="col-4">
+						<div th:if="${action} != 'enroll'" class="col-4">
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -63,11 +65,30 @@
 							<div class="row g-3 align-items-center justify-content-between">
 
 								<!-- Search bar -->
-								<div class="col-md-8">
+								<div th:if="${action} != 'enroll'" class="col-md-8">
 									<form th:action="@{/admin/admin-student-list/search}"
 										method="GET" class="rounded position-relative">
 										<input class="form-control bg-transparent" type="search"
-											name="search" placeholder="Search By Name" aria-label="Search">
+											name="search" placeholder="Search By Name"
+											aria-label="Search">
+										<button
+											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+											type="submit">
+											<i class="fas fa-search fs-6 "></i>
+										</button>
+									</form>
+								</div>
+
+								<!-- Search bar -->
+								<div th:unless="${action} != 'enroll'" class="col-md-8">
+									<form
+										th:action="@{/admin/admin-course-list/enroll-student/search}"
+										method="GET" class="rounded position-relative">
+										<input class="form-control bg-transparent" type="search"
+											name="search" placeholder="Search By Name"
+											aria-label="Search"> <input type="hidden"
+											name="action" th:value="${action}"> <input
+											type="hidden" name="courseId" th:value="${courseId}">
 										<button
 											class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
 											type="submit">
@@ -117,17 +138,17 @@
 													class="card-header bg-transparent border-bottom d-flex justify-content-between">
 													<div class="d-sm-flex align-items-center">
 														<!-- Avatar -->
-														
+
 														<div class="avatar avatar-md flex-shrink-0">
-            <img class="avatar-img rounded-circle"
-                th:if="${user.profile != null && user.profile.profileImg != null}"
-                th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
-                alt="avatar">
-            <img class="avatar-img rounded-circle"
-                th:unless="${user.profile != null && user.profile.profileImg != null}"
-                th:src="@{'/public/assets/images/avatar/01.jpg'}"
-                alt="avatar">
-        </div>
+															<img class="avatar-img rounded-circle"
+																th:if="${user.profile != null && user.profile.profileImg != null}"
+																th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+																alt="avatar"> <img
+																class="avatar-img rounded-circle"
+																th:unless="${user.profile != null && user.profile.profileImg != null}"
+																th:src="@{'/public/assets/images/avatar/01.jpg'}"
+																alt="avatar">
+														</div>
 														<!-- Info -->
 														<div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
 															<h5 class="mb-0">
@@ -139,7 +160,8 @@
 													</div>
 
 													<!-- Edit dropdown -->
-													<div class="dropdown text-end">
+													<div th:if="${action} != 'enroll'"
+														class="dropdown text-end">
 														<a href="#"
 															class="btn btn-sm btn-light btn-round small mb-0"
 															role="button" id="dropdownShare2"
@@ -151,19 +173,21 @@
 															class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
 															aria-labelledby="dropdownShare2">
 															<li>
-															<form th:action="@{/admin/change-student-status}"
-      method="post"
-      th:onsubmit="${user.enabled} ? 'return confirm(\'Are you sure you want to disable this user?\');' : 'return confirm(\'Are you sure you want to enable this user?\');'">
-    <input type="hidden" name="id" th:value="${user.id}" />
-    <input type="hidden" name="enabled" th:value="${user.enabled} ? 0 : 1" />
-    <button type="submit" class="btn"
-            th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
-            th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
-        <i class="bi" th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
-        <a>Status</a>
-    </button>
-</form>
-</li>
+																<form th:action="@{/admin/change-student-status}"
+																	method="post"
+																	th:onsubmit="${user.enabled} ? 'return confirm(\'Are you sure you want to disable this user?\');' : 'return confirm(\'Are you sure you want to enable this user?\');'">
+																	<input type="hidden" name="id" th:value="${user.id}" />
+																	<input type="hidden" name="enabled"
+																		th:value="${user.enabled} ? 0 : 1" />
+																	<button type="submit" class="btn"
+																		th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+																		th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																		<i class="bi"
+																			th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+																		<a>Status</a>
+																	</button>
+																</form>
+															</li>
 														</ul>
 													</div>
 												</div>
@@ -192,7 +216,8 @@
 															</div>
 															<h6 class="mb-0 ms-2 fw-light">Total Course</h6>
 														</div>
-														<span class="mb-0 fw-bold">21</span>
+														<span class="mb-0 fw-bold"
+															th:text="${user.enrolledCourses.size}"></span>
 													</div>
 
 												</div>
@@ -221,88 +246,101 @@
 								<!-- Tabs content item START -->
 								<div class="tab-pane fade" id="nav-html-tab-1">
 									<div class="table-responsive border-0">
-										<table
-											class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-											<!-- Table head -->
-											<thead>
-												<tr>
-													<th scope="col" class="border-0 rounded-start">Students
-														name</th>
-													<!--<th scope="col" class="border-0">Gender</th> -->
-													<th scope="col" class="border-0">Staff-ID</th>
-													<!-- <th scope="col" class="border-0">Door Log No.</th>  -->
-													<th scope="col" class="border-0">Department</th>
-													<th scope="col" class="border-0">Team</th>
-													<th scope="col" class="border-0">Email</th>
-													<th scope="col" class="border-0">Status</th>
-													<th scope="col" class="border-0 rounded-end">Action</th>
-												</tr>
-											</thead>
 
-											<!-- Table body START -->
-											<tbody>
+										<form th:object="${enrolledCourseDto}" method="POST"
+											th:action="@{/admin/admin-course-list/enroll-student(courseId=${courseId})}">
+											<table
+												class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+												<!-- Table head -->
+												<thead>
+													<tr>
+														<th scope="col" class="border-0 rounded-start">Students
+															name</th>
+														<!--<th scope="col" class="border-0">Gender</th> -->
+														<th scope="col" class="border-0">Staff-ID</th>
+														<!-- <th scope="col" class="border-0">Door Log No.</th>  -->
+														<th scope="col" class="border-0">Department</th>
+														<th scope="col" class="border-0">Team</th>
+														<th scope="col" class="border-0">Email</th>
+														<th scope="col" class="border-0">Status</th>
+														<th scope="col" class="border-0 rounded-end">Action</th>
+													</tr>
+												</thead>
 
-												<!-- Table row -->
-												<tr th:each="user : ${users}">
-													<!-- Table data -->
-													<td>
-														<div class="d-flex align-items-center position-relative">
-															<!-- Image -->
-															<div class="avatar avatar-md">
-																<img th:src="@{/public/assets/images/avatar/09.jpg}"
-																	class="rounded-circle" alt>
+												<!-- Table body START -->
+												<tbody>
+
+
+
+													<!-- Table row -->
+													<tr th:each="user : ${users}">
+														<!-- Table data -->
+														<td>
+															<div class="d-flex align-items-center position-relative">
+																<!-- Image -->
+																<div class="avatar avatar-md">
+																	<img th:src="@{/public/assets/images/avatar/09.jpg}"
+																		class="rounded-circle" alt>
+																</div>
+																<div class="mb-0 ms-3">
+																	<!-- Title -->
+																	<h6 class="mb-0">
+																		<a href="#" class="stretched-link"
+																			th:text="${user.name}"></a>
+																	</h6>
+																	<span class="text-body small"
+																		th:text="${user.division}"><i
+																		class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i></span>
+																</div>
 															</div>
-															<div class="mb-0 ms-3">
-																<!-- Title -->
-																<h6 class="mb-0">
-																	<a href="#" class="stretched-link"
-																		th:text="${user.name}"></a>
-																</h6>
-																<span class="text-body small" th:text="${user.division}"><i
-																	class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i></span>
-															</div>
-														</div>
-													</td>
+														</td>
 
-													<!-- Table data -->
-													<!--<td th:text="${user.gender}"></td>-->
+														<!-- Table data -->
+														<!--<td th:text="${user.gender}"></td>-->
 
-													<td th:text="${user.staffId}"></td>
+														<td th:text="${user.staffId}"></td>
 
-													<!-- Table data -->
-													<!--<td th:text="${user.doorLogNo}"></td>-->
+														<!-- Table data -->
+														<!--<td th:text="${user.doorLogNo}"></td>-->
 
-													<!-- Table data -->
-													<td th:text="${user.dept}"></td>
+														<!-- Table data -->
+														<td th:text="${user.dept}"></td>
 
-													<!-- Table data -->
-													<td th:text="${user.team}"></td>
+														<!-- Table data -->
+														<td th:text="${user.team}"></td>
 
-													<!-- Table data -->
-													<td th:text="${user.email}"></td>
+														<!-- Table data -->
+														<td th:text="${user.email}"></td>
 
-													<!-- Table data -->
-													<td th:text="${user.status}"></td>
+														<!-- Table data -->
+														<td th:text="${user.status}"></td>
 
-													<!-- Table data -->
-													<td><form th:action="@{/admin/change-student-status}"
+														<!-- Table data -->
+														<td th:if="${action} != 'enroll'">
+															<!-- 														<form th:action="@{/admin/change-student-status}"
 															method="post"
 															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
 															<input type="hidden" name="id" th:value="${user.id}" />
 															<input type="hidden" name="enabled"
-																th:value="${user.enabled} ? 0 : 1" />
-															<button type="submit" class="btn"
-																th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
-																th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																th:value="${user.enabled} ? 0 : 1" /> --> <a
+															th:href="@{/admin/change-student-status(id=${user.id}, enabled=${user.enabled ? 0 : 1})}"
+															class="btn"
+															th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+															th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
 																<i class="bi"
-																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
-															</button>
-														</form></td>
-												</tr>
+																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+														</a> <!-- </form> -->
+														</td>
+														<td th:unless="${action} != 'enroll'"><input
+															th:field="*{userList}" th:value=${user.id}
+															type="checkbox" style="width: 20px; height: 20px;" /></td>
+													</tr>
 
-											</tbody>
-											<!-- Table body END -->
-										</table>
+												</tbody>
+												<!-- Table body END -->
+											</table>
+											<button type="submit" class="btn btn-success-soft mt-3">Enroll students</button>
+										</form>
 									</div>
 								</div>
 								<!-- Tabs content item END -->
@@ -313,41 +351,69 @@
 						<!-- Card body END -->
 
 						<!-- Card footer START -->
-<div class="card-footer bg-transparent pt-0">
-    <div class="d-sm-flex justify-content-center align-items-sm-center">
-        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-            <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                <!-- Previous button: only show if not on the first page -->
-                <li th:if="${currentPage > 0}" class="page-item mb-0">
-                    <a class="page-link" 
-                       th:href="@{/admin/admin-student-list/search(page=${currentPage - 1}, search=${search})}" 
-                       tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                    </a>
-                </li>
+						<div class="card-footer bg-transparent pt-0">
+							<div th:if="${action != 'enroll'}"
+								class="d-sm-flex justify-content-center align-items-sm-center">
+								<nav class="d-flex justify-content-center mb-0"
+									aria-label="navigation">
+									<ul
+										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+										<!-- Previous button: only show if not on the first page -->
+										<li th:if="${currentPage > 0}" class="page-item mb-0"><a
+											class="page-link"
+											th:href="@{/admin/admin-student-list/search(page=${currentPage - 1}, search=${search})}"
+											tabindex="-1"> <i class="fas fa-angle-left"></i>
+										</a></li>
 
-                <!-- Page numbers: show only if totalPages > 1 -->
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
-                    th:classappend="${i == currentPage} ? 'active' : ''" 
-                    th:if="${totalPages > 1}" 
-                    class="page-item mb-0">
-                    <a class="page-link" 
-                       th:text="${i + 1}" 
-                       th:href="@{/admin/admin-student-list/search(page=${i}, search=${search})}"></a>
-                </li>
+										<!-- Page numbers: show only if totalPages > 1 -->
+										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+											th:classappend="${i == currentPage} ? 'active' : ''"
+											th:if="${totalPages > 1}" class="page-item mb-0"><a
+											class="page-link" th:text="${i + 1}"
+											th:href="@{/admin/admin-student-list/search(page=${i}, search=${search})}"></a>
+										</li>
 
-                <!-- Next button: only show if not on the last page -->
-                <li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
-                    <a class="page-link" 
-                       th:href="@{/admin/admin-student-list/search(page=${currentPage + 1}, search=${search})}">
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-<!-- Card footer END -->
+										<!-- Next button: only show if not on the last page -->
+										<li th:if="${currentPage < totalPages - 1}"
+											class="page-item mb-0"><a class="page-link"
+											th:href="@{/admin/admin-student-list/search(page=${currentPage + 1}, search=${search})}">
+												<i class="fas fa-angle-right"></i>
+										</a></li>
+									</ul>
+								</nav>
+							</div>
+							<div th:unless="${action != 'enroll'}"
+								class="d-sm-flex justify-content-center align-items-sm-center">
+								<nav class="d-flex justify-content-center mb-0"
+									aria-label="navigation">
+									<ul
+										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+										<!-- Previous button: only show if not on the first page -->
+										<li th:if="${currentPage > 0}" class="page-item mb-0"><a
+											class="page-link"
+											th:href="@{/admin/admin-course-list/enroll-student/search(page=${currentPage - 1}, search=${search}, courseId=${courseId}, action=${action}, userList=${userList})}"
+											tabindex="-1"> <i class="fas fa-angle-left"></i>
+										</a></li>
+
+										<!-- Page numbers: show only if totalPages > 1 -->
+										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+											th:classappend="${i == currentPage} ? 'active' : ''"
+											th:if="${totalPages > 1}" class="page-item mb-0"><a
+											class="page-link" th:text="${i + 1}"
+											th:href="@{/admin/admin-course-list/enroll-student/search(page=${i}, search=${search}, courseId=${courseId}, action=${action}, userList=${userList})}"></a>
+										</li>
+
+										<!-- Next button: only show if not on the last page -->
+										<li th:if="${currentPage < totalPages - 1}"
+											class="page-item mb-0"><a class="page-link"
+											th:href="@{/admin/admin-course-list/enroll-student/search(page=${currentPage + 1}, search=${search}, courseId=${courseId}, action=${action}, userList=${userList})}">
+												<i class="fas fa-angle-right"></i>
+										</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- Card footer END -->
 
 
 					</div>
