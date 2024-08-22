@@ -15,12 +15,6 @@ public class AdminController {
 		return "/admin/admin-layout";
 	}
 
-	@GetMapping("/admin-instructor-request")
-	public String adminInstructorRequest(Model model) {
-		model.addAttribute("content", "admin/admin-instructor-request");
-		return "/admin/admin-layout";
-	}
-
 	@GetMapping("/admin-certificate-design")
 	public String adminCertificateDesign(Model model) {
 		model.addAttribute("content", "admin/admin-certificate-design");

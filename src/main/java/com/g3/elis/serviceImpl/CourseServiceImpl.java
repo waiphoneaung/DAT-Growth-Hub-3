@@ -272,8 +272,18 @@ public class CourseServiceImpl implements CourseService {
 	public long countAllCourses() {
 		 return courseRepository.count();
 	}
-	
-	 
+
+	@Override
+	public List<Course> getAllPendingCourse() {
+		List<Course> courses = courseRepository.findAll();
+		List<Course> returnCourseList = new ArrayList<>();
+		for(Course course : courses)
+		{
+			if(course.getStatus().equalsIgnoreCase("Pending"))
+			returnCourseList.add(course);
+		}	
+		return returnCourseList;
+	} 
 }
 
 
