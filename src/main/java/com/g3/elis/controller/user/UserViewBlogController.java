@@ -98,7 +98,7 @@ public class UserViewBlogController {
 
 			// Read HTML file content
 
-			model.addAttribute("content", "user/user-blog-detail");
+			model.addAttribute("content", "user/blog-detail");
 			model.addAttribute("blogPost", blogPost);
 
 			return "/user/blog-detail";
@@ -159,7 +159,7 @@ public class UserViewBlogController {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "redirect:/user/user-blog-detail";
+			return "redirect:/user/blog-detail";
 		}
 	}
 }
