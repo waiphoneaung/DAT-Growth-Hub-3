@@ -72,9 +72,6 @@ public List<CourseCategory> getCourseCategoryByUserId(int id) {
 	return null;
 }
 
-
-
-
 @Override
 public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
 	Pageable pageable = PageRequest.of(page, size);
@@ -85,15 +82,6 @@ public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
 public Page<CourseCategory> searchPaginatedCourseCategoriesByName(String search, int page, int pageSize) {
 	Pageable pageable = PageRequest.of(page, pageSize);
     return courseCategoryRepository.findByCategoryNameContainingIgnoreCase(search, pageable);
-}
-
-
-
-
-
-
-
-
-	
+}	
 
 }
