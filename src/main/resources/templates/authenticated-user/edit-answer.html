@@ -49,7 +49,7 @@
 							<div class="input-group mb-3">
 								<input class="form-control"
 									th:field="*{answerTitle}"
-									type="text" placeholder="Enter the answer Title. ">
+									type="text" placeholder="Enter the answer Title. " required>
 								<div class="input-group-text">
 									<input class="form-check-input mt-0" type="checkbox"
 										aria-label="Checkbox for correct answer"
@@ -81,7 +81,7 @@
 							<div class="input-group mb-3">
 								<input class="form-control"
 									th:field="*{answerTitle}"
-									type="text" placeholder="Enter the answer Title. ">
+									type="text" placeholder="Enter the answer Title. " required>
 								<div class="input-group-text">
 									<input class="form-check-input mt-0" type="checkbox"
 										aria-label="Checkbox for correct answer"
@@ -110,9 +110,10 @@
 	</div>
 	<script>
 		function addAnswer() {
+
 			// Get the value from the input field
 			var answerCount = document.getElementById('numberInput').value;
-
+			
 			// Get the existing href of the link
 			var link = document.getElementById('addAnswerLink');
 			var href = link.getAttribute('href');

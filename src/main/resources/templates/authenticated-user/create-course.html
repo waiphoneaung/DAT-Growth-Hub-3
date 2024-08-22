@@ -170,6 +170,7 @@ Steps START -->
 														id="courseTitle" th:field="*{courseDto.courseTitle}"
 														th:value="${superDto.courseDto.courseTitle}"
 														placeholder="Enter course title" required>
+											    <!-- <div th:if="${#fields.hasErrors('courseTitle')}" th:errors="*{courseTitle}"></div> -->
 												</div>
 
 												<!-- Short description -->
@@ -180,6 +181,7 @@ Steps START -->
 														name="courseDescription" id="courseDescription"
 														th:value="${superDto.courseDto.courseDescription}"
 														placeholder="Enter keywords" required></textarea>
+													<!-- <div th:if="${#fields.hasErrors('courseDescription')}" th:errors="*{courseDescription}"></div>  -->
 												</div>
 
 												<!-- Course category -->
@@ -598,16 +600,7 @@ Steps END -->
         var durationHour = 0;
         durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
    	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
-   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
-   	    
-   	    /* Perform validation */
-   	  /*   if (!courseTitle) {
-   	    	
-   	    	alert ("Please enter a title.");
-   	    	return false;
-   	    } */
-   	    
-   	    
+   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';   	         	    
 
 	   	if (document.getElementById('courseTitleField1')) {
 	        document.getElementById('courseTitleField1').value = courseTitle;

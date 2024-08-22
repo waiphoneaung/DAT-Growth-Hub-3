@@ -134,11 +134,11 @@
 													<div class="avatar avatar-xs flex-shrink-0">
 
 														<img class="avatar-img rounded-circle"
-															th:if="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}"
+															th:if="${course.users.profile != null && course.users.profile.profileImg != null}"
 															th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}"
 															alt="avatar"> <img
 															class="avatar-img rounded-circle"
-															th:unless="${course.users.profile.profileImg != null && course.users.profile.profileImg != null}"
+															th:unless="${course.users.profile  != null && course.users.profile.profileImg != null}"
 															th:src="@{'/public/assets/images/avatar/06.jpg'}"
 															alt="avatar">
 

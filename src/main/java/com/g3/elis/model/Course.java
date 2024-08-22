@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "courses")
@@ -22,10 +23,16 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Size(max=500)
 	private String courseTitle;
+	
+	@Size(max=2000)
 	private String courseDescription;
+	
+	@Size(max=5000)
 	private String courseInfo;
+	
 	private String status;
 	private Timestamp createdAt;
 	private int duration;
@@ -202,11 +209,12 @@ public class Course {
 		this.achievements = achievements;
 	}
 
-	public Course(int id, String courseTitle, String courseDescription, String courseInfo, String status,
-			Timestamp createdAt, int duration, boolean courseCompletedStatus, double progress,
-			String courseImageFileName, Timestamp updatedDate, User users, CourseCategory courseCategories,
-			CourseTag courseTags, List<EnrolledCourse> enrolledCourses, List<Report> reports,
-			List<CourseModule> courseModule, Achievement achievements) {
+	
+	public Course(int id, @Size(max = 500) String courseTitle, @Size(max = 2000) String courseDescription,
+			@Size(max = 5000) String courseInfo, String status, Timestamp createdAt, int duration,
+			boolean courseCompletedStatus, double progress, String courseImageFileName, Timestamp updatedDate,
+			User users, CourseCategory courseCategories, CourseTag courseTags, List<EnrolledCourse> enrolledCourses,
+			List<Report> reports, List<CourseModule> courseModule, Achievement achievements) {
 		super();
 		this.id = id;
 		this.courseTitle = courseTitle;
