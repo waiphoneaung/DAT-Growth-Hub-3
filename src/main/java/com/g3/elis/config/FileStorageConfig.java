@@ -55,6 +55,8 @@ public Path getBlogImageUploadDir()
 	{
 		return Paths.get(uploadBlogImageDir + "/blog/blog-images").toAbsolutePath().normalize();
 	}
+
+
 	
 	public void saveBlogImage(MultipartFile file,String fileName) throws IOException
 	{
@@ -74,6 +76,7 @@ public Path getBlogImageUploadDir()
 		return Paths.get(uploadDir).toAbsolutePath().normalize();
 	}
 	
+	
 	public void saveFile(MultipartFile file,String fileName) throws IOException
 	{
 		Path targetLocation = getUploadDir().resolve(fileName);
@@ -86,12 +89,6 @@ public Path getBlogImageUploadDir()
 		Files.delete(targetLocation);
 	}
 	
-	
-	
-	
-	
-	
-
 	public Path getUploadDir(String filePath)
 	{
 		return Paths.get(uploadDir + filePath).toAbsolutePath().normalize();
@@ -99,7 +96,7 @@ public Path getBlogImageUploadDir()
 	
 	public String saveFile(MultipartFile file,String fileName,String filePath) throws IOException
 	{
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
         String newFileName = timestamp + "_" + fileName;
 		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
 		    Files.copy(file.getInputStream(), targetLocation);
@@ -118,6 +115,9 @@ public Path getBlogImageUploadDir()
 		Path targetLocation = getUploadDir(path).resolve(fileName);
 		Files.write(targetLocation, content.getBytes());
 	}
-	
+	 public String readFileContent(String fileName, String path) throws IOException {
+	        Path filePath = getUploadDir(path).resolve(fileName);
+	        return Files.readString(filePath);
+	    }
 	
 }

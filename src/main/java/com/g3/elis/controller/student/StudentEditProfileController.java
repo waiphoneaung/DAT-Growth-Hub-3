@@ -27,97 +27,84 @@ import com.g3.elis.service.UserService;
 @Controller
 @RequestMapping("/student")
 public class StudentEditProfileController {
-	
 
-	
-		
+	@Autowired
+	private ProfileService profileService;
 
-			
-				@Autowired
-				private ProfileService profileService;
+	@Autowired
+	private UserService userService;
 
-				@Autowired
-				private UserService userService;
+	@GetMapping("/student-edit-profile")
+	public String studentEditProfile(Model model, Authentication authentication) {
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+		User user = loginUser.getUser();
+		UserDto userDto = new UserDto();
+		if (profileService.getProfileByUser(user) == null) {
+			ProfileDto profileDto = new ProfileDto();
 
-				@GetMapping("/student-edit-profile")
-				public String studentEditProfile(Model model, Authentication authentication) {
-					LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
-					User user = loginUser.getUser();
-					UserDto userDto = new UserDto();
-					if (profileService.getProfileByUser(user) == null) {
-						ProfileDto profileDto = new ProfileDto();
-						
-						model.addAttribute("user", user);
-						model.addAttribute("profileDto", profileDto);
-					} else {
-						ProfileDto profileDto = new ProfileDto();
-						Profile profile = profileService.getProfileByUser(user);
-						
-						profileDto.setAddress(profile.getAddress());
-						profileDto.setDescription(profile.getDescription());
-						profileDto.setPhNo(profile.getPhNo());
-						
-						String imageName = profileService.getProfileByUser(user).getProfileImg();
-						model.addAttribute("profileImg",imageName);
-						model.addAttribute("user", user);
-						model.addAttribute("profileDto", profileDto);
-					}
-					model.addAttribute("userDto", userDto);
-					model.addAttribute("content", "student/student-edit-profile");
-					return "/student/student-layout";
-				}
+			model.addAttribute("user", user);
+			model.addAttribute("profileDto", profileDto);
+		} else {
+			ProfileDto profileDto = new ProfileDto();
+			Profile profile = profileService.getProfileByUser(user);
 
-				@PostMapping("/student-edit-profile")
-				public String studentEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
-						@RequestParam(name = "profileImage",required = false) MultipartFile profileImage,
-						Authentication authentication, BindingResult result, Model model) throws IOException {
-					
-					
-					LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
-					User user = loginUser.getUser();
-					
-					if (profileImage.isEmpty()) {
-						
-						result.addError(new FieldError("profileDto", "profileImage", "The image file is required"));
-					}
-					if(result.hasErrors())
-					{
-						model.addAttribute("user", user);
-						model.addAttribute("content", "student/student-edit-profile");
-						return "/student/student-layout";
-					}
-					profileDto.setProfileImg(profileImage);		
-					if (profileService.getProfileByUser(user) == null) {
-						profileService.createProfile(user, profileDto);
-					} else {
-						profileService.updateProfile(user, profileDto);
-					}
-					String imageName = profileService.getProfileByUser(user).getProfileImg();
-					model.addAttribute("user", user);
-					model.addAttribute("profileImg",imageName);
-					model.addAttribute("content", "student/student-edit-profile");
-					return "redirect:/student/student-edit-profile";
-				}
+			profileDto.setAddress(profile.getAddress());
+			profileDto.setDescription(profile.getDescription());
+			profileDto.setPhNo(profile.getPhNo());
 
-				@PostMapping("/student-edit-profile/password-change")
-				public String adminPasswordChange(@RequestParam("new-password") String newPassword,
-						@RequestParam("current-password") String currentPassword,
-						@RequestParam("confirm-password") String confirmPassword, Authentication authentication, Model model) {
-					BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
-					LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
-					User user = loginUser.getUser();
-					if (!passEncode.matches(currentPassword, user.getPassword()) || !(newPassword.equals(confirmPassword))) {
-						model.addAttribute("user", user);
-						model.addAttribute("content", "student/student-edit-profile");
-						return "/student/student-layout";
-					}
-					userService.changePassword(user, newPassword);
-					return "redirect:/sign-out";
-				}
-			}
+			String imageName = profileService.getProfileByUser(user).getProfileImg();
+			model.addAttribute("profileImg", imageName);
+			model.addAttribute("user", user);
+			model.addAttribute("profileDto", profileDto);
+		}
+		model.addAttribute("userDto", userDto);
+		model.addAttribute("content", "student/student-edit-profile");
+		return "/student/student-layout";
+	}
 
+	@PostMapping("/student-edit-profile")
+	public String studentEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
+			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
+			Authentication authentication, BindingResult result, Model model) throws IOException {
 
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+		User user = loginUser.getUser();
 
+		if (profileImage.isEmpty()) {
 
+			result.addError(new FieldError("profileDto", "profileImage", "The image file is required"));
+		}
+		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			model.addAttribute("content", "student/student-edit-profile");
+			return "/student/student-layout";
+		}
+		profileDto.setProfileImg(profileImage);
+		if (profileService.getProfileByUser(user) == null) {
+			profileService.createProfile(user, profileDto);
+		} else {
+			profileService.updateProfile(user, profileDto);
+		}
+		String imageName = profileService.getProfileByUser(user).getProfileImg();
+		model.addAttribute("user", user);
+		model.addAttribute("profileImg", imageName);
+		model.addAttribute("content", "student/student-edit-profile");
+		return "redirect:/student/student-edit-profile";
+	}
 
-
+	@PostMapping("/student-edit-profile/password-change")
+	public String adminPasswordChange(@RequestParam("new-password") String newPassword,
+			@RequestParam("current-password") String currentPassword,
+			@RequestParam("confirm-password") String confirmPassword, Authentication authentication, Model model) {
+		BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+		User user = loginUser.getUser();
+		if (!passEncode.matches(currentPassword, user.getPassword()) || !(newPassword.equals(confirmPassword))) {
+			model.addAttribute("user", user);
+			model.addAttribute("content", "student/student-edit-profile");
+			return "/student/student-layout";
+		}
+		userService.changePassword(user, newPassword);
+		return "redirect:/sign-out";
+	}
+}

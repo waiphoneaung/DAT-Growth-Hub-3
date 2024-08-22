@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,7 +231,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Page<Course> getPaginatedCourses(Pageable pageable) {
-		// TODO Auto-generated method stub
+		
 		return courseRepository.findAll(pageable);
 	}
 
@@ -241,6 +243,16 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
+	public Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage) {
+		return coursePage.getContent().stream()
+                .collect(Collectors.toMap(
+                        Course::getId,
+                        course -> (long) course.getCourseModule().size()
+                ));
+    }
+
+		
 	public List<Course> getAllCourseByUserId(int userId) 
 	{
 		User user = userRepository.findById(userId).orElse(null);
@@ -256,8 +268,17 @@ public class CourseServiceImpl implements CourseService {
 		return courseReturnList;
 	}
 
+	@Override
+	public long countAllCourses() {
+		 return courseRepository.count();
+	}
+	
+	 
+}
+
+
 
 
 
 	
-}
+

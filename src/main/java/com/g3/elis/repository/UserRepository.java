@@ -18,6 +18,7 @@ import com.g3.elis.model.User;
 public interface UserRepository extends JpaRepository<User,Integer> {
 
 	User findByEmail(String email);
+	User findById(Long userId);
 	
 	public Optional<User> findByStaffId(String staffId);
 	
@@ -51,6 +52,10 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	Optional<User> findById(int userId);
 
 	boolean existsByNameAndId(String name, Long courseId);
+	
+	@Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.name = :role")
+	long count(String role);
+
 	
 	
 }

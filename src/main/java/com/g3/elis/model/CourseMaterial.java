@@ -32,6 +32,9 @@ public class CourseMaterial {
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
 	
+	@OneToMany(mappedBy = "courseMaterial")
+	private List<EnrolledMaterial> enrolledMaterial;
+	
 	@OneToMany(mappedBy = "courseMaterials", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<InputFile> inputFiles;
 
@@ -83,6 +86,14 @@ public class CourseMaterial {
 		this.courseModules = courseModules;
 	}
 
+	public List<EnrolledMaterial> getEnrolledMaterial() {
+		return enrolledMaterial;
+	}
+
+	public void setEnrolledMaterial(List<EnrolledMaterial> enrolledMaterial) {
+		this.enrolledMaterial = enrolledMaterial;
+	}
+
 	public List<InputFile> getInputFiles() {
 		return inputFiles;
 	}
@@ -92,7 +103,7 @@ public class CourseMaterial {
 	}
 
 	public CourseMaterial(int id, String title, boolean status, String duration, String content,
-			CourseModule courseModules, List<InputFile> inputFiles) {
+			CourseModule courseModules, List<EnrolledMaterial> enrolledMaterial, List<InputFile> inputFiles) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -100,13 +111,12 @@ public class CourseMaterial {
 		this.duration = duration;
 		this.content = content;
 		this.courseModules = courseModules;
+		this.enrolledMaterial = enrolledMaterial;
 		this.inputFiles = inputFiles;
 	}
 
-	public CourseMaterial() {
-		super();
+	public CourseMaterial()
+	{
+		
 	}
-	
-	
-	
 }

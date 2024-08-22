@@ -124,9 +124,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Page<User> getAllInstructors(Pageable pageable) {
-		// TODO Auto-generated method stub
-
-		return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
+		
+        return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
 	}
 
 	@Override
@@ -153,6 +152,18 @@ public class UserServiceImpl implements UserService {
 	public boolean isUserEnrolled(String username, Long courseId) {
 	    
 	    return userRepository.existsByNameAndId(username, courseId);
+	}
+
+	@Override
+	public long countAllInstructor() {
+		
+	        return userRepository.count("ROLE_INSTRUCTOR");
+	   
+	}
+
+	@Override
+	public long countAllStudent() {
+		return userRepository.count("ROLE_STUDENT");
 	}
 
 	

@@ -82,28 +82,61 @@
 												<!-- Info -->
 												<div class="d-sm-flex">
 													<p class="h6 fw-light mb-0 small me-3">
-														<i class="fas fa-table text-orange me-2"></i>
-														<span th:text="${course.courseModule.size}"></span>
+														<i class="fas fa-table text-orange me-2"></i> <span
+															th:text="${course.courseModule.size}"></span>
 													</p>
 												</div>
 											</div>
 										</div>
 									</td>
+
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center mb-3">
+											<!-- Avatar -->
+											<div class="avatar avatar-xs flex-shrink-0">
+
+												<img class="avatar-img rounded-circle"
+													th:if="${course.users.profile != null && course.users.profile.profileImg != null}"
+													th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}"
+													alt="avatar"> <img class="avatar-img rounded-circle"
+													th:unless="${course.users.profile != null && course.users.profile.profileImg != null}"
+													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													alt="avatar">
+
+											</div>
+											<!-- Info -->
+											<div class="ms-2">
+												<h6 class="mb-0 fw-light" th:text="${course.users.name}"></h6>
+											</div>
+										</div>
+									</td>
+
 									<!-- Enrolled item -->
-									<td class="text-center text-sm-start" th:text="${course.enrolledCourses.size}"></td>
+									<td class="text-center text-sm-start"
+										th:text="${course.enrolledCourses.size}"></td>
 									<!-- Status item -->
 									<td>
-										<div class="badge bg-success bg-opacity-10 text-success" th:text="${course.status}"></div>
+										<div class="badge bg-success bg-opacity-10 text-success"
+											th:text="${course.status}"></div>
 									</td>
 									<!-- Action item -->
-									<td><a th:href="@{/instructor/create-course}"
-										class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i
-											class="far fa-fw fa-edit"></i></a>
-										<button class="btn btn-sm btn-danger-soft btn-round mb-0">
-											<i class="fas fa-fw fa-times"></i>
-										</button></td>
+									<td>
+										<div th:if="${course.status == 'Pending'}">
+											<button class="btn btn-sm btn-danger-soft btn-round mb-0"
+												disabled>
+												<i class="fas fa-fw fa-times"></i>
+											</button>
+										</div>
+										<div th:if="${course.status == 'Activated'}">
+											<a
+												th:href="@{/instructor/edit-course-detail(courseId=${course.id})}"
+												class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit
+											</a>
+										</div>
+									</td>
 								</tr>
-		 					</tbody>
+							</tbody>
 							<!-- Table body END -->
 						</table>
 					</div>
