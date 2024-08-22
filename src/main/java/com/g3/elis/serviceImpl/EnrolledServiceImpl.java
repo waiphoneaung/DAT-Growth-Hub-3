@@ -18,10 +18,10 @@ import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.repository.EnrolledCourseRepository;
 import com.g3.elis.repository.UserRepository;
-import com.g3.elis.service.EnrollService;
+import com.g3.elis.service.EnrolledService;
 
 @Service
-public class EnrollServiceImpl implements EnrollService {
+public class EnrolledServiceImpl implements EnrolledService {
 	@Autowired
 	private CourseRepository courseRepository;
 

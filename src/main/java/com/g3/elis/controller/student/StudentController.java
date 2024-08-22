@@ -24,9 +24,6 @@ public class StudentController {
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	private CourseService courseService;
-	
 	@GetMapping("/student-dashboard")
 	public String home(Model model) {
 		model.addAttribute("content","student/student-dashboard");
@@ -45,42 +42,6 @@ public class StudentController {
 		model.addAttribute("content","student/student-course-list");
 		return "/student/student-layout";
 	}
-	
-	
-	@GetMapping("/student-view-allcourses")
-    public String adminCourseList(Model model,
-                                  @RequestParam(name = "page", defaultValue = "0") int page,
-                                  @RequestParam(name = "size", defaultValue = "10") int size,
-                                  @RequestParam(name = "keyword", required = false) String keyword) {
-
-        Page<Course> coursePage;
-        if (keyword != null && !keyword.isEmpty()) {
-            coursePage = courseService.searchCoursesByTitle(keyword, PageRequest.of(page, size));
-        } else {
-            coursePage = courseService.getPaginatedCourses(PageRequest.of(page, size));
-        }
-
-        // Fetch module counts using the service method
-        Map<Integer, Long> courseModuleCounts = courseService.countCourseModulesForCourses(coursePage);
-
-        int totalCourses = (int) coursePage.getTotalElements();
-        int activatedCourse = (int) coursePage.getContent().stream()
-                .filter(course -> "Activated".equalsIgnoreCase(course.getStatus())).count();
-        int pendingCourse = (int) coursePage.getContent().stream()
-                .filter(course -> "Pending".equalsIgnoreCase(course.getStatus())).count();
-
-        model.addAttribute("totalCourse", totalCourses);
-        model.addAttribute("activatedCourse", activatedCourse);
-        model.addAttribute("pendingCourse", pendingCourse);
-        model.addAttribute("courses", coursePage.getContent());
-        model.addAttribute("courseModuleCounts", courseModuleCounts);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", coursePage.getTotalPages());
-      
-        return "/student/student-view-allcourses";
-    }
-	
-	
 
 	@GetMapping("/instructor-list")
 	public String instructorList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
@@ -92,14 +53,6 @@ public class StudentController {
 	    model.addAttribute("content", "student/instructor-list");
 	    return "/student/student-layout";
 	}
-
-
-	
-	@GetMapping("/student-certificate")
-	public String studentCertificate(Model model) {
-		model.addAttribute("content","student/student-certificate");
-		return "/student/student-layout";
-	}
 	
 	@GetMapping("/student-grade")
 	public String studentGrade(Model model) {
@@ -107,18 +60,10 @@ public class StudentController {
 		return "/student/student-layout";
 	}
 	
-	@GetMapping("/student-quiz")
-	public String studentQuiz(Model model) {
-		
-		return "/student/student-quiz";
-	}
-	
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	
-	
 	
 }

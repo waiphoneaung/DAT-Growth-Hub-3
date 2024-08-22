@@ -25,6 +25,7 @@ public class EnrolledCourse {
 	private int id;
 	private Timestamp enrolledAt;
 	private Timestamp completedAt;
+	private boolean completeStatus;
 	private double progress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -70,6 +71,14 @@ public class EnrolledCourse {
 		this.completedAt = completedAt;
 	}
 
+	public boolean isCompleteStatus() {
+		return completeStatus;
+	}
+
+	public void setCompleteStatus(boolean completeStatus) {
+		this.completeStatus = completeStatus;
+	}
+
 	public double getProgress() {
 		return progress;
 	}
@@ -110,12 +119,13 @@ public class EnrolledCourse {
 		this.enrolledModules = enrolledModules;
 	}
 
-	public EnrolledCourse(int id, Timestamp enrolledAt, Timestamp completedAt, double progress, User users,
-			Course courses, Set<Report> reports, List<EnrolledModule> enrolledModules) {
+	public EnrolledCourse(int id, Timestamp enrolledAt, Timestamp completedAt, boolean completeStatus, double progress,
+			User users, Course courses, Set<Report> reports, List<EnrolledModule> enrolledModules) {
 		super();
 		this.id = id;
 		this.enrolledAt = enrolledAt;
 		this.completedAt = completedAt;
+		this.completeStatus = completeStatus;
 		this.progress = progress;
 		this.users = users;
 		this.courses = courses;

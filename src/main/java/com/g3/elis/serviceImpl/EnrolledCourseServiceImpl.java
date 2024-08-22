@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.g3.elis.model.Course;
 import com.g3.elis.model.EnrolledCourse;
+import com.g3.elis.model.EnrolledModule;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.repository.EnrolledCourseRepository;
@@ -136,6 +137,22 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void setStatusToTrue(int enrolledCourseId) {
+		EnrolledCourse enrolledCourse = enrolledCourseRepository.findById(enrolledCourseId).orElse(null);
+		for(EnrolledModule enrolledModule : enrolledCourse.getEnrolledModules())
+		{
+			if(enrolledModule.isCompleteStatus() != true) return;
+		}
+		enrolledCourse.setCompleteStatus(true);
+		enrolledCourseRepository.save(enrolledCourse);
+	}
+
+	@Override
+	public EnrolledCourse getEnrolledCourseByEnrolledCourseId(int enrolledCourseId) {
+		return enrolledCourseRepository.findById(enrolledCourseId).orElse(null);
 	}
 
 }

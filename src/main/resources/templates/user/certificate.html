@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate of Completion</title>
+<style>
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-color: #f9f9f9;
+}
+
+.certificate-container {
+	width: 750px;
+	height: 550px;
+	border: 10px solid #d4af37;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	position: relative;
+	overflow: hidden;
+}
+
+.certificate-container:before, .certificate-container:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+}
+
+.certificate-container:before {
+	top: 0;
+	left: 0;
+	border-color: red transparent transparent red;
+	border-width: 50px 50px 0 0;
+}
+
+.certificate-container:after {
+	bottom: 0;
+	right: 0;
+	border-color: transparent red red transparent;
+	border-width: 0 0 50px 50px;
+}
+
+.certificate-content {
+	text-align: center;
+	padding: 50px;
+}
+
+.certificate-title {
+	font-size: 2.5em;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.certificate-subtitle {
+	font-size: 1.5em;
+	margin-bottom: 30px;
+}
+
+.certificate-recipient {
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.certificate-description {
+	font-size: 1em;
+	margin-bottom: 30px;
+}
+
+.certificate-signatures {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 50px;
+}
+
+.certificate-signature {
+	text-align: center;
+}
+
+.certificate-signature-name {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.certificate-signature-title {
+	font-size: 0.8em;
+}
+
+.certificate-signature img {
+	width: 100px; /* Adjust the size as needed */
+	height: auto;
+	margin-top: 10px;
+}
+
+.certificate-seal {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background-color: #d4af37;
+	position: absolute;
+	bottom: 100px; /* Move the seal up */
+	left: calc(50% - 50px);
+	transform: translateY(50%);
+}
+
+.certificate-seal:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background-color: #f00;
+}
+
+.logo {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 100px;
+	height: 100px;
+	background-color: #f9f9f9;
+	/*border: 2px solid #d4af37;
+            border-radius: 10px;*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+</style>
+</head>
+<body>
+	<div th:if="${enrolledCourse != null}">
+		<div class="certificate-container">
+			<div class="certificate-content">
+				<div class="certificate-title">CERTIFICATE</div>
+				<div class="certificate-subtitle">OF COMPLETION</div>
+				<div class="certificate-recipient" th:text="${user.name}"></div>
+				<div class="certificate-description">
+					WE ARE PROUDLY PRESENT THIS TO<br> <span
+						th:text="${user.name}"></span><br> FOR COMPLETING <span
+						th:text="${enrolledCourse.courses.courseTitle}"></span> WITH
+					SATISFACTORY GRADES
+				</div>
+				<div class="certificate-signatures">
+					<div class="certificate-signature">
+						<div class="certificate-signature-name">TAYLOR ALONSO</div>
+						<div class="certificate-signature-title">PRESIDENT</div>
+						<div class="logo"
+							style="background-image: url('assets/images/DAT Logo.png');"></div>
+						<link href="assets/images/signature(1).png" alt="Signature 1">
+					</div>
+					<div class="certificate-signature">
+						<div class="certificate-signature-name">MURAD NASER</div>
+						<div class="certificate-signature-title">VICE PRESIDENT</div>
+						<link href="assets/images/signature(2).png" alt="Signature 2">
+					</div>
+				</div>
+			</div>
+			<div class="certificate-seal"></div>
+			<div class="logo"
+				style="background-image: url('assets/images/DAT Logo.png');"></div>
+		</div>
+	</div>
+	<div th:if="${certificate != null}">
+		<div class="certificate-container">
+			<div class="certificate-content">
+				<div class="certificate-title">CERTIFICATE</div>
+				<div class="certificate-subtitle">OF COMPLETION</div>
+				<div class="certificate-recipient" th:text="${user.name}"></div>
+				<div class="certificate-description">
+					WE ARE PROUDLY PRESENT THIS TO<br> <span
+						th:text="${user.name}"></span><br> FOR COMPLETING <span
+						th:text="${certificate.courses.courseTitle}"></span> WITH
+					SATISFACTORY GRADES
+				</div>
+				<div class="certificate-signatures">
+					<div class="certificate-signature">
+						<div class="certificate-signature-name">TAYLOR ALONSO</div>
+						<div class="certificate-signature-title">PRESIDENT</div>
+						<div class="logo"
+							style="background-image: url('assets/images/DAT Logo.png');"></div>
+						<link href="assets/images/signature(1).png" alt="Signature 1">
+					</div>
+					<div class="certificate-signature">
+						<div class="certificate-signature-name">MURAD NASER</div>
+						<div class="certificate-signature-title">VICE PRESIDENT</div>
+						<link href="assets/images/signature(2).png" alt="Signature 2">
+					</div>
+				</div>
+			</div>
+			<div class="certificate-seal"></div>
+			<div class="logo"
+				style="background-image: url('assets/images/DAT Logo.png');"></div>
+		</div>
+	</div>
+</body>
+</html>
