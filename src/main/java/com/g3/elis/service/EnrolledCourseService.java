@@ -1,6 +1,10 @@
 package com.g3.elis.service;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.g3.elis.model.Course;
 import com.g3.elis.model.EnrolledCourse;
@@ -12,7 +16,7 @@ public interface EnrolledCourseService {
 	List<Course> findAllCourseByUserId(int userId);
 
 	EnrolledCourse findEnrollCourseByCourseId(int courseId);
-	
+
 	EnrolledCourse getEnrolledCourseByEnrolledCourseId(int enrolledCourseId);
 
 	List<EnrolledCourse> getAllEnrolledCourse();
@@ -24,6 +28,9 @@ public interface EnrolledCourseService {
 	List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId);
 
 	boolean isUserEnrolledToCourse(int userId, int courseId);
-	
+
 	public void setStatusToTrue(int enrolledCourseId);
+
+	Page<EnrolledCourse> getEnrolledCoursesByUser(User users, Pageable pageable);
+
 }

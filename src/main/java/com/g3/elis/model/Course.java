@@ -29,7 +29,7 @@ public class Course {
 	private String courseDescription;
 	
 	@Lob
-	@Column(length = 10000)
+	@Column(length = 50000)
 	private String courseInfo;
 	private String status;
 	private Timestamp createdAt;
@@ -227,4 +227,11 @@ public class Course {
 		}
 		return true;
 	}
+
+	public List<User> getModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
