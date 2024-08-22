@@ -54,14 +54,14 @@
 							<div class="col-12">
 								<label class="form-label">Material Title</label> <input
 									class="form-control" type="text" th:field="*{title}"
-									placeholder="Enter Material title">
+									placeholder="Enter Material title" required>
 							</div>
 
 							<!-- Short description -->
 							<div class="col-12">
 								<label class="form-label">Content</label>
 								<textarea class="form-control" rows="2"
-									placeholder="Enter keywords"></textarea>
+									placeholder="Enter keywords" required></textarea>
 							</div>
 
 							<!-- Step 1 button -->
@@ -94,14 +94,14 @@
 								<label class="form-label">Material Title</label> <input
 									class="form-control" type="text" th:field="*{title}"
 									th:value="${courseMaterialDto.title}"
-									placeholder="Enter Material title">
+									placeholder="Enter Material title" required>
 							</div>
 
 							<!-- Short description -->
 							<div class="col-12">
 								<label class="form-label">Content</label>
 								<textarea class="form-control" rows="2"
-									placeholder="Enter keywords"></textarea>
+									placeholder="Enter keywords" required></textarea>
 							</div>
 
 							<!-- Step 1 button -->

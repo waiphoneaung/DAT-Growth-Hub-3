@@ -13,6 +13,7 @@ import com.g3.elis.service.UserService;
 @RequestMapping({ "/user", "/", "" })
 public class UserController {
 
+
 	@Autowired
 	private BlogPostService blogPostService;
 

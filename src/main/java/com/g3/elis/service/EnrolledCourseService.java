@@ -17,6 +17,8 @@ public interface EnrolledCourseService {
 
 	EnrolledCourse findEnrollCourseByCourseId(int courseId);
 
+	EnrolledCourse getEnrolledCourseByEnrolledCourseId(int enrolledCourseId);
+
 	List<EnrolledCourse> getAllEnrolledCourse();
 
 	List<EnrolledCourse> getAllEnrolledCourseByCourseId(int courseId);
@@ -26,10 +28,9 @@ public interface EnrolledCourseService {
 	List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId);
 
 	boolean isUserEnrolledToCourse(int userId, int courseId);
-	
-	 Page<EnrolledCourse> getEnrolledCoursesByUser(User users, Pageable pageable);
-	 
-	
-	 
-	
-	}
+
+	public void setStatusToTrue(int enrolledCourseId);
+
+	Page<EnrolledCourse> getEnrolledCoursesByUser(User users, Pageable pageable);
+
+}

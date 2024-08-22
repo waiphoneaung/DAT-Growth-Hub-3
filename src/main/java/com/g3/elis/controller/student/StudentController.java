@@ -87,8 +87,6 @@ public class StudentController {
 	    return "/student/student-layout";
 	}
 
-       
-	
 	@GetMapping("/student-view-allcourses")
 	public String studentCourseList(Model model,
 	                                @RequestParam(name = "page", defaultValue = "0") int page,
@@ -132,14 +130,6 @@ public class StudentController {
 	    model.addAttribute("content", "student/instructor-list");
 	    return "/student/student-layout";
 	}
-
-
-	
-	@GetMapping("/student-certificate")
-	public String studentCertificate(Model model) {
-		model.addAttribute("content","student/student-certificate");
-		return "/student/student-layout";
-	}
 	
 	@GetMapping("/student-grade")
 	public String studentGrade(Model model) {
@@ -147,18 +137,10 @@ public class StudentController {
 		return "/student/student-layout";
 	}
 	
-	@GetMapping("/student-quiz")
-	public String studentQuiz(Model model) {
-		
-		return "/student/student-quiz";
-	}
-	
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	
-	
 	
 }

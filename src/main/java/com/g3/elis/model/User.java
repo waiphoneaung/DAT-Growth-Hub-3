@@ -49,7 +49,7 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Profile profile;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
@@ -58,15 +58,18 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 
 	private Set<BlogPost> blogposts = new HashSet<>();
-	
-	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Forum> forums = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private List<ForumComment> forumComments = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<CourseCategory> courseCategories = new HashSet<>();
+
+	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	private List<Achievement> achievement = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -236,13 +239,19 @@ public class User {
 		this.courseCategories = courseCategories;
 	}
 
+	public List<Achievement> getAchievement() {
+		return achievement;
+	}
+
+	public void setAchievement(List<Achievement> achievement) {
+		this.achievement = achievement;
+	}
+
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
-
 			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
 			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
-
-			Set<CourseCategory> courseCategories) {
+			Set<CourseCategory> courseCategories, List<Achievement> achievement) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -265,9 +274,10 @@ public class User {
 		this.forums = forums;
 		this.forumComments = forumComments;
 		this.courseCategories = courseCategories;
+		this.achievement = achievement;
 	}
 
 	public User() {
-		
+
 	}
 }

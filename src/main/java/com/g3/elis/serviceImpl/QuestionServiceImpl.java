@@ -11,8 +11,10 @@ import com.g3.elis.dto.form.QuestionCreationSuperDto;
 import com.g3.elis.dto.form.QuestionDto;
 import com.g3.elis.model.Question;
 import com.g3.elis.model.Answer;
+import com.g3.elis.model.EnrolledAssignment;
 import com.g3.elis.repository.AnswerRepository;
 import com.g3.elis.repository.CourseAssignmentReopsitory;
+import com.g3.elis.repository.EnrolledAssignmentRepository;
 import com.g3.elis.repository.QuestionRepository;
 import com.g3.elis.service.QuestionService;
 
@@ -28,6 +30,9 @@ public class QuestionServiceImpl implements QuestionService
 	
 	@Autowired
 	private CourseAssignmentReopsitory courseAssignmentReopsitory;
+	
+	@Autowired
+	private EnrolledAssignmentRepository enrolledAssignmentRepository;
 	
 	@Override
 	public void createQuestion(QuestionDto questionDto, int courseAssignmentId) {
@@ -77,5 +82,4 @@ public class QuestionServiceImpl implements QuestionService
 		question.setCourseAssignments(null);
 		questionRepository.deleteById(questionId);
 	}
-	
 }

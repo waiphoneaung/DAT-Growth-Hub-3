@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.ForumDto;
@@ -75,6 +76,28 @@ public class ForumServiceImpl implements ForumService{
       }
      return forumRepository.findByTitleContainingIgnoreCase(query,pageable);	}
 
+	@Override
+	public List<Forum> getAllForumsSortedByCreatedAtDesc() {
+		// TODO Auto-generated method stub
+		return forumRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+	}
+
+	@Override
+	public void deletePost(int id) {
+		// TODO Auto-generated method stub
+	 forumRepository.deleteById(id);
+	}
+
+	@Override
+	public Forum getForumById(int id) {
+		return forumRepository.findById(id).orElse(null);
+	}
+
 	
+//	@Override
+//	public List<Forum> getForumByUser(int userId) {
+//		
+//		return forumRepository.findByUserId(userId);
+//	}
 
 }

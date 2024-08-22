@@ -158,7 +158,7 @@ public class StudentViewBlogController {
 	                Files.write(Paths.get(filePath), content.getBytes());
 	            }
 
-	            blogPostService.saveBlogPost(blogPostDto);
+	            blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
 	            return "redirect:/student/student-view-blog";
 
 	        } catch (IOException e) {
@@ -167,6 +167,3 @@ public class StudentViewBlogController {
 	        }
 	    }
 	}
-
-
-
