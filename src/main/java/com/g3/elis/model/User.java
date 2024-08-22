@@ -70,6 +70,9 @@ public class User {
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Achievement> achievement = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Grade> grades = new ArrayList<>();
 
 	public int getId() {
 		return id;

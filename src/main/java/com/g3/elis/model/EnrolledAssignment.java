@@ -1,5 +1,8 @@
 package com.g3.elis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +30,9 @@ public class EnrolledAssignment
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_assignment_id")
 	private CourseAssignment courseAssignment;
+	
+	@OneToMany(mappedBy = "enrolledAssignment",fetch = FetchType.LAZY)
+	private List<Grade> grades = new ArrayList<Grade>();
 	
 	public EnrolledAssignment()
 	{
