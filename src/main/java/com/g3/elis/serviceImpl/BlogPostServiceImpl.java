@@ -115,62 +115,81 @@ public class BlogPostServiceImpl implements BlogPostService {
         return blogPostRepository.findById(id).orElse(null);
     }
 */
-	@Override
-	public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
-	    BlogPost blogPost = new BlogPost();
-	    String filePath = htmlUploadDir + "/" + blogPostDto.getHtmlFileName();
-
-	    // Check if this is an update or a new blog post
-	    if (blogPostDto.getId() > 0) {
-	        BlogPost existingBlogPost = blogPostRepository.findById(blogPostDto.getId()).orElse(null);
-	        if (existingBlogPost != null) {
-	            blogPost = existingBlogPost;
-	            updateBlogPost(blogPostDto, content, imgFile);
-	            
-	            // Check if the HTML file exists and update accordingly
-	            if (Files.exists(Paths.get(filePath))) {
-	                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	                Files.write(Paths.get(filePath), content.getBytes());
-	            } else {
-	                blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-	                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	                blogPostDto.setUsers(blogPostDto.getUsers());
-	                Files.write(Paths.get(filePath), content.getBytes());
-	            }
-	            
-	            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	        }
-	    } else {
-	        String fileName = UUID.randomUUID().toString() + ".html";
-	        blogPostDto.setHtmlFileName(fileName);
-	        filePath = htmlUploadDir + "/" + fileName;
-
-	        // Set timestamps and save new HTML file
-	        blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-	        blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	        blogPostDto.setUsers(blogPostDto.getUsers());
-
-	        Files.write(Paths.get(filePath), content.getBytes());
-
-	        blogPost.setCreatedAt(blogPostDto.getCreatedAt());
-	        blogPost.setHtmlFileName(fileName);
-	    }
-
-	    // Update blog post title and user
-	    blogPost.setTitle(blogPostDto.getTitle());
-	    blogPost.setUsers(blogPostDto.getUsers());
-
-	    // Handle the image file if provided
-	    if (imgFile != null && !imgFile.isEmpty()) {
-	        String newImageFileName = fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), imgUploadDir);
+//	@Override
+//	public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
+//	    BlogPost blogPost = new BlogPost();
+//	    String filePath = htmlUploadDir + "/" + blogPostDto.getHtmlFileName();
+//
+//	    // Check if this is an update or a new blog post
+//	    if (blogPostDto.getId() > 0) {
+//	        BlogPost existingBlogPost = blogPostRepository.findById(blogPostDto.getId()).orElse(null);
+//	        if (existingBlogPost != null) {
+//	            blogPost = existingBlogPost;
+//	            updateBlogPost(blogPostDto, content, imgFile);
+//	            
+//	            // Check if the HTML file exists and update accordingly
+//	            if (Files.exists(Paths.get(filePath))) {
+//	                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//	                Files.write(Paths.get(filePath), content.getBytes());
+//	            } else {
+//	                blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+//	                blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//	                blogPostDto.setUsers(blogPostDto.getUsers());
+//	                Files.write(Paths.get(filePath), content.getBytes());
+//	            }
+//	            
+//	            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//	        }
+//	    } else {
+//	        String fileName = UUID.randomUUID().toString() + ".html";
+//	        blogPostDto.setHtmlFileName(fileName);
+//	        filePath = htmlUploadDir + "/" + fileName;
+//
+//	        // Set timestamps and save new HTML file
+//	        blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+//	        blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//	        blogPostDto.setUsers(blogPostDto.getUsers());
+//
+//	        Files.write(Paths.get(filePath), content.getBytes());
+//
+//	        blogPost.setCreatedAt(blogPostDto.getCreatedAt());
+//	        blogPost.setHtmlFileName(fileName);
+//	    }
+//
+//	    // Update blog post title and user
+//	    blogPost.setTitle(blogPostDto.getTitle());
+//	    blogPost.setUsers(blogPostDto.getUsers());
+//
+//	    // Handle the image file if provided
+//	    if (imgFile != null && !imgFile.isEmpty()) {
+//	        String newImageFileName = fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), imgUploadDir);
+//	        blogPost.setBlogImage(newImageFileName);
+//	    }
+//
+//	    blogPostRepository.save(blogPost);
+//	}
+//
+//    
+    
+	 @Override
+	    public void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
+	        BlogPost blogPost = new BlogPost();
+	            String fileName = UUID.randomUUID().toString() + ".html";
+	          
+	            blogPostDto.setHtmlFileName(fileName);
+	            blogPost.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+	       // fileStorageConfig.saveHTMLFile(content, htmlUploadDir, blogPostDto.getHtmlFileName());
+	        blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
+	        blogPost.setTitle(blogPostDto.getTitle());
+	        blogPost.setUsers(blogPostDto.getUsers());
+	        String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
+	        fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
+	        
+	        fileStorageConfig.saveHTMLFile(content,htmlUploadDir, fileName);
 	        blogPost.setBlogImage(newImageFileName);
+	       // Files.write(Paths.get(htmlUploadDir), content.getBytes());
+	        blogPostRepository.save(blogPost);
 	    }
-
-	    blogPostRepository.save(blogPost);
-	}
-
-    
-    
 
     @Override
     public void deleteBlogPost(int id) throws IOException {
@@ -271,29 +290,53 @@ public class BlogPostServiceImpl implements BlogPostService {
 //	
 
 	
-    @Override
+//    @Override
+//    public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
+//        Optional<BlogPost> existingBlogPost = blogPostRepository.findById(blogPostDto.getId());
+//
+//        if (existingBlogPost.isPresent()) {
+//            BlogPost blogPost = existingBlogPost.get();
+//            blogPost.setTitle(blogPostDto.getTitle());
+//            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+//
+//            fileStorageConfig.saveHTMLFile(content, htmlUploadDir, blogPost.getHtmlFileName());
+//
+//            if (imgFile != null && !imgFile.isEmpty()) {
+//                fileStorageConfig.deleteFile(blogPost.getBlogImage(),imgUploadDir);
+//                String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
+//                fileStorageConfig.saveFile(imgFile, newImageFileName,imgUploadDir);
+//                blogPost.setBlogImage(newImageFileName);
+//            }
+//            
+//            blogPostRepository.save(blogPost);
+//        } else {
+//            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
+//        }
+//    }
+	
+	@Override
     public void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException {
-        Optional<BlogPost> existingBlogPost = blogPostRepository.findById(blogPostDto.getId());
-
-        if (existingBlogPost.isPresent()) {
-            BlogPost blogPost = existingBlogPost.get();
+        Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
+        if (existingBlogPostOpt.isPresent()) {
+            BlogPost blogPost = existingBlogPostOpt.get();
             blogPost.setTitle(blogPostDto.getTitle());
             blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
             fileStorageConfig.saveHTMLFile(content, htmlUploadDir, blogPost.getHtmlFileName());
 
             if (imgFile != null && !imgFile.isEmpty()) {
-                fileStorageConfig.deleteFile(blogPost.getBlogImage(),imgUploadDir);
+                fileStorageConfig.deleteBlogImage(blogPost.getBlogImage());
                 String newImageFileName = generateNewFileName(imgFile.getOriginalFilename());
-                fileStorageConfig.saveFile(imgFile, newImageFileName,imgUploadDir);
+                fileStorageConfig.saveBlogImage(imgFile, newImageFileName);
                 blogPost.setBlogImage(newImageFileName);
             }
-            
+
             blogPostRepository.save(blogPost);
         } else {
             throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
         }
     }
+
 	
 		
 }

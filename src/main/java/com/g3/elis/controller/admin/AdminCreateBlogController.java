@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.BlogPostDto;
 import com.g3.elis.model.BlogPost;
 import com.g3.elis.model.User;
@@ -44,8 +45,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/admin")
 public class AdminCreateBlogController {
 
-	private final String HTML_FILE_PATH = "/blog/blog-files/";
-	private final String IMAGE_FILE_PATH = "/blog/blog-images/";
+	private final String imgUploadDir =  "/blog/blog-images/";
+	public final String htmlUploadDir = "/blog/blog-files/";
+
 
 	@Autowired
 	private BlogPostService blogPostService;
@@ -87,9 +89,9 @@ public class AdminCreateBlogController {
 
 			model.addAttribute("timeAgo", timeAgo);
 			// Read HTML file content
-			Path htmlFilePath = Paths.get(HTML_FILE_PATH + blogPost.getHtmlFileName());
-			String content = Files.readString(htmlFilePath);
-			model.addAttribute("content", content);
+			Path htmlFilePath = Paths.get(htmlUploadDir + blogPost.getHtmlFileName());
+			//String content = Files.readString(htmlFilePath);
+		//	model.addAttribute("content", content);
 			model.addAttribute("blogPost", blogPost);
 			return "/authenticated-user/blog-detail";
 		}
@@ -100,7 +102,7 @@ public class AdminCreateBlogController {
 	@GetMapping("/blog-html/{fileName}")
 	@ResponseBody
 	public String getBlogHtml(@PathVariable String fileName) throws IOException {
-		Path htmlFilePath = Paths.get(HTML_FILE_PATH + fileName);
+		Path htmlFilePath = Paths.get(htmlUploadDir + fileName);
 		return Files.readString(htmlFilePath);
 	}
 
@@ -191,6 +193,7 @@ public class AdminCreateBlogController {
     @GetMapping("/admin-create-blog")
     public String adminCreateBlog(Model model) {
         model.addAttribute("blogPostDto", new BlogPostDto());
+        
         return "/admin/admin-create-blog";
     }
 
@@ -201,18 +204,22 @@ public class AdminCreateBlogController {
                                 BindingResult result, Authentication authentication, Model model) throws IOException {
         if (result.hasErrors()) {
             model.addAttribute("blogPostDto", blogPostDto);
+           
             return "/admin/admin-create-blog";
         }
 
         LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
         blogPostDto.setUsers(userDetail.getUser());
 
-        if (blogPostDto.getId() >0 && blogPostService.findById(blogPostDto.getId()) != null) {
-            // If the ID exists, update the existing blog post
+       if (blogPostDto.getId() >0 && blogPostService.findById(blogPostDto.getId()) != null) {
+           // If the ID exists, update the existing blog post
             blogPostService.updateBlogPost(blogPostDto, content, imgFile);
+            System.out.println(content);
         } else {
-            // If the ID does not exist, create a new blog post
+          //   If the ID does not exist, create a new blog post
             blogPostService.saveBlogPost(blogPostDto, content, imgFile);
+            System.out.println(content);
+  
         }
 
         return "redirect:/admin/admin-view-blog";
@@ -227,15 +234,14 @@ public class AdminCreateBlogController {
 //    }
 
     @GetMapping("/admin-edit-blog/{id}")
-    public String adminEditBlog(@Valid @PathVariable int id, Model model) throws IOException {
+    public String adminEditBlog(@Valid @PathVariable int id, String content, Model model) throws IOException {
         BlogPost blogPost = blogPostService.findById(id);
         if (blogPost == null) {
             return "redirect:/admin/admin-view-blog";
         }
-
-        String content = new String(Files.readAllBytes(Paths.get(HTML_FILE_PATH + blogPost.getHtmlFileName())));
-
-        BlogPostDto blogPostDto = new BlogPostDto();
+        	//content = Files.readString(Paths.get(htmlUploadDir + blogPost.getHtmlFileName()));
+        // content = new String(Files.readAllBytes(Paths.get(htmlUploadDir + blogPost.getHtmlFileName())));
+         BlogPostDto blogPostDto = new BlogPostDto();
         blogPostDto.setId(blogPost.getId());
         blogPostDto.setTitle(blogPost.getTitle());
         blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
@@ -243,7 +249,8 @@ public class AdminCreateBlogController {
         blogPostDto.setUsers(blogPost.getUsers());
 
         model.addAttribute("blogPostDto", blogPostDto);
-        model.addAttribute("content", content);
+        model.addAttribute("content", content );
         return "/admin/admin-edit-blog";
     }
+
 }
