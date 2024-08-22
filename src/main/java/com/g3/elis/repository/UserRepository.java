@@ -18,6 +18,7 @@ import com.g3.elis.model.User;
 public interface UserRepository extends JpaRepository<User,Integer> {
 
 	User findByEmail(String email);
+	User findById(Long userId);
 	
 	public Optional<User> findByStaffId(String staffId);
 	

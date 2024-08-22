@@ -96,7 +96,7 @@ public Path getBlogImageUploadDir()
 	
 	public String saveFile(MultipartFile file,String fileName,String filePath) throws IOException
 	{
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
         String newFileName = timestamp + "_" + fileName;
 		    Path targetLocation = getUploadDir(filePath).resolve(newFileName);
 		    Files.copy(file.getInputStream(), targetLocation);
@@ -115,6 +115,9 @@ public Path getBlogImageUploadDir()
 		Path targetLocation = getUploadDir(path).resolve(fileName);
 		Files.write(targetLocation, content.getBytes());
 	}
-	
+	 public String readFileContent(String fileName, String path) throws IOException {
+	        Path filePath = getUploadDir(path).resolve(fileName);
+	        return Files.readString(filePath);
+	    }
 	
 }

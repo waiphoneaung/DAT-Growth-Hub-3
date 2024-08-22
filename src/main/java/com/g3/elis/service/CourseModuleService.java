@@ -12,4 +12,7 @@ public interface CourseModuleService {
 	void createCourseModule(CourseModuleDto courseModuleDto,int courseId);
 	void editCourseModule(CourseModuleDto courseModuleDto,int courseModuleId,int courseId);
 	void deleteCourseModuleById(int moduleId);
+	
+
+   
 }

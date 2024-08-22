@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,8 @@ import com.g3.elis.service.CourseCategoryService;
 import com.g3.elis.service.CourseMaterialService;
 import com.g3.elis.service.CourseModuleService;
 import com.g3.elis.service.CourseService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping({"/admin","/instructor"})
@@ -86,9 +89,10 @@ public class CreateCourseController
 									@RequestParam(name = "durationHour",required=false)Integer durationHour,
 									@RequestParam(name = "courseInfo",required=false)String courseInfo,
 									@RequestParam(name = "image",required=false)MultipartFile imgFile,
-									@RequestParam(name = "action")String action,
+									@RequestParam(name = "action")String action, BindingResult bindingResult,
 									Model model) 
 	{
+	
 		List<CourseCategory> courseCategoryList = courseCategoryService.getAllCourseCategories();
 		if(superDto == null)
 		{

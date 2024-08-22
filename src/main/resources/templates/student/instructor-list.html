@@ -39,8 +39,10 @@
                     <h5 class="card-title mb-0" th:text="${user.name}">Instructor Name</h5>
 
                     <p class="small mb-2 mb-sm-0" th:text="${user.division}">Division</p>
-                    
-                </div>
+<!--                     <span th:if="${user.profile != null && user.profile.description != null}" 
+                          class="text-truncate-2 mb-3"
+                          th:text="${user.profile.description}">Instructor Description</span>
+ -->                </div>
             </div>
             <!-- Content -->
         </div>

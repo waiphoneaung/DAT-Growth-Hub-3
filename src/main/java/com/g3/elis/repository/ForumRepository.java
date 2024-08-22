@@ -14,4 +14,7 @@ public interface ForumRepository extends JpaRepository<Forum, Integer>{
 	
 	List<Forum> findByTitleContainingIgnoreCase(String title);
 	Page<Forum> findByTitleContainingIgnoreCase(String query, Pageable pageable);
+   // List<Forum> findByUsername(String username);
+//	Page<Forum> findByUserId(int userId, Pageable pageable);
+
 }

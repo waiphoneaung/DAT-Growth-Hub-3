@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +23,8 @@ public class CourseModule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(length=1000)
 	private String moduleTitle;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
