@@ -1,9 +1,16 @@
 package com.g3.elis.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.model.Course;
@@ -11,6 +18,7 @@ import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
 import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.repository.EnrolledCourseRepository;
+import com.g3.elis.repository.EnrolledModuleRepository;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.service.EnrolledCourseService;
 
@@ -25,6 +33,9 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 	
 	@Autowired
 	private EnrolledCourseRepository enrolledCourseRepository;
+	
+	@Autowired
+	private EnrolledModuleRepository enrolledModuleRepository;
 	
 	@Override
 	public List<User> findAllUserByCourseId(int courseId) {
@@ -138,4 +149,25 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService{
 		return false;
 	}
 
-}
+	@Override
+	public Page<EnrolledCourse> getEnrolledCoursesByUser(User users, Pageable pageable) {
+		return enrolledCourseRepository.findByUsers(users, pageable);
+		
+	}
+
+
+	}
+
+	
+	
+
+	
+	
+	
+
+	
+
+	
+
+	
+

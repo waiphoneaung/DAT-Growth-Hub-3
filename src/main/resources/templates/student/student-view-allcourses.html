@@ -242,7 +242,7 @@ Page content START -->
         <div class="card-body pb-0">
             <!-- Title -->
             <h5 class="card-title">
-                <a th:href="@{/user/user-course-detail/{id}(id=${course.id})}"
+                <a th:href="@{/user/courses/course-detail(courseId=${course.id})}"
                    th:text="${course.courseTitle}">Course Title</a>
             </h5>
         </div>
