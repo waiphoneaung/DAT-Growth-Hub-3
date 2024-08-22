@@ -12,11 +12,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 
 
 import org.springframework.security.core.Authentication;
@@ -52,6 +54,7 @@ public class AdminCreateBlogController {
 
 	@GetMapping("/admin-view-blog")
 
+
 	public String adminViewBlog(@RequestParam(defaultValue = "0") int page, Model model) {
 		int pageSize = 8; // Set the page size to 8
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -66,6 +69,7 @@ public class AdminCreateBlogController {
         model.addAttribute("totalPages", blogPostsPage.getTotalPages());
 //		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
 //		model.addAttribute("blogPosts", blogPosts);
+
 
 		model.addAttribute("content", "admin/admin-view-blog");
 		return "/admin/admin-layout";

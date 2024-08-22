@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -91,7 +93,26 @@ public class BlogPostServiceImpl implements BlogPostService {
 	@Override
 	public void updateBlogPost(BlogPostDto blogPostDto) throws IOException {
 		Optional<BlogPost> existingBlogPostOpt = blogPostRepository.findById(blogPostDto.getId());
-	}
+
+
+        if (existingBlogPostOpt.isPresent()) {
+            BlogPost blogPost = existingBlogPostOpt.get();
+            blogPost.setTitle(blogPostDto.getTitle());
+            blogPost.setHtmlFileName(blogPostDto.getHtmlFileName());
+            blogPost.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            
+            if (blogPostDto.getImageFile() != null && !blogPostDto.getImageFile().isEmpty()) {
+                // Delete the old image if a new one is uploaded
+                fileStorageConfig.deleteFile(blogPost.getBlogImage(), fileUploadDir);
+                blogPost.setBlogImage(blogPostDto.getImageFile());
+            }
+            
+            blogPostRepository.save(blogPost);
+        } else {
+            throw new RuntimeException("Blog post not found with id " + blogPostDto.getId());
+        }
+    }
+
 	/*
 	 * 
 	 * @Autowired private BlogPostRepository blogPostRepository;

@@ -1,5 +1,6 @@
 package com.g3.elis.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+	@Column(length=1000)
     private String answerTitle;
     private boolean correctStatus;
 	
@@ -59,13 +61,14 @@ public class Answer {
 		super();
 	}
 
-	public Answer(int id, String answerTitle, boolean correctStatus, Question question) {
+	public Answer(int id, String answerTitle, boolean correctStatus, Question questions) {
 		super();
 		this.id = id;
 		this.answerTitle = answerTitle;
 		this.correctStatus = correctStatus;
-		this.questions = question;
+		this.questions = questions;
 	}
+
 		
 
 }

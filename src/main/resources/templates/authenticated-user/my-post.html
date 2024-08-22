@@ -54,25 +54,26 @@
 							class="nav-link" th:href="@{/instructor/instructor-dashboard}"
 							id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
 						</li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
-							class="nav-link active" th:href="@{/admin/forum}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Forum</a></li>
-						<li sec:authorize="hasRole('ROLE_STUDENT')"><a
-							class="nav-link active" th:href="@{/student/forum}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">Forum</a></li>
-						<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
-							class="nav-link active" th:href="@{/instructor/forum}"
-							id="demoMenu" aria-haspopup="true" aria-expanded="false">Forum</a>
-						</li>
 						<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
-							th:href="@{/admin/my-post}" id="demoMenu" aria-haspopup="true"
-							aria-expanded="false">My Post</a></li>
+							th:href="@{/admin/forum}" id="demoMenu" aria-haspopup="true"
+							aria-expanded="false">Forum</a></li>
 						<li sec:authorize="hasRole('ROLE_STUDENT')"><a
-							class="nav-link" th:href="@{/student/my-post}" id="demoMenu"
-							aria-haspopup="true" aria-expanded="false">My Post</a></li>
+							class="nav-link" th:href="@{/student/forum}" id="demoMenu"
+							aria-haspopup="true" aria-expanded="false">Forum</a></li>
 						<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
-							class="nav-link" th:href="@{/instructor/my-post}" id="demoMenu"
+							class="nav-link" th:href="@{/instructor/forum}" id="demoMenu"
+							aria-haspopup="true" aria-expanded="false">Forum</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							class="nav-link active" th:href="@{/admin/my-post}" id="demoMenu"
 							aria-haspopup="true" aria-expanded="false">My Post</a></li>
+						<li sec:authorize="hasRole('ROLE_STUDENT')"><a
+							class="nav-link active" th:href="@{/student/my-post}"
+							id="demoMenu" aria-haspopup="true" aria-expanded="false">My
+								Post</a></li>
+						<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
+							class="nav-link active" th:href="@{/instructor/my-post}"
+							id="demoMenu" aria-haspopup="true" aria-expanded="false">My
+								Post</a></li>
 					</ul>
 					<!-- Nav Main menu END -->
 
@@ -271,7 +272,7 @@
 										a new post</h1>
 								</div>
 								<div class="modal-body">
-									<form method="post" th:action="@{${map} + '/forum'}"
+									<form method="post" th:action="@{${map} + '/my-post'}"
 										th:object="${forumDto}">
 										<div class="mb-3">
 											<label for="recipient-name" class="col-form-label">Enter
@@ -319,15 +320,19 @@
 
 
 							<!-- Review item START -->
-							<div class="d-sm-flex mb-5 " th:each="forum : ${forums}">
+
+							<div class="d-sm-flex mb-5 " th:each="forum : ${forums}"
+								th:if="${forum.users.id} == ${user_id}">
 
 								<!-- Avatar image -->
 
-								<div th:if="${forum.users.profile!= null && forum.users.profile.profileImg != null}">
+								<div
+									th:if="${forum.users.profile!= null && forum.users.profile.profileImg != null }">
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
 										th:src="@{'/private/profile/user-profile/' + ${forum.users.profile.profileImg}}"
 										alt="avatar" />
 								</div>
+
 								<div
 									th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}">
 
@@ -335,134 +340,172 @@
 										th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}"
 										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar" />
 								</div>
-									<div class=" " style="width: 100%">
-										<div
-											class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
-											<!-- Title -->
-											<div>
-												<h5 class="m-0" th:text="${forum.users.name}"></h5>
-												<span class="me-3 small"
-													th:text="${#dates.format(forum.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
-											</div>
-											<!-- Review star -->
+								<div class=" " style="width: 100%">
+									<div
+										class="mb-3 d-sm-flex justify-content-sm-between align-items-center">
+										<!-- Title -->
+										<div>
+											<h5 class="m-0" th:text="${forum.users.name}"></h5>
+
+											<span class="me-3 small"
+												th:text="${#dates.format(forum.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
 										</div>
-										<!-- Content -->
-
-										<h3 th:text="${forum.title}"></h3>
-
-										<p th:utext="${forum.content}"></p>
-										<!-- Comment -->
-										<div th:each="forumComment : ${forum.forumComments}"
-											class="mb-2">
-											<div th:if="${forum.id} == ${forumComment.forums.id}">
-												Replied by: <span class=""
-													style="color: red; font-size: 1rem;"
-													th:text="${forumComment.users.name}"></span> <span
-													class="me-3 small"
-													th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
-
-												<p th:text="${forumComment.comment}"></p>
-											</div>
-										</div>
-										<!-- Button -->
-										<div class="text-end">
-											<a class="btn  btn-primary mb-0 " data-bs-toggle="collapse"
-												th:href="'#collapseComment' + ${forum.id}" role="button"
-												aria-expanded="false"
-												aria-controls="'collapseComment' + ${forum.id}"> Add
-												Comment </a>
-											<!-- collapse textarea -->
-											<div class="collapse" th:id="'collapseComment' + ${forum.id}">
-												<form class="d-flex mt-3" method="post"
-													th:action="@{${map} + '/comment'(forumId=${forum.id})}"
-													th:object="${forumCommentDto}">
-													<textarea class="form-control mb-0"
-														placeholder="Add a comment..." rows="2"
-														style="width: 100%" spellcheck="false" th:field=*{comment}
-														required></textarea>
-													<button type="submit"
-														class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
-														<i class="fas fa-paper-plane fs-5"></i>
-													</button>
-												</form>
-											</div>
-										</div>
-
-										<hr class="mt-4">
-									</div>
-
-									<!-- end userId==forum.userId -->
-								</div>
-								<!-- Review item END -->
-
-								<div class="card-footer">
-									<!-- Check if there are no results -->
-									<div th:if="${totalPages == 0}" class="text-center">
-										<p>No results found.</p>
-									</div>
-
-									<!-- Pagination START -->
-									<div th:if="${totalPages > 0}"
-										class="d-sm-flex justify-content-sm-center align-items-sm-center">
-										<nav class="d-flex justify-content-center mb-0"
-											aria-label="navigation">
+										<!-- Edit dropdown -->
+										<div class="dropdown text-end">
+											<a href="#" class="btn btn-sm btn-light btn-round small mb-0"
+												role="button" id="dropdownShare2" data-bs-toggle="dropdown"
+												aria-expanded="false"> <i class="bi bi-three-dots fa-fw"></i>
+											</a>
+											<!-- dropdown button -->
 											<ul
-												class="pagination pagination-sm pagination-primary-soft my-0 py-0">
-
-												<!-- Previous Page Link -->
-												<li class="page-item my-0"
-													th:classappend="${currentPage == 0} ? 'disabled' : ''">
-													<a class="page-link"
-													th:href="@{${map} + '/forum'(page=${currentPage - 1}, size=${size})}"
-													tabindex="-1"> <i class="fas fa-angle-left"
-														th:classappend="${currentPage == 0} ? 'd-none' : ''"></i>
-												</a>
+												class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+												aria-labelledby="dropdownShare2">
+												<li>
+													<!-- <a th:href="@{|${map}/my-post/delete/${forum.id}|}" class="btn btn-danger">
+													Delete Post</a> -->
+													<form
+														th:action="@{${map} + '/my-post/delete/' + ${forum.id}}"
+														method="post" style="display: inline;"
+														onsubmit="return confirm('Are you sure?');">
+														<button type="submit" class="btn btn-sm btn-danger mb-0">Delete Post</button>
+													</form>
 												</li>
 
-												<!-- Page Number Links -->
-												<li class="page-item my-0"
-													th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-													th:classappend="${i == currentPage} ? 'active' : ''"><a
-													class="page-link"
-													th:href="@{${map} + '/forum'(page=${i}, size=${size})}"
-													th:text="${i + 1}"></a></li>
-
-												<!-- Next Page Link -->
-												<li class="page-item my-0"
-													th:classappend="${currentPage + 1 >= totalPages} ? 'disabled' : ''">
-													<a class="page-link"
-													th:href="@{${map} + '/forum'(page=${currentPage + 1}, size=${size})}">
-														<i class="fas fa-angle-right"
-														th:classappend="${currentPage + 1 >= totalPages} ? 'd-none' : ''"></i>
-												</a>
-												</li>
-
+												<li>
+													<!-- Button trigger modal -->
+												<!-- 	<button type="button" class="btn btn-primary"
+														data-bs-toggle="modal" data-bs-target="#editPostModal">
+														Edit post</button> -->
+																												
+												</li>												
 											</ul>
-										</nav>
+										</div>
+																				
+										<!-- Review star -->
 									</div>
-									<!-- Pagination END -->
+									<!-- Content -->
+									
 
+									<h3 th:text="${forum.title}"></h3>
+
+									<p th:utext="${forum.content}"></p>
+									<!-- Comment -->
+									<div th:each="forumComment : ${forum.forumComments}"
+										class="mb-2">
+										<div th:if="${forum.id} == ${forumComment.forums.id}">
+											Replied by: <span class=""
+												style="color: red; font-size: 1rem;"
+												th:text="${forumComment.users.name}"></span> <span
+												class="me-3 small"
+												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
+
+											<p th:text="${forumComment.comment}"></p>
+										</div>
+									</div>
+									<!-- Button -->
+									<div class="text-end">
+										<a class="btn  btn-primary mb-0 " data-bs-toggle="collapse"
+											th:href="'#collapseComment' + ${forum.id}" role="button"
+											aria-expanded="false"
+											aria-controls="'collapseComment' + ${forum.id}"> Add
+											Comment </a>
+										<!-- collapse textarea -->
+										<div class="collapse" th:id="'collapseComment' + ${forum.id}">
+											<form class="d-flex mt-3" method="post"
+												th:action="@{${map} + '/self-comment'(forumId=${forum.id})}"
+												th:object="${forumCommentDto}">
+												<textarea class="form-control mb-0"
+													placeholder="Add a comment..." rows="2" style="width: 100%"
+													spellcheck="false" th:field=*{comment} required></textarea>
+												<button type="submit"
+													class="btn btn-sm btn-primary-soft ms-2 px-4 mb-0 flex-shrink-0">
+													<i class="fas fa-paper-plane fs-5"></i>
+												</button>
+											</form>
+										</div>
+									</div>
+
+									<hr class="mt-4">
 								</div>
+
+								<!-- end userId==forum.userId -->
+
+
 							</div>
-							<!-- Student review END -->
+							<!-- Review item END -->
 						</div>
-						<!-- Main content END -->
+
+
+						<div class="card-footer">
+							<h4 class="text-center">No posts Available</h4>
+						</div>
 					</div>
-					<!-- Row END -->
+					<!-- Student review END -->
 				</div>
+				<!-- Main content END -->
+
+
+
 			</div>
+			<!-- Row END -->
+
+
 		</section>
 		<!-- =======================
 Inner part END -->
+
+
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
 
+	
 
 
 	<!-- Include footer -->
 	<div th:replace="instructor/instructor-footer :: instructor-footer"></div>
 
+	
+
 	<!-- Scripts -->
 	<th:block th:replace="fragments/scripts :: scripts"></th:block>
+	
+												<!-- Modal -->
+
+	<!-- 	<div class="modal fade" id="editPostModal" tabindex="-1"
+			aria-labelledby="editPostModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+					</div>
+					<div class="modal-body">
+						<form id="editPostForm"
+							th:action="@{|${map}/my-post/edit?id=${forum.id}|}" th:object="${forumDto}" method="post">
+							<div class="mb-3">
+								<label for="postTitle" class="form-label">Title</label> <input
+									type="text" class="form-control" id="postTitle" 
+									th:field="*{title}" required>
+							</div>
+	 -->					<!-- 	<div class="mb-3">
+								<label for="postContent" class="form-label">Content</label>
+								<textarea class="form-control" id="postContent" name="content"
+									th:field="*{content}" rows="5" required></textarea>
+							</div> -->
+	<!-- 						<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+
+							<button type="submit" class="btn btn-primary">Save
+								changes</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+ -->
+	<!-- end model -->
+
+	
+	
 </body>
 </html>

@@ -169,7 +169,8 @@ Steps START -->
 														class="form-control" type="text" name="courseTitle"
 														id="courseTitle" th:field="*{courseDto.courseTitle}"
 														th:value="${superDto.courseDto.courseTitle}"
-														placeholder="Enter course title">
+														placeholder="Enter course title" required>
+											    <!-- <div th:if="${#fields.hasErrors('courseTitle')}" th:errors="*{courseTitle}"></div> -->
 												</div>
 
 												<!-- Short description -->
@@ -179,7 +180,8 @@ Steps START -->
 														th:field="*{courseDto.courseDescription}"
 														name="courseDescription" id="courseDescription"
 														th:value="${superDto.courseDto.courseDescription}"
-														placeholder="Enter keywords"></textarea>
+														placeholder="Enter keywords" required></textarea>
+													<!-- <div th:if="${#fields.hasErrors('courseDescription')}" th:errors="*{courseDescription}"></div>  -->
 												</div>
 
 												<!-- Course category -->
@@ -214,7 +216,7 @@ Steps START -->
 													<textarea th:field="*{courseDto.courseInfo}"
 														th:value="${superDto.courseDto.courseInfo}"
 														class="form-control" rows="12" name="courseInfo"
-														id="courseInfo" placeholder="Enter descriptions"></textarea>
+														id="courseInfo" placeholder="Enter descriptions" required></textarea>
 												</div>
 
 												<!-- Step 1 button -->
@@ -435,7 +437,7 @@ Steps END -->
 									<label class="form-label">Module name <span
 										class="text-danger">*</span></label> <input type="text"
 										name="module-title" class="form-control"
-										placeholder="Enter module name">
+										placeholder="Enter module name" required>
 								</div>
 
 								<input type="hidden" id="courseTitleField1" name="courseTitle">
@@ -488,14 +490,14 @@ Steps END -->
 								<div class="col-md-12">
 									<label class="form-label"></label> <input name="title"
 										id="titleField" class="form-control" type="text"
-										placeholder="Enter name for title">
+										placeholder="Enter name for title" required>
 								</div>
 
 								<!-- Video link -->
 								<div class="col-md-12">
 									<label class="form-label">Video link</label> <input
 										name="video" class="form-control" type="text"
-										placeholder="Enter Video link">
+										placeholder="Enter Video link" required>
 								</div>
 								<!-- Course description -->
 								<div class="col-12">
@@ -598,7 +600,7 @@ Steps END -->
         var durationHour = 0;
         durationHour = document.getElementById('durationHour') ? parseInt(document.getElementById('durationHour').value) : 0;
    	    var courseInfo = document.getElementById('courseInfo') ? document.getElementById('courseInfo').value : '';
-   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';
+   	    var image = document.getElementById('image') ? document.getElementById('image').value : '';   	         	    
 
 	   	if (document.getElementById('courseTitleField1')) {
 	        document.getElementById('courseTitleField1').value = courseTitle;

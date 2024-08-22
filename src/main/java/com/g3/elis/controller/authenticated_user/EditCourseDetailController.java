@@ -380,10 +380,12 @@ public class EditCourseDetailController {
 								 @RequestParam(name = "courseId") int courseId,
 			   					 @RequestParam(name = "courseModuleId") int courseModuleId,
 			   					 @RequestParam(name = "courseAssignmentId") int courseAssignmentId, 
-			   					 @RequestParam(name = "action")String action, Model model)
+			   					 @RequestParam(name = "action")String action,
+			   					 Model model)
 	{
 		AnswerDto answerDto = new AnswerDto();
 		for(int i = 0; i< answerCount;i++) superDto.getAnswerDtoList().add(answerDto);
+
 		model.addAttribute("action", action);
 		model.addAttribute("superDto", superDto);
 		model.addAttribute("course", courseService.getCourseById(courseId));
@@ -391,6 +393,8 @@ public class EditCourseDetailController {
 		model.addAttribute("courseModuleId",courseModuleId);
 		model.addAttribute("courseAssignmentId", courseAssignmentId);
 		model.addAttribute("map",determineMapping());
+		model.addAttribute("answerCount", answerCount);
+		
 		return "/authenticated-user/edit-question";
 	}
 	

@@ -20,7 +20,7 @@ public class ForumComment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String comment;
 	
 	
@@ -102,5 +102,7 @@ public class ForumComment {
 		this.forums = forums;
 		this.users = users;
 	}
+
+	
 	
 }
