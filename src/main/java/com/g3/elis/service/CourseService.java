@@ -36,4 +36,5 @@ public interface CourseService {
 	
 	 Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage);
 	 
+	 public long countAllCourses();
 }

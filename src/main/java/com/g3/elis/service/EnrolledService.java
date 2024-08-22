@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.g3.elis.model.User;
 
-public interface EnrollService {
+public interface EnrolledService {
 	void enrollStudents(List<User>userList,int courseId);
-	void enrollStudent(User user,int courseId);
+	void enrollStudent(int userId,int courseId);
 }

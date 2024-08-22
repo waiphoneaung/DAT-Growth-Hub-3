@@ -1,7 +1,5 @@
 package com.g3.elis.controller.instructor;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,7 @@ public class InstructorStudentListController
 	{
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();
-		model.addAttribute("EnrolledCourses",enrolledCourseService.getAllEnrolledCOurseByInstructorId(user.getId()));
+		model.addAttribute("enrolledCourses",enrolledCourseService.getAllEnrolledCourseByUserId(user.getId()));
 		model.addAttribute("currentPage", "instructor-studentlist");
 		model.addAttribute("content", "instructor/instructor-studentlist");
 		return "instructor/instructor-layout";

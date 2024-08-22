@@ -40,7 +40,8 @@
 			<div class="container" th:if="${action} == 'add'">
 				<form
 					th:action="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}"
-					th:object="${superDto}" method="POST" enctype="multipart/form-data">
+					th:object="${superDto}" method="POST" enctype="multipart/form-data"
+					id="answerForm">
 					<!-- Step 1 content START -->
 					<div class="container">
 						<div class="row justify-content-start">
@@ -56,14 +57,17 @@
 							<div class="col-12">
 								<label class="form-label">Question Title</label> <input
 									class="form-control" type="text"
-									th:field="*{questionDto.question}"
-									placeholder="Write a Question Here.">
+									th:field="*{questionDto.question}" th:value="${question}"
+									placeholder="Write a Question Here." id="questionTitle"
+									required>
 							</div>
 							<div class="col-12">
 								<label class="form-label">Number of answer options: </label> <input
 									class="form-control" type="number" name="answerCount"
-									id="numberInput" value=0
-									placeholder="Enter the number of answer options here ">
+									id="numberInput" value=0 min="0"
+									th:value="${answerCount != null? answerCount : ''}"
+									placeholder="Enter the number of question(only number)"
+									required>
 							</div>
 							<hr>
 							<h5>Select the checkbox for correct answer.:</h5>
@@ -76,7 +80,7 @@
 										<div class="input-group mb-3">
 											<input class="form-control"
 												th:field="*{answerDtoList[__${iterStat.index}__].answerTitle}"
-												type="text" placeholder="Enter the answer Title. ">
+												type="text" placeholder="Enter the answer Title. " required>
 											<div class="input-group-text">
 												<input class="form-check-input mt-0" type="checkbox"
 													aria-label="Checkbox for correct answer"
@@ -89,6 +93,7 @@
 								</div>
 							</div>
 
+
 							<!-- Step 1 button -->
 							<div class="d-flex justify-content-between mt-3">
 								<a class="btn btn-warning next-btn mb-0"
@@ -100,8 +105,8 @@
 								       courseAssignmentId=${courseAssignmentId}, 
 								       action=${action}
 								   )}"
-									onclick="addAnswer()">Add Answer</a>
-								<button class="btn btn-primary next-btn mb-0" type="submit">Confirm</button>
+									onclick="addAnswer(event)">Add Answer</a>
+								<button class="btn btn-primary next-btn mb-0" type="submit" onclick="validateForm(event)">Confirm</button>
 							</div>
 						</div>
 						<!-- Basic information START -->
@@ -120,7 +125,7 @@
 						<div class="col-12">
 							<label class="form-label">Question Title</label> <input
 								class="form-control" type="text" th:field="*{question}"
-								placeholder="Write a Question Here.">
+								placeholder="Write a Question Here." required>
 						</div>
 
 						<!-- Step 1 button -->
@@ -143,13 +148,29 @@
 			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
 	</div>
 	<script>
-		function addAnswer() {
+		function addAnswer(event) {
+			event.preventDefault(); // Prevent the default action of the anchor tag
+
 			// Get the value from the input field
 			var answerCount = document.getElementById('numberInput').value;
+			//add code
+			var questionTitle = document.getElementById('questionTitle').value;	
 
+			if ( answerCount === "" || answerCount <= 0) {
+				event.preventDefault();
+				alert("Please enter a valid number of answer options.");
+				return false;
+			}
+			
+			// Ensure the title and answer count remain in the text fields
 			// Get the existing href of the link
 			var link = document.getElementById('addAnswerLink');
 			var href = link.getAttribute('href');
+
+			// Append the questionTitle and answerCount as query parameters
+			if (questionTitle) {
+				href += '&questionTitle=' + encodeURIComponent(questionTitle);
+			}
 
 			// Append the answerCount as a query parameter
 			if (answerCount) {
@@ -162,7 +183,25 @@
 			// Optionally, navigate to the new URL
 			window.location.href = href;
 		}
+		
+	/* 	function validateForm(event) {
+		    // Select all checkboxes with name="correctStatus"
+		    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="correctStatus"]');
+		    
+		    // Check if at least one checkbox is checked
+		    var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+		    
+		    // If no checkbox is checked, show an alert and prevent form submission
+		    if (!isChecked) {
+		        alert("Please select at least one correct answer.");
+		        event.preventDefault(); // Corrected typo: 'preventDefault' instead of 'perventDefault'
+		    }
+		}
+ */
 	</script>
+	
+
+	
 	<!-- Bootstrap JS -->
 	<script
 		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>

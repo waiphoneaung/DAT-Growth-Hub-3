@@ -56,7 +56,7 @@
 							<label class="form-label">Module title</label> <input
 								th:if="${action} == 'add'" th:field="*{moduleTitle}"
 								class="form-control" type="text"
-								placeholder="Enter module title"> <input type="hidden"
+								placeholder="Enter module title" required> <input type="hidden"
 								th:value="${courseId}" name="courseId">
 						</div>
 
@@ -88,7 +88,7 @@
 							<label class="form-label">Module title</label> <input
 								class="form-control" type="text" th:field="*{moduleTitle}"
 								th:value="${courseModuleDto.moduleTitle}"
-								placeholder="Enter module title"> <input type="hidden"
+								placeholder="Enter module title" required> <input type="hidden"
 								th:value="${courseId}" name="courseId">
 						</div>
 

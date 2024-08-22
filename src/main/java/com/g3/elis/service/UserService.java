@@ -35,5 +35,8 @@ public interface UserService {
 	void changePassword(User user, String newPassword);
 	
 	public boolean isUserEnrolled(String username, Long courseId);
-
+	
+	public long countAllInstructor();
+	
+	public long countAllStudent();
 }

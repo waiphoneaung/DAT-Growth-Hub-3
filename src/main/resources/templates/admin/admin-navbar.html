@@ -68,9 +68,8 @@
 										aria-expanded="false"> <img
 										class="avatar-img rounded-circle"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
-										<img
-										class="avatar-img rounded-circle"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img class="avatar-img rounded-circle"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
 										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
 									</a>
@@ -88,16 +87,11 @@
 													<img class="avatar-img rounded-circle shadow"
 														th:if="${user.profile != null && user.profile.profileImg != null}"
 														th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
-														alt="avatar">
-													<img class="avatar-img rounded-circle shadow"
+														alt="avatar"> <img
+														class="avatar-img rounded-circle shadow"
 														th:unless="${user.profile != null && user.profile.profileImg != null}"
 														th:src="@{'/public/assets/images/avatar/06.jpg'}"
 														alt="avatar">
-
-														<img class="avatar-img rounded-circle shadow"  th:unless="${user.profile != null && user.profile.profileImg != null}"
-														th:src="@{'/public/assets/images/avatar/' + 06.jpg}"
-														alt="avatar">
-
 												</div>
 												<div>
 													<a class="h6 mt-2 mt-sm-0"
