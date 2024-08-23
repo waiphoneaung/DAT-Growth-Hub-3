@@ -1,5 +1,7 @@
 package com.g3.elis.serviceImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +124,21 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService {
 		}
 		return enrolledCourseReturnList;
 	}
+	
+	@Override
+	public List<EnrolledCourse> getAllEnrolledCourseByInstructorId(int instructorId) {
+		List<EnrolledCourse> enrolledCourseList = enrolledCourseRepository.findAll();
+		List<EnrolledCourse> enrolledCourseReturnList = new ArrayList<EnrolledCourse>();
+		for(EnrolledCourse enrolledCourse : enrolledCourseList)
+		{
+			if(enrolledCourse.getCourses().getUsers().getId() == instructorId)
+			{
+				enrolledCourseReturnList.add(enrolledCourse);
+			}
+		}
+		
+		return enrolledCourseReturnList;
+	}
 
 	@Override
 	public boolean isUserEnrolledToCourse(int userId, int courseId) {
@@ -141,6 +158,7 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService {
 			if (enrolledModule.isCompleteStatus() != true)
 				return;
 		}
+		enrolledCourse.setCompletedAt(Timestamp.valueOf(LocalDateTime.now()));
 		enrolledCourse.setCompleteStatus(true);
 		enrolledCourseRepository.save(enrolledCourse);
 	}
@@ -154,5 +172,4 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService {
 		return enrolledCourseRepository.findByUsers(users, pageable);
 
 	}
-
 }

@@ -77,10 +77,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/public/**", "/public/assets/**", "/public/assets/css/**",
                                 "/public/assets/images/**","/public/assets/js/**",
+
                            "/public/assets/vendor/**","/fragments/**", "/private/profiles/**","/private/blog/**",
                                 "/public/assets/vendor/**","/private/profile/blog-profile/**",
                                 "/private/profile/course-profile/**","/private/profile/user-profile/**",
                                 "/private/blog/blog-images/**","/private/blog/blog-files/**","/authenticated-user/**","/api/public/**").permitAll()
+
                         .requestMatchers("/user/**","/auth/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("ROLE_STUDENT")
                         .requestMatchers("/instructor/**").hasAuthority("ROLE_INSTRUCTOR")

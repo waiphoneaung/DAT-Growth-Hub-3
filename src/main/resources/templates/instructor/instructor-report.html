@@ -1,0 +1,85 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT - Growth Hub</title>
+</head>
+<body>
+	<th:block th:fragment="instructor-report">
+
+		<!-- Main content START -->
+		<div class="col-xl-9">
+			<!-- Table START -->
+			<div class="table-responsive border-0 mt-5 mb-3">
+				<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
+				<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
+				<table
+					class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
+					<!-- Table head -->
+					<thead>
+						<tr>
+							<th scope="col" class="border-0">Student Name</th>
+							<th scope="col" class="border-0">Student staffId</th>
+							<th scope="col" class="border-0">Progress</th>
+							<th scope="col" class="border-0">Enrolled Date</th>
+							<th scope="col" class="border-0">Average Score</th>
+							<th scope="col" class="border-0">Grade</th>
+						</tr>
+					</thead>
+
+					<!-- Table body START -->
+					<tbody>
+
+						<!-- Table row -->
+						<tr th:each="report : ${reports}">
+
+							<!-- Table data -->
+							<td>
+								<div class="d-flex align-items-center mb-3">
+									<!-- Avatar -->
+									<div class="avatar avatar-xs flex-shrink-0">
+
+										<img class="avatar-img rounded-circle"
+											th:if="${report.enrolledUserProfileImage != null}"
+											th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
+											alt="avatar"> <img class="avatar-img rounded-circle"
+											th:unless="${report.enrolledUserProfileImage != null}"
+											th:src="@{'/public/assets/images/avatar/06.jpg'}"
+											alt="avatar">
+
+									</div>
+									<!-- Info -->
+									<div class="ms-2">
+										<h6 class="mb-0 fw-light" th:text="${report.enrolledUserName}"></h6>
+									</div>
+								</div>
+
+							</td>
+							<!-- Table data -->
+							<td th:text="${report.staffId}"></td>
+							<!-- Table data -->
+							<td th:text="${report.progress +'%'}"></td>
+							<!-- Table data -->
+							<td th:text="${#strings.substring(report.enrolledDate, 0, 10)}"></td>
+							<!-- Table data -->
+							<td th:text="${report.averageScore}"></td>
+							<!-- Table data -->
+							<td th:text="${report.grade}"></td>
+							
+						</tr>
+
+					</tbody>
+					<!-- Table body END -->
+				</table>
+			</div>
+			<!-- Table END -->
+
+		</div>
+		<!-- Main content END -->
+
+		<script
+			th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	</th:block>
+
+
+</body>
+</html>

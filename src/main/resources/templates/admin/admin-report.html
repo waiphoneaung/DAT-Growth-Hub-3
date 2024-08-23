@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com/" />
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap" />
+
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/apexcharts/css/apexcharts.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css}" />
+
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/css/style.css}" />
+</head>
+<body>
+
+
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+		<th:block th:fragment="admin-report">
+
+			<!-- Page content START -->
+			<div class="page-content">
+				<!-- Page main content START -->
+				<div class="page-content-wrapper border">
+
+					<!-- Table START -->
+					<div class="table-responsive border-0 mt-5 mb-3">
+						<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
+						<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
+						<table
+							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
+							<!-- Table head -->
+							<thead>
+								<tr>
+									<th scope="col" class="border-0">Student Name</th>
+									<th scope="col" class="border-0">StaffId</th>
+									<th scope="col" class="border-0">Progress</th>
+									<th scope="col" class="border-0">Enrolled Date</th>
+									<th scope="col" class="border-0">Average Score</th>
+									<th scope="col" class="border-0">Grade</th>
+								</tr>
+							</thead>
+
+							<!-- Table body START -->
+							<tbody>
+
+								<!-- Table row -->
+								<tr th:each="report : ${reports}">
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center mb-3">
+											<!-- Avatar -->
+											<div class="avatar avatar-xs flex-shrink-0">
+
+												<img class="avatar-img rounded-circle"
+													th:if="${report.enrolledUserProfileImage != null}"
+													th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
+													alt="avatar"> <img class="avatar-img rounded-circle"
+													th:unless="${report.enrolledUserProfileImage != null}"
+													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													alt="avatar">
+
+											</div>
+											<!-- Info -->
+											<div class="ms-2">
+												<h6 class="mb-0 fw-light"
+													th:text="${report.enrolledUserName}"></h6>
+											</div>
+										</div>
+
+									</td>
+									<!-- Table data -->
+									<td th:text="${report.staffId}"></td>
+									<!-- Table data -->
+									<td th:text="${report.progress +'%'}"></td>
+									<!-- Table data -->
+									<td th:text="${#strings.substring(report.enrolledDate,0 , 10)}"></td>
+									<!-- Table data -->
+									<td th:text="${report.averageScore}"></td>
+									<!-- Table data -->
+									<td th:text="${report.grade}"></td>
+
+								</tr>
+
+							</tbody>
+							<!-- Table body END -->
+						</table>
+					</div>
+
+				</div>
+				<!-- Tabs content END -->
+			</div>
+			<!-- Page main content END -->
+			<!-- Page content END -->
+		</th:block>
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script
+		th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+</body>
+</html>

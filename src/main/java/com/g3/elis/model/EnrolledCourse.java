@@ -132,6 +132,4 @@ public class EnrolledCourse {
 		this.reports = reports;
 		this.enrolledModules = enrolledModules;
 	}
-
-	
 }

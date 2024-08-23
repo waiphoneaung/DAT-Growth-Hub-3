@@ -1,3 +1,4 @@
+<!DOCTYPE>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -104,7 +105,7 @@
 											th:if="${#lists.size(enrolledCourse.enrolledModules) > #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
 											<!-- Ongoing course -->
 											<a
-												th:href="@{'/student/student-course-resume/' + ${enrolledCourse.id}}"
+												th:href="@{/student/student-course-resume}"
 												class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"> <i
 												class="bi bi-play-circle me-1"></i>Continue
 											</a>

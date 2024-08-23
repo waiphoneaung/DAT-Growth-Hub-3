@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.model.EnrolledCourse;
+import com.g3.elis.model.EnrolledMaterial;
 import com.g3.elis.model.EnrolledModule;
 import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
@@ -48,6 +49,14 @@ public class StudentCourseResumeController
 		model.addAttribute("enrolledCourseList",enrolledCourseList);
 		model.addAttribute("content","student/student-course-resume");
 		return "/student/student-layout";
+	}
+	
+	@GetMapping("/student-course-resume/view-material")
+	public String studentViewMaterial(@RequestParam(name ="enrollMaterialId")int enrollMaterialId,
+									  Model model)
+	{
+		model.addAttribute("enrolledMaterial",enrollMaterialService.getEnrolledMaterialByEnrolledMaterialId(enrollMaterialId));
+		return "/student/student-course-material";
 	}
 	
 	@GetMapping("/student-course-resume/complete-material")

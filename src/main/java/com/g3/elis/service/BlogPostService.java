@@ -47,5 +47,3 @@ void updateBlogPost( BlogPostDto blogPostDto, String content, MultipartFile imgF
     
  // String getBlogPostContent(BlogPost blogPost) throws IOException;
 }
-
-

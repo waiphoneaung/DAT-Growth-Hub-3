@@ -108,7 +108,7 @@
 															<div class="position-relative d-flex align-items-center"
 																th:if="${enrolledMaterial.completeStatus != true}">
 																<a
-																	th:href="@{/student/student-course-resume/complete-material(enrollMaterialId=${enrolledMaterial.id})}"
+																	th:href="@{/student/student-course-resume/view-material(enrollMaterialId=${enrolledMaterial.id})}"
 																	class="btn btn-success btn-round btn-sm mb-0 stretched-link position-static">
 																	<i class="fas fa-play me-0"></i>
 																</a> <span
@@ -171,8 +171,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="row justify-content-end mt-3 mb-3"th:if="${enrolledCourse.completeStatus == true}">
-					<a th:href="@{/student/student-certificate/create-certificate(enrolledCourseId=${enrolledCourse.id})}" class="btn btn-success">Course Completed! Get Certificate</a>
+
+				<div class="row mt-3 mb-3">
+					<div class="col-12">
+						<div th:if="${enrolledCourse.completeStatus == true}">
+							<a
+								th:href="@{/student/student-certificate/create-certificate(enrolledCourseId=${enrolledCourse.id})}"
+								class="btn btn-success">Course Completed! Get Certificate</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- Course item END -->

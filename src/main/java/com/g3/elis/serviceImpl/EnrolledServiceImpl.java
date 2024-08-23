@@ -1,5 +1,7 @@
 package com.g3.elis.serviceImpl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class EnrolledServiceImpl implements EnrolledService {
 	@Override
 	public void enrollStudents(List<User> userList, int courseId) {
 		Course course = courseRepository.findById(courseId).orElse(null);
-		for (User user : userList) {
+		for (User user : userList) 
+		{
 			EnrolledCourse enrolledCourse = new EnrolledCourse();
 			enrolledCourse.setUsers(user);
 			enrolledCourse.setCourses(course);
@@ -65,6 +68,7 @@ public class EnrolledServiceImpl implements EnrolledService {
 				enrolledModule.setEnrolledAssignment(enrolledAssignments);
 				enrolledModule.setEnrolledMaterial(enrolledMaterials);
 			}
+			enrolledCourse.setEnrolledAt(Timestamp.valueOf(LocalDateTime.now()));
 			enrolledCourse.setEnrolledModules(enrolledModules);
 			enrolledCourseRepository.save(enrolledCourse);
 		}
@@ -104,6 +108,7 @@ public class EnrolledServiceImpl implements EnrolledService {
 			enrolledModule.setEnrolledAssignment(enrolledAssignments);
 			enrolledModule.setEnrolledMaterial(enrolledMaterials);
 		}
+		enrolledCourse.setEnrolledAt(Timestamp.valueOf(LocalDateTime.now()));
 		enrolledCourse.setEnrolledModules(enrolledModules);
 		enrolledCourseRepository.save(enrolledCourse);
 	}

@@ -182,6 +182,8 @@
 							<hr class="dropdown-divider">
 						</li>
 						<!-- Links -->
+						<li><a class="dropdown-item bg-danger-soft-hover"
+							href="/admin/admin-dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
 						<li><span th:if="${#authentication.principal.isAdmin()}">
 								<a class="dropdown-item" th:href="@{/admin/admin-edit-profile}"><i
 									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>

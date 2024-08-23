@@ -22,10 +22,12 @@ public interface EnrolledCourseService {
 	List<EnrolledCourse> getAllEnrolledCourse();
 
 	List<EnrolledCourse> getAllEnrolledCourseByCourseId(int courseId);
+	
+	List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId);
+	
+	List<EnrolledCourse> getAllEnrolledCourseByInstructorId(int instructorId);
 
 	List<User> getEnrolledStudentsByCourseCreatedByInstructorId(int instructorId);
-
-	List<EnrolledCourse> getAllEnrolledCourseByUserId(int userId);
 
 	boolean isUserEnrolledToCourse(int userId, int courseId);
 
