@@ -70,6 +70,9 @@ public class User {
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Achievement> achievement = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<UserLog> log = new ArrayList<>();
 
 	public int getId() {
 		return id;
@@ -246,6 +249,15 @@ public class User {
 	public void setAchievement(List<Achievement> achievement) {
 		this.achievement = achievement;
 	}
+	
+
+	public List<UserLog> getLog() {
+		return log;
+	}
+
+	public void setLog(List<UserLog> log) {
+		this.log = log;
+	}
 
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
@@ -275,6 +287,38 @@ public class User {
 		this.forumComments = forumComments;
 		this.courseCategories = courseCategories;
 		this.achievement = achievement;
+	}
+	
+	
+	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
+			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
+			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
+			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
+			Set<CourseCategory> courseCategories, List<Achievement> achievement, List<UserLog> log) {
+		super();
+		this.id = id;
+		this.division = division;
+		this.staffId = staffId;
+		this.name = name;
+		this.doorLogNo = doorLogNo;
+		this.dept = dept;
+		this.team = team;
+		this.email = email;
+		this.status = status;
+		this.password = password;
+		this.gender = gender;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.courses = courses;
+		this.profile = profile;
+		this.enrolledCourses = enrolledCourses;
+		this.reports = reports;
+		this.blogposts = blogposts;
+		this.forums = forums;
+		this.forumComments = forumComments;
+		this.courseCategories = courseCategories;
+		this.achievement = achievement;
+		this.log = log;
 	}
 
 	public User() {

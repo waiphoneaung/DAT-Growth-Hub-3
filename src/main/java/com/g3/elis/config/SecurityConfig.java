@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -28,7 +29,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.g3.elis.model.User;
+import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.security.OurUserDetailService;
+import com.g3.elis.service.UserLogService;
+import com.g3.elis.service.UserService;
 import com.g3.elis.util.CustomAccessDeniedHandler;
 
 import jakarta.annotation.PostConstruct;
@@ -48,6 +53,9 @@ public class SecurityConfig {
 	@Autowired
     private OurUserDetailService ourUserDetailService;
     private  PersistentTokenRepository persistentTokenRepository;
+    
+    @Autowired
+    private UserLogService userLogService;
     
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     
@@ -106,6 +114,12 @@ public class SecurityConfig {
                     logout
                         .logoutUrl("/sign-out").logoutSuccessUrl("/auth/login")
                         .logoutSuccessHandler((request, response, authentication) -> {
+                        	if(authentication != null) {
+                        		//String username = authentication.getName();
+                        		 User user = ((LoginUserDetail) authentication.getPrincipal()).getUser();
+                                 int userId = user.getId();
+                        		userLogService.logLogout(userId);
+                        	}
                             response.sendRedirect("/auth/login");
                         }).invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me")
                         .permitAll());
@@ -153,6 +167,12 @@ public class SecurityConfig {
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                    Authentication authentication) throws IOException, ServletException {
+            	//for log activity
+                User user = ((LoginUserDetail) authentication.getPrincipal()).getUser();
+                int userId = user.getId();
+                userLogService.logLogin(userId); // Log login time
+            	
+            	
                 Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                 if (authorities.contains("ROLE_ADMIN")) {
                     logger.info("Redirecting to admin dashboard for user: {}", authentication.getName());
@@ -168,7 +188,8 @@ public class SecurityConfig {
                     response.sendRedirect("/user/home");
                 }
             }
-        };
+
+	        };
     }
 
     @Bean

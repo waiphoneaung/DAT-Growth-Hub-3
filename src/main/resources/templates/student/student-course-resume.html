@@ -171,7 +171,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row justify-content-end mt-3 mb-3"th:if="${enrolledCourse.completeStatus == true || enrolledCourse.courses.achievements == null && enrolledCourse.courses.achievements.receivedAt == null}">
+				<div class="row justify-content-end mt-3 mb-3"th:if="${enrolledCourse.completeStatus == true}">
 					<a th:href="@{/student/student-certificate/create-certificate(enrolledCourseId=${enrolledCourse.id})}" class="btn btn-success">Course Completed! Get Certificate</a>
 				</div>
 			</div>
