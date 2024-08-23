@@ -88,28 +88,25 @@
 									<td
 										th:text="${#lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}"></td>
 									<td>
-										<!-- Check if total enrolled modules equals completed modules -->
-										<div
-											th:if="${#lists.size(enrolledCourse.enrolledModules) == #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
-											<!-- Completed course -->
-											<button
-												class="btn btn-sm btn-success me-1 mb-1 mb-md-0 disabled">
-												<i class="bi bi-check me-1"></i>Complete
-											</button>
-											<a href="#" class="btn btn-sm btn-light me-1"> <i
-												class="bi bi-arrow-repeat me-1"></i>Restart
-											</a>
-										</div> <!-- Check if total enrolled modules is less than completed modules -->
-										<div
-											th:if="${#lists.size(enrolledCourse.enrolledModules) > #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
-											<!-- Ongoing course -->
-											<a
-												th:href="@{'/student/student-course-resume/' + ${enrolledCourse.id}}"
-												class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"> <i
-												class="bi bi-play-circle me-1"></i>Continue
-											</a>
-										</div>
-									</td>
+    <!-- Check if total enrolled modules equals completed modules -->
+    <div th:if="${#lists.size(enrolledCourse.enrolledModules) == #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
+        <!-- Completed course -->
+        <button class="btn btn-sm btn-success me-1 mb-1 mb-md-0 disabled">
+            <i class="bi bi-check me-1"></i>Complete
+        </button>
+        <a th:href="@{'/student/student-course-restart/' + ${enrolledCourse.id}}" class="btn btn-sm btn-light me-1">
+            <i class="bi bi-arrow-repeat me-1"></i>Restart
+        </a>
+    </div>
+    <!-- Check if total enrolled modules is less than completed modules -->
+    <div th:if="${#lists.size(enrolledCourse.enrolledModules) > #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
+        <!-- Ongoing course -->
+        <a th:href="@{'/student/student-course-resume/' + ${enrolledCourse.id}}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">
+            <i class="bi bi-play-circle me-1"></i>Continue
+        </a>
+    </div>
+</td>
+
 							</tbody>
 							<!-- Table body END -->
 						</table>

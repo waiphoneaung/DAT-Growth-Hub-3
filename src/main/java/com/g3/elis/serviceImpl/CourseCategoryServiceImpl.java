@@ -2,7 +2,7 @@ package com.g3.elis.serviceImpl;
 
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.form.CourseCategoryDto;
+import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.repository.CourseCategoryRepository;
 import com.g3.elis.service.CourseCategoryService;
@@ -82,6 +83,15 @@ public Page<CourseCategory> getPaginatedCourseCategories(int page, int size) {
 public Page<CourseCategory> searchPaginatedCourseCategoriesByName(String search, int page, int pageSize) {
 	Pageable pageable = PageRequest.of(page, pageSize);
     return courseCategoryRepository.findByCategoryNameContainingIgnoreCase(search, pageable);
-}	
+}
+
+@Override
+public List<CourseCategory> findTop3MostEnrolledCategories() {
+	
+	    return courseCategoryRepository.findTop3MostEnrolledCategories();
+	
+}
+
+
 
 }

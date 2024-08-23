@@ -24,7 +24,7 @@ public class InstructorManageCourseController
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();;
 		model.addAttribute("courses",courseService.getAllCourseByUserId(user.getId()));
-		model.addAttribute("currentPage", "instructor-manage-course");
+		model.addAttribute("currentPage", "instructor-course-list");
 		model.addAttribute("content", "instructor/instructor-course-list");
 		return "instructor/instructor-layout";
 	}

@@ -19,5 +19,12 @@ public class EnrolledMaterialServiceImpl implements EnrolledMaterialService{
 		enrolledMaterial.setCompleteStatus(true);
 		enrolledMaterialRepository.save(enrolledMaterial);
 	}
+
+	@Override
+	public void resetMaterialsStatusByCourse(int courseId) {
+		 // Fetch all materials associated with the course and reset their status
+        enrolledMaterialRepository.updateStatusByEnrolledCourseId(courseId, false);
+		
+	}
 	
 }

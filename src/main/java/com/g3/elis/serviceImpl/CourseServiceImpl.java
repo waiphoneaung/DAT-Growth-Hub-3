@@ -272,6 +272,13 @@ public class CourseServiceImpl implements CourseService {
 	public long countAllCourses() {
 		 return courseRepository.count();
 	}
+
+	@Override
+	public List<Course> findCoursesByCategory(int categoryId) {
+		
+		    return courseRepository.findByCourseCategoriesId(categoryId);
+		
+	}
 	
 	 
 }

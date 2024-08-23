@@ -155,4 +155,15 @@ public class EnrolledCourseServiceImpl implements EnrolledCourseService {
 
 	}
 
-}
+	@Override
+	public void save(EnrolledCourse enrolledCourse) {
+		 enrolledCourseRepository.save(enrolledCourse);
+		
+	}
+
+	@Override
+	public Page<EnrolledCourse> searchEnrolledCoursesByUser(String keyword, Pageable pageable) {
+		return enrolledCourseRepository.findByCourses_CourseTitleContainingIgnoreCase(keyword, pageable);
+	}
+
+	}
