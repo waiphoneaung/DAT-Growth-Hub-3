@@ -189,6 +189,9 @@
 														th:href="@{/admin/admin-course-list/enroll-student(courseId=${course.id})}"
 														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Enroll
 															Student</a>
+														<a
+														th:href="@{/admin/admin-report(courseId=${course.id})}"
+														class="btn btn-sm btn-info-soft me-1 mb-1 mb-md-0">Analytics Report</a>
 													</span> <span th:if="${course.isCourseAssignmentPresent == false}">
 														<a
 														th:href="@{/admin/edit-course-detail(courseId=${course.id})}"

@@ -71,12 +71,11 @@ public class User {
 	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Achievement> achievement = new ArrayList<>();
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Grade> grades = new ArrayList<>();
+
 	public int getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getDivision() {
@@ -247,11 +246,23 @@ public class User {
 		this.achievement = achievement;
 	}
 
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public User(int id, String division, String staffId, String name, String doorLogNo, String dept, String team,
 			String email, String status, String password, String gender, boolean enabled, Set<Role> roles,
 			Set<Course> courses, Profile profile, List<EnrolledCourse> enrolledCourses, Set<Report> reports,
 			Set<BlogPost> blogposts, List<Forum> forums, List<ForumComment> forumComments,
-			Set<CourseCategory> courseCategories, List<Achievement> achievement) {
+			Set<CourseCategory> courseCategories, List<Achievement> achievement, List<Grade> grades) {
 		super();
 		this.id = id;
 		this.division = division;
@@ -275,6 +286,7 @@ public class User {
 		this.forumComments = forumComments;
 		this.courseCategories = courseCategories;
 		this.achievement = achievement;
+		this.grades = grades;
 	}
 
 	public User() {
