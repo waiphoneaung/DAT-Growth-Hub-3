@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <!-- Mirrored from diracetechnology.com/blog-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:22:41 GMT -->
 <head>
@@ -93,11 +95,9 @@
 <body>
 
 <!-- Header START -->
-<header class="navbar-light navbar-sticky">
-	
-
-			
-			<!-- Profile START -->
+<!-- <header class="navbar-light navbar-sticky">
+				
+			Profile START
 					<div sec:authorize="isAuthenticated()">
 						<div class="dropdown ms-1 ms-lg-0">
 							
@@ -159,7 +159,11 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<!-- Links -->
+								Links
+								<li><a class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/user/main}"><i class="bi bi-power fa-fw me-2"></i>Dashboard
+										</a></li>
+								
 								<li><span th:if="${#authentication.principal.isAdmin()}">
 										<a class="dropdown-item"
 										th:href="@{/admin/admin-edit-profile}"><i
@@ -180,7 +184,7 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-					<!-- Dark mode options START -->
+					Dark mode options START
 					<li>
 						<div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
 							<button type="button" class="btn btn-sm mb-0" data-bs-theme-value="light">
@@ -204,19 +208,22 @@
 							</button>
 						</div>
 					</li> 
-					<!-- Dark mode options END-->
+					Dark mode options END
 				</ul>
 			</div>
-			<!-- Profile START -->
+			Profile START
 		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
+
+	Logo Nav END
+</header> -->
 <!-- Header END -->
+
+  <!-- Include navbar -->
+    <div th:replace="user/navbar :: navbar"></div>
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
-	
+
 <!-- =======================
 Main Content START -->
 <section class="pb-0 pt-4 pb-md-5">
@@ -297,24 +304,25 @@ Main Content START -->
 				
 </section>
 
-
-		
-
-<!-- Back to top -->
-<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+</main>
+   <!-- Include footer -->
+    <div th:replace="user/footer :: footer"></div>
+  
+ <!-- Scripts -->
+    <th:block th:replace="fragments/scripts :: scripts"></th:block>
 
 <!-- Bootstrap JS -->
-<script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendors -->
-<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
-<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
-<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+<script src="assets/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.js"></script>
+<script src="assets/vendor/purecounterjs/dist/purecounter_vanilla.js"></script>
 
 <!-- Template Functions -->
-<script th:src="@{/public/assets/js/functions.js}"></script>
+<script src="assets/js/functions.js"></script>
 
- <script th:inline="javascript">
+	<script th:inline="javascript">
         /*<![CDATA[*/
         document.addEventListener("DOMContentLoaded", function() {
             const fileName = /*[[${blogPost.htmlFileName}]]*/ 'default.html';
@@ -329,5 +337,4 @@ Main Content START -->
     </script>
 
 </body>
-
 </html>

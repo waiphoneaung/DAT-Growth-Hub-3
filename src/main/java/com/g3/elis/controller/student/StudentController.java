@@ -39,7 +39,7 @@ public class StudentController {
 		return "/authenticated-user/blog-detail";
 	}
 	
-
+	
 	@GetMapping("/student-course-list")
 	public String studentCourseList(Model model) {
 		model.addAttribute("content","student/student-course-list");
@@ -80,7 +80,6 @@ public class StudentController {
         return "/student/student-view-allcourses";
     }
 	
-
 	
 
 	@GetMapping("/instructor-list")
@@ -119,12 +118,7 @@ public class StudentController {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	@GetMapping("/authenticated-user/course-detail")
-	public String showCourseDetail(Model model) {
-	    // Logic for displaying course details
-	    return "course-detail";
-	}
-
+	
 	
 	
 }

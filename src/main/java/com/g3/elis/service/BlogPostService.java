@@ -17,11 +17,11 @@ public interface BlogPostService {
 
 	 List<BlogPost> getAllBlogPosts();
 
-	void saveBlogPost(@Valid BlogPostDto blogPostDto) throws IOException;
+	//void saveBlogPost(@Valid BlogPostDto blogPostDto) throws IOException;
 
 	 BlogPost findById(int id);
 	
-	void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
+	//void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
 	
 	
 //	void updateBlogPostStatus(int id, boolean enabled);
@@ -37,13 +37,15 @@ public interface BlogPostService {
 
 	Page<BlogPost> getPaginatedBlogPosts(int page, int size);
     
- // void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
+  void saveBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
   void deleteBlogPost(int id) throws IOException;
+
+void updateBlogPost( BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
+
+void save(BlogPost blogPost);
     
 //  void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
  // String getBlogPostContent(BlogPost blogPost) throws IOException;
 }
-
-

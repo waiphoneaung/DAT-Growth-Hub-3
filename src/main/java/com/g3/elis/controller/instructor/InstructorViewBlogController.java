@@ -155,7 +155,7 @@ public class InstructorViewBlogController {
                 Files.write(Paths.get(filePath), content.getBytes());
             }
 
-            blogPostService.saveBlogPost(blogPostDto);
+            blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
             return "redirect:/instructor/instructor-view-blog";
 
         } catch (IOException e) {
@@ -163,4 +163,5 @@ public class InstructorViewBlogController {
             return "redirect:/instructor/instructor-view-blog";
         }
     }
+    
 }
