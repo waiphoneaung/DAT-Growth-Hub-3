@@ -55,7 +55,7 @@
 								<div class="col-12">
 									<label class="form-label">Assignments title</label> <input
 										th:field="*{title}" class="form-control" type="text"
-										placeholder="Enter assignment title"> <input
+										placeholder="Enter assignment title" required> <input
 										type="hidden" th:value="${courseId}" name="courseId">
 								</div>
 
@@ -88,7 +88,7 @@
 										<label class="form-label">Assignments title</label> <input
 											th:field="*{title}" class="form-control" type="text"
 											th:value="${courseAssignmentDto.title}"
-											placeholder="Enter assignment title"> <input
+											placeholder="Enter assignment title" required> <input
 											type="hidden" th:value="${courseId}" name="courseId">
 									</div>
 									<!-- Card START -->

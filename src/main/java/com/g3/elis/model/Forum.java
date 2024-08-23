@@ -28,7 +28,7 @@ public class Forum {
 	@Column(length=5000)
 	private String title;
 	
-	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	
 	private Timestamp createdAt;
@@ -116,6 +116,7 @@ public class Forum {
 			this.users = users;
 		}
 
+	
 		
 
 }

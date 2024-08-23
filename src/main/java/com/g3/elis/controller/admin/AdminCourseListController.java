@@ -24,7 +24,7 @@ import com.g3.elis.model.Course;
 import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
-import com.g3.elis.service.EnrollService;
+import com.g3.elis.service.EnrolledService;
 import com.g3.elis.service.UserService;
 
 @Controller
@@ -38,7 +38,7 @@ public class AdminCourseListController {
 	private CourseService courseService;
 	
 	@Autowired
-	private EnrollService enrollService;
+	private EnrolledService enrollService;
 	
 	@GetMapping("/admin-course-list")
 	public String adminCourseList(Model model,

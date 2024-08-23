@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.g3.elis.model.Course;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
-import com.g3.elis.service.EnrollService;
+import com.g3.elis.service.EnrolledService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.UserService;
 
@@ -33,7 +33,7 @@ public class UserCourseController {
 	private EnrolledCourseService enrolledCourseService;
 
 	@Autowired
-	private EnrollService enrollService;
+	private EnrolledService enrollService;
 	
 	@Autowired
 	private UserService userService;

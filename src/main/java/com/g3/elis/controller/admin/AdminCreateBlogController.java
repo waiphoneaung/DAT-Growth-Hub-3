@@ -1,6 +1,5 @@
 package com.g3.elis.controller.admin;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -238,24 +237,24 @@ public class AdminCreateBlogController {
 //        return "redirect:/admin/admin-view-blog";
 //    }
 
-//    @GetMapping("/admin-edit-blog/{id}")
-//    public String adminEditBlog(@Valid @PathVariable int id, String content, Model model) throws IOException {
-//        BlogPost blogPost = blogPostService.findById(id);
-//        if (blogPost == null) {
-//            return "redirect:/admin/admin-view-blog";
-//        }
-//        	content = Files.readString(Paths.get(htmlUploadDir + blogPost.getHtmlFileName()));
-//         content = new String(Files.readAllBytes(Paths.get(htmlUploadDir + blogPost.getHtmlFileName())));
-//         BlogPostDto blogPostDto = new BlogPostDto();
-//        blogPostDto.setId(blogPost.getId());
-//        blogPostDto.setTitle(blogPost.getTitle());
-//        blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
-//        blogPostDto.setCreatedAt(blogPost.getCreatedAt());
-//        blogPostDto.setUsers(blogPost.getUsers());
-//
-//        model.addAttribute("blogPostDto", blogPostDto);
-//        model.addAttribute("content", content );
-//        return "/admin/admin-edit-blog";
-//    }
-    
+    @GetMapping("/admin-edit-blog/{id}")
+    public String adminEditBlog(@Valid @PathVariable int id, String content, Model model) throws IOException {
+        BlogPost blogPost = blogPostService.findById(id);
+        if (blogPost == null) {
+            return "redirect:/admin/admin-view-blog";
+        }
+        	//content = Files.readString(Paths.get(htmlUploadDir + blogPost.getHtmlFileName()));
+        // content = new String(Files.readAllBytes(Paths.get(htmlUploadDir + blogPost.getHtmlFileName())));
+         BlogPostDto blogPostDto = new BlogPostDto();
+        blogPostDto.setId(blogPost.getId());
+        blogPostDto.setTitle(blogPost.getTitle());
+        blogPostDto.setHtmlFileName(blogPost.getHtmlFileName());
+        blogPostDto.setCreatedAt(blogPost.getCreatedAt());
+        blogPostDto.setUsers(blogPost.getUsers());
+
+        model.addAttribute("blogPostDto", blogPostDto);
+        model.addAttribute("content", content );
+        return "/admin/admin-edit-blog";
+    }
+
 }

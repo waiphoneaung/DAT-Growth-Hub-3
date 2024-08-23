@@ -56,17 +56,16 @@ public class ForumController {
 			String mapping = "/instructor";
 			model.addAttribute("map", mapping);
 		}
-
+		
 		Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		Page<Forum> forumPage = forumService.getAllForums(pageable);
 		List<User> users = userService.getAllUsers();
-		
-		
+	
 		ForumDto forumDto = new ForumDto();
 		ForumCommentDto forumCommentDto = new ForumCommentDto();
 
 
-		model.addAttribute("users", users);
+//		model.addAttribute("users", users);
 		model.addAttribute("forumCommentDto", forumCommentDto);
 		model.addAttribute("forumDto", forumDto);
 		model.addAttribute("forums", forumPage.getContent());
@@ -157,6 +156,6 @@ public class ForumController {
 		} else {
 			return "redirect:/login";
 		}
-
 	}
-}
+	
+	}

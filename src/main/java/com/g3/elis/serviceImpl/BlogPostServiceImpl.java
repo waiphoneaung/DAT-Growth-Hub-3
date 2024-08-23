@@ -337,12 +337,6 @@ public class BlogPostServiceImpl implements BlogPostService {
         }
     }
 
-	@Override
-	public void save(BlogPost blogPost) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 		
 }

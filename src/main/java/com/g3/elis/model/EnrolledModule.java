@@ -111,4 +111,26 @@ public class EnrolledModule
 	{
 		
 	}
+	
+	public int enrolledMaterialAndAssignmentCompleteCount()
+	{
+		int count = 0;
+		for(EnrolledMaterial enrolledMaterial : this.enrolledMaterial)
+		{
+			if(enrolledMaterial.isCompleteStatus() == true) count++;
+		}
+		
+		for(EnrolledAssignment enrolledAssignment : this.enrolledAssignment)
+		{
+			if(enrolledAssignment.isCompleteStatus() == true) count++;
+		}
+		
+		return count;
+	}
+	
+	public double calculateProgress()
+	{
+		double index = (double)((double)(enrolledMaterialAndAssignmentCompleteCount()) / ((double)(courseModule.getCourseMaterials().size() + courseModule.getCourseAssignment().size()))) * 100;
+		return index;
+	}
 }

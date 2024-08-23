@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "courses")
@@ -26,12 +27,16 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Size(max = 500)
 	private String courseTitle;
+
+	@Size(max = 2000)
 	private String courseDescription;
-	
+
 	@Lob
-	@Column(length = 10000)
+	@Column(length = 50000)
 	private String courseInfo;
+
 	private String status;
 	private Timestamp createdAt;
 	private int duration;
@@ -50,20 +55,20 @@ public class Course {
 	@JoinColumn(name = "course_tag_id")
 	private CourseTag courseTags;
 
-	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "courses", fetch = FetchType.LAZY)
 	private List<Report> reports = new ArrayList<>();
 
-	@OneToMany(mappedBy = "courses",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<CourseModule> courseModule =  new ArrayList<>();
+	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CourseModule> courseModule = new ArrayList<>();
 
 	@OneToOne(mappedBy = "courses", fetch = FetchType.LAZY)
 	private Achievement achievements;
 
 	public Course() {
-		
+
 	}
 
 	public int getId() {
@@ -194,10 +199,11 @@ public class Course {
 		this.achievements = achievements;
 	}
 
-	public Course(int id, String courseTitle, String courseDescription, String courseInfo, String status,
-			Timestamp createdAt, int duration, String courseImageFileName, Timestamp updatedDate, User users,
-			CourseCategory courseCategories, CourseTag courseTags, List<EnrolledCourse> enrolledCourses,
-			List<Report> reports, List<CourseModule> courseModule, Achievement achievements) {
+	public Course(int id, @Size(max = 500) String courseTitle, @Size(max = 2000) String courseDescription,
+			String courseInfo, String status, Timestamp createdAt, int duration, String courseImageFileName,
+			Timestamp updatedDate, User users, CourseCategory courseCategories, CourseTag courseTags,
+			List<EnrolledCourse> enrolledCourses, List<Report> reports, List<CourseModule> courseModule,
+			Achievement achievements) {
 		super();
 		this.id = id;
 		this.courseTitle = courseTitle;
@@ -216,13 +222,10 @@ public class Course {
 		this.courseModule = courseModule;
 		this.achievements = achievements;
 	}
-	
-	public boolean isCourseAssignmentPresent()
-	{
-		for(CourseModule tmpCourseModule : this.courseModule)
-		{
-			if(tmpCourseModule.getCourseAssignment() == null || tmpCourseModule.getCourseAssignment().size() == 0)
-			{
+
+	public boolean isCourseAssignmentPresent() {
+		for (CourseModule tmpCourseModule : this.courseModule) {
+			if (tmpCourseModule.getCourseAssignment() == null || tmpCourseModule.getCourseAssignment().size() == 0) {
 				return false;
 			}
 		}

@@ -3,22 +3,51 @@ package com.g3.elis.dto.form;
 import java.sql.Timestamp;
 
 import com.g3.elis.model.User;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-public class CourseDto {
+public class CourseDto 
+{
 
+	
+	@NotBlank(message = "Course title is required")
+    @Size(max = 100, message = "Course title must not exceed 100 characters")
     private String courseTitle;
+	
+    @NotBlank(message = "Course description is required")
     private String courseDescription;
+    
+   // @NotBlank(message = "Status is required")
     private String status;
+    
     private Timestamp createdAt;
+    
+    @Min(value = 1, message = "Duration must be at least 1 hour")
     private int durationHour;
+    
+    
     private boolean courseCompletedStatus;
+    
+    @DecimalMin(value = "0.0", inclusive = true, message = "Progress must be at least 0")
+    @DecimalMax(value = "100.0", inclusive = true, message = "Progress cannot exceed 100")
     private double progress;
+    
+    @NotBlank(message = "Course info is required")
     private String courseInfo;
+    
+    
     private String courseImageFileName;
     private Timestamp updatedDate;
     private int user_id;
     private int course_category_id;
     private int course_tag_id;
+    
+    public CourseDto() {
+    	
+    }
 	public String getCourseTitle() {
 		return courseTitle;
 	}
@@ -97,9 +126,14 @@ public class CourseDto {
 	public void setCourse_tag_id(int course_tag_id) {
 		this.course_tag_id = course_tag_id;
 	}
-	public CourseDto(String courseTitle, String courseDescription, String status, Timestamp createdAt,
-			int durationHour, boolean courseCompletedStatus, double progress, String courseInfo,
-			String courseImageFileName, Timestamp updatedDate, int user_id, int course_category_id, int course_tag_id) {
+	public CourseDto(
+			@NotBlank(message = "Course title is required") @Size(max = 100, message = "Course title must not exceed 100 characters") String courseTitle,
+			@NotBlank(message = "Course description is required") String courseDescription, String status,
+			Timestamp createdAt, @Min(value = 1, message = "Duration must be at least 1 hour") int durationHour,
+			boolean courseCompletedStatus,
+			@DecimalMin(value = "0.0", inclusive = true, message = "Progress must be at least 0") @DecimalMax(value = "100.0", inclusive = true, message = "Progress cannot exceed 100") double progress,
+			@NotBlank(message = "Course info is required") String courseInfo, String courseImageFileName,
+			Timestamp updatedDate, int user_id, int course_category_id, int course_tag_id) {
 		super();
 		this.courseTitle = courseTitle;
 		this.courseDescription = courseDescription;
@@ -115,41 +149,6 @@ public class CourseDto {
 		this.course_category_id = course_category_id;
 		this.course_tag_id = course_tag_id;
 	}
+    
 
-	public CourseDto() {
-		
-	}
-	@Override
-	public String toString() {
-		return "CourseDto [courseTitle=" + courseTitle + ", courseDescription=" + courseDescription + ", status="
-				+ status + ", createdAt=" + createdAt + ", durationHour=" + durationHour + ", courseCompletedStatus="
-				+ courseCompletedStatus + ", progress=" + progress + ", courseInfo=" + courseInfo
-				+ ", courseImageFileName=" + courseImageFileName + ", updatedDate=" + updatedDate + ", user_id="
-				+ user_id + ", course_category_id=" + course_category_id + ", course_tag_id=" + course_tag_id + "]";
-	}
-	public void setImageFile(String newImageFileName) {
-		// TODO Auto-generated method stub
-		
-	}
-	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public void setHtmlFileName(String fileName) {
-		// TODO Auto-generated method stub
-		
-	}
-	public String getHtmlFileName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setUpdatedAt(Timestamp timestamp) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setUsers(User currentUser) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

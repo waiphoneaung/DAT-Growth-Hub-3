@@ -46,7 +46,8 @@
 									<div class="row g-4">
 										<!-- Course image -->
 										<div class="col-md-6">
-											<img th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+											<img
+												th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
 												class="rounded" alt="">
 										</div>
 										<!-- Course info and avatar -->
@@ -220,7 +221,8 @@
 												<div class="accordion-body mt-3">
 													<div class="vstack gap-3">
 														<!-- Course Materials -->
-														<div th:each="courseMaterials : ${courseModule.courseMaterials}">
+														<div
+															th:each="courseMaterials : ${courseModule.courseMaterials}">
 															<div
 																class="d-flex justify-content-between align-items-center mb-2">
 																<div class="position-relative d-flex align-items-center">
@@ -233,7 +235,8 @@
 																</div>
 															</div>
 															<!-- Add Edit and Delete button -->
-															<a  th:href="@{|/${map}/edit-course-detail/edit-material|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseMaterialId=${courseMaterials.id})}"
+															<a
+																th:href="@{|/${map}/edit-course-detail/edit-material|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseMaterialId=${courseMaterials.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
 																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
 																th:href="@{|/${map}/edit-course-detail/delete-material|(courseId=${courseId}, courseMaterialId=${courseMaterials.id})}"
@@ -241,7 +244,8 @@
 															<hr class="mb-0">
 														</div>
 														<!-- Questions -->
-														<div th:each="courseAssignment : ${courseModule.courseAssignment}">
+														<div
+															th:each="courseAssignment : ${courseModule.courseAssignment}">
 															<div
 																class="d-flex justify-content-between align-items-center mb-2">
 																<div class="position-relative d-flex align-items-center">
@@ -254,7 +258,8 @@
 																</div>
 															</div>
 															<!-- Add Edit and Delete button -->
-															<a  th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
+															<a
+																th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
 																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
 																th:href="@{|/${map}/edit-course-detail/delete-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
@@ -265,7 +270,8 @@
 												</div>
 												<div
 													class="d-sm-flex justify-content-sm-between align-items-end mb-3">
-													<a  th:href="@{|/${map}/edit-course-detail/add-material|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
+													<a
+														th:href="@{|/${map}/edit-course-detail/add-material|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
 														class="btn btn-success-soft">Add Material</a><a
 														th:href="@{|/${map}/edit-course-detail/add-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id})}"
 														class="btn btn-info-soft">Add Assignment</a> <a
@@ -282,13 +288,21 @@
 										<hr>
 									</div>
 								</div>
+
 								<!-- Accordion END -->
 							</div>
+
 						</div>
+
+						<div class="mt-2">
+							<a th:href="@{/admin/admin-course-list}" class="btn btn-warning">Back to course list</a>
+						</div>
+
 						<!-- Course item END -->
 					</div>
 				</div>
 			</div>
+
 			<!-- Main content END -->
 			<!-- Page main content END -->
 	</main>
@@ -312,8 +326,8 @@
 	<script
 		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
 
-	<!-- Template Functions 
-	<script th:src="@{/public/assets/js/functions.js}"></script>-->
+	<!-- Template Functions  -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
 	<!-- Scripts -->
 	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 

@@ -182,18 +182,20 @@
 												<div th:if="${course.status} == 'Activated'">
 													<!-- <a
 														th:href="@{/admin/create-course/{courseId}/{action}(courseId=${course.id}, action='edit')}"
-														class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a> --> <a
+														class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a> -->
+													<a
 														th:href="@{/admin/edit-course-detail(courseId=${course.id})}"
 														class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit</a>
 													<span th:if="${course.isCourseAssignmentPresent == true}">
 														<a
 														th:href="@{/admin/admin-course-list/enroll-student(courseId=${course.id})}"
-														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Enroll Student</a>
-													</span>
-													<span th:if="${course.isCourseAssignmentPresent == false}">
+														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Enroll
+															Student</a>
+													</span> <span th:if="${course.isCourseAssignmentPresent == false}">
 														<a
 														th:href="@{/admin/edit-course-detail(courseId=${course.id})}"
-														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Add Assignment To Enroll</a>
+														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Add
+															Assignment To Enroll</a>
 													</span>
 												</div>
 												<div th:if="${course.status} == 'Rejected'">

@@ -32,17 +32,6 @@ public class Achievement {
 	@JoinColumn(name = "course_id")
 	private Course courses;
 
-	public Achievement(int id, String title, String badgeName, String certificateName, Timestamp receivedAt,
-			User users) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.badgeName = badgeName;
-		this.certificateName = certificateName;
-		this.receivedAt = receivedAt;
-		this.users = users;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -91,7 +80,29 @@ public class Achievement {
 		this.users = users;
 	}
 
-	public Achievement() { 
+	public Course getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Course courses) {
+		this.courses = courses;
+	}
+
+	public Achievement(int id, String title, String badgeName, String certificateName, Timestamp receivedAt, User users,
+			Course courses) 
+	{
+		super();
+		this.id = id;
+		this.title = title;
+		this.badgeName = badgeName;
+		this.certificateName = certificateName;
+		this.receivedAt = receivedAt;
+		this.users = users;
+		this.courses = courses;
+	}
+	
+	public Achievement()
+	{
 		
 	}
 }
