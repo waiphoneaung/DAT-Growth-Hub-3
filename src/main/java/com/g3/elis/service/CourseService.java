@@ -27,6 +27,8 @@ public interface CourseService {
 
 	List<Course> getAllCourse();
 	
+	List<Course> getAllPendingCourse();
+	
 	List<Course> getAllCourseByUserId(int userId);
 
 	Course getCourseById(int id);
