@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.g3.elis.dto.report.CoursePerformance;
 import com.g3.elis.dto.report.CourseProgress;
+import com.g3.elis.dto.report.QuizPerformance;
 import com.g3.elis.model.Course;
 import com.g3.elis.model.EnrolledAssignment;
 import com.g3.elis.model.EnrolledCourse;
@@ -124,6 +125,46 @@ public class ReportServiceImpl implements ReportService {
 									totalScore/enrolledCourse.getUsers().getGrades().size() >= 40  ? "C" : "D");
 			report.add(courseProgress);
 		}
+		
+		return report;
+	}
+
+	@Override
+	public List<QuizPerformance> generateQuizPerformanceReport(int instructorId) {
+		List<QuizPerformance> report = new ArrayList<QuizPerformance>();
+		List<EnrolledCourse> enrolledCourses = enrolledCourseService.getAllEnrolledCourseByInstructorId(instructorId);
+		for(EnrolledCourse enrolledCourse : enrolledCourses)
+		{
+			QuizPerformance quizPerformance = new QuizPerformance();
+			for(EnrolledModule enrolledModle : enrolledCourse.getEnrolledModules())
+			{
+				int assignmentCompleteCount = 0;
+				for(EnrolledAssignment enrolledAssignment : enrolledModle.getEnrolledAssignment())
+				{
+					int totalScore = 0;
+					int highestScoreCount = 0;
+					int lowestScoreCount = 0;
+					for(Grade grade : enrolledAssignment.getGrades())
+					{
+						totalScore+=grade.getScore();
+						if(grade.getScore() >=80) highestScoreCount++;
+						if(grade.getScore() <=79) lowestScoreCount++;
+						
+						quizPerformance.setAssignmentTitle(enrolledAssignment.getCourseAssignment().getTitle());
+					}
+					if(enrolledAssignment.isCompleteStatus() == true) assignmentCompleteCount++;
+					
+					quizPerformance.setAverageScore(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()));
+					quizPerformance.setHighestScore(( (double) highestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
+					quizPerformance.setHighestScore(( (double) lowestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
+				}
+				quizPerformance.setPassRate(((double) assignmentCompleteCount)/ ((double)enrolledModle.getEnrolledAssignment().size()) * 100);
+			}
+			quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
+			quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
+			report.add(quizPerformance);
+		}
+		report.sort(Comparator.comparingDouble(quizPerformance -> quizPerformance.getAverageScore()));
 		
 		return report;
 	}
