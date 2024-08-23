@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,7 +90,7 @@ public class EditCourseDetailController {
 		model.addAttribute("map",determineMapping());
 		return "/authenticated-user/edit-course-detail";
 	}
-
+	
 	@GetMapping("/edit-course-detail/add-module")
 	public String adminAddModule(@RequestParam(name = "courseId") int courseId, Model model) {
 		CourseModuleDto courseModuleDto = new CourseModuleDto();
@@ -499,13 +500,13 @@ public class EditCourseDetailController {
 	}
 	
 	private String determineMapping()
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	{		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		if(userDetail.isAdmin())
 		{
-			return "admin";
-		}
-		return "instructor";
-	}
+		return "admin";
+	}		return "instructor";
+}
+	
+	
 }
