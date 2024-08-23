@@ -46,7 +46,7 @@
 										style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
 										<!-- Title -->
 										<h5 class="card-title"
-											style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+											style="overflow: hidden; text-overflow: ellipsis; white-space: wrap;">
 											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}"
 												th:text="${blogPost.title}"></a>
 										</h5>
