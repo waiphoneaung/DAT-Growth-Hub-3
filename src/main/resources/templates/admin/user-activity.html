@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User Activity Log</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div class="container mt-4">
+		<h1>User Activity Log</h1>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Username</th>
+					<th>Login Time</th>
+					<th>Logout Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="log : ${logs}">
+					<td th:text="${log.id}"></td>
+				  <td th:text="${log.user.name}"></td> 
+					<td
+						th:text="${#temporals.format(log.loginTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					<td
+						th:text="${log.logoutTime != null ? #temporals.format(log.logoutTime, 'yyyy-MM-dd HH:mm:ss') : 'Active Session'}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
