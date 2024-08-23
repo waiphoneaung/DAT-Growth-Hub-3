@@ -8,19 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-	@GetMapping("/admin-dashboard")
-	public String home(Model model) {
-		model.addAttribute("content", "admin/admin-dashboard");
-		return "/admin/admin-layout";
-	}
-
-	@GetMapping("/admin-instructor-request")
-	public String adminInstructorRequest(Model model) {
-		model.addAttribute("content", "admin/admin-instructor-request");
-		return "/admin/admin-layout";
-	}
-
+	
 	@GetMapping("/admin-certificate-design")
 	public String adminCertificateDesign(Model model) {
 		model.addAttribute("content", "admin/admin-certificate-design");

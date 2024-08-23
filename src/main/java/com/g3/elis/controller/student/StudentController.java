@@ -130,13 +130,7 @@ public class StudentController {
 	    model.addAttribute("content", "student/instructor-list");
 	    return "/student/student-layout";
 	}
-	
-	@GetMapping("/student-grade")
-	public String studentGrade(Model model) {
-		model.addAttribute("content","student/student-grade");
-		return "/student/student-layout";
-	}
-	
+
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		

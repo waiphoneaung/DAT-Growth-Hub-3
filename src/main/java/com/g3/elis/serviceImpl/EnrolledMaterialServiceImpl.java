@@ -19,5 +19,10 @@ public class EnrolledMaterialServiceImpl implements EnrolledMaterialService{
 		enrolledMaterial.setCompleteStatus(true);
 		enrolledMaterialRepository.save(enrolledMaterial);
 	}
+
+	@Override
+	public EnrolledMaterial getEnrolledMaterialByEnrolledMaterialId(int enrolledMaterialId) {
+		return enrolledMaterialRepository.findById(enrolledMaterialId).orElse(null);
+	}
 	
 }
