@@ -108,7 +108,7 @@
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span> <!-- Instructor --> <span
 						th:if="${#authentication.principal.isInstructor()}"> <img
 							class="avatar-img rounded-circle"
@@ -116,7 +116,7 @@
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span> <!-- Student --> <span
 						th:if="${#authentication.principal.isStudent()}"> <img
 							class="avatar-img rounded-circle"
@@ -124,7 +124,7 @@
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span>
 					</a>
 					<ul
@@ -142,7 +142,7 @@
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span> <span th:if="${#authentication.principal.isInstructor()}">
 										<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
@@ -152,7 +152,7 @@
 										sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span> <span th:if="${#authentication.principal.isStudent()}">
 										<img class="avatar-img rounded-circle shadow"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
@@ -160,7 +160,7 @@
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span>
 
 								</div>
@@ -338,7 +338,7 @@
 
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
 										th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar" />
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar" />
 								</div>
 								<div class=" " style="width: 100%">
 									<div

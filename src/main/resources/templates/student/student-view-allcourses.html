@@ -71,7 +71,7 @@
 							th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 						</a>
 						<ul
 							class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -87,7 +87,7 @@
 											alt="avatar"> <img
 											class="avatar-img rounded-circle shadow"
 											th:unless="${user.profile != null && user.profile.profileImg != null}"
-											th:src="@{'/public/assets/images/avatar/06.jpg'}"
+											th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 											alt="avatar">
 									</div>
 									<div>
@@ -235,7 +235,7 @@ Page content START -->
              alt="course image" style="height: 200px; object-fit: cover;">
 
         <img class="card-img-top" th:unless="${course != null && course.courseImageFileName != null}"
-             th:src="@{'/public/assets/images/avatar/06.jpg'}"
+             th:src="@{'/public/assets/images/avatar/GUEST.png'}"
              alt="default image" style="height: 200px; object-fit: cover;">
         
         <!-- Card body -->
