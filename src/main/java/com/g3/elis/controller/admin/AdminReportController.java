@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.g3.elis.dto.report.CoursePerformance;
 import com.g3.elis.dto.report.CourseProgress;
 import com.g3.elis.model.EnrolledCourse;
+import com.g3.elis.model.UserLog;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.ReportService;
+import com.g3.elis.service.UserLogService;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,6 +31,10 @@ public class AdminReportController {
 
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired 
+	private UserLogService userLogService;
+	
 
 	@GetMapping("/admin-report")
 	public String home(@RequestParam(name= "courseId")int courseId,

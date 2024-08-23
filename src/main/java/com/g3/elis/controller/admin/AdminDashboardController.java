@@ -16,11 +16,13 @@ import com.g3.elis.dto.report.CourseProgress;
 import com.g3.elis.model.Course;
 import com.g3.elis.model.EnrolledCourse;
 import com.g3.elis.model.User;
+import com.g3.elis.model.UserLog;
 import com.g3.elis.repository.UserRepository;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.ReportService;
+import com.g3.elis.service.UserLogService;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +37,9 @@ public class AdminDashboardController
 	@Autowired
 	private ReportService reportService;
 	
+	@Autowired 
+	private UserLogService userLogService;
+	
 	@GetMapping("/admin-dashboard")
 	public String home(Authentication authentication,Model model) 
 	{
@@ -47,6 +52,8 @@ public class AdminDashboardController
 		}
 			
 		List<CoursePerformance> reports = reportService.generateCoursePerformanceReport();
+		List<UserLog> logs = userLogService.getUserLogs();
+
 //		List<CourseProgress> reports1 = reportService.generateCourseProgressReport(userDetail.getUser().getId()); 
 		model.addAttribute("reports",reports);
 //		model.addAttribute("reports1",reports1);
@@ -54,6 +61,8 @@ public class AdminDashboardController
 		model.addAttribute("completeCourses",completeCourses);
 		model.addAttribute("courseInProgress",courseInProgress);
 		model.addAttribute("content", "admin/admin-dashboard");
+    	model.addAttribute("logs", logs);
+
 		return "/admin/admin-layout";
 	}
 }
