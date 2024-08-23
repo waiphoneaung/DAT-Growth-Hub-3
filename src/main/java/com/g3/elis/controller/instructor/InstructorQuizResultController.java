@@ -6,14 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.g3.elis.model.EnrolledAssignment;
+import com.g3.elis.service.EnrolledAssignmentService;
 
 @Controller
 @RequestMapping("/instructor")
 public class InstructorQuizResultController 
 {
 	@Autowired
-	private EnrolledAssignment enrolledAssignment;
+	private EnrolledAssignmentService enrolledAssignmentService;
 	
 	@GetMapping("/instructor-quiz-result")
 	public String instructor_quiz_result(Model model) 

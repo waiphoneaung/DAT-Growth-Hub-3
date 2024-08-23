@@ -38,14 +38,13 @@
 
 					<!-- Table START -->
 					<div class="table-responsive border-0 mt-5 mb-3">
-						<h2>Course Progress Report</h2>
+						<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
+						<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
 						<table
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
 							<thead>
 								<tr>
-									<th scope="col" class="border-0 rounded-start">Course
-										Title</th>
 									<th scope="col" class="border-0">Student Name</th>
 									<th scope="col" class="border-0">StaffId</th>
 									<th scope="col" class="border-0">Progress</th>
@@ -60,22 +59,6 @@
 
 								<!-- Table row -->
 								<tr th:each="report : ${reports}">
-									<td>
-										<div class="d-flex align-items-center position-relative">
-											<!-- Image -->
-											<div class="w-100px">
-												<img
-													th:src="@{'/private/course/course-image-file/' + ${report.courseImage}}"
-													class="rounded">
-											</div>
-											<!-- Title -->
-											<h6 class="table-responsive-title mb-0 ms-2">
-												<a
-													th:href="@{/instructor/edit-course-detail(courseId=${report.courseId})}"
-													class="stretched-link" th:text="${report.courseTitle}"></a>
-											</h6>
-										</div>
-									</td>
 									<!-- Table data -->
 									<td>
 										<div class="d-flex align-items-center mb-3">
