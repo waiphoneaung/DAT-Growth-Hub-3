@@ -133,6 +133,7 @@
 													<!-- Avatar -->
 													<div class="avatar avatar-xs flex-shrink-0">
 
+
 														<img class="avatar-img rounded-circle"
 															th:if="${course.users.profile != null && course.users.profile.profileImg != null}"
 															th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}"
@@ -141,6 +142,7 @@
 															th:unless="${course.users.profile != null && course.users.profile.profileImg != null}"
 															th:src="@{'/public/assets/images/avatar/06.jpg'}"
 															alt="avatar">
+
 
 													</div>
 													<!-- Info -->
@@ -269,6 +271,4 @@
 	<!-- **************** MAIN CONTENT END **************** -->
 
 </body>
-
-<!-- Mirrored from diracetechnology.com/admin-course-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:24:23 GMT -->
 </html>

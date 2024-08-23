@@ -1,67 +1,77 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head >
-    <meta charset="UTF-8">
-    <title>Student Page</title>
-    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Student Page</title>
+<th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
 
-    <!-- Dark Mode Script -->
-    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+<!-- Dark Mode Script -->
+<th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
 </head>
 <body>
- <th:block th:fragment="student-view-allcourses">
- 
- 
- <header class="navbar-light navbar-sticky">
-	<!-- Logo Nav START -->
-	<nav class="navbar navbar-expand-xl">
-		<div class="container-fluid px-3 px-xl-5">
-			<!-- Logo START -->
-			<a class="navbar-brand" th:href="@{/user/home}">
-				<img class="light-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
-			</a>
-			<!-- Logo END -->
+	<th:block th:fragment="student-view-allcourses">
 
-			<!-- Responsive navbar toggler -->
-			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-animation">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-			</button>
 
-			<!-- Main navbar START -->
-			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+		<header class="navbar-light navbar-sticky">
+			<!-- Logo Nav START -->
+			<nav class="navbar navbar-expand-xl">
+				<div class="container-fluid px-3 px-xl-5">
+					<!-- Logo START -->
+					<a class="navbar-brand" th:href="@{/user/home}"> <img
+						class="light-mode-item navbar-brand-item"
+						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo"> <img
+						class="dark-mode-item navbar-brand-item"
+						th:src="@{/public/assets/images/DAT Logo.png}" alt="logo">
+					</a>
+					<!-- Logo END -->
 
-				
-					<!-- Nav Main menu START -->
-				<ul class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
+					<!-- Responsive navbar toggler -->
+					<button class="navbar-toggler ms-auto" type="button"
+						data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+						aria-controls="navbarCollapse" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-animation"> <span></span> <span></span>
+							<span></span>
+						</span>
+					</button>
 
-					<a class="nav-link" th:href="@{/student/student-dashboard}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
-					<a class="nav-link active" th:href="@{/student/student-course-list}" id="demoMenu" aria-haspopup="true" aria-expanded="false">Courses</a>
-					
-				</ul>
-				<!-- Nav Main menu END -->
+					<!-- Main navbar START -->
+					<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
 
-				<!-- Nav Main menu END -->
 
-				<!-- Nav Search START -->
-				<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-					<div class="nav-item w-100">
-						<form class="position-relative">
-							<input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
-							<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-								<i class="fas fa-search fs-6 "></i>
-							</button>
-						</form>
+						<!-- Nav Main menu START -->
+						<ul
+							class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
+
+							<a class="nav-link" th:href="@{/student/student-dashboard}"
+								id="demoMenu" aria-haspopup="true" aria-expanded="false">Home</a>
+							<a class="nav-link active"
+								th:href="@{/student/student-course-list}" id="demoMenu"
+								aria-haspopup="true" aria-expanded="false">Courses</a>
+
+						</ul>
+						<!-- Nav Main menu END -->
+
+						<!-- Nav Main menu END -->
+
+						<!-- Nav Search START -->
+						<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+							<div class="nav-item w-100">
+								<form class="position-relative">
+									<input class="form-control pe-5 bg-transparent" type="search"
+										placeholder="Search" aria-label="Search">
+									<button
+										class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+										type="submit">
+										<i class="fas fa-search fs-6 "></i>
+									</button>
+								</form>
+							</div>
+						</div>
+						<!-- Nav Search END -->
 					</div>
-				</div>
-				<!-- Nav Search END -->
-			</div>
-			<!-- Main navbar END -->
+					<!-- Main navbar END -->
 
-			<!-- Profile START -->
+					<!-- Profile START -->
 					<div class="dropdown ms-1 ms-lg-0">
 						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 							role="button" data-bs-auto-close="outside"
@@ -158,194 +168,209 @@
 						</ul>
 					</div>
 					<!-- Profile START -->
-		</div>
-	</nav>
-	<!-- Logo Nav END -->
-</header>
-<main>
+				</div>
+			</nav>
+			<!-- Logo Nav END -->
+		</header>
+		<main>
 
-<!-- =======================
+			<!-- =======================
 Page Banner START -->
-<section class="py-4">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="bg-light p-4 text-center rounded-3">
-					<h1 class="m-0">Course Grid Minimal</h1>
-					<!-- Breadcrumb -->
-					<div class="d-flex justify-content-center">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb breadcrumb-dots mb-0">
-								<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Course minimal</li>
-							</ol>
-						</nav>
+			<section class="py-4">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="bg-light p-4 text-center rounded-3">
+								<h1 class="m-0">Course Grid Minimal</h1>
+								<!-- Breadcrumb -->
+								<div class="d-flex justify-content-center">
+									<nav aria-label="breadcrumb">
+										<ol class="breadcrumb breadcrumb-dots mb-0">
+											<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+											<li class="breadcrumb-item active" aria-current="page">Course
+												minimal</li>
+										</ol>
+									</nav>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- =======================
+			</section>
+			<!-- =======================
 Page Banner END -->
 
-<!-- =======================
+			<!-- =======================
 Page content START -->
-<section class="pt-0">
-	<div class="container">
+			<section class="pt-0">
+				<div class="container">
 
-		<!-- Filter bar START -->
-		<form class="bg-light border p-4 rounded-3 my-4 z-index-9 position-relative">
-			<div class="row g-3">
-				<!-- Input -->
-				
-				<!-- Input -->
-				<div class="col-xl-5"></div>
-				<div class="col-xl-2"></div>
-				<div class="col-xl-5">
-					<form class="rounded position-relative" th:action="@{/user/courses}" method="get">
-    <input class="form-control bg-body" type="search" name="keyword"
-           placeholder="Search By course name" aria-label="Search">
-    <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-            type="submit">
-        <i class="fas fa-search fs-6"></i>
-    </button>
-</form>
+					<!-- Filter bar START -->
+					<form
+						class="bg-light border p-4 rounded-3 my-4 z-index-9 position-relative">
+						<div class="row g-3">
+							<!-- Input -->
+
+							<!-- Input -->
+							<div class="col-xl-5"></div>
+							<div class="col-xl-2"></div>
+							<div class="col-xl-5">
+								<form class="rounded position-relative"
+									th:action="@{/user/courses}" method="get">
+									<input class="form-control bg-body" type="search"
+										name="keyword" placeholder="Search By course name"
+										aria-label="Search">
+									<button
+										class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+										type="submit">
+										<i class="fas fa-search fs-6"></i>
+									</button>
+								</form>
+							</div>
+
+
+						</div>
+						<!-- Row END -->
+					</form>
+					<!-- Filter bar END -->
+
+					<div class="row mt-3">
+						<!-- Main content START -->
+						<div class="col-12">
+
+							<!-- Course Grid START -->
+							<div class="row g-4">
+
+								<!-- Card item START -->
+								<div class="col-sm-6 col-lg-4 col-xl-3"
+									th:each="course : ${courses}"
+									th:if="${course.status} == 'Activated'">
+									<div class="card shadow h-100">
+										<!-- Image -->
+										<img class="card-img-top"
+											th:if="${course != null && course.courseImageFileName != null}"
+											th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+											alt="course image" style="height: 200px; object-fit: cover;">
+
+										<img class="card-img-top"
+											th:unless="${course != null && course.courseImageFileName != null}"
+											th:src="@{'/public/assets/images/avatar/06.jpg'}"
+											alt="default image" style="height: 200px; object-fit: cover;">
+
+										<!-- Card body -->
+										<div class="card-body pb-0">
+											<!-- Title -->
+											<h5 class="card-title">
+												<a
+													th:href="@{/user/courses/course-detail(courseId=${course.id})}"
+													th:text="${course.courseTitle}">Course Title</a>
+											</h5>
+										</div>
+										<!-- Card footer -->
+										<div class="card-footer pt-0 pb-3">
+											<hr>
+											<div class="d-flex justify-content-between">
+												<span class="h6 fw-light mb-0"> <i
+													class="far fa-clock text-danger me-2"></i> <span
+													th:text="${course.duration} + 'h'"></span>
+												</span>
+
+												<!-- Display the count of course modules dynamically -->
+												<span class="h6 fw-light mb-0"> <i
+													class="fas fa-table text-orange me-2"></i> <span
+													th:text="${courseModuleCounts[course.id]} + ' Modules'"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Card item END -->
+
+
+
+							</div>
+							<!-- Course Grid END -->
+
+							<!-- Pagination START -->
+							<div class="col-12">
+								<ul
+									class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+									<!-- Previous button: only show if not on the first page -->
+									<li th:if="${currentPage > 0}" class="page-item mb-0"><a
+										class="page-link"
+										th:href="@{/user/courses(page=${currentPage - 1}, keyword=${keyword})}"
+										tabindex="-1"> <i class="fas fa-angle-left"></i>
+									</a></li>
+
+									<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+										th:classappend="${i == currentPage} ? 'active' : ''"
+										th:if="${totalPages > 1}" class="page-item mb-0"><a
+										class="page-link" th:text="${i + 1}"
+										th:href="@{/user/courses(page=${i}, keyword=${keyword})}"></a>
+									</li>
+
+									<li th:if="${currentPage < totalPages - 1}"
+										class="page-item mb-0"><a class="page-link"
+										th:href="@{/user/courses(page=${currentPage + 1}, keyword=${keyword})}">
+											<i class="fas fa-angle-right"></i>
+									</a></li>
+
+								</ul>
+								</nav>
+							</div>
+							<!-- Pagination END -->
+						</div>
+						<!-- Main content END -->
+					</div>
+					<!-- Row END -->
 				</div>
-				
-				
-			</div> <!-- Row END -->
-		</form>
-		<!-- Filter bar END -->
-
-		<div class="row mt-3">
-			<!-- Main content START -->
-			<div class="col-12">
-
-				<!-- Course Grid START -->
-				<div class="row g-4">
-
-					 <!-- Card item START -->
-<div class="col-sm-6 col-lg-4 col-xl-3" th:each="course : ${courses}"
-     th:if="${course.status} == 'Activated'">
-    <div class="card shadow h-100">
-        <!-- Image -->
-        <img class="card-img-top" th:if="${course != null && course.courseImageFileName != null}"
-             th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
-             alt="course image" style="height: 200px; object-fit: cover;">
-
-        <img class="card-img-top" th:unless="${course != null && course.courseImageFileName != null}"
-             th:src="@{'/public/assets/images/avatar/06.jpg'}"
-             alt="default image" style="height: 200px; object-fit: cover;">
-        
-        <!-- Card body -->
-        <div class="card-body pb-0">
-            <!-- Title -->
-            <h5 class="card-title">
-                <a th:href="@{/user/courses/course-detail(courseId=${course.id})}"
-                   th:text="${course.courseTitle}">Course Title</a>
-            </h5>
-        </div>
-        <!-- Card footer -->
-        <div class="card-footer pt-0 pb-3">
-            <hr>
-            <div class="d-flex justify-content-between">
-                <span class="h6 fw-light mb-0">
-                    <i class="far fa-clock text-danger me-2"></i>
-                    <span th:text="${course.duration} + 'h'"></span>
-                </span>
-
-                <!-- Display the count of course modules dynamically -->
-                <span class="h6 fw-light mb-0">
-                    <i class="fas fa-table text-orange me-2"></i>
-                    <span th:text="${courseModuleCounts[course.id]} + ' Modules'"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Card item END -->
-
-
-					
-				</div>
-				<!-- Course Grid END -->
-
-				<!-- Pagination START -->
-				<div class="col-12">
-					    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-            <!-- Previous button: only show if not on the first page -->
-            <li th:if="${currentPage > 0}" class="page-item mb-0">
-    <a class="page-link"
-       th:href="@{/user/courses(page=${currentPage - 1}, keyword=${keyword})}"
-       tabindex="-1">
-        <i class="fas fa-angle-left"></i>
-    </a>
-</li>
-
-<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-    th:classappend="${i == currentPage} ? 'active' : ''"
-    th:if="${totalPages > 1}"
-    class="page-item mb-0">
-    <a class="page-link"
-       th:text="${i + 1}"
-       th:href="@{/user/courses(page=${i}, keyword=${keyword})}"></a>
-</li>
-
-<li th:if="${currentPage < totalPages - 1}" class="page-item mb-0">
-    <a class="page-link"
-       th:href="@{/user/courses(page=${currentPage + 1}, keyword=${keyword})}">
-        <i class="fas fa-angle-right"></i>
-    </a>
-</li>
-
-        </ul>
-    </nav>
-				</div>
-				<!-- Pagination END -->
-			</div>
-			<!-- Main content END -->
-		</div><!-- Row END -->
-	</div>
-</section>
-<!-- =======================
+			</section>
+			<!-- =======================
 Page content END -->
 
-<!-- =======================
+			<!-- =======================
 Blogsletter START -->
-<section class="pt-0">
-	<div class="container position-relative overflow-hidden">
-		<!-- SVG decoration -->
-		<figure class="position-absolute top-50 start-50 translate-middle ms-3">
-			<svg>
-				<path class="fill-white opacity-2" d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z"/>
-				<path class="fill-white opacity-2" d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z"/>
-				<path class="fill-white opacity-2" d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z"/>
-				<path class="fill-white opacity-2" d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z"/>
+			<section class="pt-0">
+				<div class="container position-relative overflow-hidden">
+					<!-- SVG decoration -->
+					<figure
+						class="position-absolute top-50 start-50 translate-middle ms-3">
+						<svg>
+				<path class="fill-white opacity-2"
+								d="m496 22.999c0 10.493-8.506 18.999-18.999 18.999s-19-8.506-19-18.999 8.507-18.999 19-18.999 18.999 8.506 18.999 18.999z" />
+				<path class="fill-white opacity-2"
+								d="m775 102.5c0 5.799-4.701 10.5-10.5 10.5-5.798 0-10.499-4.701-10.499-10.5 0-5.798 4.701-10.499 10.499-10.499 5.799 0 10.5 4.701 10.5 10.499z" />
+				<path class="fill-white opacity-2"
+								d="m192 102c0 6.626-5.373 11.999-12 11.999s-11.999-5.373-11.999-11.999c0-6.628 5.372-12 11.999-12s12 5.372 12 12z" />
+				<path class="fill-white opacity-2"
+								d="m20.499 10.25c0 5.66-4.589 10.249-10.25 10.249-5.66 0-10.249-4.589-10.249-10.249-0-5.661 4.589-10.25 10.249-10.25 5.661-0 10.25 4.589 10.25 10.25z" />
 			</svg>
-		</figure>
-		<!-- Svg decoration -->
-		<figure class="position-absolute bottom-0 end-0 mb-5 d-none d-sm-block">
-			<svg class="rotate-130" width="258.7px" height="86.9px" viewBox="0 0 258.7 86.9">
-				<path stroke="white" fill="none" stroke-width="2" d="M0,7.2c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5"/>
-				<path stroke="white" fill="none" stroke-width="2" d="M0,57c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5"/>
+					</figure>
+					<!-- Svg decoration -->
+					<figure
+						class="position-absolute bottom-0 end-0 mb-5 d-none d-sm-block">
+						<svg class="rotate-130" width="258.7px" height="86.9px"
+							viewBox="0 0 258.7 86.9">
+				<path stroke="white" fill="none" stroke-width="2"
+								d="M0,7.2c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5" />
+				<path stroke="white" fill="none" stroke-width="2"
+								d="M0,57c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5 c16,0,16,25.5,31.9,25.5c16,0,16-25.5,31.9-25.5c16,0,16,25.5,31.9,25.5s16-25.5,31.9-25.5" />
 			</svg>
-		</figure>
-		
-		
-	</div>
-</section>
-<!-- =======================
+					</figure>
+
+
+				</div>
+			</section>
+			<!-- =======================
 Blogsletter END -->
 
-</main>
-<div th:replace="student/student-footer :: student-footer"></div>
+		</main>
+		<div th:replace="student/student-footer :: student-footer"></div>
 
-    <!-- Scripts -->
-    <th:block th:replace="fragments/scripts :: scripts"></th:block>
- 
- </th:block>
- </body>
- </html>
- 
- 
+		<!-- Scripts -->
+		<th:block th:replace="fragments/scripts :: scripts"></th:block>
+
+	</th:block>
+</body>
+</html>
+
