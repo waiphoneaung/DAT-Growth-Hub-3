@@ -163,4 +163,5 @@ public class InstructorViewBlogController {
             return "redirect:/instructor/instructor-view-blog";
         }
     }
+    
 }

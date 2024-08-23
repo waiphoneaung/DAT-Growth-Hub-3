@@ -136,5 +136,4 @@ public class StudentController {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	
 }
