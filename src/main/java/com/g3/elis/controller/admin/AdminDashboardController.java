@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +26,7 @@ import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.ReportService;
 import com.g3.elis.service.UserLogService;
+import com.g3.elis.util.InputFileService;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,7 +36,7 @@ public class AdminDashboardController
 	private EnrolledCourseService enrolledCourseService;
 	
 	@Autowired
-	private CourseService courseService;
+	private InputFileService inputFileService;
 	
 	@Autowired
 	private ReportService reportService;
@@ -81,5 +84,13 @@ public class AdminDashboardController
     	model.addAttribute("timeRange", timeRange);// To keep the selected option in the dropdown
 
 		return "/admin/admin-layout";
+	}
+	@GetMapping("/admin-dashboard/generate-course-performance-report")
+	public String generateReport(Model model)
+	{
+		List<CoursePerformance> reports = reportService.generateCoursePerformanceReport();
+		inputFileService.generateCoursePerformanceExcelReportFile(reports);
+		model.addAttribute("content", "admin/admin-dashboard");
+		return "redirect:/admin/admin-dashboard";
 	}
 }

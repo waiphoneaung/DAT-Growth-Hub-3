@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <head>
 <!-- Favicon -->
 <link rel="shortcut icon" href="assets/images/favicon.ico" />
@@ -322,7 +322,16 @@
 
 					<!-- Table START -->
 					<div class="table-responsive border-0 mt-5 mb-3">
-						<h2>Course Performance Report</h2>
+						<div class="row">
+							<div class="col-6">
+								<h2>Course Performance Report</h2>
+							</div>
+							<div class="col-6">
+								<a th:href="@{/admin/admin-dashboard/generate-course-performance-report}"
+									class="btn btn-info">Export Data</a>
+							</div>
+						</div>
+
 						<table
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
@@ -375,7 +384,8 @@
 									<!-- Table data -->
 									<td th:text="${report.yearlyEnrolledUser}"></td>
 									<!-- Table data -->
-									<td th:text="${report.completionRate + '%'}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.completionRate,1 ,2) + '%'}"></td>
 									<!-- Table data -->
 									<td th:text="${report.averageScore}"></td>
 								</tr>
@@ -385,11 +395,12 @@
 						</table>
 					</div>
 					<!-- Table END -->
-					
+
 					<!-- user activity report -->
 					<!-- Table START -->
 					<div class="table-responsive border-0 mt-5 mb-3">
 						<h2>User Activity Log Report</h2>
+
 
 						<!-- Filter Form START -->
 						<form method="get" action="#" th:action="@{/admin/admin-dashboard}">
@@ -409,6 +420,7 @@
 						<!-- Filter Form END -->
 
 						<table
+
 
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->

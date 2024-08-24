@@ -1,20 +1,30 @@
-package com.g3.elis.serviceImpl;
+package com.g3.elis.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +34,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.UserDto;
 import com.g3.elis.dto.report.CoursePerformance;
+import com.g3.elis.dto.report.CourseProgress;
+import com.g3.elis.dto.report.QuizPerformance;
 import com.g3.elis.model.InputFile;
 import com.g3.elis.repository.InputFileRepository;
-import com.g3.elis.service.InputFileService;
+import com.g3.elis.service.ReportService;
 import com.g3.elis.service.UserService;
-import com.g3.elis.util.SheetData;
 
 @Service
 public class InputFileServiceImpl implements InputFileService {
@@ -333,16 +344,215 @@ public class InputFileServiceImpl implements InputFileService {
 	}
 
 	@Override
-	public void generateExcelReportFile(List<CoursePerformance> reportData)
+	public void generateCoursePerformanceExcelReportFile(List<CoursePerformance> reportData)
 	{
 		Workbook workbook = new XSSFWorkbook();
 		
 		String sheetName = "Course Performance Report";
+		createSheetsWithCoursePerformanceData(workbook, sheetName,reportData);
+		// Write the workbook to a file
+        try (FileOutputStream fileOut = new FileOutputStream(("Course_Performance_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Close the workbook
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		
 	}
-	private void createSheetsWithData(Workbook workbook,String sheetName,List<CoursePerformance> reportData)
+	
+	private void createSheetsWithCoursePerformanceData(Workbook workbook,String sheetName,List<CoursePerformance> reportData)
 	{
+		Sheet sheet = workbook.createSheet(sheetName);
+        Row headerRow = sheet.createRow(0);
+        
+		String[] headers = {"Course Title","Course Id","Instructor","Created At","Enrollment","Monthly Enrolled User"
+							,"Yearly Enrolled User","Completion Rate","Average Score"};
+		CellStyle headerStyle = createHeaderCellStyle(workbook);
+		for (int i = 0; i < headers.length; i++) 
+			{
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
 		
+		CellStyle dataStyle = createDataCellStyle(workbook);
+		for (int i = 0; i < reportData.size(); i++) 
+		{
+            Row row = sheet.createRow(i + 1);
+            List<String> dataList = new ArrayList<String>();
+    		dataList.add(reportData.get(i).getCourseTitle().toString());
+    		dataList.add(String.valueOf(reportData.get(i).getCourseId()));
+    		dataList.add(reportData.get(i).getInstructor().toString());
+    		dataList.add(reportData.get(i).getCreatedAt().toString());
+    		dataList.add(String.valueOf(reportData.get(i).getEnrollment()));
+    		dataList.add(String.valueOf(reportData.get(i).getMonthlyEnrolledUser()));
+    		dataList.add(String.valueOf(reportData.get(i).getYearlyEnrolledUser()));
+    		dataList.add(String.valueOf(reportData.get(i).getCompletionRate()));
+    		dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
+    		for(int j = 0; j < dataList.size();j++)
+    		{
+    			Cell cell = row.createCell(j);
+                cell.setCellValue(dataList.get(j));
+                cell.setCellStyle(dataStyle);
+    		}
+        }
 	}
+	
+	@Override
+	public void generateCourseProgressExcelReportFile(List<CourseProgress> reportData) {
+		Workbook workbook = new XSSFWorkbook();
+		
+		String sheetName = "Course Performance Report";
+		createSheetsWithCourseProgressData(workbook, sheetName,reportData);
+		// Write the workbook to a file
+        try (FileOutputStream fileOut = new FileOutputStream(("Course_Progress_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Close the workbook
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	private void createSheetsWithCourseProgressData(Workbook workbook,String sheetName,List<CourseProgress> reportData)
+	{
+		Sheet sheet = workbook.createSheet(sheetName);
+        Row headerRow = sheet.createRow(0);
+        
+		String[] headers = {"Course Title","Course Id","Enrolled User Name","Staff Id","Enrolled Date","Progress"
+							,"Average Score","Grade"};
+		
+		CellStyle headerStyle = createHeaderCellStyle(workbook);
+		for (int i = 0; i < headers.length; i++) 
+			{
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+		CellStyle dataStyle = createDataCellStyle(workbook);
+		for (int i = 0; i < reportData.size(); i++) 
+		{
+			Row row = sheet.createRow(i + 1);
+            List<String> dataList = new ArrayList<String>();
+            dataList.add(reportData.get(i).getCourseTitle());
+            dataList.add(String.valueOf(reportData.get(i).getCourseId()));
+            dataList.add(reportData.get(i).getStaffId());
+            dataList.add(reportData.get(i).getEnrolledUserName());
+            dataList.add(reportData.get(i).getEnrolledDate().toString());
+            dataList.add(String.valueOf(reportData.get(i).getProgress()));
+            dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
+            dataList.add(reportData.get(i).getGrade());
+            for(int j = 0; j < dataList.size();j++)
+    		{
+    			Cell cell = row.createCell(j);
+                cell.setCellValue(dataList.get(j));
+                cell.setCellStyle(dataStyle);
+    		}
+		}
+	}
+
+	@Override
+	public void generateQuizPerformanceExcelReportFile(List<QuizPerformance> reportData) {
+		Workbook workbook = new XSSFWorkbook();
+		
+		String sheetName = "Course Performance Report";
+		createSheetsWithQuizPerformanceData(workbook, sheetName,reportData);
+		// Write the workbook to a file
+        try (FileOutputStream fileOut = new FileOutputStream("report.xlsx")) {
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Close the workbook
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }		
+	}
+		
+	private void createSheetsWithQuizPerformanceData(Workbook workbook,String sheetName,List<QuizPerformance> reportData)
+	{
+//		private String assignmentTitle;
+//		private String studentName;
+//		private String studentProfileImage;
+//		private double averageScore;
+//		private double passRate;
+//		private double highestScore;
+//		private double lowestScore;
+		Sheet sheet = workbook.createSheet(sheetName);
+        Row headerRow = sheet.createRow(0);
+        
+		String[] headers = {"Assignment Title","Average Score","Passed Rate","Average Score","Highest Score","Lowest Score"};
+		
+		CellStyle headerStyle = createHeaderCellStyle(workbook);
+		for (int i = 0; i < headers.length; i++) 
+			{
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+		CellStyle dataStyle = createDataCellStyle(workbook);
+		for (int i = 0; i < reportData.size(); i++) 
+		{
+			Row row = sheet.createRow(i + 1);
+            List<String> dataList = new ArrayList<String>();
+            dataList.add(reportData.get(i).getAssignmentTitle());
+            dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
+            dataList.add(String.valueOf(reportData.get(i).getPassRate()));
+            dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
+            dataList.add(String.valueOf(reportData.get(i).getHighestScore()));
+            dataList.add(String.valueOf(reportData.get(i).getLowestScore()));
+            
+            for(int j = 0; j < dataList.size();j++)
+    		{
+    			Cell cell = row.createCell(j);
+                cell.setCellValue(dataList.get(j));
+                cell.setCellStyle(dataStyle);
+    		}
+		}
+	}
+	
+	
+	private CellStyle createHeaderCellStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        font.setFontHeightInPoints((short) 12);
+        style.setFont(font);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+        return style;
+    }
+	
+	private static CellStyle createDataCellStyle(Workbook workbook) {
+        CellStyle style = workbook.createCellStyle();
+        style.setAlignment(HorizontalAlignment.LEFT);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+        return style;
+    }
 }
 
