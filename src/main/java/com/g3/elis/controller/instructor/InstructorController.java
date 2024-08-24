@@ -12,7 +12,7 @@ public class InstructorController {
 	@GetMapping("/instructor-create-course")
 	public String instructor_create_course(Model model) {
 		
-		model.addAttribute("currentPage", "instructor-manage-course");
+		model.addAttribute("currentPage", "instructor-course-list");
 		return "instructor/instructor-create-course";
 	}
 	
@@ -34,5 +34,9 @@ public class InstructorController {
 		return "/authenticated-user/blog-detail";
 	}
 	
-}
+	    
+	}
+
+	
+
 
