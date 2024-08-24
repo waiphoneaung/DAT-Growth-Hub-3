@@ -21,16 +21,7 @@ public interface BlogPostService {
 
 	 BlogPost findById(int id);
 	
-	//void updateBlogPost(BlogPostDto blogPostDto) throws IOException; // Method for updating a blog post
 	
-	
-//	void updateBlogPostStatus(int id, boolean enabled);
-	
- //Page<BlogPost> getAllBlogs(Pageable pageable);
-	// Page<BlogPost> searchBlogPostsByName(String name, Pageable pageable);
-
-	
-	//List<BlogPost> getAllBlogPosts(Pageable pageable);
 	Page<BlogPost> getAllBlogPosts(Pageable pageable);
 
 	Page<BlogPost> searchBlogPostsByTitle(String keyword, Pageable pageable);
@@ -43,7 +34,7 @@ public interface BlogPostService {
 
 void updateBlogPost( BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
     
-//  void updateBlogPost(BlogPostDto blogPostDto, String content, MultipartFile imgFile) throws IOException;
-    
- // String getBlogPostContent(BlogPost blogPost) throws IOException;
+public Page<BlogPost> searchBlogPostsByKeyword(String keyword, Pageable pageable);
+
+
 }

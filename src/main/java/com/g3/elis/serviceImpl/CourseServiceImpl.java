@@ -292,6 +292,12 @@ public class CourseServiceImpl implements CourseService {
 			returnCourseList.add(course);
 		}	
 		return returnCourseList;
-	} 
+	}
+
+	@Override
+	public List<Course> searchPendingCourses(String searchQuery) {
+		
+		    return courseRepository.findByCourseTitleContainingIgnoreCase(searchQuery);
+		} 
 
 }

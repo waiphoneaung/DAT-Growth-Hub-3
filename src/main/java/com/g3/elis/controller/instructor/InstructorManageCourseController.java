@@ -18,7 +18,7 @@ public class InstructorManageCourseController
 	@Autowired
 	private CourseService courseService;
 	
-	@GetMapping("/instructor-manage-course")
+	@GetMapping("/instructor-course-list")
 	public String instructor_manage_course(Model model,Authentication authentication) 
 	{
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();

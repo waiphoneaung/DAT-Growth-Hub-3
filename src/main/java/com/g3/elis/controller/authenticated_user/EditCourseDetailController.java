@@ -88,8 +88,11 @@ public class EditCourseDetailController {
 		model.addAttribute("totalEnrolled", totalEnrolled);
 		model.addAttribute("course", course);
 		model.addAttribute("map",determineMapping());
-		return "/authenticated-user/edit-course-detail";
+		
+	return "/authenticated-user/edit-course-detail";
 	}
+
+	
 	
 	@GetMapping("/edit-course-detail/add-module")
 	public String adminAddModule(@RequestParam(name = "courseId") int courseId, Model model) {
@@ -499,14 +502,23 @@ public class EditCourseDetailController {
 		+ courseModuleId + "&courseAssignmentId=" + courseAssignmentId;
 	}
 	
-	private String determineMapping()
-	{		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
-		if(userDetail.isAdmin())
-		{
-		return "admin";
-	}		return "instructor";
-}
+//	private String determineMapping()
+//	{		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+//		if(userDetail.isAdmin())
+//		{
+//		return "admin";
+//	}		return "instructor";
+//}
+	
+	private String determineMapping() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+        if(userDetail.isAdmin()) {
+            return "admin";
+        }
+        return "instructor";
+    }
 	
 	
 }

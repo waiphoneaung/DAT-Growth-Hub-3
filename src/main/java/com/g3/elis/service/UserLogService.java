@@ -10,4 +10,7 @@ public interface UserLogService {
     public void logLogin(int userId);
     public void logLogout(int userId);
     public List<UserLog> getUserLogs();
+	public List<UserLog> findLogsInLastWeek();
+	public List<UserLog> findLogsInLastYear();
+	public List<UserLog> findLogsInLastMonth();
 }

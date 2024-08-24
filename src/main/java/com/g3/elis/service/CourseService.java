@@ -41,5 +41,8 @@ public interface CourseService {
 	 public long countAllCourses();
 	 
 	 public List<Course> findCoursesByCategory(int categoryId);
+	 
+	 public List<Course> searchPendingCourses(String searchQuery);
+
 
 }

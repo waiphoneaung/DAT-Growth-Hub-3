@@ -1,6 +1,8 @@
 package com.g3.elis.serviceImpl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -58,6 +60,25 @@ public class UserLogServiceImpl implements UserLogService{
 	public List<UserLog> getUserLogs() {
 
 		return userLogRepository.findAll();
+	}
+
+	@Override
+	public List<UserLog> findLogsInLastWeek() {
+		// TODO Auto-generated method stub
+		LocalDateTime startOfWeek = LocalDateTime.now().minus(7, ChronoUnit.DAYS);
+		return userLogRepository.findLogsInLastWeek(startOfWeek);
+	}
+
+	@Override
+	public List<UserLog> findLogsInLastYear() {
+		LocalDateTime startOfMonth = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
+		return userLogRepository.findLogsInLastMonth(startOfMonth);
+	}
+
+	@Override
+	public List<UserLog> findLogsInLastMonth() {
+		LocalDateTime startOfYear = LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
+		return userLogRepository.findLogsInLastYear(startOfYear);
 	}
 
 
