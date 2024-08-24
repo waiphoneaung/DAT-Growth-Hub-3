@@ -63,7 +63,15 @@
 
 										
 
+<<<<<<< HEAD
 							
+=======
+							<!-- ======================= Page content START -->
+							<section class="position-relative pt-0 pt-lg-2">
+								<div class="container mt-0">
+
+									<div class="row g-1">
+>>>>>>> ac0bb78d76fe5d44c3fbf13896a3de5ab34118c2
 										<!-- Card item START -->
 
 										<div class="col-sm-6 col-lg-4 col-xl-3"
@@ -125,31 +133,7 @@
 						
 
 
-						<!-- Pagination START -->
-						<nav class="d-flex justify-content-center mt-5"
-							aria-label="navigation">
-							<ul class="pagination pagination-primary-soft rounded mb-0">
-								<li class="page-item mb-0" th:if="${currentPage > 0}"><a
-									class="page-link"
-									th:href="@{/admin/admin-view-blog(page=${currentPage - 1})}"
-									tabindex="-1"> <i class="fas fa-angle-double-left"></i>
-								</a></li>
-								<li class="page-item mb-0"
-									th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
-									<a class="page-link"
-									th:href="@{/admin/admin-view-blog(page=${pageNum})}"
-									th:text="${pageNum + 1}"></a>
-								</li>
-								<li class="page-item mb-0"
-									th:if="${currentPage < totalPages - 1}"><a
-									class="page-link"
-									th:href="@{/admin/admin-view-blog(page=${currentPage + 1})}">
-										<i class="fas fa-angle-double-right"></i>
-								</a></li>
-							</ul>
-						</nav>
-						<!-- Pagination END -->
-
+						
 						<!-- ======================= Page content END -->
 				</div>
 				</th:block>

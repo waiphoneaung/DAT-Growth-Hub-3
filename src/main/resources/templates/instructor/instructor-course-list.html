@@ -137,8 +137,8 @@
 												class="btn btn-sm btn-info me-1 mb-1 mb-md-0">View Analytics </a> 
 											<span th:if="${course.isCourseAssignmentPresent == false}">
 												<a
-												th:href="@{/admin/edit-course-detail(courseId=${course.id})}"
-												class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Add
+												th:href="@{/instructor/edit-course-detail(courseId=${course.id})}"
+												class="btn btn-sm btn-primary me-1 mb-1 mb-md-0">Add
 													Assignment To Enroll</a>
 											</span>
 										</div>

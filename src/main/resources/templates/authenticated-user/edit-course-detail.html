@@ -14,7 +14,7 @@
 <body>
 	<!-- Sidebar -->
 	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
-
+	
 	<!-- Include navbar -->
 
 	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
@@ -261,7 +261,7 @@
 															<a
 																th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
-																class="bi fa-fw bi-pencil-square me-2"></i>Edit</a> <a
+																class="bi fa-fw bi-pencil-square me-2"></i>Add Question</a> <a
 																th:href="@{|/${map}/edit-course-detail/delete-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-danger mb-0">Delete</a>
 															<hr class="mb-0">

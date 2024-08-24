@@ -33,6 +33,10 @@ public interface EnrolledCourseService {
 
 	public void setStatusToTrue(int enrolledCourseId);
 
+	void save(EnrolledCourse enrolledCourse);
 	Page<EnrolledCourse> getEnrolledCoursesByUser(User users, Pageable pageable);
+	
+	 Page<EnrolledCourse> searchEnrolledCoursesByUser(String keyword, Pageable pageable);
+
 
 }

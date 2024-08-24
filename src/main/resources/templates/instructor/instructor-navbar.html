@@ -40,7 +40,7 @@
 							class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 							
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-dashboard' ? ' active' : '' }"	th:href="@{/instructor/instructor-dashboard}">Dashboard</a>
-							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-manage-course}">Courses</a>
+							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-course-list}">Courses</a>
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}" th:href="@{/instructor/instructor-view-blog}">Blogs</a>
 							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/instructor/forum}">Forum</a>
 

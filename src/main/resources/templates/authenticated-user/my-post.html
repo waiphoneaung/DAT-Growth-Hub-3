@@ -4,6 +4,31 @@
 <head>
 <meta charset="UTF-8">
 <title>DAT - Growth Hub</title>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	/* Header styling */
+	padding: 20px;
+}
+
+main {
+	flex: 1;
+	/* This makes the main content area grow to fill available space */
+	padding: 20px;
+}
+
+.footer {
+	padding: 10px 20px;
+}
+</style>
+
 <!-- Stylesheets -->
 <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
 
@@ -367,24 +392,24 @@
 														th:action="@{${map} + '/my-post/delete/' + ${forum.id}}"
 														method="post" style="display: inline;"
 														onsubmit="return confirm('Are you sure?');">
-														<button type="submit" class="btn btn-sm btn-danger mb-0">Delete Post</button>
+														<button type="submit" class="btn btn-sm btn-danger mb-0">Delete
+															Post</button>
 													</form>
 												</li>
 
 												<li>
-													<!-- Button trigger modal -->
-												<!-- 	<button type="button" class="btn btn-primary"
+													<!-- Button trigger modal --> <!-- 	<button type="button" class="btn btn-primary"
 														data-bs-toggle="modal" data-bs-target="#editPostModal">
 														Edit post</button> -->
-																												
-												</li>												
+
+												</li>
 											</ul>
 										</div>
-																				
+
 										<!-- Review star -->
 									</div>
 									<!-- Content -->
-									
+
 
 									<h3 th:text="${forum.title}"></h3>
 
@@ -393,13 +418,28 @@
 									<div th:each="forumComment : ${forum.forumComments}"
 										class="mb-2">
 										<div th:if="${forum.id} == ${forumComment.forums.id}">
-											Replied by: <span class=""
-												style="color: red; font-size: 1rem;"
-												th:text="${forumComment.users.name}"></span> <span
-												class="me-3 small"
-												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
+											<div
+												th:if="${forumComment.users.profile!= null && forumComment.users.profile.profileImg != null}">
+												<img
+													class="avatar avatar-sm rounded-circle float-start me-3"
+													th:src="@{'/private/profile/user-profile/' + ${forumComment.users.profile.profileImg}}"
+													alt="avatar" />
+											</div>
+											<div
+												th:unless="${forumComment.users.profile!= null && forumComment.users.profile.profileImg != null}">
 
-											<p th:text="${forumComment.comment}"></p>
+												<img
+													class="avatar avatar-sm rounded-circle float-start me-3"
+													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													alt="avatar" />
+											</div>
+
+											<span class="" style="color: red; font-size: 1rem;"
+												th:text="${forumComment.users.name}"></span> <br>
+											<span class="me-3 small"
+												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forumComment.createdAt, 'h:mm a')}"></span>
+
+											<p th:text="${forumComment.comment}" class="ms-5"></p>
 										</div>
 									</div>
 									<!-- Button -->
@@ -436,9 +476,6 @@
 						</div>
 
 
-						<div class="card-footer">
-							<h4 class="text-center">No posts Available</h4>
-						</div>
 					</div>
 					<!-- Student review END -->
 				</div>
@@ -458,18 +495,19 @@ Inner part END -->
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
 
-	
+
 
 
 	<!-- Include footer -->
-	<div th:replace="instructor/instructor-footer :: instructor-footer"></div>
+	<div th:replace="instructor/instructor-footer :: instructor-footer"
+		class="footer"></div>
 
-	
+
 
 	<!-- Scripts -->
 	<th:block th:replace="fragments/scripts :: scripts"></th:block>
-	
-												<!-- Modal -->
+
+	<!-- Modal -->
 
 	<!-- 	<div class="modal fade" id="editPostModal" tabindex="-1"
 			aria-labelledby="editPostModalLabel" aria-hidden="true">
@@ -486,7 +524,8 @@ Inner part END -->
 									type="text" class="form-control" id="postTitle" 
 									th:field="*{title}" required>
 							</div>
-	 -->					<!-- 	<div class="mb-3">
+	 -->
+	<!-- 	<div class="mb-3">
 								<label for="postContent" class="form-label">Content</label>
 								<textarea class="form-control" id="postContent" name="content"
 									th:field="*{content}" rows="5" required></textarea>
@@ -505,7 +544,7 @@ Inner part END -->
  -->
 	<!-- end model -->
 
-	
-	
+
+
 </body>
 </html>

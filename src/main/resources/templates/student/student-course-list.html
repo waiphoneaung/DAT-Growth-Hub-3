@@ -89,7 +89,7 @@
 									<td
 										th:text="${#lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}"></td>
 									<td>
-										<!-- Check if total enrolled modules equals completed modules -->
+							<!-- Check if total enrolled modules equals completed modules -->
 										<div
 											th:if="${#lists.size(enrolledCourse.enrolledModules) == #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
 											<!-- Completed course -->
@@ -111,6 +111,7 @@
 											</a>
 										</div>
 									</td>
+
 							</tbody>
 							<!-- Table body END -->
 						</table>
