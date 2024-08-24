@@ -220,8 +220,22 @@ Steps START -->
 
 												<!-- Step 1 button -->
 												<div class="d-flex justify-content-between mt-3">
+													<!-- <a class="btn btn-warning next-btn mb-0"
+														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> -->
+													<div sec:authorize="hasRole('ROLE_ADMIN')">
 													<a class="btn btn-warning next-btn mb-0"
-														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> <a
+														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a>
+													</div>	
+													<div sec:authorize="hasRole('ROLE_STUDENT')">
+													<a class="btn btn-warning next-btn mb-0"
+														th:href="@{|/${map}/student-dashboard|}">Dashboard</a>
+													</div>
+													<div sec:authorize="hasRole('ROLE_INSTRUCTOR')">
+													<a class="btn btn-warning next-btn mb-0"
+														th:href="@{|/${map}/instructor-dashboard|}">Dashboard</a>
+													</div>
+														
+														 <a
 														class="btn btn-primary next-btn mb-0">Next</a>
 
 												</div>
