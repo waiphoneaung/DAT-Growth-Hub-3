@@ -16,7 +16,7 @@
 			<div class="card border bg-transparent rounded-3 mt-4">
 				<!-- Card header START -->
 				<div class="card-header bg-transparent border-bottom">
-					<h3 class="mb-0">Student quiz result</h3>
+					<h3 class="mb-0">Quiz result</h3>
 				</div>
 				<!-- Card header END -->
 
@@ -33,7 +33,6 @@
 							<!-- Table head -->
 							<thead>
 								<tr>
-									<th scope="col" class="border-0 rounded-start">Student name</th>
 									<th scope="col" class="border-0">Assignment name</th>
 									<th scope="col" class="border-0">Average Score</th>
 									<th scope="col" class="border-0">Highest Score</th>
@@ -46,23 +45,6 @@
 							<tbody>
 								<!-- Table item -->
 								<tr th:each="report : ${reports}">
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:if="${report.studentProfileImage != null}" 
-												th:src="@{'/private/profile/user-profile/' + ${report.studentProfileImage}}" class="rounded" alt="">
-												<img th:unless="${report.studentProfileImage != null}" 
-												th:src="@{/public/assets/images/avatar/06.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#" th:text="${report.studentName}"></a></h6>
-											</div>
-										</div>
-									</td>
-
 									<!-- Table data -->
 									<td th:text="${report.assignmentTitle}"></td>
 									<!-- Table data -->

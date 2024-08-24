@@ -385,91 +385,12 @@
 						</table>
 					</div>
 					<!-- Table END -->
-					<!-- Table START -->
-					<div class="table-responsive border-0 mt-5 mb-3">
-						<h2>Course Progress Report</h2>
-						<table
-							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
-							<!-- Table head -->
-							<thead>
-								<tr>
-									<th scope="col" class="border-0 rounded-start">Course
-										Title</th>
-									<th scope="col" class="border-0">Student Name</th>
-									<th scope="col" class="border-0">StaffId</th>
-									<th scope="col" class="border-0">Progress</th>
-									<th scope="col" class="border-0">Enrolled Date</th>
-									<th scope="col" class="border-0">Average Score</th>
-									<th scope="col" class="border-0">Grade</th>
-								</tr>
-							</thead>
-
-							<!-- Table body START -->
-							<tbody>
-
-								<!-- Table row -->
-								<tr th:each="report : ${reports1}">
-									<td>
-										<div class="d-flex align-items-center position-relative">
-											<!-- Image -->
-											<div class="w-100px">
-												<img
-													th:src="@{'/private/course/course-image-file/' + ${report.courseImage}}"
-													class="rounded">
-											</div>
-											<!-- Title -->
-											<h6 class="table-responsive-title mb-0 ms-2">
-												<a
-													th:href="@{/instructor/edit-course-detail(courseId=${report.courseId})}"
-													class="stretched-link" th:text="${report.courseTitle}"></a>
-											</h6>
-										</div>
-									</td>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center mb-3">
-											<!-- Avatar -->
-											<div class="avatar avatar-xs flex-shrink-0">
-
-												<img class="avatar-img rounded-circle"
-													th:if="${report.enrolledUserProfileImage != null}"
-													th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
-													alt="avatar"> <img class="avatar-img rounded-circle"
-													th:unless="${report.enrolledUserProfileImage != null}"
-													th:src="@{'/public/assets/images/avatar/06.jpg'}"
-													alt="avatar">
-
-											</div>
-											<!-- Info -->
-											<div class="ms-2">
-												<h6 class="mb-0 fw-light"
-													th:text="${report.enrolledUserName}"></h6>
-											</div>
-										</div>
-
-									</td>
-									<!-- Table data -->
-									<td th:text="${report.staffId}"></td>
-									<!-- Table data -->
-									<td th:text="${report.progress +'%'}"></td>
-									<!-- Table data -->
-									<td th:text="${#strings.substring(report.enrolledDate,0 , 10)}"></td>
-									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
-									<!-- Table data -->
-									<td th:text="${report.grade}"></td>
-
-								</tr>
-
-							</tbody>
-							<!-- Table body END -->
-						</table>
-					</div>
+					
 					<!-- user activity report -->
 					<!-- Table START -->
 					<div class="table-responsive border-0 mt-5 mb-3">
 						<h2>User Activity Log Report</h2>
-						<table
+						<table 
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
 							<thead>
