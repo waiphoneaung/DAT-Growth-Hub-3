@@ -30,15 +30,13 @@
 									<!-- Search bar -->
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
-										<form class="rounded position-relative">
-											<input class="form-control bg-body" type="search"
-												placeholder="Search" aria-label="Search">
-											<button
-												class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-												type="submit">
-												<i class="fas fa-search fs-6 "></i>
-											</button>
-										</form>
+										<form class="rounded position-relative" th:action="@{/admin-instructor-request}" method="get">
+    <input class="form-control bg-body" type="search" name="search" placeholder="Search" aria-label="Search" />
+    <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
+        <i class="fas fa-search fs-6"></i>
+    </button>
+</form>
+
 									</div>
 								</div>
 								<!-- Search and select END -->
@@ -123,31 +121,7 @@
 						</div>
 						<!-- Card body END -->
 
-						<!-- Card footer START -->
-						<div class="card-footer bg-transparent pt-0">
-							<!-- Pagination START -->
-							<div
-								class="d-sm-flex justify-content-sm-center align-items-sm-center">
-								<!-- Content -->
-								<!-- Pagination -->
-								<nav class="d-flex justify-content-center mb-0"
-									aria-label="navigation">
-									<ul
-										class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-										<li class="page-item mb-0"><a class="page-link" href="#"
-											tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-										<li class="page-item mb-0 active"><a class="page-link"
-											href="#">2</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-										<li class="page-item mb-0"><a class="page-link" href="#"><i
-												class="fas fa-angle-right"></i></a></li>
-									</ul>
-								</nav>
-							</div>
-							<!-- Pagination END -->
-						</div>
-						<!-- Card footer END -->
+						
 					</div>
 					<!-- Main card END -->
 				</div>

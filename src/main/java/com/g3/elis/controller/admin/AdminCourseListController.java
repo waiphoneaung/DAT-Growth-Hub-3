@@ -43,7 +43,7 @@ public class AdminCourseListController {
 	@GetMapping("/admin-course-list")
 	public String adminCourseList(Model model,
 	                              @RequestParam(name = "page", defaultValue = "0") int page,
-	                              @RequestParam(name = "size", defaultValue = "10") int size,
+	                              @RequestParam(name = "size", defaultValue = "5") int size,
 	                              @RequestParam(name = "keyword", required = false) String keyword) {
 
 	    Page<Course> coursePage;
