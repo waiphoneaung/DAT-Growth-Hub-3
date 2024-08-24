@@ -59,7 +59,7 @@ public class AdminStudentListController
 			return "/admin/admin-layout";
 		}
 		inputFileService.WriteEmployeeDataFromExcel(excelFile);
-		return "/admin/admin-layout";
+		return "redirect:/admin/admin-dashboard";
 	}
 	
 	@GetMapping("/admin-student-list/search")

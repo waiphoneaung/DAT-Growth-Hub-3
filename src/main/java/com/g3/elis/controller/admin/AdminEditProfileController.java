@@ -61,5 +61,49 @@ public class AdminEditProfileController {
 		model.addAttribute("content", "admin/admin-edit-profile");
 		return "/admin/admin-layout";
 	}
+	@PostMapping("/admin-edit-profile")
+	public String adminEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
+			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
+			Authentication authentication, BindingResult result, Model model) throws IOException {
 
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+		User user = loginUser.getUser();
+
+		if (profileImage.isEmpty()) {
+
+			result.addError(new FieldError("profileDto", "profileImage", "The image file is required"));
+		}
+		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			model.addAttribute("content", "admin/admin-edit-profile");
+			return "/instructor/instructor-layout";
+		}
+		profileDto.setProfileImg(profileImage);
+		if (profileService.getProfileByUser(user) == null) {
+			profileService.createProfile(user, profileDto);
+		} else {
+			profileService.updateProfile(user, profileDto);
+		}
+		String imageName = profileService.getProfileByUser(user).getProfileImg();
+		model.addAttribute("user", user);
+		model.addAttribute("profileImg", imageName);
+		model.addAttribute("content", "admin/admin-edit-profile");
+		return "redirect:/admin/admin-edit-profile";
+	}
+
+	@PostMapping("/admin-edit-profile/password-change")
+	public String adminPasswordChange(@RequestParam("new-password") String newPassword,
+			@RequestParam("current-password") String currentPassword,
+			@RequestParam("confirm-password") String confirmPassword, Authentication authentication, Model model) {
+		BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+		User user = loginUser.getUser();
+		if (!passEncode.matches(currentPassword, user.getPassword()) || !(newPassword.equals(confirmPassword))) {
+			model.addAttribute("user", user);
+			model.addAttribute("content", "admin/admin-edit-profile");
+			return "/admin/admin-layout";
+		}
+		userService.changePassword(user, newPassword);
+		return "redirect:/sign-out";
+	}
 }

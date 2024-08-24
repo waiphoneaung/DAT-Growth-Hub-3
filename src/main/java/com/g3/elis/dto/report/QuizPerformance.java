@@ -1,6 +1,7 @@
 package com.g3.elis.dto.report;
 
 public class QuizPerformance {
+	private String courseTitle;
 	private String assignmentTitle;
 	private String studentName;
 	private String studentProfileImage;
@@ -11,6 +12,14 @@ public class QuizPerformance {
 
 	public QuizPerformance() {
 
+	}
+
+	public String getCourseTitle() {
+		return courseTitle;
+	}
+
+	public void setCourseTitle(String courseTitle) {
+		this.courseTitle = courseTitle;
 	}
 
 	public String getAssignmentTitle() {

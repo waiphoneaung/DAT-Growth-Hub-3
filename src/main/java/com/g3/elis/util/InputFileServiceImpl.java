@@ -470,7 +470,7 @@ public class InputFileServiceImpl implements InputFileService {
 		String sheetName = "Course Performance Report";
 		createSheetsWithQuizPerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream("report.xlsx")) {
+        try (FileOutputStream fileOut = new FileOutputStream(("Quiz_Performance_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -486,17 +486,11 @@ public class InputFileServiceImpl implements InputFileService {
 		
 	private void createSheetsWithQuizPerformanceData(Workbook workbook,String sheetName,List<QuizPerformance> reportData)
 	{
-//		private String assignmentTitle;
-//		private String studentName;
-//		private String studentProfileImage;
-//		private double averageScore;
-//		private double passRate;
-//		private double highestScore;
-//		private double lowestScore;
+
 		Sheet sheet = workbook.createSheet(sheetName);
         Row headerRow = sheet.createRow(0);
         
-		String[] headers = {"Assignment Title","Average Score","Passed Rate","Average Score","Highest Score","Lowest Score"};
+		String[] headers = {"Student","Course","Assignment Title","Average Score","Passed Rate","Highest Score","Lowest Score"};
 		
 		CellStyle headerStyle = createHeaderCellStyle(workbook);
 		for (int i = 0; i < headers.length; i++) 
@@ -510,10 +504,11 @@ public class InputFileServiceImpl implements InputFileService {
 		{
 			Row row = sheet.createRow(i + 1);
             List<String> dataList = new ArrayList<String>();
+            dataList.add(reportData.get(i).getStudentName());
+            dataList.add(reportData.get(i).getCourseTitle());
             dataList.add(reportData.get(i).getAssignmentTitle());
             dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
             dataList.add(String.valueOf(reportData.get(i).getPassRate()));
-            dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
             dataList.add(String.valueOf(reportData.get(i).getHighestScore()));
             dataList.add(String.valueOf(reportData.get(i).getLowestScore()));
             
