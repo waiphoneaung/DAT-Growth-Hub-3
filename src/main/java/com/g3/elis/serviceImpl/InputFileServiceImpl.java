@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.UserDto;
+import com.g3.elis.dto.report.CoursePerformance;
 import com.g3.elis.model.InputFile;
 import com.g3.elis.repository.InputFileRepository;
 import com.g3.elis.service.InputFileService;
@@ -329,6 +330,19 @@ public class InputFileServiceImpl implements InputFileService {
 		{
 			return "";
 		}
+	}
+
+	@Override
+	public void generateExcelReportFile(List<CoursePerformance> reportData)
+	{
+		Workbook workbook = new XSSFWorkbook();
+		
+		String sheetName = "Course Performance Report";
+		
+	}
+	private void createSheetsWithData(Workbook workbook,String sheetName,List<CoursePerformance> reportData)
+	{
+		
 	}
 }
 

@@ -43,169 +43,42 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Counter boxes END -->
+			<!-- Counter boxes END -->
 
-		<!-- Chart START -->
-		<div class="row mt-5">
-			<div class="col-12">
-				<div class="card card-body bg-transparent border p-4 h-100">
-					<div class="row g-4">
-						<!-- Content -->
-						<div class="col-sm-6 col-md-4">
-							<span class="badge text-bg-dark">Current Month</span>
-							<h4 class="text-primary my-2">350 Students</h4>
-							<p class="mb-0">
-								<span class="text-success me-1">0.20%<i
-									class="bi bi-arrow-up"></i></span>vs last month
-							</p>
+			<!-- Chart START -->
+			<div class="row mt-5">
+				<div class="col-12">
+					<div class="card card-body bg-transparent border p-4 h-100">
+						<div class="row g-4">
+							<!-- Content -->
+							<div class="col-sm-6 col-md-4">
+								<span class="badge text-bg-dark">Current Month</span>
+								<h4 class="text-primary my-2">350 Students</h4>
+								<p class="mb-0">
+									<span class="text-success me-1">0.20%<i
+										class="bi bi-arrow-up"></i></span>vs last month
+								</p>
+							</div>
+							<!-- Content -->
+							<div class="col-sm-6 col-md-4">
+								<span class="badge text-bg-dark">Last Month</span>
+								<h4 class="my-2">250 Students</h4>
+								<p class="mb-0">
+									<span class="text-danger me-1">0.10%<i
+										class="bi bi-arrow-down"></i></span>Then last month
+								</p>
+							</div>
 						</div>
-						<!-- Content -->
-						<div class="col-sm-6 col-md-4">
-							<span class="badge text-bg-dark">Last Month</span>
-							<h4 class="my-2">250 Students</h4>
-							<p class="mb-0">
-								<span class="text-danger me-1">0.10%<i
-									class="bi bi-arrow-down"></i></span>Then last month
-							</p>
-						</div>
-					</div>
 
-					<!-- Apex chart -->
-					<div id="ChartPayout"></div>
-				</div>
+						<!-- Apex chart -->
+						<div id="ChartPayout"></div>
 
-				<!-- Main content END -->
-				<!-- Report Table Row Starts Here-->
-				<div class="container mt-5">
-					<div class="row justify-content-between mb-5">
-						<div class="col-6">
-							<h5>Report</h5>
-						</div>
-						<div class="col-6">
-							<select class="form-control" id="reportSelect">
-								<option value="">Select Report</option>
-								<optgroup label="User Activity Report">
-									<option value="active-daily">Active Users (Daily)</option>
-									<option value="active-weekly">Active Users (Weekly)</option>
-									<option value="active-monthly">Active Users (Monthly)</option>
-								</optgroup>
-								<option value="course-performance">Course Performance
-									Report</option>
-								<option value="enrollment-numbers">Enrollment Numbers
-									per Course</option>
-								<option value="popular-courses">Popular Courses</option>
-								<option value="assessment-analytics">Assessment
-									Analytics Report</option>
-							</select>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<table class="table table-striped table-bordered"
-								id="reportTable">
-								<thead class="thead-dark">
-									<tr id="tableHeader">
-										<th>Header 1</th>
-										<th>Header 2</th>
-										<th>Header 3</th>
-									</tr>
-								</thead>
-								<tbody id="tableBody">
-									<!-- Data will be inserted here by JavaScript -->
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="row justify-content-end">
-						<div class="col-4">
-							<button>Export Data.</button>
-						</div>
 					</div>
 				</div>
-				<!-- Chart END -->
-				<!-- Table START -->
-				<div class="table-responsive border-0 mt-5 mb-3">
-					<h2>Course Progress Report</h2>
-					<table
-						class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
-						<!-- Table head -->
-						<thead>
-							<tr>
-								<th scope="col" class="border-0 rounded-start">Course Title</th>
-								<th scope="col" class="border-0">Student Name</th>
-								<th scope="col" class="border-0">Student staffId</th>
-								<th scope="col" class="border-0">Progress</th>
-								<th scope="col" class="border-0">Enrolled Date</th>
-								<th scope="col" class="border-0">Average Score</th>
-								<th scope="col" class="border-0">Grade</th>
-							</tr>
-						</thead>
-
-						<!-- Table body START -->
-						<tbody>
-
-							<!-- Table row -->
-							<tr th:each="report : ${reports}">
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-100px">
-											<img
-												th:src="@{'/private/course/course-image-file/' + ${report.courseImage}}"
-												class="rounded">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">
-											<a
-												th:href="@{/instructor/edit-course-detail(courseId=${report.courseId})}"
-												class="stretched-link" th:text="${report.courseTitle}"></a>
-										</h6>
-									</div>
-								</td>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-
-											<img class="avatar-img rounded-circle"
-												th:if="${report.enrolledUserProfileImage != null}"
-												th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
-												alt="avatar"> <img class="avatar-img rounded-circle"
-												th:unless="${report.enrolledUserProfileImage != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
-												alt="avatar">
-
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light"
-												th:text="${report.enrolledUserName}"></h6>
-										</div>
-									</div>
-
-								</td>
-								<!-- Table data -->
-								<td th:text="${report.staffId}"></td>
-								<!-- Table data -->
-								<td th:text="${report.progress +'%'}"></td>
-								<!-- Table data -->
-								<td th:text="${#strings.substring(report.enrolledDate, 0, 10)}"></td>
-								<!-- Table data -->
-								<td th:text="${report.averageScore}"></td>
-								<!-- Table data -->
-								<td th:text="${report.grade}"></td>
-
-							</tr>
-
-						</tbody>
-						<!-- Table body END -->
-					</table>
-				</div>
-				<!-- Table END -->
-
 			</div>
+			<!-- Chart END -->
+			
+
 		</div>
 		<!-- Main content END -->
 

@@ -274,6 +274,15 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
+	public List<Course> findCoursesByCategory(int categoryId) {
+		
+		    return courseRepository.findByCourseCategoriesId(categoryId);
+		
+	}
+	
+	 
+
 	public List<Course> getAllPendingCourse() {
 		List<Course> courses = courseRepository.findAll();
 		List<Course> returnCourseList = new ArrayList<>();
@@ -284,6 +293,5 @@ public class CourseServiceImpl implements CourseService {
 		}	
 		return returnCourseList;
 	} 
+
 }
-
-
