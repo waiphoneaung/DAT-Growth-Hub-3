@@ -4,6 +4,31 @@
 <head>
 <meta charset="UTF-8">
 <title>DAT - Growth Hub</title>
+<style>
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    /* Header styling */
+    padding: 20px;
+}
+
+main {
+    flex: 1; /* This makes the main content area grow to fill available space */
+    padding: 20px;
+}
+
+.footer {
+    padding: 10px 20px;
+}
+</style>
+
 <!-- Stylesheets -->
 <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
 
@@ -393,13 +418,29 @@
 									<div th:each="forumComment : ${forum.forumComments}"
 										class="mb-2">
 										<div th:if="${forum.id} == ${forumComment.forums.id}">
-											Replied by: <span class=""
+											<div
+												th:if="${forumComment.users.profile!= null && forumComment.users.profile.profileImg != null}">
+												<img
+													class="avatar avatar-sm rounded-circle float-start me-3"
+													th:src="@{'/private/profile/user-profile/' + ${forumComment.users.profile.profileImg}}"
+													alt="avatar" />
+											</div>
+											<div
+												th:unless="${forumComment.users.profile!= null && forumComment.users.profile.profileImg != null}">
+
+												<img
+													class="avatar avatar-sm rounded-circle float-start me-3"
+													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													alt="avatar" />
+											</div>
+											
+											<span class=""
 												style="color: red; font-size: 1rem;"
-												th:text="${forumComment.users.name}"></span> <span
+												th:text="${forumComment.users.name}"></span> <br><span
 												class="me-3 small"
 												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
 
-											<p th:text="${forumComment.comment}"></p>
+											<p th:text="${forumComment.comment}" class="ms-5"></p>
 										</div>
 									</div>
 									<!-- Button -->
@@ -462,7 +503,7 @@ Inner part END -->
 
 
 	<!-- Include footer -->
-	<div th:replace="instructor/instructor-footer :: instructor-footer"></div>
+	<div th:replace="instructor/instructor-footer :: instructor-footer" class="footer"></div>
 
 	
 

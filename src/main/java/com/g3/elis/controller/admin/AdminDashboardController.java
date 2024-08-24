@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.dto.report.CoursePerformance;
 import com.g3.elis.dto.report.CourseProgress;
@@ -41,7 +42,7 @@ public class AdminDashboardController
 	private UserLogService userLogService;
 	
 	@GetMapping("/admin-dashboard")
-	public String home(Authentication authentication,Model model) 
+	public String home(@RequestParam(required = false, defaultValue = "all") String timeRange,Authentication authentication,Model model) 
 	{
 		int completeCourses = 0;
 		int courseInProgress = 0;
@@ -52,7 +53,22 @@ public class AdminDashboardController
 		}
 			
 		List<CoursePerformance> reports = reportService.generateCoursePerformanceReport();
-		List<UserLog> logs = userLogService.getUserLogs();
+		List<UserLog> logs ;
+//		= userLogService.getUserLogs();
+		
+		switch(timeRange) {
+		case "week" :
+			logs = userLogService.findLogsInLastWeek();
+			break;
+		case "month" :
+			logs = userLogService.findLogsInLastMonth();
+			break;
+		case "year" :
+			logs = userLogService.findLogsInLastYear();
+			break;
+			default:
+				logs = userLogService.getUserLogs();
+		}
 
 //		List<CourseProgress> reports1 = reportService.generateCourseProgressReport(userDetail.getUser().getId()); 
 		model.addAttribute("reports",reports);
@@ -62,6 +78,7 @@ public class AdminDashboardController
 		model.addAttribute("courseInProgress",courseInProgress);
 		model.addAttribute("content", "admin/admin-dashboard");
     	model.addAttribute("logs", logs);
+    	model.addAttribute("timeRange", timeRange);// To keep the selected option in the dropdown
 
 		return "/admin/admin-layout";
 	}
