@@ -16,7 +16,7 @@
 			<div class="card border bg-transparent rounded-3 mt-4">
 				<!-- Card header START -->
 				<div class="card-header bg-transparent border-bottom">
-					<h3 class="mb-0">Student quiz result</h3>
+					<h3 class="mb-0">Quiz result</h3>
 				</div>
 				<!-- Card header END -->
 
@@ -33,42 +33,28 @@
 							<!-- Table head -->
 							<thead>
 								<tr>
-									<th scope="col" class="border-0 rounded-start">Student name</th>
-									<th scope="col" class="border-0">Course name</th>
-									<th scope="col" class="border-0">Date</th>
-									<th scope="col" class="border-0">Scores</th>
+									<th scope="col" class="border-0">Assignment name</th>
+									<th scope="col" class="border-0">Average Score</th>
+									<th scope="col" class="border-0">Highest Score</th>
+									<th scope="col" class="border-0">Lowest Score</th>
+									<th scope="col" class="border-0">Pass Rate</th>
 								</tr>
 							</thead>
 
 							<!-- Table body START -->
 							<tbody>
 								<!-- Table item -->
-								<tr>
+								<tr th:each="report : ${reports}">
 									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/01.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Lori Stevens</a></h6>
-											</div>
-										</div>
-									</td>
-
+									<td th:text="${report.assignmentTitle}"></td>
 									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
+									<td th:text="${report.averageScore}"></td>
 									<!-- Table data -->
-									<td>7/1/2023</td>
-
+									<td th:text="${report.highestScore + '%'}"></td>
 									<!-- Table data -->
-									<td>450/500</td>
+									<td th:text="${report.lowestScore + '%'}"></td>
+									<!-- Table data -->
+									<td th:text="${report.passRate + '%'}"></td>
 
 								</tr>
 								

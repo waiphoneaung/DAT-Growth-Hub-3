@@ -1,5 +1,6 @@
 package com.g3.elis.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Repository;
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
+import com.g3.elis.model.UserLog;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
 
 	User findByEmail(String email);
-	User findById(Long userId);
+	//User findById(int userId);
 	
 	public Optional<User> findByStaffId(String staffId);
 	
@@ -57,5 +59,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	long count(String role);
 
 	
+	User findByName(String username);
+
 	
 }
