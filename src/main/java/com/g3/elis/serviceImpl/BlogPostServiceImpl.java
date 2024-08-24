@@ -337,6 +337,14 @@ public class BlogPostServiceImpl implements BlogPostService {
         }
     }
 
+	@Override
+	public Page<BlogPost> searchBlogPostsByKeyword(String keyword, Pageable pageable) {
+		
+		    return blogPostRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+		
+
+	}
+
 	
 		
 }

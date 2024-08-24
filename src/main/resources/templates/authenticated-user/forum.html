@@ -402,7 +402,7 @@ main {
 											<span class="" style="color: red; font-size: 1rem;"
 												th:text="${forumComment.users.name}"></span> <br><span
 												class="me-3 small"
-												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forum.createdAt, 'h:mm a')}"></span>
+												th:text="${#dates.format(forumComment.createdAt, 'dd MMMM yyyy') + ' at ' + #dates.format(forumComment.createdAt, 'h:mm a')}"></span>
 
 											<p th:text="${forumComment.comment}" class="ms-5"></p>
 										</div>

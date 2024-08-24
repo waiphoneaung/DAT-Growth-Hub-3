@@ -40,6 +40,8 @@
 					<div class="table-responsive border-0 mt-5 mb-3">
 						<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
 						<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
+						<a th:href="@{/admin/admin-report/generate-course-progress-report(courseId=${courseId})}"
+									class="btn btn-info">Export Data</a>
 						<table
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
