@@ -33,7 +33,7 @@ public class AdminStudentListController
 	@GetMapping("/admin-student-list")
     public String adminStudentList(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "size", defaultValue = "9") int size,
             Model model)
     {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
