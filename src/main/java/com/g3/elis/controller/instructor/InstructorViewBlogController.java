@@ -102,7 +102,7 @@ public class InstructorViewBlogController {
             String htmlContent = Files.readString(htmlFilePath);
             model.addAttribute("htmlContent", htmlContent);
             model.addAttribute("blogPost", blogPost);
-            return "/authenticated-user/blog-detail";
+            return "/user/blog-detail";
         }
 
         return "redirect:/admin/admin-view-blog";

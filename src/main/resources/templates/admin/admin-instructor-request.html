@@ -30,12 +30,16 @@
 									<!-- Search bar -->
 									<div class="col-md-8"></div>
 									<div class="col-md-4">
-										<form class="rounded position-relative" th:action="@{/admin-instructor-request}" method="get">
-    <input class="form-control bg-body" type="search" name="search" placeholder="Search" aria-label="Search" />
-    <button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
-        <i class="fas fa-search fs-6"></i>
-    </button>
-</form>
+										<form class="rounded position-relative"
+											th:action="@{/admin-instructor-request}" method="get">
+											<input class="form-control bg-body" type="search"
+												name="search" placeholder="Search" aria-label="Search" />
+											<button
+												class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+												type="submit">
+												<i class="fas fa-search fs-6"></i>
+											</button>
+										</form>
 
 									</div>
 								</div>
@@ -121,7 +125,7 @@
 						</div>
 						<!-- Card body END -->
 
-						
+
 					</div>
 					<!-- Main card END -->
 				</div>
@@ -131,63 +135,6 @@
 			<!-- Page content END -->
 	</main>
 	<!-- **************** MAIN CONTENT END **************** -->
-
-	<!-- Modal START -->
-	<div class="modal fade" id="appDetail" tabindex="-1"
-		aria-labelledby="appDetaillabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content">
-
-				<!-- Modal header -->
-				<div class="modal-header bg-dark">
-					<h5 class="modal-title text-white" id="appDetaillabel">Applicant
-						details</h5>
-					<button type="button" class="btn btn-sm btn-light mb-0 ms-auto"
-						data-bs-dismiss="modal" aria-label="Close">
-						<i class="bi bi-x-lg"></i>
-					</button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body p-5">
-					<!-- Name -->
-					<span class="small">Applicant Name:</span>
-					<h6 class="mb-3">Jacqueline Miller</h6>
-
-					<!-- Email -->
-					<span class="small">Applicant Email id:</span>
-					<h6 class="mb-3">dathr@diracetechnology.com</h6>
-
-					<!-- Phone number -->
-					<span class="small">Applicant Phone number:</span>
-					<h6 class="mb-3">+123 456 789 10</h6>
-
-					<!-- Summary -->
-					<span class="small">Summary:</span>
-					<p class="text-dark mb-2">We focus a great deal on the
-						understanding of behavioral psychology and influence triggers
-						which are crucial for becoming a well rounded Digital Marketer. We
-						understand that theory is important to build a solid foundation,
-						we understand that theory alone isn’t going to get the job done so
-						that’s why this course is packed with practical hands-on examples
-						that you can follow step by step.</p>
-					<p class="text-dark mb-0">As it so contrasted oh estimating
-						instrument. Size like body someone had. Are conduct viewing boy
-						minutes warrant the expense? Tolerably behavior may admit
-						daughters offending her ask own. Praise effect wishes change way
-						and any wanted. Lively use looked latter regard had. Do he it part
-						more last in.</p>
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger-soft my-0"
-						data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal END -->
 	</th:block>
 </body>
 
