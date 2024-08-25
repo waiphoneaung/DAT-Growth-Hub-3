@@ -57,30 +57,32 @@
 							<!-- Table body START -->
 							<tbody>
 								<!-- Table item -->
-								<tr th:each="enrolledCourse : ${EnrolledCourses}">
+								<tr th:each="enrolledCourse : ${enrolledCourses}">
 									<!-- Table data -->
 									<td>
 										<div class="d-flex align-items-center position-relative">
 											<!-- Image -->
 											<div class="avatar avatar-md mb-2 mb-md-0">
 												<img class="avatar-img rounded-circle"
-												th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
-												th:src="@{'/private/profile/user-profile/' + ${enrolledCourse.users.profile.profileImg}}"
-												alt="avatar"> <img
-												class="avatar-img rounded-circle"
-												th:unless="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
-												alt="avatar">
+													th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
+													th:src="@{'/private/profile/user-profile/' + ${enrolledCourse.users.profile.profileImg}}"
+													alt="avatar"> <img class="avatar-img rounded-circle"
+													th:unless="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
+													th:src="@{/public/assets/images/avatar/06.jpg}"
+													alt="avatar">
 											</div>
 											<div class="mb-0 ms-2">
 												<!-- Title -->
 												<h6 class="mb-0">
-													<a href="#" class="stretched-link" th:text="${enrolledCourse.users.name}"></a>
+													<a href="#" class="stretched-link"
+														th:text="${enrolledCourse.users.name}"></a>
 												</h6>
 												<!-- Address -->
-												<span th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.address != null}" class="text-body small">
-													<i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>
-													<span th:text="${enrolledCourse.users.profile.address}"></span>	
+												<span
+													th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.address != null}"
+													class="text-body small"> <i
+													class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i> <span
+													th:text="${enrolledCourse.users.profile.address}"></span>
 												</span>
 											</div>
 										</div>
@@ -89,28 +91,29 @@
 									<!-- Table data -->
 									<td class="text-center text-sm-start">
 										<div class=" overflow-hidden">
-											<h6 class="mb-0">85%</h6>
+											<h6 class="mb-0" th:text="${enrolledCourse.calculateProgress + '%'}"></h6>
 											<div class="progress progress-sm bg-primary bg-opacity-10">
 												<div class="progress-bar bg-primary aos" role="progressbar"
 													data-aos="slide-right" data-aos-delay="200"
 													data-aos-duration="1000" data-aos-easing="ease-in-out"
-													style="width: 85%" aria-valuenow="85" aria-valuemin="0"
+													th:style="${'width:'+ enrolledCourse.calculateProgress +'%'}" aria-valuenow="85" aria-valuemin="0"
 													aria-valuemax="100"></div>
 											</div>
 										</div>
 									</td>
+									
 
 									<!-- Table data -->
 									<td th:text="${enrolledCourse.courses.courseTitle}"></td>
 
 									<!-- Table data -->
-									<td>4/1/2023</td>
+									<td th:text="${#strings.substring(enrolledCourse.enrolledAt,0,10)}"></td>
 
 									<!-- Table data -->
 
 								</tr>
 
-								
+
 							</tbody>
 							<!-- Table body END -->
 						</table>

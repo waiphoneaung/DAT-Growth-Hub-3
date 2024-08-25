@@ -49,7 +49,7 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Profile profile;
 
-	@OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<EnrolledCourse> enrolledCourses = new ArrayList<>();
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)

@@ -138,24 +138,25 @@ public class ReportServiceImpl implements ReportService {
 					int totalScore = 0;
 					int highestScoreCount = 0;
 					int lowestScoreCount = 0;
+					int timesTaken = 0;
 					for(Grade grade : enrolledAssignment.getGrades())
 					{
 						totalScore+=grade.getScore();
 						if(grade.getScore() >=80) highestScoreCount++;
 						if(grade.getScore() <=79) lowestScoreCount++;
+						if(grade.getUser().getId() == enrolledCourse.getUsers().getId()) timesTaken++;
 						
-						quizPerformance.setAssignmentTitle(enrolledAssignment.getCourseAssignment().getTitle());
 					}
 					if(enrolledAssignment.isCompleteStatus() == true) assignmentCompleteCount++;
 					
+					quizPerformance.setTimesTakenQuiz(timesTaken);
+					quizPerformance.setAssignmentTitle(enrolledAssignment.getCourseAssignment().getTitle());
 					quizPerformance.setAverageScore(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()));
 					quizPerformance.setHighestScore(( (double) highestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
 					quizPerformance.setHighestScore(( (double) lowestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
 					quizPerformance.setPassRate(((double) assignmentCompleteCount)/ ((double)enrolledModle.getEnrolledAssignment().size()) * 100);
-					
-					//This is where the name value won't store in quizPerformance despite the user name value appearing in system.out.print 
 					quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
-					System.out.println(enrolledCourse.getUsers().getName());
+					quizPerformance.setStudent(enrolledCourse.getUsers());
 					quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
 					quizPerformance.setCourseTitle(enrolledCourse.getCourses().getCourseTitle());
 					report.add(quizPerformance);			

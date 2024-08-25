@@ -36,7 +36,8 @@
 								<tr>
 									<th scope="col" class="border-0">Student</th>
 									<th scope="col" class="border-0">Course</th>
-									<th scope="col" class="border-0">Assignment name</th>
+									<th scope="col" class="border-0">Assignment</th>
+									<th scope="col" class="border-0">Times taken</th>
 									<th scope="col" class="border-0">Average Score</th>
 									<th scope="col" class="border-0">Highest Score</th>
 									<th scope="col" class="border-0">Lowest Score</th>
@@ -49,11 +50,13 @@
 								<!-- Table item -->
 								<tr th:each="report : ${reports}">
 									<!-- Table data -->
-									<td th:text="${report.getStudentName}"></td>
+									<td th:text="${report.student.name}"></td>
 									<!-- Table data -->
 									<td th:text="${report.courseTitle}"></td>
 									<!-- Table data -->
 									<td th:text="${report.assignmentTitle}"></td>
+									<!-- Table data -->
+									<td th:text="${report.timesTakenQuiz}"></td>
 									<!-- Table data -->
 									<td th:text="${report.averageScore}"></td>
 									<!-- Table data -->

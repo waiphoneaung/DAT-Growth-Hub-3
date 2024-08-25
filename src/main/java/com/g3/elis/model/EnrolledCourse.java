@@ -28,7 +28,7 @@ public class EnrolledCourse {
 	private boolean completeStatus;
 	private double progress;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User users;
 
@@ -130,5 +130,21 @@ public class EnrolledCourse {
 		this.courses = courses;
 		this.reports = reports;
 		this.enrolledModules = enrolledModules;
+	}
+	public int enrolledMoudlesCompleteCount()
+	{
+		int count = 0;
+		for(EnrolledModule enrolledModule : this.enrolledModules)
+		{
+			if(enrolledModule.isCompleteStatus() == true) count++;
+		}
+		
+		return count;
+	}
+	
+	public double calculateProgress()
+	{
+		double index = (double)((double)(enrolledMoudlesCompleteCount()) / ((double)(enrolledModules.size()))) * 100;
+		return index;
 	}
 }

@@ -467,7 +467,7 @@ public class InputFileServiceImpl implements InputFileService {
 	public void generateQuizPerformanceExcelReportFile(List<QuizPerformance> reportData) {
 		Workbook workbook = new XSSFWorkbook();
 		
-		String sheetName = "Course Performance Report";
+		String sheetName = "Quiz Performance Report";
 		createSheetsWithQuizPerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
         try (FileOutputStream fileOut = new FileOutputStream(("Quiz_Performance_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
@@ -490,7 +490,7 @@ public class InputFileServiceImpl implements InputFileService {
 		Sheet sheet = workbook.createSheet(sheetName);
         Row headerRow = sheet.createRow(0);
         
-		String[] headers = {"Student","Course","Assignment Title","Average Score","Passed Rate","Highest Score","Lowest Score"};
+		String[] headers = {"Student","Course","Assignment Title","Times Taken","Average Score","Passed Rate","Highest Score","Lowest Score"};
 		
 		CellStyle headerStyle = createHeaderCellStyle(workbook);
 		for (int i = 0; i < headers.length; i++) 
@@ -507,6 +507,7 @@ public class InputFileServiceImpl implements InputFileService {
             dataList.add(reportData.get(i).getStudentName());
             dataList.add(reportData.get(i).getCourseTitle());
             dataList.add(reportData.get(i).getAssignmentTitle());
+            dataList.add(String.valueOf(reportData.get(i).getTimesTakenQuiz()));
             dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
             dataList.add(String.valueOf(reportData.get(i).getPassRate()));
             dataList.add(String.valueOf(reportData.get(i).getHighestScore()));

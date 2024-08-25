@@ -23,7 +23,7 @@ public class InstructorStudentListController
 	{
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();
-		model.addAttribute("enrolledCourses",enrolledCourseService.getAllEnrolledCourseByUserId(user.getId()));
+		model.addAttribute("enrolledCourses",enrolledCourseService.getAllEnrolledCourseByInstructorId(user.getId()));
 		model.addAttribute("currentPage", "instructor-studentlist");
 		model.addAttribute("content", "instructor/instructor-studentlist");
 		return "instructor/instructor-layout";
