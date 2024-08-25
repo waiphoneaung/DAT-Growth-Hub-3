@@ -1,3 +1,4 @@
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -72,6 +73,7 @@
 					<!-- Main navbar END -->
 
 					<!-- Profile START -->
+<<<<<<< HEAD
 					<div class="dropdown ms-1 ms-lg-0">
 						<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 							role="button" data-bs-auto-close="outside"
@@ -99,25 +101,59 @@
 											th:unless="${user.profile != null && user.profile.profileImg != null}"
 											th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 											alt="avatar">
+=======
+						<div class="dropdown ms-1 ms-lg-0">
+							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+								role="button" data-bs-auto-close="outside"
+								data-bs-display="static" data-bs-toggle="dropdown"
+								aria-expanded="false"> <img
+								class="avatar-img rounded-circle"
+								th:if="${user.profile != null && user.profile.profileImg != null}"
+								th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+								alt="avatar"> <img class="avatar-img rounded-circle"
+								th:unless="${user.profile != null && user.profile.profileImg != null}"
+								th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							</a>
+							<ul
+								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+								aria-labelledby="profileDropdown">
+								<!-- Profile info -->
+								<li class="px-3 mb-3">
+									<div class="d-flex align-items-center">
+										<!-- Avatar -->
+										<div class="avatar me-3">
+											<img class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												alt="avatar">
+										</div>
+										<div>
+											<a class="h6" th:href="@{/student/student-dashboard}"
+												th:text="${user.name}"></a>
+											<p class="small m-0" th:text="${user.email}"></p>
+										</div>
+>>>>>>> 60d2b0260a2db251eebe2208f34b4874228d6b62
 									</div>
-									<div>
-										<a class="h6" th:href="@{/student/student-dashboard}"
-											th:text="${user.name}">Student</a>
-										<p class="small m-0" th:text="${user.email}">
-											dathr@diracetechnology.com</p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
+
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+							
 							<!-- Links -->
 							<li><a class="dropdown-item"
-								th:href="@{/student/student-edit-profile}"><i
-									class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-							<li><a class="dropdown-item bg-danger-soft-hover"
-								th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
-									Out</a></li>
+											th:href="@{/student/student-dashboard}"><i
+												class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+										<li><a class="dropdown-item"
+											th:href="@{/student/student-edit-profile}"><i
+												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+										<li><a class="dropdown-item bg-danger-soft-hover"
+											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+												Out</a></li>
 							<li>
 								<hr class="dropdown-divider">
 							</li>
@@ -473,4 +509,3 @@ Blogsletter END -->
 	</th:block>
 </body>
 </html>
-

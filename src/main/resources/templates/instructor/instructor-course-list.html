@@ -131,16 +131,8 @@
 										<div th:if="${course.status == 'Activated'}">
 											<a
 												th:href="@{/instructor/edit-course-detail(courseId=${course.id})}"
-												class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit </a> 
-											<a
-												th:href="@{/instructor/instructor-report(courseId=${course.id})}"
-												class="btn btn-sm btn-info me-1 mb-1 mb-md-0">View Analytics </a> 
-											<span th:if="${course.isCourseAssignmentPresent == false}">
-												<a
-												th:href="@{/instructor/edit-course-detail(courseId=${course.id})}"
-												class="btn btn-sm btn-primary me-1 mb-1 mb-md-0">Add
-													Assignment To Enroll</a>
-											</span>
+												class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit
+											</a>
 										</div>
 									</td>
 								</tr>

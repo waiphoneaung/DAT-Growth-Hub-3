@@ -1,3 +1,4 @@
+
 package com.g3.elis.controller.admin;
 
 import java.io.IOException;
@@ -61,11 +62,11 @@ public class AdminEditProfileController {
 		model.addAttribute("content", "admin/admin-edit-profile");
 		return "/admin/admin-layout";
 	}
+
 	@PostMapping("/admin-edit-profile")
 	public String adminEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
 			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
 			Authentication authentication, BindingResult result, Model model) throws IOException {
-
 		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
 		User user = loginUser.getUser();
 
@@ -76,7 +77,7 @@ public class AdminEditProfileController {
 		if (result.hasErrors()) {
 			model.addAttribute("user", user);
 			model.addAttribute("content", "admin/admin-edit-profile");
-			return "/instructor/instructor-layout";
+			return "/admin/admin-layout";
 		}
 		profileDto.setProfileImg(profileImage);
 		if (profileService.getProfileByUser(user) == null) {
