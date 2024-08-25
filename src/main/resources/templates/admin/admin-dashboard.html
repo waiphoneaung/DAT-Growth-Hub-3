@@ -386,7 +386,7 @@
 									<td
 										th:text="${#numbers.formatDecimal(report.completionRate,1 ,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
+									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 								</tr>
 
 							</tbody>

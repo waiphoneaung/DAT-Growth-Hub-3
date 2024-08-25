@@ -64,7 +64,7 @@ public class EditCourseDetailController {
 	private AnswerService answerService;
 	
 	@ModelAttribute("superDto")
-    public QuestionCreationSuperDto populateSuperDto() {
+    public QuestionCreationSuperDto populatesuperDto() {
 		QuestionCreationSuperDto superDto = new QuestionCreationSuperDto();
 		superDto.setQuestionDto(new QuestionDto());
 		superDto.setAnswerDtoList(new ArrayList<AnswerDto>());;
@@ -310,13 +310,13 @@ public class EditCourseDetailController {
 	}
 	
 	@PostMapping("/edit-course-detail/edit-assignment/add-question")
-	public String submitAddQuestion(@ModelAttribute("questionDto") QuestionDto questionDto,
+	public String submitAddQuestion(@ModelAttribute("superDto") QuestionDto superDto,
 									@RequestParam(name = "courseModuleId") int courseModuleId, 
 									@RequestParam(name = "courseId") int courseId,
 									@RequestParam(name = "courseAssignmentId") int courseAssignmentId,
 									Model model) 
 	{
-		questionService.createQuestion(questionDto, courseAssignmentId);
+		questionService.createQuestion(superDto, courseAssignmentId);
 		model.addAttribute("map",determineMapping());
 		return "redirect:/"+ determineMapping() +"/edit-course-detail/edit-assignment?courseId=" + courseId + "&courseModuleId="
 				+ courseModuleId + "&courseAssignmentId=" + courseAssignmentId;
@@ -388,8 +388,8 @@ public class EditCourseDetailController {
 			   					 Model model)
 	{
 		AnswerDto answerDto = new AnswerDto();
+		superDto.getAnswerDtoList().clear();
 		for(int i = 0; i< answerCount;i++) superDto.getAnswerDtoList().add(answerDto);
-
 		model.addAttribute("action", action);
 		model.addAttribute("superDto", superDto);
 		model.addAttribute("course", courseService.getCourseById(courseId));
@@ -501,15 +501,6 @@ public class EditCourseDetailController {
 		return "redirect:/"+ determineMapping() +"/edit-course-detail/edit-assignment?courseId=" + courseId + "&courseModuleId="
 		+ courseModuleId + "&courseAssignmentId=" + courseAssignmentId;
 	}
-	
-//	private String determineMapping()
-//	{		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
-//		if(userDetail.isAdmin())
-//		{
-//		return "admin";
-//	}		return "instructor";
-//}
 	
 	private String determineMapping() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

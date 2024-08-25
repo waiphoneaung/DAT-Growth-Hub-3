@@ -64,14 +64,6 @@
 											<!-- Image -->
 											<div class="avatar avatar-md mb-2 mb-md-0">
 												<img class="avatar-img rounded-circle"
-<<<<<<< HEAD
-													th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
-													th:src="@{'/private/profile/user-profile/' + ${enrolledCourse.users.profile.profileImg}}"
-													alt="avatar"> <img class="avatar-img rounded-circle"
-													th:unless="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
-													th:src="@{/public/assets/images/avatar/06.jpg}"
-													alt="avatar">
-=======
 												th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
 												th:src="@{'/private/profile/user-profile/' + ${enrolledCourse.users.profile.profileImg}}"
 												alt="avatar"> <img
@@ -79,7 +71,6 @@
 												th:unless="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
 												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 												alt="avatar">
->>>>>>> fa411b36b334901b304195d402c769970b35eb61
 											</div>
 											<div class="mb-0 ms-2">
 												<!-- Title -->

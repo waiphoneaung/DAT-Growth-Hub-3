@@ -72,7 +72,7 @@
 													th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
 													alt="avatar"> <img class="avatar-img rounded-circle"
 													th:unless="${report.enrolledUserProfileImage != null}"
-													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 													alt="avatar">
 
 											</div>
@@ -87,11 +87,11 @@
 									<!-- Table data -->
 									<td th:text="${report.staffId}"></td>
 									<!-- Table data -->
-									<td th:text="${report.progress +'%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.progress,1,2) +'%'}"></td>
 									<!-- Table data -->
 									<td th:text="${#strings.substring(report.enrolledDate,0 , 10)}"></td>
 									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
+									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
 									<td th:text="${report.grade}"></td>
 

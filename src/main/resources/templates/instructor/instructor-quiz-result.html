@@ -42,6 +42,7 @@
 									<th scope="col" class="border-0">Highest Score</th>
 									<th scope="col" class="border-0">Lowest Score</th>
 									<th scope="col" class="border-0">Pass Rate</th>
+									<th scope="col" class="border-0">Grade</th>
 								</tr>
 							</thead>
 
@@ -58,211 +59,18 @@
 									<!-- Table data -->
 									<td th:text="${report.timesTakenQuiz}"></td>
 									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
+									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
-									<td th:text="${report.highestScore + '%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.highestScore,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${report.lowestScore + '%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.lowestScore,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${report.passRate + '%'}"></td>
-
-<<<<<<< HEAD
-=======
+									<td th:text="${#numbers.formatDecimal(report.passRate,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>7/1/2023</td>
-
-									<!-- Table data -->
-									<td>450/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
+									<td th:text="${report.grade}"></td>
+									
 								</tr>
 
-								<!-- Table item -->
-								<tr>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/03.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
-											</div>
-										</div>
-									</td>
-
-									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>6/1/2023</td>
-
-									<!-- Table data -->
-									<td>425/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
-								</tr>
-
-								<!-- Table item -->
-								<tr>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/04.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Billy Vasquez</a></h6>
-											</div>
-										</div>
-									</td>
-
-									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>5/1/2023</td>
-
-									<!-- Table data -->
-									<td>385/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
-								</tr>
-
-								<!-- Table item -->
-								<tr>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/09.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
-											</div>
-										</div>
-									</td>
-
-									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>5/1/2023</td>
-
-									<!-- Table data -->
-									<td>398/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
-								</tr>
-
-								<!-- Table item -->
-								<tr>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/07.jpg}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
-											</div>
-										</div>
-									</td>
-
-									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>4/1/2023</td>
-
-									<!-- Table data -->
-									<td>428/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
-								</tr>
-
-								<!-- Table item -->
-								<tr>
-									<!-- Table data -->
-									<td>
-										<div class="d-flex align-items-center">
-											<!-- Image -->
-											<div class="avatar avatar-sm me-2">
-												<img th:src="@{/public/assets/images/avatar/GUEST.png}" class="rounded" alt="">
-											</div>
-											<div>
-												<!-- Title -->
-												<h6 class="mb-0"><a href="#">Frances Guerrero</a></h6>
-											</div>
-										</div>
-									</td>
-
-									<!-- Table data -->
-									<td>
-										<h6 class="table-responsive-title mt-2 mt-md-0 mb-0"><a href="#">The complete
-												Digital Marketing Courses - 12 Course in 1</a></h6>
-									</td>
-
-									<!-- Table data -->
-									<td>4/1/2023</td>
-
-									<!-- Table data -->
-									<td>486/500</td>
-
-									<!-- Table data -->
-									<td>
-										<a href="#" class="btn btn-success-soft btn-round mb-0" data-bs-toggle="tooltip"
-											data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-									</td>
->>>>>>> fa411b36b334901b304195d402c769970b35eb61
-								</tr>
-								
 							</tbody>
 							<!-- Table body END -->
 						</table>

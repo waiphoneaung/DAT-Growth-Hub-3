@@ -101,38 +101,7 @@ public class StudentController {
 	    return "/student/student-layout";
 	}
 
-	// Continue course
-    @GetMapping("/student-course-resume/{courseId}")
-    public String continueCourse(@PathVariable("courseId") int courseId, Authentication authentication, Model model) {
-        // Your logic for continuing the course, if any specific is needed
-        return "redirect:/student/student-course-resume";
-    }
-
-    // Restart course
-    @GetMapping("/student-course-restart/{courseId}")
-    public String restartCourse(@PathVariable("courseId") int courseId, Authentication authentication,Model model) {
-        // Fetch the course
-        EnrolledCourse enrolledCourse = enrolledCourseService.getEnrolledCourseByEnrolledCourseId(courseId);
-        
-        // Reset statuses of enrolled modules
-        for (EnrolledModule enrolledModule : enrolledCourse.getEnrolledModules()) {
-            enrolledModule.setCompleteStatus(false);
-            enrolledModuleService.save(enrolledModule);
-        }
-        
-        // Reset the status of the enrolled course
-        enrolledCourse.setCompleteStatus(false);
-        enrolledCourse.setProgress(0);
-        enrolledCourseService.save(enrolledCourse);
-
-        // Reset the status of related enrolled materials and assignments if needed
-        // This assumes you have a way to fetch these by enrolledCourse
-        enrollMaterialService.resetMaterialsStatusByCourse(enrolledCourse.getId());
-        
-        model.addAttribute("content", "student/student-course-list");
-	    
-        return "redirect:/student/student-layout";
-    }
+	
 
 	@GetMapping("/student-view-allcourses")
 	public String studentCourseList(Model model,

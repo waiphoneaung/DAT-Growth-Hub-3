@@ -15,8 +15,7 @@ public class ClearSuperDtoInterceptor implements HandlerInterceptor {
 		{
 			String requestURI = request.getRequestURI();
 			// Clear the superDto session attribute if not within the /admin/admin-create-course paths
-			if(!requestURI.startsWith("/admin/create-course") &&
-			   !requestURI.startsWith("/instructor/create-course"))
+			if(!(requestURI.startsWith("/admin/create-course") || requestURI.startsWith("/instructor/create-course")))
 			{
 				request.getSession().removeAttribute("superDto");
 			}

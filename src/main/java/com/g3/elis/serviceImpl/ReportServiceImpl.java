@@ -114,9 +114,9 @@ public class ReportServiceImpl implements ReportService {
 			courseProgress.setAverageScore(totalScore / enrolledCourse.getUsers().getGrades().size());
 
 			courseProgress.setGrade(totalScore / enrolledCourse.getUsers().getGrades().size() >= 100 ? "S"
-					: totalScore / enrolledCourse.getUsers().getGrades().size() >= 80 ? "A"
-							: totalScore / enrolledCourse.getUsers().getGrades().size() >= 60 ? "B"
-									: totalScore / enrolledCourse.getUsers().getGrades().size() >= 40 ? "C" : "D");
+								  : totalScore / enrolledCourse.getUsers().getGrades().size() >= 80 ? "A"
+							      : totalScore / enrolledCourse.getUsers().getGrades().size() >= 60 ? "B"
+								  : totalScore / enrolledCourse.getUsers().getGrades().size() >= 40 ? "C" : "D");
 			report.add(courseProgress);
 		}
 
@@ -158,7 +158,11 @@ public class ReportServiceImpl implements ReportService {
 					quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
 					quizPerformance.setStudent(enrolledCourse.getUsers());
 					quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
-					quizPerformance.setCourseTitle(enrolledCourse.getCourses().getCourseTitle());
+					
+					quizPerformance.setGrade(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 100 ? "S"
+							  		  	   : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 80 ? "A"
+								           : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 60 ? "B"
+									       : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 40 ? "C" : "D");
 					report.add(quizPerformance);			
 				}
 			}

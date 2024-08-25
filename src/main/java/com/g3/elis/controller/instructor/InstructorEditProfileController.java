@@ -58,6 +58,7 @@ public class InstructorEditProfileController {
 			model.addAttribute("profileDto", profileDto);
 		}
 		model.addAttribute("userDto", userDto);
+        model.addAttribute("currentPage","instructor-edit-profile");
 		model.addAttribute("content", "instructor/instructor-edit-profile");
 		return "/instructor/instructor-layout";
 	}
