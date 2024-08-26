@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.g3.elis.dto.report.CourseProgress;
 import com.g3.elis.model.User;
+import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.ReportService;
@@ -24,16 +25,14 @@ public class InstructorDashboardController
 	private CourseService courseService;
 	
 	@GetMapping("/instructor-dashboard")
-	public String home(Authentication authentication,Model model) 
-	{
-		 LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
-		    User user = loginUser.getUser();
+	public String home(Authentication authentication, Model model) {
+	    LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+	    User user = loginUser.getUser();
 
-		    int activatedCourseCount = courseService.countActivatedCoursesByUser(user);
-		    
-		    model.addAttribute("activatedCourseCount", activatedCourseCount);
-		model.addAttribute("currentPage", "instructor-dashboard");
-		model.addAttribute("content", "instructor/instructor-dashboard");
-		return "instructor/instructor-layout";
+	    
+	    model.addAttribute("currentPage", "instructor-dashboard");
+	    model.addAttribute("content", "instructor/instructor-dashboard");
+	    return "instructor/instructor-layout";
 	}
+ 
 }

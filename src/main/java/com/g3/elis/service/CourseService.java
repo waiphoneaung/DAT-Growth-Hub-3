@@ -44,7 +44,7 @@ public interface CourseService {
 	 
 	 public List<Course> searchPendingCourses(String searchQuery);
 	 
-	 int countActivatedCoursesByUser(User user);
+	 
 
 
 }

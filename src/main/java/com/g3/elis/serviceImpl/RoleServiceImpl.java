@@ -1,6 +1,7 @@
 package com.g3.elis.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,16 @@ public class RoleServiceImpl implements RoleService {
 	public Role getRoleByUserId(int userId) {
 		return roleRepository.findRoleByUserId(userId);
 
+	}
+
+	@Override
+	public Role findById(int id) {
+		 return roleRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Optional<Role> findByName(String roleName) {
+		return roleRepository.findByName(roleName);
+	    
 	}
 }

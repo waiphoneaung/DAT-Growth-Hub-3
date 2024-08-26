@@ -275,6 +275,15 @@
 																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
 															</button>
 														</form>
+														
+														<a th:href="@{/admin/change-role-instructor(userId=${user.id}, roleName='ROLE_ADMIN')}" 
+       class="btn btn-primary" title="Change to Admin Role">
+        Change to Admin
+    </a>
+    <a th:href="@{/admin/change-role-instructor(userId=${user.id}, roleName='ROLE_STUDENT')}" 
+       class="btn btn-secondary" title="Change to Student Role">
+        Change to Student
+    </a>
 													</td>
 
 												</tr>

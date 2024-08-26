@@ -300,9 +300,7 @@ public class CourseServiceImpl implements CourseService {
 		    return courseRepository.findByCourseTitleContainingIgnoreCase(searchQuery);
 		}
 
-	@Override
-	public int countActivatedCoursesByUser(User user) {
-		 return courseRepository.countByUsersAndStatus(user, "Activated");
-	} 
+	
 
+	
 }
