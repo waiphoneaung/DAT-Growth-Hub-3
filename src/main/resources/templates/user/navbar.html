@@ -37,9 +37,39 @@
 						<!-- Nav Main menu START -->
 						<ul
 							class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
-							<li class="nav-item"><a class="nav-link"
-								th:classappend="${content} == 'user/main' ? 'active':''"
-								th:href="@{/user/home}">Home</a></li>
+							 <!-- Home Link (Only Visible When Not Logged In) -->
+        <li class="nav-item" th:if="${#authentication.name == 'anonymousUser'}">
+            <a class="nav-link" 
+               th:classappend="${content} == 'user/main' ? 'active' : ''"
+               th:href="@{/user/home}">Home</a>
+        </li>
+
+        <!-- Conditional Dashboard Links Based on User Roles (Only Visible When Logged In) -->
+        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+            <span th:if="${#authentication.principal.isAdmin()}">
+                <a class="nav-link"
+                   th:classappend="${content} == 'admin/admin-dashboard' ? 'active' : ''"
+                   th:href="@{/admin/admin-dashboard}">Home</a>
+            </span>
+            <span th:if="${#authentication.principal.isStudent()}">
+                <a class="nav-link"
+                   th:classappend="${content} == 'student/student-dashboard' ? 'active' : ''"
+                   th:href="@{/student/student-dashboard}">Home</a>
+            </span>
+            <span th:if="${#authentication.principal.isInstructor()}">
+                <a class="nav-link"
+                   th:classappend="${content} == 'instructor/instructor-dashboard' ? 'active' : ''"
+                   th:href="@{/instructor/instructor-dashboard}">Home</a>
+            </span>
+        </li>
+
+        <!-- Courses Link with Active Class -->
+        <li class="nav-item">
+            <a class="nav-link"
+               th:classappend="${content} == 'user/courses' ? 'active' : ''"
+               th:href="@{/user/courses}">Courses</a>
+        </li>
+								
 							<li class="nav-item "><a class="nav-link"
 								th:classappend="${content} == 'user/courses' ? 'active':''"
 								th:href="@{/user/courses}">Courses</a></li>
