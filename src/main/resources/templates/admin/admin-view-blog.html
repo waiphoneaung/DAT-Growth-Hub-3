@@ -27,6 +27,7 @@
 						<div class="row g-4">
 
 							<!-- Card item START -->
+
 							<div class="col-sm-6 col-lg-4 col-xl-3"
 								th:each="blogPost:${blogPosts}">
 								<div class="card bg-transparent"
@@ -46,7 +47,7 @@
 										style="height: 150px; display: flex; flex-direction: column; justify-content: space-between;">
 										<!-- Title -->
 										<h5 class="card-title"
-											style="overflow: hidden; text-overflow: ellipsis; white-space: wrap;">
+											style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 											<a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}"
 												th:text="${blogPost.title}"></a>
 										</h5>
@@ -77,14 +78,11 @@
 						<!-- <a th:href="@{/admin/blog-detail/{id}(id=${blogPost.id})}" th:text="${blogPost.title}"></a>-->
 													</div>
 													
-								</section>
+													</section>
 												</div>
 												
 									
 									<!-- Row end -->
-
-							
-
 								<!-- Pagination START -->
 							<div class="card-footer ">
 									<!-- Check if there are no results -->
@@ -127,6 +125,7 @@
 						</div>
 						
 						<!-- Pagination END -->
+
 				<!-- ======================= Page content END -->
 			
 		</th:block>

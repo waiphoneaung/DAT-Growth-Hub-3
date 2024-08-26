@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.g3.elis.model.User;
-import com.g3.elis.service.InputFileService;
 import com.g3.elis.service.UserService;
+import com.g3.elis.util.InputFileService;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,7 +33,7 @@ public class AdminStudentListController
 	@GetMapping("/admin-student-list")
     public String adminStudentList(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "size", defaultValue = "9") int size,
             Model model)
     {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
@@ -59,7 +59,7 @@ public class AdminStudentListController
 			return "/admin/admin-layout";
 		}
 		inputFileService.WriteEmployeeDataFromExcel(excelFile);
-		return "/admin/admin-layout";
+		return "redirect:/admin/admin-dashboard";
 	}
 	
 	@GetMapping("/admin-student-list/search")

@@ -36,4 +36,21 @@ public class EnrolledModuleServiceImpl implements EnrolledModuleService{
 		
 	}
 
-}
+	@Override
+	public void save(EnrolledModule enrolledModule) {
+		 enrolledModuleRepository.save(enrolledModule);
+		
+	}
+
+	@Override
+	public void setStatusToFalse(int moduleId) {
+		 EnrolledModule enrolledModule = enrolledModuleRepository.findById(moduleId).orElse(null);
+	        if (enrolledModule != null) {
+	            enrolledModule.setCompleteStatus(false);
+	            enrolledModuleRepository.save(enrolledModule);
+	        }
+	    }
+		
+	}
+
+

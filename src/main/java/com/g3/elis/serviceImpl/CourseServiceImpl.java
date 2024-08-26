@@ -68,9 +68,9 @@ public class CourseServiceImpl implements CourseService {
 		{
 			course.setDuration(superDto.getCourseDto().getDurationHour());
 		}
-		if(!(imgFile.isEmpty())|| imgFile != null)
+		if(!(imgFile.isEmpty()) && imgFile != null)
 		{
-	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
+	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, courseInputFilePath));
 		}
 		
 		List<CourseModule> courseModuleList = new ArrayList<>();
@@ -132,7 +132,7 @@ public class CourseServiceImpl implements CourseService {
 	    }
 	    
 	    if(imgFile != null && !imgFile.isEmpty()) {
-	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, imgFile.getOriginalFilename(), courseInputFilePath));
+	        course.setCourseImageFileName(fileStorageConfig.saveFile(imgFile, courseInputFilePath));
 	    }
 
 	    List<CourseModule> existingModules = course.getCourseModule();
@@ -272,13 +272,32 @@ public class CourseServiceImpl implements CourseService {
 	public long countAllCourses() {
 		 return courseRepository.count();
 	}
+
+	@Override
+
+	public List<Course> findCoursesByCategory(int categoryId) {
+		
+		    return courseRepository.findByCourseCategoriesId(categoryId);
+		
+	}
 	
 	 
+
+	public List<Course> getAllPendingCourse() {
+		List<Course> courses = courseRepository.findAll();
+		List<Course> returnCourseList = new ArrayList<>();
+		for(Course course : courses)
+		{
+			if(course.getStatus().equalsIgnoreCase("Pending"))
+			returnCourseList.add(course);
+		}	
+		return returnCourseList;
+	}
+
+	@Override
+	public List<Course> searchPendingCourses(String searchQuery) {
+		
+		    return courseRepository.findByCourseTitleContainingIgnoreCase(searchQuery);
+		} 
+
 }
-
-
-
-
-
-	
-

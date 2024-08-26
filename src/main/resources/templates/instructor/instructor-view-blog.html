@@ -13,7 +13,7 @@
 <body>
 	<!-- **************** MAIN CONTENT START **************** -->
 
-		<th:block th:fragment="student-view-blog">
+		<th:block th:fragment="instructor-view-blog">
 		 <div class="col-xl-9">
 			<!-- Page content START -->
 			<section class="pt-0">
@@ -108,16 +108,16 @@
 						<nav class="d-flex justify-content-center mt-1"
 							aria-label="navigation">
 							<ul class="pagination pagination-primary-soft rounded mb-0">
-								<li class="page-item " th:if="${currentPage > 0}">
+								<li class="page-item " th:if="${Page > 0}">
 								<a class="page-link" th:href="@{/instructor/instructor-view-blog(page=${previousPage})}"
 									tabindex="-1"><i class="fas fa-angle-double-left"></i></a></li>
 								<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
 									class="page-item"
-									th:classappend="${currentPage == i} ? 'active'"><a
+									th:classappend="${Page == i} ? 'active'"><a
 									class="page-link" th:href="@{/instructor/instructor-view-blog(page=${i})}"
 									th:text="${i + 1}">1</a></li>
 								<li class="page-item"
-									th:if="${currentPage < totalPages - 1}">
+									th:if="${Page < totalPages - 1}">
 									<a class="page-link" th:href="@{/instructor/instructor-view-blog(page=${nextPage})}">
 										<i class="fas fa-angle-double-right"></i>
 								</a>

@@ -34,7 +34,7 @@ public class AchievementServiceImpl implements AchievementService
 		List<Achievement> achievementList = achievementRepository.findAll();
 		for(Achievement achievemnt : achievementList)
 		{
-			if(achievemnt.getUsers().getId() == userId) return;
+			if(achievemnt.getCourses().getId() == courseId) return;
 		}
 		Achievement achievement = new Achievement();
 		achievement.setCertificateName(course.getCourseTitle() + " CERTIFICATE");

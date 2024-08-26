@@ -45,7 +45,7 @@ public class ProfileServiceImpl implements ProfileService {
 			}
 			
 			MultipartFile profileImage = profileDto.getProfileImg();
-			profile.setProfileImg(fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath));
+			profile.setProfileImg(fileStorageConfig.saveFile(profileImage,profileImageFilePath));
 			profileRepository.save(profile);
 		}
 	}
@@ -57,7 +57,7 @@ public class ProfileServiceImpl implements ProfileService {
 		profile.setAddress(profileDto.getAddress());
 		profile.setDescription(profileDto.getDescription());
 		profile.setPhNo(profileDto.getPhNo());
-		profile.setProfileImg(fileStorageConfig.saveFile(createprofileImage, createprofileImage.getOriginalFilename(),profileImageFilePath));
+		profile.setProfileImg(fileStorageConfig.saveFile(createprofileImage,profileImageFilePath));
 		profile.setUser(user);
 
 		profileRepository.save(profile);
@@ -85,7 +85,7 @@ public class ProfileServiceImpl implements ProfileService {
 			profile.setProfileImg(profileDto.getProfileImg().getOriginalFilename());
 
 			MultipartFile profileImage = profileDto.getProfileImg();
-			fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath);
+			fileStorageConfig.saveFile(profileImage,profileImageFilePath);
 			profileRepository.save(profile);
 		}
 	}
@@ -103,7 +103,7 @@ public class ProfileServiceImpl implements ProfileService {
 		profile.setUser(user);
 
 		MultipartFile profileImage = profileDto.getProfileImg();
-		fileStorageConfig.saveFile(profileImage, profileImage.getOriginalFilename(),profileImageFilePath);
+		fileStorageConfig.saveFile(profileImage,profileImageFilePath);
 
 		profileRepository.save(profile);
 	}

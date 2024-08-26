@@ -9,20 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/instructor")
 public class InstructorController {
 	
-	
-	@GetMapping({"/instructor-dashboard","/"} )
-	public String home(Model model) {
-		
-		 model.addAttribute("currentPage", "instructor-dashboard");
-		model.addAttribute("content", "instructor/instructor-dashboard");
-		return "instructor/instructor-layout";
-	}
-	
 	@GetMapping("/instructor-create-course")
 	public String instructor_create_course(Model model) {
 		
-		model.addAttribute("currentPage", "instructor-manage-course");
-//		model.addAttribute("content", "instructor/instructor-create-course");
+		model.addAttribute("currentPage", "instructor-course-list");
 		return "instructor/instructor-create-course";
 	}
 	
@@ -32,36 +22,11 @@ public class InstructorController {
 		return "instructor/instructor-quiz";
 	}
 	
-	@GetMapping("/instructor-quiz-result")
-	public String instructor_quiz_result(Model model) {
-		
-		model.addAttribute("currentPage", "instructor-quiz-result");
-		model.addAttribute("content", "instructor/instructor-quiz-result");
-		return "instructor/instructor-layout";
-	}
-//	@GetMapping("/instructor-view-blog")
-//	public String instructor_view_blog(Model model) {
-//		
-//		model.addAttribute("currentPage", "instructor-view-blog");
-//		model.addAttribute("content", "instructor/instructor-view-blog");
-//		return "instructor/instructor-layout";
-//	}
-	
 	@GetMapping("/blog-detail")
 	public String blogDetail()
 	{
 		return "/authenticated-user/blog-detail";
 	}
-	
-	
-
-//	@GetMapping("/instructor-edit-profile")
-//	public String instructor_edit_profile(Model model) {
-//		
-//		model.addAttribute("currentPage", "instructor-edit-profile");
-//		model.addAttribute("content", "instructor/instructor-edit-profile");
-//		return "instructor/instructor-layout";
-//	}
 	
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
@@ -69,5 +34,9 @@ public class InstructorController {
 		return "/authenticated-user/blog-detail";
 	}
 	
-}
+	    
+	}
+
+	
+
 

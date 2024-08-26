@@ -71,10 +71,11 @@ public class InstructorViewBlogController {
         int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
 
         model.addAttribute("blogPosts", blogPostsPage);
-        model.addAttribute("currentPage", page);
+        model.addAttribute("Page", page);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("totalPages", blogPostsPage.getTotalPages());
+        model.addAttribute("currentPage","instructor-view-blog");
 //        List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
 //        model.addAttribute("blogPosts", blogPosts);
         model.addAttribute("content", "instructor/instructor-view-blog");
@@ -163,4 +164,5 @@ public class InstructorViewBlogController {
             return "redirect:/instructor/instructor-view-blog";
         }
     }
+    
 }

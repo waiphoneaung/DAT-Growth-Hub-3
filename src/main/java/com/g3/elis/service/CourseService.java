@@ -27,6 +27,8 @@ public interface CourseService {
 
 	List<Course> getAllCourse();
 	
+	List<Course> getAllPendingCourse();
+	
 	List<Course> getAllCourseByUserId(int userId);
 
 	Course getCourseById(int id);
@@ -37,4 +39,10 @@ public interface CourseService {
 	 Map<Integer, Long> countCourseModulesForCourses(Page<Course> coursePage);
 	 
 	 public long countAllCourses();
+	 
+	 public List<Course> findCoursesByCategory(int categoryId);
+	 
+	 public List<Course> searchPendingCourses(String searchQuery);
+
+
 }
