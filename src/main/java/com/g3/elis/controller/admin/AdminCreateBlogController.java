@@ -106,7 +106,7 @@ public class AdminCreateBlogController {
 			//String content = Files.readString(htmlFilePath);
 		//	model.addAttribute("content", content);
 			model.addAttribute("blogPost", blogPost);
-			return "/authenticated-user/blog-detail";
+			return "/user/blog-detail";
 		}
 
 		return "redirect:/admin/admin-view-blog";

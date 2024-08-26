@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,7 +70,7 @@ public class InputFileServiceImpl implements InputFileService {
 		InputFile inputFile = new InputFile();
 		inputFile.setFileName(file.getOriginalFilename());
 		try {
-			fileStorageConfig.saveFile(file, file.getOriginalFilename(),filePath);
+			fileStorageConfig.saveFile(file,filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -351,7 +352,8 @@ public class InputFileServiceImpl implements InputFileService {
 		String sheetName = "Course Performance Report";
 		createSheetsWithCoursePerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream(("Course_Performance_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
+		String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
+        try (FileOutputStream fileOut = new FileOutputStream(("Course_Performance_Report_"+timestamp+".xlsx"))) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -411,7 +413,8 @@ public class InputFileServiceImpl implements InputFileService {
 		String sheetName = "Course Performance Report";
 		createSheetsWithCourseProgressData(workbook, sheetName,reportData);
 		// Write the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream(("Course_Progress_Report_"+Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,10))+".xlsx")) {
+		String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
+        try (FileOutputStream fileOut = new FileOutputStream(("Course_Progress_Report_"+timestamp+".xlsx"))) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
@@ -467,12 +470,15 @@ public class InputFileServiceImpl implements InputFileService {
 	public void generateQuizPerformanceExcelReportFile(List<QuizPerformance> reportData) {
 		Workbook workbook = new XSSFWorkbook();
 		
-		String sheetName = "Course Performance Report";
+		String sheetName = "Quiz Performance Report";
 		createSheetsWithQuizPerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream("report.xlsx")) {
+		String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
+        try (FileOutputStream fileOut = new FileOutputStream(("Quiz_Performance_Report_"+timestamp+".xlsx")))
+        {
             workbook.write(fileOut);
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             e.printStackTrace();
         }
 
@@ -486,17 +492,11 @@ public class InputFileServiceImpl implements InputFileService {
 		
 	private void createSheetsWithQuizPerformanceData(Workbook workbook,String sheetName,List<QuizPerformance> reportData)
 	{
-//		private String assignmentTitle;
-//		private String studentName;
-//		private String studentProfileImage;
-//		private double averageScore;
-//		private double passRate;
-//		private double highestScore;
-//		private double lowestScore;
+
 		Sheet sheet = workbook.createSheet(sheetName);
         Row headerRow = sheet.createRow(0);
         
-		String[] headers = {"Assignment Title","Average Score","Passed Rate","Average Score","Highest Score","Lowest Score"};
+		String[] headers = {"Student","Course","Assignment Title","Times Taken","Average Score","Passed Rate","Highest Score","Lowest Score","Grade"};
 		
 		CellStyle headerStyle = createHeaderCellStyle(workbook);
 		for (int i = 0; i < headers.length; i++) 
@@ -510,12 +510,15 @@ public class InputFileServiceImpl implements InputFileService {
 		{
 			Row row = sheet.createRow(i + 1);
             List<String> dataList = new ArrayList<String>();
+            dataList.add(reportData.get(i).getStudentName());
+            dataList.add(reportData.get(i).getCourseTitle());
             dataList.add(reportData.get(i).getAssignmentTitle());
+            dataList.add(String.valueOf(reportData.get(i).getTimesTakenQuiz()));
             dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
             dataList.add(String.valueOf(reportData.get(i).getPassRate()));
-            dataList.add(String.valueOf(reportData.get(i).getAverageScore()));
             dataList.add(String.valueOf(reportData.get(i).getHighestScore()));
             dataList.add(String.valueOf(reportData.get(i).getLowestScore()));
+            dataList.add(reportData.get(i).getGrade());
             
             for(int j = 0; j < dataList.size();j++)
     		{

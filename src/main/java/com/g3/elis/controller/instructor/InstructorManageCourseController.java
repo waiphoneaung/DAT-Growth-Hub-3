@@ -1,3 +1,4 @@
+
 package com.g3.elis.controller.instructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,6 @@ public class InstructorManageCourseController
 		model.addAttribute("content", "instructor/instructor-course-list");
 		return "instructor/instructor-layout";
 	}
+	
+
 }

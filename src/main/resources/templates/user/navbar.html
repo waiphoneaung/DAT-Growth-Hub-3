@@ -84,7 +84,7 @@
 								th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 								alt="avatar"> <img class="avatar-img rounded-circle"
 								th:unless="${user.profile != null && user.profile.profileImg != null}"
-								th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+								th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 							</a>
 							<ul
 								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -98,7 +98,7 @@
 												alt="avatar"> <img
 												class="avatar-img rounded-circle shadow"
 												th:unless="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 												alt="avatar">
 										</div>
 
@@ -122,10 +122,19 @@
 									<hr class="dropdown-divider">
 								</li>
 								<!-- Links -->
-								<li><a class="dropdown-item bg-danger-soft-hover"
-									th:href="@{/student/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
-										</a></li>
-								
+								<li><span th:if="${#authentication.principal.isAdmin()}">
+										<a class="dropdown-item"
+										th:href="@{/admin/admin-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="dropdown-item"
+										th:href="@{/student/student-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="dropdown-item"
+										th:href="@{/instructor/instructor-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span></li>
 								<li>
 								<li><span th:if="${#authentication.principal.isAdmin()}">
 										<a class="dropdown-item"

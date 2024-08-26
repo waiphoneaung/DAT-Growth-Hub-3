@@ -39,14 +39,15 @@ public class ReportServiceImpl implements ReportService {
 		List<Course> courses = courseRepository.findAll();
 		courses.sort(Comparator.comparingInt(course -> ((Course) course).getEnrolledCourses().size()).reversed());
 
-		for (Course course : courses) {
-			CoursePerformance coursePerformanceDto = new CoursePerformance();
-			coursePerformanceDto.setInstructor(course.getUsers().getName());
-			coursePerformanceDto.setEnrollment(course.getEnrolledCourses().size());
-			coursePerformanceDto.setCourseId(course.getId());
-			coursePerformanceDto.setCreatedAt(course.getCreatedAt());
-			coursePerformanceDto.setCourseTitle(course.getCourseTitle());
-			coursePerformanceDto.setCourseImage(course.getCourseImageFileName());
+		for (Course course : courses) 
+		{
+			CoursePerformance coursePerformance = new CoursePerformance();
+			coursePerformance.setInstructor(course.getUsers().getName());
+			coursePerformance.setEnrollment(course.getEnrolledCourses().size());
+			coursePerformance.setCourseId(course.getId());
+			coursePerformance.setCreatedAt(course.getCreatedAt());
+			coursePerformance.setCourseTitle(course.getCourseTitle());
+			coursePerformance.setCourseImage(course.getCourseImageFileName());
 
 			double totalCourseComplete = 0;
 			double totalScore = 0;
@@ -64,21 +65,17 @@ public class ReportServiceImpl implements ReportService {
 						}
 					}
 				}
-				if (enrolledCourse.getEnrolledAt().toString().substring(0, 7)
-						.equalsIgnoreCase(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0, 7)))
-					monthlyEnrolledUser++;
-				if (enrolledCourse.getEnrolledAt().toString().substring(0, 4)
-						.equalsIgnoreCase(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0, 4)))
-					yearlyEnrolledUser++;
+				if (enrolledCourse.getEnrolledAt().toString().substring(0, 7).equalsIgnoreCase(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0, 7))) monthlyEnrolledUser++;
+				if (enrolledCourse.getEnrolledAt().toString().substring(0, 4).equalsIgnoreCase(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0, 4))) yearlyEnrolledUser++;
 
 			}
-			coursePerformanceDto.setCompletionRate(((totalCourseComplete / course.getEnrolledCourses().size()) * 100));
-			coursePerformanceDto.setAverageScore(totalScore / gradeCount);
+			coursePerformance.setCompletionRate(((totalCourseComplete / course.getEnrolledCourses().size()) * 100));
+			coursePerformance.setAverageScore(totalScore / gradeCount);
 
-			coursePerformanceDto.setMonthlyEnrolledUser(monthlyEnrolledUser);
-			coursePerformanceDto.setYearlyEnrolledUser(yearlyEnrolledUser);
+			coursePerformance.setMonthlyEnrolledUser(monthlyEnrolledUser);
+			coursePerformance.setYearlyEnrolledUser(yearlyEnrolledUser);
 
-			report.add(coursePerformanceDto);
+			report.add(coursePerformance);
 		}
 
 		return report;
@@ -117,9 +114,9 @@ public class ReportServiceImpl implements ReportService {
 			courseProgress.setAverageScore(totalScore / enrolledCourse.getUsers().getGrades().size());
 
 			courseProgress.setGrade(totalScore / enrolledCourse.getUsers().getGrades().size() >= 100 ? "S"
-					: totalScore / enrolledCourse.getUsers().getGrades().size() >= 80 ? "A"
-							: totalScore / enrolledCourse.getUsers().getGrades().size() >= 60 ? "B"
-									: totalScore / enrolledCourse.getUsers().getGrades().size() >= 40 ? "C" : "D");
+								  : totalScore / enrolledCourse.getUsers().getGrades().size() >= 80 ? "A"
+							      : totalScore / enrolledCourse.getUsers().getGrades().size() >= 60 ? "B"
+								  : totalScore / enrolledCourse.getUsers().getGrades().size() >= 40 ? "C" : "D");
 			report.add(courseProgress);
 		}
 
@@ -138,29 +135,35 @@ public class ReportServiceImpl implements ReportService {
 				for(EnrolledAssignment enrolledAssignment : enrolledModle.getEnrolledAssignment())
 				{
 					QuizPerformance quizPerformance = new QuizPerformance();
-					if(enrolledAssignment.getGrades() != null)
+					int totalScore = 0;
+					int highestScoreCount = 0;
+					int lowestScoreCount = 0;
+					int timesTaken = 0;
+					for(Grade grade : enrolledAssignment.getGrades())
 					{
-						int totalScore = 0;
-						int highestScoreCount = 0;
-						int lowestScoreCount = 0;
-						for(Grade grade : enrolledAssignment.getGrades())
-						{
-							totalScore+=grade.getScore();
-							if(grade.getScore() >=80) highestScoreCount++;
-							if(grade.getScore() <=79) lowestScoreCount++;
-							
-							quizPerformance.setAssignmentTitle(enrolledAssignment.getCourseAssignment().getTitle());
-						}
-						if(enrolledAssignment.isCompleteStatus() == true) assignmentCompleteCount++;
+						totalScore+=grade.getScore();
+						if(grade.getScore() >=80) highestScoreCount++;
+						if(grade.getScore() <=79) lowestScoreCount++;
+						if(grade.getUser().getId() == enrolledCourse.getUsers().getId()) timesTaken++;
 						
-						quizPerformance.setAverageScore(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()));
-						quizPerformance.setHighestScore(( (double) highestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
-						quizPerformance.setHighestScore(( (double) lowestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
-						quizPerformance.setPassRate(((double) assignmentCompleteCount)/ ((double)enrolledModle.getEnrolledAssignment().size()) * 100);
-						quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
-						quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
-						report.add(quizPerformance);
-					}					
+					}
+					if(enrolledAssignment.isCompleteStatus() == true) assignmentCompleteCount++;
+					
+					quizPerformance.setTimesTakenQuiz(timesTaken);
+					quizPerformance.setAssignmentTitle(enrolledAssignment.getCourseAssignment().getTitle());
+					quizPerformance.setAverageScore(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()));
+					quizPerformance.setHighestScore(( (double) highestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
+					quizPerformance.setHighestScore(( (double) lowestScoreCount) / ((double) enrolledAssignment.getGrades().size()) * 100);
+					quizPerformance.setPassRate(((double) assignmentCompleteCount)/ ((double)enrolledModle.getEnrolledAssignment().size()) * 100);
+					quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
+					quizPerformance.setStudent(enrolledCourse.getUsers());
+					quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
+					
+					quizPerformance.setGrade(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 100 ? "S"
+							  		  	   : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 80 ? "A"
+								           : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 60 ? "B"
+									       : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 40 ? "C" : "D");
+					report.add(quizPerformance);			
 				}
 			}
 		}

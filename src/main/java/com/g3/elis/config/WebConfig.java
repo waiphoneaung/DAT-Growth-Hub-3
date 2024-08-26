@@ -25,6 +25,6 @@ public class WebConfig implements WebMvcConfigurer
 	public void addInterceptors(InterceptorRegistry registry)
 	{
 		registry.addInterceptor(new ClearSuperDtoInterceptor())
-				.addPathPatterns("/admin/**");
+				.addPathPatterns("/admin/**","/instructor/**");
 	}
 }

@@ -27,7 +27,7 @@ Page Banner START -->
 									<div class="col-auto">
 										<div class="avatar avatar-xxl position-relative mt-n3">
 										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
-										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 										</div>
 									</div>
 									<!-- Profile info -->
@@ -102,7 +102,7 @@ Page content START -->
 												th:href="@{/instructor/instructor-dashboard}"><i
 												class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a> <a
 												class="list-group-item"
-												th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : ''}"
+												th:classappend="${currentPage == 'instructor-course-list' ? ' active' : ''}"
 												th:href="@{/instructor/instructor-course-list}"><i
 												class="bi bi-basket fa-fw me-2"></i>My Courses</a> <a
 												class="list-group-item"

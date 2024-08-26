@@ -14,6 +14,7 @@ import com.g3.elis.model.EnrolledAssignment;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.EnrolledAssignmentService;
 import com.g3.elis.service.ReportService;
+import com.g3.elis.util.InputFileService;
 
 @Controller
 @RequestMapping("/instructor")
@@ -21,6 +22,9 @@ public class InstructorQuizResultController
 {
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	private InputFileService inputFileService;
 	
 	@GetMapping("/instructor-quiz-result")
 	public String instructor_quiz_result(Authentication authentication,Model model) 
@@ -31,5 +35,16 @@ public class InstructorQuizResultController
 		model.addAttribute("currentPage", "instructor-quiz-result");
 		model.addAttribute("content", "instructor/instructor-quiz-result");
 		return "instructor/instructor-layout";
+	}
+	@GetMapping("/instructor-quiz-result/generate-quiz-result")
+	public String generateReport(Authentication authentication,Model model)
+	{
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		List<QuizPerformance> reports = reportService.generateQuizPerformanceReport(userDetail.getUser().getId());
+		inputFileService.generateQuizPerformanceExcelReportFile(reports);
+		model.addAttribute("reports",reports);
+		model.addAttribute("currentPage", "instructor-quiz-result");
+		model.addAttribute("content", "instructor/instructor-quiz-result");
+		return "redirect:/instructor/instructor-quiz-result";
 	}
 }
