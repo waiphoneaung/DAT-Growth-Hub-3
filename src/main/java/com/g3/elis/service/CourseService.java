@@ -43,6 +43,12 @@ public interface CourseService {
 	 public List<Course> findCoursesByCategory(int categoryId);
 	 
 	 public List<Course> searchPendingCourses(String searchQuery);
+	 
+	 
+
+	int getTotalCourseCourseByUser(int userId);
+
+	int getTotalActivatedCourseCountByUser(int userId);
 
 
 }

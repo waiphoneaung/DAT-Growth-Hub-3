@@ -166,15 +166,15 @@ public class UserServiceImpl implements UserService {
 		return userRepository.count("ROLE_STUDENT");
 	}
 
-	
-	
-	
-	
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+		    
+	}
 
-
-	
-
-
-
+	@Override
+	public User findById(int id) {
+		 return userRepository.findById(id).orElse(null);
+	}
 
 }

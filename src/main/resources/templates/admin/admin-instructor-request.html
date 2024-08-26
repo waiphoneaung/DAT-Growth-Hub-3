@@ -107,11 +107,11 @@
 												<div th:if="${course.status} == 'Pending'">
 													<a
 														th:href="@{/admin/admin-course-list/approve(courseId=${course.id})}"
-														onsubmit="return confirm('Are you sure?');"
+														onclick="return confirm('Are you sure?');"
 														class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
 													<a
 														th:href="@{/admin/admin-course-list/reject(courseId=${course.id})}"
-														onsubmit="return confirm('Are you sure?');"
+														onclick="return confirm('Are you sure?');"
 														class="btn btn-sm btn-secondary-soft mb-0">Reject</a>
 												</div>
 											</td>
