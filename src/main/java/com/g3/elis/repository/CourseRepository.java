@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.g3.elis.model.Course;
+import com.g3.elis.model.User;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
@@ -19,4 +20,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	List<Course> findByCourseCategoriesId(int categoryId);
 
 	List<Course> findByCourseTitleContainingIgnoreCase(String searchQuery);
+	
+	int countByUsersAndStatus(User user, String status);
 }
