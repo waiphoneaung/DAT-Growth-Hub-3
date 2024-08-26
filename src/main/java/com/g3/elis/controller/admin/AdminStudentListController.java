@@ -1,6 +1,7 @@
 package com.g3.elis.controller.admin;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.g3.elis.model.Role;
 import com.g3.elis.model.User;
+import com.g3.elis.service.RoleService;
 import com.g3.elis.service.UserService;
 import com.g3.elis.util.InputFileService;
 
@@ -25,6 +28,9 @@ public class AdminStudentListController
 {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@Autowired
 	private InputFileService inputFileService;
@@ -82,9 +88,28 @@ public class AdminStudentListController
 	}
 
 	
-	@PostMapping("/change-student-status")
+	@GetMapping("/change-student-status")
 	public String changeStudentStatus(@RequestParam("id") int id, @RequestParam("enabled") boolean enabled) {
-		userService.updateUserStatus(id, enabled);
-		return "redirect:/admin/admin-student-list";
+	    userService.updateUserStatus(id, enabled);
+	    return "redirect:/admin/admin-student-list";
 	}
+	
+	@GetMapping("/change-role-student")
+    public String changeUserRole(@RequestParam("userId") int userId, @RequestParam("roleName") String name) {
+        User user = userService.findById(userId);
+        Optional<Role> role = roleService.findByName(name);
+
+        if (user != null && role.isPresent()) {
+            user.getRoles().clear(); 
+            user.getRoles().add(role.get());
+
+            role.get().getUsers().add(user); 
+
+            userService.save(user);
+        }
+
+
+        return "redirect:/admin/admin-student-list";
+    }
+
 }

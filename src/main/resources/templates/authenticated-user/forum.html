@@ -11,17 +11,19 @@ html, body {
 	padding: 0;
 	display: flex;
 	flex-direction: column;
+	
+	
 }
 
 header {
 	/* Header styling */
-	padding: 20px;
+	padding: 10px;
 }
 
 main {
 	flex: 1;
 	/* This makes the main content area grow to fill available space */
-	padding: 20px;
+	padding: 10px;
 }
 
 .footer {
@@ -207,32 +209,40 @@ main {
 							<hr class="dropdown-divider">
 						</li>
 						<!-- Links -->
-						<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item bg-danger-soft-hover"
-							th:href="@{/admin/admin-dashboard}"><i
-								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
-								<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a class="dropdown-item bg-danger-soft-hover"
-							th:href="@{/instructor/instructor-dashboard}"><i
-								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
-								<li sec:authorize="hasRole('ROLE_STUDENT')"><a class="dropdown-item bg-danger-soft-hover"
-							th:href="@{/student/student-dashboard}"><i
-								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
 						<li><span th:if="${#authentication.principal.isAdmin()}">
-								<a class="dropdown-item" th:href="@{/admin/admin-edit-profile}"><i
-									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
-						</span> <span th:if="${#authentication.principal.isStudent()}"> <a
-								class="dropdown-item" th:href="@{/student/student-edit-profile}"><i
-									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
-						</span> <span th:if="${#authentication.principal.isInstructor()}">
-								<a class="dropdown-item"
-								th:href="@{/instructor/instructor-edit-profile}"><i
-									class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
-						</span></li>
-						<li><a class="dropdown-item bg-danger-soft-hover"
-							href="/sign-out"><i class="bi bi-power fa-fw me-2"></i>Sign
-								Out</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+										<a class="dropdown-item"
+										th:href="@{/admin/admin-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="dropdown-item"
+										th:href="@{/student/student-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="dropdown-item"
+										th:href="@{/instructor/instructor-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+								</span></li>
+								<li>
+								<li><span th:if="${#authentication.principal.isAdmin()}">
+										<a class="dropdown-item"
+										th:href="@{/admin/admin-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="dropdown-item"
+										th:href="@{/student/student-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="dropdown-item"
+										th:href="@{/instructor/instructor-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span></li>
+
+								<li><a class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+										Out</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 						<!-- Dark mode options START -->
 						<li>
 							<div

@@ -1,5 +1,7 @@
 package com.g3.elis.controller.admin;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.g3.elis.model.Role;
 import com.g3.elis.model.User;
+import com.g3.elis.service.RoleService;
 import com.g3.elis.service.UserService;
 
 @Controller
@@ -20,6 +24,11 @@ public class AdminInstructorListController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	
 
 	@GetMapping("/admin-instructor-list")
     public String adminInstructorList(Model model, 
@@ -58,4 +67,21 @@ public class AdminInstructorListController {
 		userService.updateUserStatus(id, enabled);
 		return "redirect:/admin/admin-instructor-list";
 	}
+	
+	@GetMapping("/change-role-instructor")
+    public String changeUserRole(@RequestParam("userId") int userId, @RequestParam("roleName") String name) {
+        User user = userService.findById(userId);
+        Optional<Role> role = roleService.findByName(name);
+
+        if (user != null && role.isPresent()) {
+            user.getRoles().clear(); 
+            user.getRoles().add(role.get());
+            role.get().getUsers().add(user); 
+            userService.save(user);
+        }
+
+
+        return "redirect:/admin/admin-instructor-list";
+    }
+
 }
