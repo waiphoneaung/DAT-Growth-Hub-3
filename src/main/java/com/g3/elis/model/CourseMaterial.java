@@ -15,27 +15,28 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="course_materials")
+@Table(name = "course_materials")
 public class CourseMaterial {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(length=1000)
+
+	@Column(length = 1000)
 	private String title;
 	private boolean status;
 	private String duration;
 	private String content;
-	
+	private String inputFileName;
+
 	@ManyToOne
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
-	
+
 	@OneToMany(mappedBy = "courseMaterial")
 	private List<EnrolledMaterial> enrolledMaterial;
-	
-	@OneToMany(mappedBy = "courseMaterials", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+
+	@OneToMany(mappedBy = "courseMaterials", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<InputFile> inputFiles;
 
 	public int getId() {
@@ -78,6 +79,14 @@ public class CourseMaterial {
 		this.content = content;
 	}
 
+	public String getInputFileName() {
+		return inputFileName;
+	}
+
+	public void setInputFileName(String inputFileName) {
+		this.inputFileName = inputFileName;
+	}
+
 	public CourseModule getCourseModules() {
 		return courseModules;
 	}
@@ -102,7 +111,7 @@ public class CourseMaterial {
 		this.inputFiles = inputFiles;
 	}
 
-	public CourseMaterial(int id, String title, boolean status, String duration, String content,
+	public CourseMaterial(int id, String title, boolean status, String duration, String content, String inputFileName,
 			CourseModule courseModules, List<EnrolledMaterial> enrolledMaterial, List<InputFile> inputFiles) {
 		super();
 		this.id = id;
@@ -110,13 +119,13 @@ public class CourseMaterial {
 		this.status = status;
 		this.duration = duration;
 		this.content = content;
+		this.inputFileName = inputFileName;
 		this.courseModules = courseModules;
 		this.enrolledMaterial = enrolledMaterial;
 		this.inputFiles = inputFiles;
 	}
 
-	public CourseMaterial()
-	{
-		
+	public CourseMaterial() {
+
 	}
 }
