@@ -79,4 +79,6 @@ public class LoginUserDetail implements UserDetails {
 	{
 		return user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_STUDENT"));
 	}
+
+	
 }

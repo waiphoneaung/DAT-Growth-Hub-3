@@ -102,7 +102,7 @@ public class InstructorViewBlogController {
             String htmlContent = Files.readString(htmlFilePath);
             model.addAttribute("htmlContent", htmlContent);
             model.addAttribute("blogPost", blogPost);
-            return "/authenticated-user/blog-detail";
+            return "/user/blog-detail";
         }
 
         return "redirect:/admin/admin-view-blog";
@@ -155,7 +155,7 @@ public class InstructorViewBlogController {
                 Files.write(Paths.get(filePath), content.getBytes());
             }
 
-            blogPostService.saveBlogPost(blogPostDto);
+            blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
             return "redirect:/instructor/instructor-view-blog";
 
         } catch (IOException e) {

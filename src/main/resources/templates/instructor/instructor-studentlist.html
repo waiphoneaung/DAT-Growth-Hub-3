@@ -57,23 +57,31 @@
 							<!-- Table body START -->
 							<tbody>
 								<!-- Table item -->
-								<tr>
+								<tr th:each="enrolledCourse : ${EnrolledCourses}">
 									<!-- Table data -->
 									<td>
 										<div class="d-flex align-items-center position-relative">
 											<!-- Image -->
 											<div class="avatar avatar-md mb-2 mb-md-0">
-												<img th:src="@{/public/assets/images/avatar/01.jpg}" class="rounded"
-													alt="">
+												<img class="avatar-img rounded-circle"
+												th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
+												th:src="@{'/private/profile/user-profile/' + ${enrolledCourse.users.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle"
+												th:unless="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+												alt="avatar">
 											</div>
 											<div class="mb-0 ms-2">
 												<!-- Title -->
 												<h6 class="mb-0">
-													<a href="#" class="stretched-link">Lori Stevens</a>
+													<a href="#" class="stretched-link" th:text="${enrolledCourse.users.name}"></a>
 												</h6>
 												<!-- Address -->
-												<span class="text-body small"><i
-													class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>Mumbai</span>
+												<span th:if="${enrolledCourse.users.profile != null && enrolledCourse.users.profile.address != null}" class="text-body small">
+													<i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>
+													<span th:text="${enrolledCourse.users.profile.address}"></span>	
+												</span>
 											</div>
 										</div>
 									</td>
@@ -93,7 +101,7 @@
 									</td>
 
 									<!-- Table data -->
-									<td>Java</td>
+									<td th:text="${enrolledCourse.courses.courseTitle}"></td>
 
 									<!-- Table data -->
 									<td>4/1/2023</td>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT Growth Hub</title>
+<!-- Stylesheets -->
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+</head>
+<body>
+	<!-- Sidebar -->
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
+
+	<!-- Include navbar -->
+
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+	<main>
+		<!-- Page content START -->
+		<div class="page-content">
+			<!-- Page main content START -->
+			<div class="page-content-wrapper border">
+				<div class="container">
+					<div class="row g-4 align-items-center">
+						<!-- Title -->
+						<h4>Assignments Details</h4>
+						<div class="col-md-2">
+							<img
+								th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+								class="rounded-2" alt="Card image">
+						</div>
+						<div class="col-md-10">
+							<!-- Title -->
+							<h3 class="card-title mb-0">
+								<a href="#" th:text="${course.courseTitle}"></a>
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div th:if="${action} == 'add'">
+
+					<!-- Main content START -->
+					<div class="col-xl-12 container">
+						<!-- Add START -->
+						<form
+							th:action="@{|/${map}/edit-course-detail/add-assignment|(courseId=${courseId}, courseModuleId=${courseModuleId})}"
+							method="POST" th:object="${courseAssignmentDto}"
+							enctype="multipart/form-data">
+
+							<hr>
+							<!-- Divider Basic information START -->
+							<div class="row g-4">
+								<!-- Course title -->
+								<div class="col-12">
+									<label class="form-label">Assignments title</label> <input
+										th:field="*{title}" class="form-control" type="text"
+										placeholder="Enter assignment title" required> <input
+										type="hidden" th:value="${courseId}" name="courseId">
+								</div>
+
+								<!-- Buttons -->
+								<div class="d-flex justify-content-between mt-3">
+									<a class="btn btn-warning next-btn mb-0"
+										th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
+									<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div th:if="${action} == 'edit'">
+
+					<!-- Main content START -->
+					<div class="col-xl-12 container">
+						<div class="row mt-3 mb-4">
+							<!-- Edit ASSIGNMENT -->
+							<form
+								th:action="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignment.id})}"
+								method="POST" th:object="${courseAssignmentDto}"
+								enctype="multipart/form-data">
+
+
+								<!-- Divider Basic information START -->
+								<div class="row g-4">
+									<!-- Course title -->
+									<div class="col-12">
+										<label class="form-label">Assignments title</label> <input
+											th:field="*{title}" class="form-control" type="text"
+											th:value="${courseAssignmentDto.title}"
+											placeholder="Enter assignment title" required> <input
+											type="hidden" th:value="${courseId}" name="courseId">
+									</div>
+									<!-- Card START -->
+									<div class="card border bg-transparent rounded-3">
+										<!-- Card header START -->
+										<div class="card-header bg-transparent border-bottom px-3">
+											<div class="d-sm-flex justify-content-between">
+												<!-- Title -->
+												<h4>Questions Details</h4>
+												<!-- Add Question button -->
+												<a
+													th:href="@{|/${map}/edit-course-detail/edit-assignment/add-question|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}"
+													class="btn btn-primary mb-0"> Add questions</a>
+											</div>
+										</div>
+										<!-- Card header END -->
+
+										<!-- Card body START -->
+										<div class="card-body p-4">
+
+											<!-- Accordion START -->
+											<div class="accordion accordion-icon accordion-bg-light"
+												id="accordionExample2">
+												<div
+													th:each="question,iterStat : ${courseAssignment.questions}">
+
+													<!-- Item -->
+													<div class="accordion-item mb-3">
+														<h6 class="accordion-header font-base"
+															th:id="'heading-' + ${iterStat.index}">
+															<a
+																class="accordion-button fw-bold rounded collapsed d-block pe-4"
+																href="#collapse-1" data-bs-toggle="collapse"
+																th:attr="aria-controls='collapse-1', data-bs-target='#collapse-' + ${iterStat.index}"
+																aria-expanded="true"> <span
+																class="text-secondary fw-bold me-3"
+																th:text="${iterStat.index + 1}"></span> <span
+																class="fw-bold" th:text="${question.question}"></span>
+															</a>
+														</h6>
+														<div th:id="'collapse-' + ${iterStat.index}"
+															class="accordion-collapse collapse show"
+															th:attr="aria-labelledby='heading-' + ${iterStat.index}"
+															data-bs-parent="#accordionExample2">
+															<div class="accordion-body mt-3">
+
+																<div th:each="answer,ansIterStat : ${question.answers}">
+																	<!-- Answer options -->
+																	<div class="row">
+																		<div class="col col-10 justify-content-start">
+																			<p class="mb-3">
+																				<b class="text-dark"
+																					th:text="${ansIterStat.index + 1}"></b> <span
+																					class="ms-2" th:text="${answer.answerTitle}"></span>
+																			</p>
+																		</div>
+																		<div class="col col-2 justify-content-end">
+																			<a th:href="@{|/${map}/edit-course-detail/edit-assignment/add-question/edit-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${question.id}, answerId=${answer.id})}" class="btn btn-sm btn-warning mb-0">Edit</a>
+																			<a th:href="@{|/${map}/edit-course-detail/edit-assignment/add-question/delete-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${question.id}, answerId=${answer.id})}" class="btn btn-danger btn-sm mb-0">Delete</a>
+																		</div>
+																	</div>
+
+																</div>
+																<!-- Button -->
+																<a th:href="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-single-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${question.id})}" class="btn btn-sm btn-success-soft mb-0">Add
+																	Option</a> <a
+																	th:href="@{|/${map}/edit-course-detail/edit-assignment/edit-question|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${question.id})}"
+																	class="btn btn-sm btn-warning-soft mb-0">Edit</a> <a
+																	th:href="@{|/${map}/edit-course-detail/edit-assignment/delete-question|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${question.id})}"
+																	class="btn btn-danger-soft btn-sm mb-0">Delete</a>
+															</div>
+														</div>
+													</div>
+
+												</div>
+
+											</div>
+											<!-- Accordion END -->
+
+										</div>
+										<!-- Card body START -->
+									</div>
+									<!-- Card END -->
+									<!-- Buttons -->
+									<div class="d-flex justify-content-between mt-3">
+										<a class="btn btn-warning next-btn mb-0"
+											th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
+										<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Scripts -->
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

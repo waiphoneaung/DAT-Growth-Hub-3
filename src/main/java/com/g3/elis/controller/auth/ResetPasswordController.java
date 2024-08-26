@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.g3.elis.util.OtpService;
 import com.g3.elis.util.PasswordResetService;
 
+import jakarta.validation.Valid;
+
 
 
 @Controller
@@ -21,16 +23,17 @@ public class ResetPasswordController {
     
 
     @PostMapping("/auth/reset-password")
-    public String resetPassword(@RequestParam("email") String email, 
+    public String resetPassword(@Valid @RequestParam("email") String email, 
                                 @RequestParam("otp") String otp, 
                                 @RequestParam("newPassword") String newPassword, 
+                                
                                 Model model) {
         if (otpService.validateOtp(email, otp)) {
             pwdResetService.updatePassword(email, newPassword);
-            return "redirect:/user/home";
+            return "redirect:/auth/login";
         } else {
         	model.addAttribute("error", "Invalid OTP or OTP has expired.");
-            model.addAttribute("email", email);  // Ensure email is preserved on error
+            model.addAttribute("email", email);  
 
             return "/auth/reset-password";
         }

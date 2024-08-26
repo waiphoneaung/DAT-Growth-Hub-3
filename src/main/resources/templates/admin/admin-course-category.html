@@ -17,9 +17,11 @@
 										class="badge bg-orange bg-opacity-10 text-orange"
 										th:text="${categoryCount}"></span>
 								</h1>
+
 								<a class="btn btn-sm btn-primary mb-0" data-bs-toggle="modal"
 									data-bs-target="#createCategory" data-whatever="Category">Create
 									a Course Category</a>
+
 							</div>
 						</div>
 					</div>
@@ -39,10 +41,11 @@
 										<div class="form-group">
 											<label for="category-name" class="col-form-label">Category
 												Name:</label> <input type="text" class="form-control"
-												id="category-name" name="categoryName">
+												id="category-name" name="categoryName" required>
 										</div>
 									</div>
 									<div class="modal-footer">
+
 										<button type="button" class="btn btn-secondary"
 											data-bs-dismiss="modal">Close</button>
 										<button type="submit" class="btn btn-primary">Submit</button>
@@ -123,6 +126,7 @@
 						</div>
 
 						<div class="card-footer bg-transparent pt-0">
+
 							<div
 								class="d-sm-flex justify-content-center align-items-sm-center">
 								<nav class="d-flex justify-content-center mb-0"
@@ -143,7 +147,6 @@
 											class="page-link" th:text="${i + 1}"
 											th:href="@{/admin/admin-course-category/search(page=${i}, search=${search})}">1</a>
 										</li>
-
 										<!-- Next button: only show if not on the last page -->
 										<li th:if="${currentPage < totalPages - 1}"
 											class="page-item mb-0"><a class="page-link"
@@ -156,6 +159,7 @@
 						</div>
 
 					</div>
+
 				</div>
 
 
@@ -164,7 +168,9 @@
 
 
 			<!-- Edit Modal Start -->
+
 			<div th:each="category : ${courseCategories}">
+
 				<div class="modal fade" id="editCategory" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -210,10 +216,9 @@
 			var display = myModal.querySelector('#edit-category-name');
 			input.value = categoryId;
 			//display.value = 
-			
+
 			console.log(categoryId);
 		});
-
 	</script>
 </body>
 </html>

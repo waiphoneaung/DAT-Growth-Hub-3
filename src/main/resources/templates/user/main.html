@@ -290,25 +290,26 @@ Counter START -->
 		<div class="row g-4">
 			<!-- Counter item -->
 			<div class="col-sm-6 col-xl-4">
-				<div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
-					<span class="display-6 lh-1 text-warning mb-0"><i class="fas fa-tv"></i></span>
-					<div class="ms-4 h6 fw-normal mb-0">
-						<div class="d-flex">
-							<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="10"	data-purecounter-delay="200">0</h5>
-							<span class="mb-0 h5">K</span>
-						</div>
-						<p class="mb-0">Courses</p>
-					</div>
-				</div>
-			</div>
+    <div class="d-flex justify-content-center align-items-center p-4 bg-warning bg-opacity-15 rounded-3">
+        <span class="display-6 lh-1 text-warning mb-0"><i class="fas fa-tv"></i></span>
+        <div class="ms-4 h6 fw-normal mb-0">
+            <div class="d-flex">
+                <h5 class="purecounter mb-0 fw-bold" th:data-purecounter-end="${courseCount}" 
+                    data-purecounter-start="0" data-purecounter-delay="200">0</h5>
+                
+            </div>
+            <p class="mb-0">Courses</p>
+        </div>
+    </div>
+</div>
 			<!-- Counter item -->
 			<div class="col-sm-6 col-xl-4">
 				<div class="d-flex justify-content-center align-items-center p-4 bg-blue bg-opacity-10 rounded-3">
 					<span class="display-6 lh-1 text-blue mb-0"><i class="fas fa-user-tie"></i></span>
 					<div class="ms-4 h6 fw-normal mb-0">
 						<div class="d-flex">
-							<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="200" data-purecounter-delay="200">0</h5>
-							<span class="mb-0 h5">+</span>
+							<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" th:data-purecounter-end="${instructorCount}" data-purecounter-delay="200">0</h5>
+							
 						</div>
 						<p class="mb-0">Instructors</p>
 					</div>
@@ -320,8 +321,8 @@ Counter START -->
 					<span class="display-6 lh-1 text-purple mb-0"><i class="fas fa-user-graduate"></i></span>
 					<div class="ms-4 h6 fw-normal mb-0">
 						<div class="d-flex">
-							<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="60"	data-purecounter-delay="200">0</h5>
-							<span class="mb-0 h5">K+</span>
+							<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" th:data-purecounter-end="${studentCount}"	data-purecounter-delay="200">0</h5>
+							
 						</div>
 						<p class="mb-0">Students</p>
 					</div>
@@ -391,7 +392,7 @@ Popular course START -->
 									<a href="#" class="h6 mb-0"> </a>
 								</div>
 								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Sketch from A to Z: for app designer</a></h5>
+								<h5 class="card-title fw-normal"><a th:href="@{/user/user-course-detail}">Sketch from A to Z: for app designer</a></h5>
 								<p class="mb-2 text-truncate-2">Proposal indulged no do sociable he throwing settling.</p>
 								
 							</div>
@@ -543,7 +544,7 @@ Popular course START -->
 					<div class="col-sm-6 col-lg-4 col-xl-3">
 						<div class="card shadow h-100">
 							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/06.jpg}" class="card-img-top" alt="course image">
+							<img th:src="@{/public/assets/images/courses/4by3/GUEST.png}" class="card-img-top" alt="course image">
 							<div class="card-body pb-0">
 								<!-- Badge and favorite -->
 								

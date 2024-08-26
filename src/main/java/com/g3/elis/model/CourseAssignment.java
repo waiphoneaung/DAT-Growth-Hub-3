@@ -3,6 +3,7 @@ package com.g3.elis.model;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,23 +15,26 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="course_assignments")
+@Table(name = "course_assignments")
 public class CourseAssignment {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String title;
-	private boolean finishedStatus;
-	private int timeLimit;
-	private int score;
 	
+	@Column(length=1000)
+	private String title;
+	private int timeLimit;
+
 	@ManyToOne
 	@JoinColumn(name = "course_module_id")
 	private CourseModule courseModules;
 	
-	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
-	List<Question> questions;
+	@OneToMany(mappedBy = "courseAssignment", fetch = FetchType.LAZY)
+	private List<EnrolledAssignment> enrolledAssignment;
+
+	@OneToMany(mappedBy = "courseAssignments", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<Question> questions;
 
 	public int getId() {
 		return id;
@@ -48,28 +52,12 @@ public class CourseAssignment {
 		this.title = title;
 	}
 
-	public boolean isFinishedStatus() {
-		return finishedStatus;
-	}
-
-	public void setFinishedStatus(boolean finishedStatus) {
-		this.finishedStatus = finishedStatus;
-	}
-
 	public int getTimeLimit() {
 		return timeLimit;
 	}
 
 	public void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	public CourseModule getCourseModule() {
@@ -80,29 +68,33 @@ public class CourseAssignment {
 		this.courseModules = courseModule;
 	}
 
-	public List<Question> getQuestion() {
+	public CourseModule getCourseModules() {
+		return courseModules;
+	}
+
+	public void setCourseModules(CourseModule courseModules) {
+		this.courseModules = courseModules;
+	}
+
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestion(List<Question> question) {
-		this.questions = question;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
-	public CourseAssignment(int id, String title, boolean finishedStatus, int timeLimit, int score,
-			CourseModule courseModule, List<Question> question) {
+	public CourseAssignment(int id, String title, int timeLimit, CourseModule courseModules, List<Question> questions) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.finishedStatus = finishedStatus;
 		this.timeLimit = timeLimit;
-		this.score = score;
-		this.courseModules = courseModule;
-		this.questions = question;
+		this.courseModules = courseModules;
+		this.questions = questions;
 	}
 
 	public CourseAssignment() {
 		super();
 	}
 
-	
 }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT Growth Hub</title>
+<!-- Stylesheets -->
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+</head>
+<body>
+	<!-- Sidebar -->
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
+
+	<!-- Include navbar -->
+
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+
+
+
+	<!-- Page content START -->
+	<div class="page-content">
+		<!-- Page main content START -->
+		<div class="page-content-wrapper border">
+			<div class="container">
+				<div class="row g-4 align-items-center">
+					<div class="col-md-2">
+						<img
+							th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+							class="rounded-2" alt="Card image">
+					</div>
+					<div class="col-md-10">
+						<!-- Title -->
+						<h3 class="card-title mb-0">
+							<a href="#" th:text="${course.courseTitle}"></a>
+						</h3>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<!-- Add START -->
+			<div class="container" th:if="${action} == 'add'">
+				<form
+					th:action="@{|/${map}/edit-course-detail/add-module|(courseId=${courseId})}"
+					method="POST" th:object="${courseModuleDto}"
+					enctype="multipart/form-data">
+					<!-- Title -->
+					<h4>Module Details</h4>
+
+					<hr>
+					<!-- Divider Basic information START -->
+					<div class="row g-4">
+						<!-- Course title -->
+						<div class="col-12">
+							<label class="form-label">Module title</label> <input
+								th:if="${action} == 'add'" th:field="*{moduleTitle}"
+								class="form-control" type="text"
+								placeholder="Enter module title" required> <input type="hidden"
+								th:value="${courseId}" name="courseId">
+						</div>
+
+						<!-- Buttons -->
+						<div class="d-flex justify-content-between mt-3">
+							<a class="btn btn-warning next-btn mb-0"
+								th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
+							<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<!-- Add END -->
+			<!-- Edit START -->
+			<div class="container" th:if="${action} == 'edit'">
+				<form
+					th:action="@{|/${map}/edit-course-detail/edit-module|(courseId=${courseId}, courseModuleId=${courseModuleId})}"
+					method="POST" th:object="${courseModuleDto}"
+					enctype="multipart/form-data">
+					<!-- Title -->
+					<h4>Module Details</h4>
+
+					<hr>
+					<!-- Divider Basic information START -->
+					<div class="row g-4">
+						<!-- Course title -->
+						<div class="col-12">
+							<label class="form-label">Module title</label> <input
+								class="form-control" type="text" th:field="*{moduleTitle}"
+								th:value="${courseModuleDto.moduleTitle}"
+								placeholder="Enter module title" required> <input type="hidden"
+								th:value="${courseId}" name="courseId">
+						</div>
+
+						<!-- Buttons -->
+						<div class="d-flex justify-content-between mt-3">
+							<a class="btn btn-warning next-btn mb-0"
+								th:href="@{|/${map}/edit-course-detail|(courseId=${courseId})}">Cancel</a>
+							<button type="submit" class="btn btn-primary next-btn mb-0">Confirm</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<!-- Edit END -->
+		</div>
+	</div>
+
+
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Scripts -->
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

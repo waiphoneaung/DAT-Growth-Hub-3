@@ -57,7 +57,7 @@
 
 						<!-- Nav Search START -->
 						<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-						<!--  	<div class="nav-item w-100">
+							<!--  	<div class="nav-item w-100">
 								<form class="position-relative">
 									
 									<button
@@ -78,75 +78,28 @@
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
 								role="button" data-bs-auto-close="outside"
 								data-bs-display="static" data-bs-toggle="dropdown"
-								aria-expanded="false"> <!-- Admin -->
-								 <span th:if="${#authentication.principal.isAdmin()}">
-								  <img class="avatar-img rounded-circle"
-									th:if="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
-									alt="avatar"> <img class="avatar-img rounded-circle"
-									th:unless="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
-							</span>
-							 <!-- Instructor --> 
-							 <span
-								th:if="${#authentication.principal.isInstructor()}">
-								 <img
-									class="avatar-img rounded-circle"
-									th:if="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
-									alt="avatar"> 
-									<img class="avatar-img rounded-circle"
-									th:unless="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
-							</span> <!-- Student --> 
-							<span
-								th:if="${#authentication.principal.isStudent()}"> <img
-									class="avatar-img rounded-circle"
-									th:if="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
-									alt="avatar"> <img class="avatar-img rounded-circle"
-									th:unless="${user.profile != null && user.profile.profileImg != null}"
-									th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
-							</span>
+								aria-expanded="false"> <img
+								class="avatar-img rounded-circle"
+								th:if="${user.profile != null && user.profile.profileImg != null}"
+								th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+								alt="avatar"> <img class="avatar-img rounded-circle"
+								th:unless="${user.profile != null && user.profile.profileImg != null}"
+								th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 							</a>
-
 							<ul
 								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
 								aria-labelledby="profileDropdown">
 								<li class="px-3 mb-3">
 									<div class="d-flex align-items-center">
 										<div class="avatar me-3">
-											<span th:if="${#authentication.principal.isAdmin()}">
-												<img class="avatar-img rounded-circle shadow"
+											<img class="avatar-img rounded-circle shadow"
 												th:if="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/private/profile/admin-profile/' + ${user.profile.profileImg}}"
+												th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 												alt="avatar"> <img
 												class="avatar-img rounded-circle shadow"
 												th:unless="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 												alt="avatar">
-											</span> <span th:if="${#authentication.principal.isInstructor()}">
-												<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
-												class="avatar-img rounded-circle shadow"
-												th:if="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}"
-												alt="avatar"> <img
-												sec:authorize="hasRole('ROLE_INSTRUCTOR')"
-												class="avatar-img rounded-circle shadow"
-												th:unless="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
-												alt="avatar">
-											</span> <span th:if="${#authentication.principal.isStudent()}">
-												<img class="avatar-img rounded-circle shadow"
-												th:if="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/private/profile/student-profile/' + ${user.profile.profileImg}}"
-												alt="avatar"> <img
-												class="avatar-img rounded-circle shadow"
-												th:unless="${user.profile != null && user.profile.profileImg != null}"
-												th:src="@{'/public/assets/images/avatar/06.jpg'}"
-												alt="avatar">
-											</span>
-
 										</div>
 
 										<div>

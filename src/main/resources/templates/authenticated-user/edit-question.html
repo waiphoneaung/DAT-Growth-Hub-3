@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAT Growth Hub</title>
+<!-- Stylesheets -->
+<th:block th:replace="~{fragments/stylesheets :: stylesheets}"></th:block>
+
+<!-- Dark Mode Script -->
+<th:block th:replace="~{fragments/darkmode-script :: darkmode-script}"></th:block>
+</head>
+<body>
+	<!-- Sidebar -->
+	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
+
+	<!-- Include navbar -->
+
+	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
+
+	<!-- Page content START -->
+	<div class="page-content">
+		<!-- Page main content START -->
+		<div class="page-content-wrapper border">
+			<div class="container">
+				<div class="row g-4 align-items-center">
+					<div class="col-md-2">
+						<img
+							th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+							class="rounded-2" alt="Card image">
+					</div>
+					<div class="col-md-10">
+						<!-- Title -->
+						<h3 class="card-title mb-0">
+							<a href="#" th:text="${course.courseTitle}"></a>
+						</h3>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="container" th:if="${action} == 'add'">
+				<form
+					th:action="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}"
+					th:object="${superDto}" method="POST" enctype="multipart/form-data"
+					id="answerForm">
+					<!-- Step 1 content START -->
+					<div class="container">
+						<div class="row justify-content-start">
+							<div class="col-12">
+								<!-- Title -->
+								<h4>Question details</h4>
+							</div>
+						</div>
+						<hr>
+						<!-- Divider Basic information START -->
+						<div class="row g-4">
+							<!-- Question title -->
+							<div class="col-12">
+								<label class="form-label">Question Title</label> <input
+									class="form-control" type="text"
+									th:field="*{questionDto.question}" th:value="${question}"
+									placeholder="Write a Question Here." id="questionTitle"
+									required>
+							</div>
+							<div class="col-12">
+								<label class="form-label">Number of answer options: </label> <input
+									class="form-control" type="number" name="answerCount"
+									id="numberInput" value=0 min="0"
+									th:value="${answerCount != null? answerCount : ''}"
+									placeholder="Enter the number of question(only number)"
+									required>
+							</div>
+							<hr>
+							<h5>Select the checkbox for correct answer.:</h5>
+							<!-- Answer fields -->
+							<div th:each="answerDto,iterStat : ${superDto.answerDtoList}"
+								class="col-12">
+								<div class="row">
+									<div class="col-12">
+										<label class="form-label">Enter answer title: </label>
+										<div class="input-group mb-3">
+											<input class="form-control"
+												th:field="*{answerDtoList[__${iterStat.index}__].answerTitle}"
+												type="text" placeholder="Enter the answer Title. " required>
+											<div class="input-group-text">
+												<input class="form-check-input mt-0" type="checkbox"
+													aria-label="Checkbox for correct answer"
+													th:field="*{answerDtoList[__${iterStat.index}__].correctStatus}"
+													th:id="'correctStatus' + ${iterStat.index}"
+													name="correctStatus" value=true>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Step 1 button -->
+							<div class="d-flex justify-content-between mt-3">
+								<a class="btn btn-warning next-btn mb-0"
+									th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}">Cancel</a>
+								<a id="addAnswerLink" class="btn btn-info mb-0"
+									th:href="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-answer|(
+								       courseId=${courseId}, 
+								       courseModuleId=${courseModuleId}, 
+								       courseAssignmentId=${courseAssignmentId}, 
+								       action=${action}
+								   )}"
+									onclick="addAnswer(event)">Add Answer</a>
+								<button class="btn btn-primary next-btn mb-0" type="submit" onclick="validateForm(event)">Confirm</button>
+							</div>
+						</div>
+						<!-- Basic information START -->
+					</div>
+					<!-- Step 1 content END -->
+				</form>
+			</div>
+			<div class="container" th:if="${action} == 'edit'">
+				<form
+					th:action="@{|/${map}/edit-course-detail/edit-assignment/edit-question|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId}, questionId=${questionId})}"
+					th:object="${questionDto}" method="POST"
+					enctype="multipart/form-data">
+					<!-- Step 1 content START -->
+					<div>
+						<!-- Question title -->
+						<div class="col-12">
+							<label class="form-label">Question Title</label> <input
+								class="form-control" type="text" th:field="*{question}"
+								placeholder="Write a Question Here." required>
+						</div>
+
+						<!-- Step 1 button -->
+						<div class="d-flex justify-content-between mt-3">
+							<a class="btn btn-warning next-btn mb-0"
+								th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}">Cancel</a>
+							<button class="btn btn-primary next-btn mb-0" type="submit">Confirm</button>
+						</div>
+					</div>
+					<!-- Basic information START -->
+
+					<!-- Step 1 content END -->
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
+	<script>
+		function addAnswer(event) {
+			event.preventDefault(); // Prevent the default action of the anchor tag
+
+			// Get the value from the input field
+			var answerCount = document.getElementById('numberInput').value;
+			//add code
+			var questionTitle = document.getElementById('questionTitle').value;	
+
+			if ( answerCount === "" || answerCount <= 0) {
+				event.preventDefault();
+				alert("Please enter a valid number of answer options.");
+				return false;
+			}
+			
+			// Ensure the title and answer count remain in the text fields
+			// Get the existing href of the link
+			var link = document.getElementById('addAnswerLink');
+			var href = link.getAttribute('href');
+
+			// Append the questionTitle and answerCount as query parameters
+			if (questionTitle) {
+				href += '&questionTitle=' + encodeURIComponent(questionTitle);
+			}
+
+			// Append the answerCount as a query parameter
+			if (answerCount) {
+				href += '&answerCount=' + encodeURIComponent(answerCount);
+			}
+
+			// Set the modified href back to the link
+			link.setAttribute('href', href);
+
+			// Optionally, navigate to the new URL
+			window.location.href = href;
+		}
+		
+	/* 	function validateForm(event) {
+		    // Select all checkboxes with name="correctStatus"
+		    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="correctStatus"]');
+		    
+		    // Check if at least one checkbox is checked
+		    var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+		    
+		    // If no checkbox is checked, show an alert and prevent form submission
+		    if (!isChecked) {
+		        alert("Please select at least one correct answer.");
+		        event.preventDefault(); // Corrected typo: 'preventDefault' instead of 'perventDefault'
+		    }
+		}
+ */
+	</script>
+	
+
+	
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+	<!-- Vendors -->
+	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	<script
+		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
+
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Scripts -->
+	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>
