@@ -88,12 +88,11 @@ Main Content START -->
 								<ul class="list-inline list-unstyled">
 
 									<span class="small text-warning"
-										th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
-									<span> || </span>
-									<span class="small text-warning" th:text="${timeAgo}"></span>
+										th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy - hh:mm:ss a')}"></span>
+									<span> 
 								</ul>
 
-								<!-- Info -->
+								<!-- Info th:text="${timeAgo}" -->
 								<!-- Main HTML Content Start -->
 
 
