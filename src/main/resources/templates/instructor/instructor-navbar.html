@@ -47,21 +47,7 @@
 						</ul>
 						<!-- Nav Main menu END -->
 
-						<!-- Nav Search START -->
-						<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-							<div class="nav-item w-100">
-								<form class="position-relative">
-									<input class="form-control pe-5 bg-transparent" type="search"
-										placeholder="Search" aria-label="Search">
-									<button
-										class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-										type="submit">
-										<i class="fas fa-search fs-6 "></i>
-									</button>
-								</form>
-							</div>
-						</div>
-						<!-- Nav Search END -->
+						
 					</div>
 					<!-- Main navbar END -->
 
@@ -81,32 +67,42 @@
 							<li class="px-3 mb-3">
 								<div class="d-flex align-items-center">
 									<!-- Avatar -->
-									<div class="avatar me-3">
-										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle shadow" th:src="@{'/private/profile/instructor-profile/' + ${user.profile.profileImg}}" alt="avatar">
-										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle shadow" th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
-									</div>
-									<div>
-										<a class="h6" th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}">Student</a>
-										<p class="small m-0" th:text="${user.email}"></p>
-									</div>
-								</div>
-							</li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
+												<div class="avatar me-3 mb-3">
+
+													<img class="avatar-img rounded-circle shadow"
+														th:if="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+														alt="avatar"> <img
+														class="avatar-img rounded-circle shadow"
+														th:unless="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+														alt="avatar">
+												</div>
+												<div>
+													<a class="h6 mt-2 mt-sm-0"
+														th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}"></a>
+													<p class="small m-0" th:text="${user.email}"></p>
+												</div>
+											</div>
+
+										</li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+									
 							<!-- Links -->
 							<li><span th:if="${#authentication.principal.isAdmin()}">
 										<a class="dropdown-item"
 										th:href="@{/admin/admin-dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span> <span th:if="${#authentication.principal.isStudent()}">
 										<a class="dropdown-item"
 										th:href="@{/student/student-dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span> <span th:if="${#authentication.principal.isInstructor()}">
 										<a class="dropdown-item"
 										th:href="@{/instructor/instructor-dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span></li>
 								<li>
 								<li><span th:if="${#authentication.principal.isAdmin()}">
