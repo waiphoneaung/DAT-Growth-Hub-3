@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.g3.elis.dto.report.CourseProgress;
 import com.g3.elis.model.User;
+
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
+
 import com.g3.elis.service.ReportService;
 
 @Controller
@@ -26,8 +28,11 @@ public class InstructorDashboardController {
 	@Autowired
 	EnrolledCourseService enrollerCourseService;
 
+	
+	
 	@GetMapping("/instructor-dashboard")
 	public String home(Authentication authentication, Model model) {
+
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();
 		int userId = user.getId();
@@ -43,5 +48,7 @@ public class InstructorDashboardController {
 		model.addAttribute("currentPage", "instructor-dashboard");
 		model.addAttribute("content", "instructor/instructor-dashboard");
 		return "instructor/instructor-layout";
+
 	}
+ 
 }
