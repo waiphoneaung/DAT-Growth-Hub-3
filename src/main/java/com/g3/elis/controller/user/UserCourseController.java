@@ -87,6 +87,7 @@ public class UserCourseController {
 		Course course = courseService.getCourseById(courseId);
 		model.addAttribute("isEnroll",enrolledCourseService.isUserEnrolledToCourse(userDetail.getUser().getId(),courseId));
 		model.addAttribute("course",course);
+		model.addAttribute("status",course.isCourseAssignmentPresent());
 		model.addAttribute("content","user/user-course-detail");
 		return "/user/layout";
 	}

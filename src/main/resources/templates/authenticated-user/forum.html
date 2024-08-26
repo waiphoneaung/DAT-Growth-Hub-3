@@ -131,7 +131,7 @@ main {
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span> <!-- Instructor --> <span
 						th:if="${#authentication.principal.isInstructor()}"> <img
 							class="avatar-img rounded-circle"
@@ -139,7 +139,7 @@ main {
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span> <!-- Student --> <span
 						th:if="${#authentication.principal.isStudent()}"> <img
 							class="avatar-img rounded-circle"
@@ -147,7 +147,7 @@ main {
 							th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 							alt="avatar"> <img class="avatar-img rounded-circle"
 							th:unless="${user.profile != null && user.profile.profileImg != null}"
-							th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+							th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 					</span>
 					</a>
 					<ul
@@ -165,7 +165,7 @@ main {
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span> <span th:if="${#authentication.principal.isInstructor()}">
 										<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
@@ -175,7 +175,7 @@ main {
 										sec:authorize="hasRole('ROLE_INSTRUCTOR')"
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span> <span th:if="${#authentication.principal.isStudent()}">
 										<img class="avatar-img rounded-circle shadow"
 										th:if="${user.profile != null && user.profile.profileImg != null}"
@@ -183,7 +183,7 @@ main {
 										alt="avatar"> <img
 										class="avatar-img rounded-circle shadow"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</span>
 
 								</div>
@@ -206,8 +206,14 @@ main {
 							<hr class="dropdown-divider">
 						</li>
 						<!-- Links -->
-						<li><a class="dropdown-item bg-danger-soft-hover"
-							href="/admin/admin-dashboard"><i
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item bg-danger-soft-hover"
+							th:href="@{/admin/admin-dashboard}"><i
+								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+								<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a class="dropdown-item bg-danger-soft-hover"
+							th:href="@{/instructor/instructor-dashboard}"><i
+								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+								<li sec:authorize="hasRole('ROLE_STUDENT')"><a class="dropdown-item bg-danger-soft-hover"
+							th:href="@{/student/student-dashboard}"><i
 								class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
 						<li><span th:if="${#authentication.principal.isAdmin()}">
 								<a class="dropdown-item" th:href="@{/admin/admin-edit-profile}"><i
@@ -361,7 +367,7 @@ main {
 
 									<img class="avatar avatar-lg rounded-circle float-start me-3"
 										th:unless="${forum.users.profile!= null && forum.users.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar" />
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar" />
 								</div>
 								<div class=" " style="width: 100%">
 									<div
@@ -395,7 +401,7 @@ main {
 
 												<img
 													class="avatar avatar-sm rounded-circle float-start me-3"
-													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 													alt="avatar" />
 											</div>
 

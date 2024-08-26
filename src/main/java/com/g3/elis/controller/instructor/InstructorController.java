@@ -34,5 +34,9 @@ public class InstructorController {
 		return "/authenticated-user/blog-detail";
 	}
 	
-}
+	    
+	}
+
+	
+
 

@@ -3,7 +3,11 @@
 <head th:fragment="header">
 <meta charset="UTF-8">
 <title>Admin NavBar</title>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 </head>
 <body>
@@ -72,7 +76,7 @@
 										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
 										alt="avatar"> <img class="avatar-img rounded-circle"
 										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</a>
 
 									<!-- Profile dropdown START -->
@@ -91,7 +95,7 @@
 														alt="avatar"> <img
 														class="avatar-img rounded-circle shadow"
 														th:unless="${user.profile != null && user.profile.profileImg != null}"
-														th:src="@{'/public/assets/images/avatar/06.jpg'}"
+														th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 														alt="avatar">
 												</div>
 												<div>
@@ -177,3 +181,4 @@
 			</div>
 		</nav>
 		<!-- Top bar END -->
+		

@@ -17,6 +17,7 @@
 				<!-- Card header START -->
 				<div class="card-header bg-transparent border-bottom">
 					<h3 class="mb-0">Quiz result</h3>
+					<a th:href="@{/instructor/instructor-quiz-result/generate-quiz-result}" class="btn btn-info">Export Data</a>
 				</div>
 				<!-- Card header END -->
 
@@ -33,11 +34,15 @@
 							<!-- Table head -->
 							<thead>
 								<tr>
-									<th scope="col" class="border-0">Assignment name</th>
+									<th scope="col" class="border-0">Student</th>
+									<th scope="col" class="border-0">Course</th>
+									<th scope="col" class="border-0">Assignment</th>
+									<th scope="col" class="border-0">Times taken</th>
 									<th scope="col" class="border-0">Average Score</th>
 									<th scope="col" class="border-0">Highest Score</th>
 									<th scope="col" class="border-0">Lowest Score</th>
 									<th scope="col" class="border-0">Pass Rate</th>
+									<th scope="col" class="border-0">Grade</th>
 								</tr>
 							</thead>
 
@@ -46,18 +51,26 @@
 								<!-- Table item -->
 								<tr th:each="report : ${reports}">
 									<!-- Table data -->
+									<td th:text="${report.student.name}"></td>
+									<!-- Table data -->
+									<td th:text="${report.courseTitle}"></td>
+									<!-- Table data -->
 									<td th:text="${report.assignmentTitle}"></td>
 									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
+									<td th:text="${report.timesTakenQuiz}"></td>
 									<!-- Table data -->
-									<td th:text="${report.highestScore + '%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
-									<td th:text="${report.lowestScore + '%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.highestScore,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${report.passRate + '%'}"></td>
-
+									<td th:text="${#numbers.formatDecimal(report.lowestScore,1,2) + '%'}"></td>
+									<!-- Table data -->
+									<td th:text="${#numbers.formatDecimal(report.passRate,1,2) + '%'}"></td>
+									<!-- Table data -->
+									<td th:text="${report.grade}"></td>
+									
 								</tr>
-								
+
 							</tbody>
 							<!-- Table body END -->
 						</table>

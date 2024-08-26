@@ -44,26 +44,25 @@ Page intro START -->
 									</ul>
 								</div>
 
-								<div class="col-lg-4">
-									<button th:if="${isEnroll}"
-										class="btn btn-primary mb-3 w-100" disabled>Already
-										Enrolled</button>
-									<a  th:href="@{/user/courses/course-detail/enroll(courseId=${course.id})}"
-										th:unless="${isEnroll}"
-										th:text="'Enroll Course'"
-										class="btn btn-primary mb-3 w-100">	
-									</a>
-									
+								<div th:if="${#authentication.principal.isStudent()}"
+									class="col-lg-4">
+									<div th:if="${status}">
+										<button th:if="${isEnroll}" class="btn btn-primary mb-3 w-100"
+											disabled>Already Enrolled</button>
+										<a
+											th:href="@{/user/courses/course-detail/enroll(courseId=${course.id})}"
+											th:unless="${isEnroll}" class="btn btn-primary mb-3 w-100">
+											Enroll Course </a>
+									</div>
+									<div th:unless="${status}">
+										<button class="btn btn-primary mb-3 w-120" disabled>This course doesn't have any assignment yet.</button>
+									</div>
 								</div>
 
 							</div>
 						</div>
 					</div>
-
-
-
 				</div>
-
 			</section>
 			<!-- =======================
 Page intro END -->
@@ -158,20 +157,23 @@ Page content START -->
 													<div class="row g-0 align-items-center">
 														<div class="col-md-5">
 															<!-- Image -->
-															<img th:if="${course.users.profile != null && course.users.profile.profileImg != null}"
-																 th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}"
+															<img
+																th:if="${course.users.profile != null && course.users.profile.profileImg != null}"
+																th:src="@{'/private/profile/user-profile/' + ${course.users.profile.profileImg}}"
 																class="img-fluid rounded-3" alt="instructor-image">
-															<img th:unless="${course.users.profile != null && course.users.profile.profileImg != null}"
-																 th:src="@{/public/assets/images/avatar/06.jpg}"
+															<img
+																th:unless="${course.users.profile != null && course.users.profile.profileImg != null}"
+																th:src="@{/public/assets/images/avatar/GUEST.png}"
 																class="img-fluid rounded-3" alt="instructor-image">
 														</div>
 														<div class="col-md-7">
 															<!-- Card body -->
 															<div class="card-body">
 																<!-- Title -->
-																<h3 class="card-title mb-0" th:text="${course.users.name}"></h3>
+																<h3 class="card-title mb-0"
+																	th:text="${course.users.name}"></h3>
 																<p class="mb-2" th:text="${course.users.division}"></p>
-							
+
 																<!-- Info -->
 																<ul class="list-inline">
 																	<li class="list-inline-item">
@@ -179,19 +181,21 @@ Page content START -->
 																			<span
 																				class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle"><i
 																				class="fas fa-user-graduate"></i></span> <span
-																				class="h6 fw-light mb-0 ms-2" th:text="${course.enrolledCourses.size}"></span>
+																				class="h6 fw-light mb-0 ms-2"
+																				th:text="${course.enrolledCourses.size}"></span>
 																		</div>
 																	</li>
-																	
+
 																	<li class="list-inline-item">
 																		<div class="d-flex align-items-center me-3 mb-2">
 																			<span
 																				class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle"><i
 																				class="fas fa-play"></i></span> <span
-																				class="h6 fw-light mb-0 ms-2" th:text="${course.users.courses.size} + ' Courses'"></span>
+																				class="h6 fw-light mb-0 ms-2"
+																				th:text="${course.users.courses.size} + ' Courses'"></span>
 																		</div>
 																	</li>
-																	
+
 																</ul>
 															</div>
 														</div>
@@ -201,12 +205,14 @@ Page content START -->
 
 												<!-- Instructor info -->
 												<h5 class="mb-3">About Instructor</h5>
-												<p class="mb-3" th:if="${course.users.profile != null && course.users.profile.description != null}" th:text="${course.users.profile.description}"></p>
+												<p class="mb-3"
+													th:if="${course.users.profile != null && course.users.profile.description != null}"
+													th:text="${course.users.profile.description}"></p>
 												<!-- Email address -->
 												<div class="col-12">
 													<ul class="list-group list-group-borderless mb-0">
-														<li class="list-group-item pb-0">Mail:
-														<a href="#" class="ms-2" th:text="${course.users.email}"></a></li>
+														<li class="list-group-item pb-0">Mail: <a href="#"
+															class="ms-2" th:text="${course.users.email}"></a></li>
 													</ul>
 												</div>
 											</div>
