@@ -87,7 +87,7 @@
 									</div>
 									<div>
 										<a class="h6" th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}">Student</a>
-										<p class="small m-0" th:text="${user.email}">@diracetechnology.com</p>
+										<p class="small m-0" th:text="${user.email}"></p>
 									</div>
 								</div>
 							</li>
@@ -105,7 +105,7 @@
 											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
 								</span> <span th:if="${#authentication.principal.isInstructor()}">
 										<a class="dropdown-item"
-										th:href="@{/instructor/instructor--dashboard}"><i
+										th:href="@{/instructor/instructor-dashboard}"><i
 											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
 								</span></li>
 								<li>
