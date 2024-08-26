@@ -36,7 +36,7 @@
 	th:href="@{/public/assets/css/style.css}">
 
 <style>
-	.ql-video {
+.ql-video {
 	width: 100%;
 	max-width: 100%;
 	height: 100%;
@@ -65,113 +65,186 @@
 
 					<!-- Top bar right START -->
 					<div class="ms-xl-auto">
-						<ul class="navbar-nav flex-row align-items-center">
 
 
-							<!-- Profile dropdown START -->
-							<li class="nav-item ms-2 ms-md-3 dropdown">
-								<!-- Sign In Button for Unauthenticated Users -->
-								<div th:if="${#authentication == null}">
-									<a class="btn btn-primary" th:href="@{/auth/sign-in}">Sign
-										In</a>
-								</div> <!-- Profile Dropdown for Authenticated Users -->
-								<div th:if="${#authentication != null}">
-									<!-- Avatar -->
-									<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
-										role="button" data-bs-auto-close="outside"
-										data-bs-display="static" data-bs-toggle="dropdown"
-										aria-expanded="false"> <img
-										class="avatar-img rounded-circle"
-										th:src="@{/public/assets/images/avatar/guest.png}" alt="avatar">
-									</a>
 
-									<!-- Profile dropdown START -->
-									<ul
-										class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
-										aria-labelledby="profileDropdown">
-										<!-- Profile info -->
-										<li class="px-3">
-											<div class="d-flex align-items-center">
-												<!-- Avatar -->
-												<div class="avatar me-3 mb-3">
-													<img class="avatar-img rounded-circle shadow"
-														th:src="@{/public/assets/images/avatar/guest.png}"
-														alt="avatar">
-												</div>
-												<div>
-													<a class="h6 mt-2 mt-sm-0"
-														th:href="@{/admin/admin-dashboard}" th:text="${user.name}"></a>
-													<p class="small m-0" th:text="${user.email}"></p>
-												</div>
-											</div>
 
-										</li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
+						<!-- Profile START -->
+						<div class="dropdown ms-1 ms-lg-0">
+							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+								role="button" data-bs-auto-close="outside"
+								data-bs-display="static" data-bs-toggle="dropdown"
+								aria-expanded="false"> <span
+								th:if="${#authentication.principal.isAdmin()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+									alt="avatar">
+							</span> <!-- Instructor --> <span
+								th:if="${#authentication.principal.isInstructor()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+									alt="avatar">
+							</span> <!-- Student --> <span
+								th:if="${#authentication.principal.isStudent()}"> <img
+									class="avatar-img rounded-circle"
+									th:if="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+									alt="avatar"> <img class="avatar-img rounded-circle"
+									th:unless="${user.profile != null && user.profile.profileImg != null}"
+									th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+									alt="avatar">
+							</span>
+							</a>
+							<ul
+								class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+								aria-labelledby="profileDropdown">
+								<!-- Profile info -->
+								<li class="px-3 mb-3">
+									<div class="d-flex align-items-center">
+										<!-- Avatar -->
+										<div class="avatar me-3">
+											<span th:if="${#authentication.principal.isAdmin()}">
+												<img class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+												alt="avatar">
+											</span> <span th:if="${#authentication.principal.isInstructor()}">
+												<img sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+												class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												sec:authorize="hasRole('ROLE_INSTRUCTOR')"
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+												alt="avatar">
+											</span> <span th:if="${#authentication.principal.isStudent()}">
+												<img class="avatar-img rounded-circle shadow"
+												th:if="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+												alt="avatar"> <img
+												class="avatar-img rounded-circle shadow"
+												th:unless="${user.profile != null && user.profile.profileImg != null}"
+												th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+												alt="avatar">
+											</span>
+										</div>
+										<div>
+											<span th:if="${#authentication.principal.isAdmin()}">
+												<a class="h6" th:href="@{/admin/admin-dashboard}"
+												th:text="${user.name}"></a>
+											</span> <span th:if="${#authentication.principal.isStudent()}">
+												<a class="h6" th:href="@{/student/student-dashboard}"
+												th:text="${user.name}"></a>
+											</span> <span th:if="${#authentication.principal.isInstructor()}">
+												<a class="h6" th:href="@{/instructor/instructor-dashboard}"
+												th:text="${user.name}"></a>
+											</span>
+											<p class="small m-0" th:text="${user.email}"></p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
+								<!-- Links -->
+								<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+									class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/admin/admin-dashboard}"><i
+										class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+								<li sec:authorize="hasRole('ROLE_INSTRUCTOR')"><a
+									class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/instructor/instructor-dashboard}"><i
+										class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+								<li sec:authorize="hasRole('ROLE_STUDENT')"><a
+									class="dropdown-item bg-danger-soft-hover"
+									th:href="@{/student/student-dashboard}"><i
+										class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+								<li><span th:if="${#authentication.principal.isAdmin()}">
+										<a class="dropdown-item"
+										th:href="@{/admin/admin-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isStudent()}">
+										<a class="dropdown-item"
+										th:href="@{/student/student-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span> <span th:if="${#authentication.principal.isInstructor()}">
+										<a class="dropdown-item"
+										th:href="@{/instructor/instructor-edit-profile}"><i
+											class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+								</span></li>
+								<li><a class="dropdown-item bg-danger-soft-hover"
+									href="/sign-out"><i class="bi bi-power fa-fw me-2"></i>Sign
+										Out</a></li>
+								<li>
+									<hr class="dropdown-divider">
+								</li>
 
-										<!-- Links -->
-										<li><a class="dropdown-item" th:href="@{/admin/admin-dashboard}"><i class="bi bi-person fa-fw me-2"></i>Dashboard</a></li>
-									<li><a class="dropdown-item"
-											th:href="@{/admin/admin-edit-profile}"><i
-												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-										<li><a class="dropdown-item bg-danger-soft-hover"
-											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
-												Out</a></li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
 
-										<!-- Dark mode options START -->
-										<li>
-											<div
-												class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
-												<!-- <span>Mode:</span> -->
-												<button type="button" class="btn btn-sm mb-0"
-													data-bs-theme-value="light">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16"
-														height="16" fill="currentColor"
-														class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+								<!-- Dark mode options START -->
+								<li>
+									<div
+										class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+										<!-- <span>Mode:</span> -->
+										<button type="button" class="btn btn-sm mb-0"
+											data-bs-theme-value="light">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor"
+												class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
 												<path
-															d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+													d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
 												<use href="#"></use>
 											</svg>
-													Light
-												</button>
-												<button type="button" class="btn btn-sm mb-0"
-													data-bs-theme-value="dark">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16"
-														height="16" fill="currentColor"
-														class="bi bi-moon-stars fa-fw mode-switch"
-														viewBox="0 0 16 16">
+											Light
+										</button>
+										<button type="button" class="btn btn-sm mb-0"
+											data-bs-theme-value="dark">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor"
+												class="bi bi-moon-stars fa-fw mode-switch"
+												viewBox="0 0 16 16">
 												<path
-															d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+													d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
 												<path
-															d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+													d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
 												<use href="#"></use>
 											</svg>
-													Dark
-												</button>
-												<button type="button" class="btn btn-sm mb-0 active"
-													data-bs-theme-value="auto">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16"
-														height="16" fill="currentColor"
-														class="bi bi-circle-half fa-fw mode-switch"
-														viewBox="0 0 16 16">
+											Dark
+										</button>
+										<button type="button" class="btn btn-sm mb-0 active"
+											data-bs-theme-value="auto">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor"
+												class="bi bi-circle-half fa-fw mode-switch"
+												viewBox="0 0 16 16">
 												<path
-															d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+													d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
 												<use href="#"></use>
 											</svg>
-													Auto
-												</button>
-											</div>
+											Auto
+										</button>
+									</div>
 
-										</li>
-										<!-- Dark mode options END-->
-									</ul>
-								</div> <!-- Profile dropdown END -->
-							</li>
-							<!-- Profile dropdown END -->
+								</li>
+								<!-- Dark mode options END-->
+							</ul>
+						</div>
+						<!-- Profile dropdown END -->
+						</li>
+						<!-- Profile dropdown END -->
 						</ul>
 					</div>
 					<!-- Top bar right END -->
@@ -265,73 +338,67 @@ Steps START -->
 											<!-- Divider -->
 
 											<!-- Basic information START -->
-				<div class="row g-4">
-					<!-- Course title -->
-					<div class="col-12">
-						<label class="form-label">Blog title</label> <input
-								class="form-control" type="text"
-							placeholder="Enter course title" th:field="*{title}" required>
-							<div class="text-danger"
-							th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-					</div>
-			<div class="form-group">
-               
-                <!-- Editor toolbar -->
-                <div class="bg-light border border-bottom-0 rounded-top py-3" id="quilltoolbar1">
-                    <span class="ql-formats">
-				    <select class="ql-font"></select>
-				    <select class="ql-size"></select>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-bold"></button>
-				    <button class="ql-italic"></button>
-				    <button class="ql-underline"></button>
-				    <button class="ql-strike"></button>
-				  </span>
-				  <span class="ql-formats">
-				    <select class="ql-color"></select>
-				    <select class="ql-background"></select>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-script" value="sub"></button>
-				    <button class="ql-script" value="super"></button>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-header" value="1"></button>
-				    <button class="ql-header" value="2"></button>
-				    <button class="ql-blockquote"></button>
-				    <button class="ql-code-block"></button>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-list" value="ordered"></button>
-				    <button class="ql-list" value="bullet"></button>
-				    <button class="ql-indent" value="-1"></button>
-				    <button class="ql-indent" value="+1"></button>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-direction" value="rtl"></button>
-				    <select class="ql-align"></select>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-link"></button>
-				    <button class="ql-image"></button>
-				    <button class="ql-video"></button>
-				    <button class="ql-formula"></button>
-				  </span>
-				  <span class="ql-formats">
-				    <button class="ql-clean"></button>
-				  </span>
-                </div>
-                <!-- Main toolbar -->
-                 <div id="quilleditor1" style="height: 400px" class="border rounded"></div>
-                <input type="hidden" id="content" name="content" >
-           	
-            	</div>
+											<div class="row g-4">
+												<!-- Course title -->
+												<div class="col-12">
+													<label class="form-label">Blog title</label> <input
+														class="form-control" type="text"
+														placeholder="Enter course title" th:field="*{title}"
+														required>
+													<div class="text-danger"
+														th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+												</div>
+												<div class="form-group">
+
+													<!-- Editor toolbar -->
+													<div
+														class="bg-light border border-bottom-0 rounded-top py-3"
+														id="quilltoolbar1">
+														<span class="ql-formats"> <select class="ql-font"></select>
+															<select class="ql-size"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-bold"></button>
+															<button class="ql-italic"></button>
+															<button class="ql-underline"></button>
+															<button class="ql-strike"></button>
+														</span> <span class="ql-formats"> <select class="ql-color"></select>
+															<select class="ql-background"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-script" value="sub"></button>
+															<button class="ql-script" value="super"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-header" value="1"></button>
+															<button class="ql-header" value="2"></button>
+															<button class="ql-blockquote"></button>
+															<button class="ql-code-block"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-list" value="ordered"></button>
+															<button class="ql-list" value="bullet"></button>
+															<button class="ql-indent" value="-1"></button>
+															<button class="ql-indent" value="+1"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-direction" value="rtl"></button> <select
+															class="ql-align"></select>
+														</span> <span class="ql-formats">
+															<button class="ql-link"></button>
+															<button class="ql-image"></button>
+															<button class="ql-video"></button>
+															<button class="ql-formula"></button>
+														</span> <span class="ql-formats">
+															<button class="ql-clean"></button>
+														</span>
+													</div>
+													<!-- Main toolbar -->
+													<div id="quilleditor1" style="height: 400px"
+														class="border rounded"></div>
+													<input type="hidden" id="content" name="content">
+
+												</div>
 
 
 												<!-- Step 1 button -->
-		<div class="d-flex justify-content-end mt-3">
-		<a class="btn btn-primary next-btn mb-0">Next</a>
+												<div class="d-flex justify-content-end mt-3">
+													<a class="btn btn-primary next-btn mb-0">Next</a>
 
 												</div>
 											</div>
@@ -383,9 +450,9 @@ Steps START -->
 													<div class="text-md-end">
 														<button class="btn btn-success mb-2 mb-sm-0" type="submit">Submit
 															Blog</button>
-														
+
 													</div>
-													
+
 												</div>
 											</div>
 										</div>
@@ -467,8 +534,8 @@ Steps END -->
 </script>
 
  -->
- 
- 
+
+
 	<!-- Template Functions -->
 
 	<script th:inline="javascript">
@@ -515,6 +582,6 @@ Steps END -->
     });
 </script>
 
-    
-    </body>
+
+</body>
 </html>

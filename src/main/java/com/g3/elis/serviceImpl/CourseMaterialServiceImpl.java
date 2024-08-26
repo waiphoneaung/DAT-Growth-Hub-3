@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.g3.elis.config.FileStorageConfig;
 import com.g3.elis.dto.form.CourseMaterialDto;
@@ -19,6 +20,8 @@ import com.g3.elis.service.CourseMaterialService;
 public class CourseMaterialServiceImpl implements CourseMaterialService{
 
 	private final String courseInputHTMLPath = "/course/course-html-file";
+	
+	private final String courseInputFilePath = "/course/course-attachment-file";
 	
 	@Autowired
 	private CourseMaterialRepository courseMaterialRepository;
@@ -57,13 +60,16 @@ public class CourseMaterialServiceImpl implements CourseMaterialService{
 	}
 
 	@Override
-	public void createCourseMaterial(CourseMaterialDto courseMaterialDto, int courseModuleId) throws IOException {
+	public void createCourseMaterial(CourseMaterialDto courseMaterialDto, int courseModuleId,MultipartFile inputFile) throws IOException {
 		CourseMaterial courseMaterial = new CourseMaterial();
 		courseMaterial.setTitle(courseMaterialDto.getTitle());
-//		String fileName = UUID.randomUUID().toString() + ".html";
-//		courseMaterial.setContent(fileName);
+		String fileName = UUID.randomUUID().toString() + ".html";
+		courseMaterial.setContent(fileName);
+		String inputFileName = fileStorageConfig.saveFile(inputFile, courseInputFilePath);
+		System.out.println(inputFileName + "\n");
+		courseMaterial.setInputFileName(inputFileName);
 		courseMaterial.setCourseModules(courseModuleRepository.findById(courseModuleId).orElse(null));
-//		fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
+		fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
 		courseMaterialRepository.save(courseMaterial);
 	}
 
@@ -81,13 +87,16 @@ public class CourseMaterialServiceImpl implements CourseMaterialService{
 	}
 
 	@Override
-	public void editCourseMaterial(CourseMaterialDto courseMaterialDto, int courseMaterialId, int courseModuleId) throws IOException {
+	public void editCourseMaterial(CourseMaterialDto courseMaterialDto, int courseMaterialId, int courseModuleId,MultipartFile inputFile) throws IOException {
 		CourseMaterial courseMaterial = courseMaterialRepository.findById(courseMaterialId).orElse(null);
 		courseMaterial.setTitle(courseMaterialDto.getTitle());
-//		String fileName = UUID.randomUUID().toString() + ".html";
-//		courseMaterial.setContent(fileName);
+		String fileName = UUID.randomUUID().toString() + ".html";
+		courseMaterial.setContent(fileName);		
+		String inputFileName = fileStorageConfig.saveFile(inputFile, courseInputFilePath);
+		System.out.println(inputFileName + "\n");
+		courseMaterial.setInputFileName(inputFileName);
 		courseMaterial.setCourseModules(courseModuleRepository.findById(courseModuleId).orElse(null));
-//		fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
+		fileStorageConfig.saveHTMLFile(courseMaterialDto.getContent(), courseInputHTMLPath, fileName);
 		courseMaterialRepository.save(courseMaterial);
 	}
 }
