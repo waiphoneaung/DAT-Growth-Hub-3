@@ -94,14 +94,20 @@
 											<div class="d-flex align-items-center">
 												<!-- Avatar -->
 												<div class="avatar me-3 mb-3">
+
 													<img class="avatar-img rounded-circle shadow"
-														th:src="@{/public/assets/images/avatar/01.jpg}"
+														th:if="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+														alt="avatar"> <img
+														class="avatar-img rounded-circle shadow"
+														th:unless="${user.profile != null && user.profile.profileImg != null}"
+														th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 														alt="avatar">
 												</div>
 												<div>
 													<a class="h6 mt-2 mt-sm-0"
-														th:href="@{/admin/admin-dashboard}">Admin</a>
-													<p class="small m-0">dathr@diracetechnology.com</p>
+														th:href="@{/admin/admin-dashboard}" th:text="${user.name}"></a>
+													<p class="small m-0" th:text="${user.email}"></p>
 												</div>
 											</div>
 
