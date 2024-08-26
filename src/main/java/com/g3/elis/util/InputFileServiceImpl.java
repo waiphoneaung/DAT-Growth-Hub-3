@@ -52,6 +52,8 @@ public class InputFileServiceImpl implements InputFileService {
 
 	private final String inputFilePath = "./src/main/resources/static/private/course/course-attachment-file/";
 	
+	private final String reportFilePath = "./src/main/resources/static/reports/";
+	
 	@Autowired
 	private InputFileRepository inputFileRepository;
 	
@@ -316,7 +318,8 @@ public class InputFileServiceImpl implements InputFileService {
 		createSheetsWithCoursePerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
 		String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
-        try (FileOutputStream fileOut = new FileOutputStream(("Course_Performance_Report_"+timestamp+".xlsx"))) {
+		Path filePath = Paths.get(reportFilePath + "Course_Performance_Report_"+timestamp+".xlsx");
+        try (FileOutputStream fileOut = new FileOutputStream(filePath.toFile())) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
