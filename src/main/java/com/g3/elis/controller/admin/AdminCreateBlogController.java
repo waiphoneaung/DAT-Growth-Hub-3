@@ -55,26 +55,35 @@ public class AdminCreateBlogController {
 	private BlogPostService blogPostService;
 
 	@GetMapping("/admin-view-blog")
+	public String adminViewBlog(
+	        @RequestParam(defaultValue = "0") int page, 
+	        @RequestParam(required = false) String keyword, 
+	        Model model) {
 
+	    int pageSize = 8; // Set the page size to 8
+	    Pageable pageable = PageRequest.of(page, pageSize);
+	    
+	    Page<BlogPost> blogPostsPage;
+	    if (keyword != null && !keyword.isEmpty()) {
+	        // If a keyword is provided, search for blog posts by the keyword
+	        blogPostsPage = blogPostService.searchBlogPostsByKeyword(keyword, pageable);
+	    } else {
+	        // If no keyword is provided, fetch all blog posts
+	        blogPostsPage = blogPostService.getAllBlogPosts(pageable);
+	    }
+	    
+	    int previousPage = (page > 0) ? page - 1 : 0;
+	    int nextPage = (page < blogPostsPage.getTotalPages() - 1) ? page + 1 : blogPostsPage.getTotalPages() - 1;
 
-	public String adminViewBlog(@RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 8; // Set the page size to 8
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<BlogPost> blogPostsPage = blogPostService.getAllBlogPosts(pageable);
-        int previousPage = (page > 0) ? page - 1 : 0;
-        int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
-
-        model.addAttribute("blogPosts", blogPostsPage);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("totalPages", blogPostsPage.getTotalPages());
-		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-		model.addAttribute("blogPosts", blogPosts);
-
-
-		model.addAttribute("content", "admin/admin-view-blog");
-		return "/admin/admin-layout";
+	    model.addAttribute("blogPosts", blogPostsPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("nextPage", nextPage);
+	    model.addAttribute("previousPage", previousPage);
+	    model.addAttribute("totalPages", blogPostsPage.getTotalPages());
+	    model.addAttribute("keyword", keyword); // To retain the keyword in the search field
+	    
+	    model.addAttribute("content", "admin/admin-view-blog");
+	    return "/admin/admin-layout";
 	}
 
 	@SuppressWarnings("unused")
@@ -97,7 +106,7 @@ public class AdminCreateBlogController {
 			//String content = Files.readString(htmlFilePath);
 		//	model.addAttribute("content", content);
 			model.addAttribute("blogPost", blogPost);
-			return "/authenticated-user/blog-detail";
+			return "/user/blog-detail";
 		}
 
 		return "redirect:/admin/admin-view-blog";

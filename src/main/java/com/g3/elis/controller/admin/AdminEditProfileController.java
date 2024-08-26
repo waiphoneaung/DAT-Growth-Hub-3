@@ -67,7 +67,6 @@ public class AdminEditProfileController {
 	public String adminEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
 			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
 			Authentication authentication, BindingResult result, Model model) throws IOException {
-
 		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
 		User user = loginUser.getUser();
 

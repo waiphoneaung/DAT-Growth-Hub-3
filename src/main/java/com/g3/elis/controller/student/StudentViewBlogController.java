@@ -105,7 +105,7 @@ public class StudentViewBlogController {
 	            String htmlContent = Files.readString(htmlFilePath);
 	            model.addAttribute("htmlContent", htmlContent);
 	            model.addAttribute("blogPost", blogPost);
-	            return "/authenticated-user/blog-detail";
+	            return "/user/blog-detail";
 	        }
 
 	        return "redirect:/student/student-view-blog";

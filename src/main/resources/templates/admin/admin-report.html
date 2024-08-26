@@ -40,6 +40,8 @@
 					<div class="table-responsive border-0 mt-5 mb-3">
 						<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
 						<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
+						<a th:href="@{/admin/admin-report/generate-course-progress-report(courseId=${courseId})}"
+									class="btn btn-info">Export Data</a>
 						<table
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
@@ -70,7 +72,7 @@
 													th:src="@{'/private/profile/user-profile/' + ${report.enrolledUserProfileImage}}"
 													alt="avatar"> <img class="avatar-img rounded-circle"
 													th:unless="${report.enrolledUserProfileImage != null}"
-													th:src="@{'/public/assets/images/avatar/06.jpg'}"
+													th:src="@{'/public/assets/images/avatar/GUEST.png'}"
 													alt="avatar">
 
 											</div>
@@ -85,11 +87,11 @@
 									<!-- Table data -->
 									<td th:text="${report.staffId}"></td>
 									<!-- Table data -->
-									<td th:text="${report.progress +'%'}"></td>
+									<td th:text="${#numbers.formatDecimal(report.progress,1,2) +'%'}"></td>
 									<!-- Table data -->
 									<td th:text="${#strings.substring(report.enrolledDate,0 , 10)}"></td>
 									<!-- Table data -->
-									<td th:text="${report.averageScore}"></td>
+									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
 									<td th:text="${report.grade}"></td>
 

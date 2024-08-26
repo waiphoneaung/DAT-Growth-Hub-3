@@ -27,7 +27,7 @@ Page Banner START -->
 									<div class="col-auto">
 										<div class="avatar avatar-xxl position-relative mt-n3">
 										<img th:if="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}" alt="avatar">
-										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/06.jpg'}" alt="avatar">
+										<img th:unless="${user.profile != null && user.profile.profileImg != null}" class="avatar-img rounded-circle border border-white border-3 shadow" th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 										</div>
 									</div>
 									<!-- Profile info -->
