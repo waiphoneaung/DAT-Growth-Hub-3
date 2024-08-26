@@ -12,23 +12,6 @@ import com.g3.elis.model.BlogPost;
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Integer>{
 
-//	static List<BlogPost> findByRole(String string, Pageable pageable) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	static Page<BlogPost> findByNameContainingIgnoreCaseAndRole(String name, String string, Pageable pageable) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	static Page<BlogPost> searchInstructors(String name, String staffId, String dept, String division,
-//			Pageable pageable) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
-//    Page<BlogPost> getAllBlogPosts(Pageable pageable);
 
 	Page<BlogPost> findAll(Pageable pageable);
 

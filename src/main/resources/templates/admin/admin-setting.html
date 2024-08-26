@@ -32,73 +32,76 @@
 										</div>
 
 										<!-- Card body START -->
-					<div class="card-body">
-					<form th:action="@{/sendEmail}" th:method="post">
-							<div class="row g-3">
-									 <!-- Display Success/Error Messages -->
-                                                <div th:if="${message}" class="alert alert-success" role="alert">
-                                                    <p th:text="${message}"></p>
-                                                </div>
-                                                <div th:if="${error}" class="alert alert-danger" role="alert">
-                                                    <p th:text="${error}"></p>
-                                                </div>
-										<!-- Choice item -->
-						
-												<!-- Choice item -->
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Email Send To</label>
-                                                        <select class="form-select js-choice z-index-9 border-0 bg-light"
-                                                                name="emailSendTo" aria-label=".form-select-sm">
-                                                            <option value="">Email Send to</option>
-                                                            <option>All</option>
-                                                            <option>All Admin</option>
-                                                            <option>Instructors</option>
-                                                            <option>Students</option>
-                                                        </select>
-                                                    </div>
+										<div class="card-body">
+											<form th:action="@{/sendEmail}" th:method="post">
+												<div class="row g-3">
+													<!-- Display Success/Error Messages -->
+													<div th:if="${message}" class="alert alert-success"
+														role="alert">
+														<p th:text="${message}"></p>
+													</div>
+													<div th:if="${error}" class="alert alert-danger"
+														role="alert">
+														<p th:text="${error}"></p>
+													</div>
+													<!-- Choice item -->
 
-                                                    <!-- Input item -->
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Email External Email</label>
-                                                        <input type="email" class="form-control" name="externalEmail">
-                                                    </div>
+													<!-- Choice item -->
+													<div class="col-md-6">
+														<label class="form-label">Email Send To</label> <select
+															class="form-select js-choice z-index-9 border-0 bg-light"
+															name="emailSendTo" aria-label=".form-select-sm">
+															<option value="">Email Send to</option>
+															<option>All</option>
+															<option>All Admin</option>
+															<option>Instructors</option>
+															<option>Students</option>
+														</select>
+													</div>
 
-                                                    <!-- Input item -->
-                                                    <div class="col-md-12">
-                                                        <label class="form-label">Subject</label>
-                                                        <input type="text" class="form-control" name="subject">
-                                                    </div>
+													<!-- Input item -->
+													<div class="col-md-6">
+														<label class="form-label">Email External Email</label> <input
+															type="email" class="form-control" name="externalEmail">
+													</div>
 
-                                                    <div class="col-md-12">
-                                                        <label class="form-label">Body</label>
-                                                        <textarea rows="10" cols="5" class="form-control" name="body"></textarea>
-                                                    </div>
+													<!-- Input item -->
+													<div class="col-md-12">
+														<label class="form-label">Subject</label> <input
+															type="text" class="form-control" name="subject">
+													</div>
 
-                                                    <!-- Button -->
-                                                    <div class="d-flex justify-content-end mt-2">
-                                                        <button type="submit" class="btn btn-primary mb-0">Send</button>
-                                                    </div>
-                                      </div>
-											</form>	
-								</div>
-											
+													<div class="col-md-12">
+														<label class="form-label">Body</label>
+														<textarea rows="10" cols="5" class="form-control"
+															name="body"></textarea>
+													</div>
+
+													<!-- Button -->
+													<div class="d-flex justify-content-end mt-2">
+														<button type="submit" class="btn btn-primary mb-0">Send</button>
+													</div>
+												</div>
+											</form>
 										</div>
+
 									</div>
-									<!-- Card body END -->
 								</div>
-							
+								<!-- Card body END -->
+							</div>
+
 							<!-- Email Settings content END -->
-		
+
 						</div>
 						<!-- Tab Content END -->
 					</div>
 					<!-- Right side END -->
 				</div>
 				<!-- Row END -->
-		
-			<!-- Page main content END -->
-	</div>
-						
+
+				<!-- Page main content END -->
+			</div>
+
 			<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
 		</th:block>
 	</main>

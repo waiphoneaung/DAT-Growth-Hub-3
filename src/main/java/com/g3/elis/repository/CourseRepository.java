@@ -23,7 +23,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	List<Course> findByCourseTitleContainingIgnoreCase(String searchQuery);
 
-	
 	 // Count total courses for a specific user
 	@Query("SELECT Count(c) FROM Course c WHERE c.users.id = :userId")
 	int countTotalCoursesByUserId(@Param("userId") int userId);

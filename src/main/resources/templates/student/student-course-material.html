@@ -121,24 +121,52 @@ Main Content START -->
 								<!-- Title -->
 								<h3 class="mt-2 mb-0 "
 									th:text="${enrolledMaterial.courseMaterial.title}"></h3>
-
-
-								<!-- 			<a href="#" class="h5 stretched-link mt-2 mb-0 d-block"
-									th:text="${enrolledMaterial.courseMaterial.title}"></a> -->
-
-								<!-- 								<ul class="list-inline list-unstyled">
-									<li><span class="small text-warning"
-										th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
-										<span> || </span> <span class="small text-warning"
-										th:text="${timeAgo}"></span></li>
-								</ul> -->
-
 								<!-- Info -->
+								<div th:if="${fileType == 'image'}">
+									<div class="col-lg-12 order-1">
+										<img
+											th:src="@{'/private/course/course-attachment-file/' + ${image}}">
+									</div>
+								</div>
+								<div th:if="${fileType == 'video'}">
+									<div class="col-lg-12 order-1">
+										<video width="500" height="500" controls>
+											<source
+												th:src="@{'/private/course/course-attachment-file/' + ${video}}"
+												type="video/mp4">
+										</video>
+									</div>
+								</div>
+								<div th:if="${fileType == 'excel'}">
+									<div class="container">
+										<h1 class="display-4">Excel Data</h1>
+										<div th:each="sheetStat : ${sheetsData}">
+											<h2>
+												<span th:text="${sheetStat.sheetName}"></span>
+											</h2>
+											<table class="table table-bordered table-striped">
+												<thead>
+													<tr>
+														<th th:each="cell : ${sheetStat.data[0]}"
+															th:text="${cell}"></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="row, rowStat : ${sheetStat.data}">
+														<td th:if="${rowStat.index > 0}" th:each="cell : ${row}"
+															th:text="${cell}"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 								<!-- Main HTML Content Start -->
-								<div class="col-lg-12 order-1">
+								<div class="mt-5 col-lg-12 order-1">
 									<div id="material-content"
 										class="border p-3 rounded bg-light mt-2"></div>
 								</div>
+
 								<!-- Main HTML Content End -->
 							</div>
 						</div>
