@@ -125,15 +125,15 @@
 								<li><span th:if="${#authentication.principal.isAdmin()}">
 										<a class="dropdown-item"
 										th:href="@{/admin/admin-dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span> <span th:if="${#authentication.principal.isStudent()}">
 										<a class="dropdown-item"
 										th:href="@{/student/student-dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span> <span th:if="${#authentication.principal.isInstructor()}">
 										<a class="dropdown-item"
-										th:href="@{/instructor/instructor--dashboard}"><i
-											class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+										th:href="@{/instructor/instructor-dashboard}"><i
+											class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
 								</span></li>
 								<li>
 								<li><span th:if="${#authentication.principal.isAdmin()}">
