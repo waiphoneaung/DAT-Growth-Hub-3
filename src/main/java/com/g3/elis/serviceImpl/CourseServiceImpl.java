@@ -300,7 +300,16 @@ public class CourseServiceImpl implements CourseService {
 		    return courseRepository.findByCourseTitleContainingIgnoreCase(searchQuery);
 		}
 
-	
+	@Override
+	public int getTotalCourseCourseByUser(int userId) {
+		// TODO Auto-generated method stub
+		return courseRepository.countTotalCoursesByUserId(userId);
+	}
 
+	@Override
+	public int getTotalActivatedCourseCountByUser(int userId) {
+		// TODO Auto-generated method stub
+		return courseRepository.countActivatedCoursesByUserId(userId);
+	} 
 	
 }
