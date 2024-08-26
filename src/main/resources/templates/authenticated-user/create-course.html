@@ -217,16 +217,16 @@ Steps START -->
 												</div>
 
 												<!-- Step 1 button -->
-												<div class="d-flex justify-content-between mt-3">
+												
 													<!-- <a class="btn btn-warning next-btn mb-0"
 														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> -->
-													<div sec:authorize="hasRole('ROLE_ADMIN')">
+													<div sec:authorize="hasRole('ROLE_ADMIN')" class="d-flex justify-content-between mt-3">
 														<a class="btn btn-warning next-btn mb-0"
-															th:href="@{|/${map}/instructor-dashboard|}">Dashboard</a>
+															th:href="@{|/${map}/admin-dashboard|}">Dashboard</a>
 														<a class="btn btn-primary next-btn mb-0">Next</a>
 
 													</div>
-												</div>
+												
 												<!-- Basic information START -->
 											</div>
 										</div>
