@@ -17,9 +17,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="enrolled_courses")
+@Table(name = "enrolled_courses")
 public class EnrolledCourse {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -27,24 +27,23 @@ public class EnrolledCourse {
 	private Timestamp completedAt;
 	private boolean completeStatus;
 	private double progress;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User users;
-	
+	@JoinColumn(name = "user_id")
+	private User users;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course courses;
-	
-	@OneToMany(mappedBy = "enrolledCourses",fetch = FetchType.LAZY)
-	private Set<Report> reports=new HashSet<>();
-	
-	@OneToMany(mappedBy = "enrolledCourse",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id")
+	private Course courses;
+
+	@OneToMany(mappedBy = "enrolledCourses", fetch = FetchType.LAZY)
+	private Set<Report> reports = new HashSet<>();
+
+	@OneToMany(mappedBy = "enrolledCourse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EnrolledModule> enrolledModules;
-	
-	public EnrolledCourse()
-	{
-		
+
+	public EnrolledCourse() {
+
 	}
 
 	public int getId() {
@@ -132,6 +131,20 @@ public class EnrolledCourse {
 		this.reports = reports;
 		this.enrolledModules = enrolledModules;
 	}
-
+	public int enrolledMoudlesCompleteCount()
+	{
+		int count = 0;
+		for(EnrolledModule enrolledModule : this.enrolledModules)
+		{
+			if(enrolledModule.isCompleteStatus() == true) count++;
+		}
+		
+		return count;
+	}
 	
+	public double calculateProgress()
+	{
+		double index = (double)((double)(enrolledMoudlesCompleteCount()) / ((double)(enrolledModules.size()))) * 100;
+		return index;
+	}
 }

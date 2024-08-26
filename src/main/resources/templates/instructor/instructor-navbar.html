@@ -39,7 +39,7 @@
 							class="navbar-nav navbar-nav-scroll my-3 my-xl-0 px-4 me-auto flex-nowrap ">
 							
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-dashboard' ? ' active' : '' }"	th:href="@{/instructor/instructor-dashboard}">Dashboard</a>
-							<a class="nav-link"	th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : '' }"	th:href="@{/instructor/instructor-manage-course}">Courses</a>
+							<a class="nav-link"	th:classappend="${currentPage == 'instructor-course-list' ? ' active' : '' }"	th:href="@{/instructor/instructor-course-list}">Courses</a>
 							<a class="nav-link" th:classappend="${currentPage == 'instructor-view-blog' ? ' active' : ''}" th:href="@{/instructor/instructor-view-blog}">Blogs</a>
 							<a class="nav-link"	th:classappend="${currentPage} == 'forum' ? 'active':''" th:href="@{/instructor/forum}">Forum</a>
 
@@ -87,7 +87,7 @@
 									</div>
 									<div>
 										<a class="h6" th:href="@{/instructor/instructor-dashboard}" th:text="${user.name}">Student</a>
-										<p class="small m-0" th:text="${user.email}">dathr@diracetechnology.com</p>
+										<p class="small m-0" th:text="${user.email}">@diracetechnology.com</p>
 									</div>
 								</div>
 							</li>
@@ -96,12 +96,14 @@
 							</li>
 							<!-- Links -->
 							<li><a class="dropdown-item"
-								th:href="@{/instructor/instructor-edit-profile}"><i
-									class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-							
-							<li><a class="dropdown-item bg-danger-soft-hover"
-								th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
-									Out</a></li>
+											th:href="@{/instructor/instructor-dashboard}"><i
+												class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+										<li><a class="dropdown-item"
+											th:href="@{/instructor/instructor-edit-profile}"><i
+												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+										<li><a class="dropdown-item bg-danger-soft-hover"
+											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+												Out</a></li>
 							<li>
 								<hr class="dropdown-divider">
 							</li>

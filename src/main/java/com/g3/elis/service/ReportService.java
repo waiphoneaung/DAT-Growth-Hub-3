@@ -2,15 +2,14 @@ package com.g3.elis.service;
 
 import java.util.List;
 
+import com.g3.elis.dto.report.CoursePerformance;
+import com.g3.elis.dto.report.CourseProgress;
+import com.g3.elis.dto.report.QuizPerformance;
 import com.g3.elis.model.Report;
 
 public interface ReportService {
     
-    List<Report> generateCourseProgressReport();
-    
-    List<Report> generateAchievementsReport();
-    
-    List<Report> generateStudentAnswersReport();
-    
-    List<Report> generateUserActivityLog();
+	List<CoursePerformance> generateCoursePerformanceReport();
+	List<CourseProgress> generateCourseProgressReport(int courseId);
+	List<QuizPerformance> generateQuizPerformanceReport(int instructorId);
 }

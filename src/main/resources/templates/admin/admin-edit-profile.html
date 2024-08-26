@@ -19,7 +19,9 @@
 							<!-- Card body START -->
 							<div class="card-body">
 								<!-- Form -->
-								<form class="row g-4" method="post" th:object="${profileDto}" th:action="@{/admin/admin-edit-profile}" enctype="multipart/form-data">
+								<form class="row g-4" method="post" th:object="${profileDto}"
+									th:action="@{/admin/admin-edit-profile}"
+									enctype="multipart/form-data">
 
 									<!-- Profile picture -->
 									<div class="col-12 justify-content-center align-items-center">
@@ -29,8 +31,13 @@
 												title="Replace this pic"> <!-- Avatar place holder -->
 												<span class="avatar avatar-xl"> <img
 													id="uploadfile-1-preview"
+													th:if="${profileImg != null && profileImg != ''}"
 													class="avatar-img rounded-circle border border-white border-3 shadow"
-													th:src="@{'/private/profile/user-profile/' + ${profileImg}}" alt="">
+													th:src="@{'/private/profile/user-profile/' + ${profileImg}}"
+													alt=""> <img id="uploadfile-1-preview"
+													th:unless="${profileImg != null && profileImg != ''}"
+													class="avatar-img rounded-circle border border-white border-3 shadow"
+													th:src="@{/public/assets/images/avatar/GUEST.png}" alt="">
 											</span> <!-- Remove btn -->
 												<button type="button" class="uploadremove">
 													<i class="bi bi-x text-white"></i>
@@ -39,7 +46,7 @@
 											<!-- Upload button -->
 											<label class="btn btn-primary-soft mb-0" for="uploadfile-1">Change</label>
 											<input id="uploadfile-1" class="form-control d-none"
-												type="file" name = "profileImage">
+												type="file" name="profileImage">
 										</div>
 									</div>
 
@@ -87,9 +94,10 @@
 									<!-- About me -->
 									<div class="col-12">
 										<label class="form-label">About me</label>
-										<textarea class="form-control" rows="3" th:field="*{description}"></textarea>
-										<div class="form-text">Brief
-											description for your profile.</div>
+										<textarea class="form-control" rows="3"
+											th:field="*{description}"></textarea>
+										<div class="form-text">Brief description for your
+											profile.</div>
 									</div>
 
 
@@ -105,50 +113,52 @@
 						<!-- Edit profile END -->
 						<div class="row g-4 mt-3">
 
-							<form th:action="@{/admin/admin-edit-profile/password-change}" method="POST">
-							<!-- Password change START -->
-							<div class="col-lg-12">
-								<div class="card border bg-transparent rounded-3">
-									<!-- Card header -->
-									<div class="card-header bg-transparent border-bottom">
-										<h5 class="card-header-title mb-0">Update password</h5>
-									</div>
-									<!-- Card body START -->
-									<div class="card-body">
-										<!-- Current password -->
-										<div class="mb-3">
-											<label class="form-label">Current password</label> <input
-												class="form-control" type="password" name="current-password"
-												placeholder="Enter current password">
+							<form th:action="@{/admin/admin-edit-profile/password-change}"
+								method="POST">
+								<!-- Password change START -->
+								<div class="col-lg-12">
+									<div class="card border bg-transparent rounded-3">
+										<!-- Card header -->
+										<div class="card-header bg-transparent border-bottom">
+											<h5 class="card-header-title mb-0">Update password</h5>
 										</div>
-										<!-- New password -->
-										<div class="mb-3">
-											<label class="form-label"> Enter new password</label>
-											<div class="input-group">
-												<input class="form-control" type="password" name="new-password"
-													placeholder="Enter new password"> <span
-													class="input-group-text p-0 bg-transparent"> <i
-													class="far fa-eye cursor-pointer p-2 w-40px"></i>
-												</span>
+										<!-- Card body START -->
+										<div class="card-body">
+											<!-- Current password -->
+											<div class="mb-3">
+												<label class="form-label">Current password</label> <input
+													class="form-control" type="password"
+													name="current-password"
+													placeholder="Enter current password">
 											</div>
-											<div class="rounded mt-1" id="psw-strength"></div>
+											<!-- New password -->
+											<div class="mb-3">
+												<label class="form-label"> Enter new password</label>
+												<div class="input-group">
+													<input class="form-control" type="password"
+														name="new-password" placeholder="Enter new password">
+													<span class="input-group-text p-0 bg-transparent"> <i
+														class="far fa-eye cursor-pointer p-2 w-40px"></i>
+													</span>
+												</div>
+												<div class="rounded mt-1" id="psw-strength"></div>
+											</div>
+											<!-- Confirm password -->
+											<div>
+												<label class="form-label">Confirm new password</label> <input
+													class="form-control" type="password"
+													name="confirm-password" placeholder="Enter new password">
+											</div>
+											<!-- Button -->
+											<div class="d-flex justify-content-end mt-4">
+												<button type="submit" class="btn btn-primary mb-0">Change
+													password</button>
+											</div>
 										</div>
-										<!-- Confirm password -->
-										<div>
-											<label class="form-label">Confirm new password</label> <input
-												class="form-control" type="password" name="confirm-password"
-												placeholder="Enter new password">
-										</div>
-										<!-- Button -->
-										<div class="d-flex justify-content-end mt-4">
-											<button type="submit" class="btn btn-primary mb-0">Change
-												password</button>
-										</div>
+										<!-- Card body END -->
 									</div>
-									<!-- Card body END -->
 								</div>
-							</div>
-							<!-- Password change end -->
+								<!-- Password change end -->
 							</form>
 						</div>
 					</div>

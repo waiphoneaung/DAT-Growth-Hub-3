@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +19,10 @@ import com.g3.elis.dto.form.QuizDto;
 import com.g3.elis.model.Answer;
 import com.g3.elis.model.EnrolledAssignment;
 import com.g3.elis.model.Question;
+import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.AnswerService;
 import com.g3.elis.service.EnrolledAssignmentService;
+import com.g3.elis.service.GradeService;
 import com.g3.elis.service.QuestionService;
 
 @Controller
@@ -28,6 +31,9 @@ public class StudentQuizController
 {
 	@Autowired
 	private EnrolledAssignmentService enrolledAssignmentService;
+	
+	@Autowired
+	private GradeService gradeService;
 
 	private QuizDto populateQuizDto(int enrolledAssignmentId) {
 		QuizDto quizDto = new QuizDto();
@@ -49,15 +55,19 @@ public class StudentQuizController
 	public String studentQuiz(@RequestParam(name = "enrolledAssignmentId") int enrolledAssignmentId, Model model) {
 
 		model.addAttribute("quizDto", populateQuizDto(enrolledAssignmentId));
-		model.addAttribute("enrolledAssignment",
-				enrolledAssignmentService.getEnrolledAssignmentById(enrolledAssignmentId));
+		model.addAttribute("enrolledAssignment", enrolledAssignmentService.getEnrolledAssignmentById(enrolledAssignmentId));
 		return "/student/student-quiz";
 	}
 
 	@PostMapping("/student-quiz")
 	public String submitQuiz(@ModelAttribute("quizDto") QuizDto quizDto,
-			@RequestParam(name = "enrolledAssignmentId") int enrolledAssignmentId, Model model) {
-		if (enrolledAssignmentService.submitQuiz(quizDto, enrolledAssignmentId)) {
+						     @RequestParam(name = "enrolledAssignmentId") int enrolledAssignmentId,
+						     Authentication authentication,Model model) 
+	{
+		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
+		gradeService.createGrade(userDetail.getUser().getId(), enrolledAssignmentId, quizDto);
+		if (enrolledAssignmentService.submitQuiz(quizDto, enrolledAssignmentId)) 
+		{
 			enrolledAssignmentService.setStatusToTrue(enrolledAssignmentId);
 		}
 		model.addAttribute("content", "student/student-course-resume");

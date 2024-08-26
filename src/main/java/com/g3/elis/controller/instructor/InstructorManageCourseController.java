@@ -1,3 +1,4 @@
+
 package com.g3.elis.controller.instructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,16 @@ public class InstructorManageCourseController
 	@Autowired
 	private CourseService courseService;
 	
-	@GetMapping("/instructor-manage-course")
+	@GetMapping("/instructor-course-list")
 	public String instructor_manage_course(Model model,Authentication authentication) 
 	{
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
 		User user = userDetail.getUser();;
 		model.addAttribute("courses",courseService.getAllCourseByUserId(user.getId()));
-		model.addAttribute("currentPage", "instructor-manage-course");
+		model.addAttribute("currentPage", "instructor-course-list");
 		model.addAttribute("content", "instructor/instructor-course-list");
 		return "instructor/instructor-layout";
 	}
+	
+
 }
