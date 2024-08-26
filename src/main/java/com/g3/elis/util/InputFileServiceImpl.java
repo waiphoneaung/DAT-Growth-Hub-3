@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -37,7 +39,10 @@ import com.g3.elis.dto.form.UserDto;
 import com.g3.elis.dto.report.CoursePerformance;
 import com.g3.elis.dto.report.CourseProgress;
 import com.g3.elis.dto.report.QuizPerformance;
+import com.g3.elis.model.CourseMaterial;
+import com.g3.elis.model.EnrolledMaterial;
 import com.g3.elis.model.InputFile;
+import com.g3.elis.repository.CourseMaterialRepository;
 import com.g3.elis.repository.InputFileRepository;
 import com.g3.elis.service.ReportService;
 import com.g3.elis.service.UserService;
@@ -45,8 +50,15 @@ import com.g3.elis.service.UserService;
 @Service
 public class InputFileServiceImpl implements InputFileService {
 
+	private final String inputFilePath = "./src/main/resources/static/private/course/course-attachment-file/";
+	
+	private final String reportFilePath = "./src/main/resources/static/reports/";
+	
 	@Autowired
 	private InputFileRepository inputFileRepository;
+	
+	@Autowired
+	private CourseMaterialRepository courseMaterialRepository;
 
 	@Autowired
 	private UserService userService;
@@ -55,64 +67,28 @@ public class InputFileServiceImpl implements InputFileService {
 	private FileStorageConfig fileStorageConfig;
 
 	@Override
-	public String determineFileType(MultipartFile file) {
-		String contentType = file.getOriginalFilename();
-		if (contentType.contains(".mp4")) {
+	public String determineFileType(EnrolledMaterial enrolledMaterial) {
+		String contentType = enrolledMaterial.getCourseMaterial().getInputFileName();
+		if (contentType.contains(".mp4")) 
+		{
 			return "video";
-		} else if (contentType.contains(".png") || contentType.contains(".jpg")) {
+		} 
+		else if (contentType.contains(".png") || contentType.contains(".jpg")) 
+		{
 			return "image";
 		}
-		return null;
-	}
-
-	@Override
-	public void saveFile(MultipartFile file,String filePath) {
-		InputFile inputFile = new InputFile();
-		inputFile.setFileName(file.getOriginalFilename());
-		try {
-			fileStorageConfig.saveFile(file,filePath);
-		} catch (IOException e) {
-			e.printStackTrace();
+		else if (!contentType.contains("."))
+		{
+			return "youtubeurl";
 		}
-		inputFileRepository.save(inputFile);
-	}
-
-	@Override
-	public List<InputFile> getAllInputFiles() {
-		return inputFileRepository.findAll();
-	}
-
-	@Override
-	public List<InputFile> getAllImageFiles() {
-		List<InputFile> imageFiles = new ArrayList<>();
-		for (InputFile inputFile : getAllInputFiles()) {
-			if (inputFile.getFileName().contains(".jpg") || inputFile.getFileName().contains(".png")) {
-				imageFiles.add(inputFile);
-			}
+		else if(contentType.contains(".xlsx") || contentType.contains(".xlsm"))  
+		{
+			return "excel";
 		}
-		return imageFiles;
-	}
-
-	@Override
-	public List<InputFile> getAllVideoFiles() {
-		List<InputFile> videoFiles = new ArrayList<>();
-		for (InputFile inputFile : getAllInputFiles()) {
-			if (inputFile.getFileName().contains(".mp4")) {
-				videoFiles.add(inputFile);
-			}
+		else
+		{
+			return null;
 		}
-		return videoFiles;
-	}
-
-	@Override
-	public List<InputFile> getAllYouTubeUrl() {
-		List<InputFile> YouTubeUrl = new ArrayList<>();
-		for (InputFile inputFile : getAllInputFiles()) {
-			if (!inputFile.getFileName().contains(".")) {
-				YouTubeUrl.add(inputFile);
-			}
-		}
-		return YouTubeUrl;
 	}
 
 	@Override
@@ -135,21 +111,10 @@ public class InputFileServiceImpl implements InputFileService {
 	}
 
 	@Override
-	public List<InputFile> getAllExcelFiles() {
-		List<InputFile> ExcelFiles = new ArrayList<>();
-		for (InputFile inputFile : getAllInputFiles()) {
-			if (inputFile.getFileName().contains(".xlsx") || inputFile.getFileName().contains(".xlsm")) {
-				ExcelFiles.add(inputFile);
-			}
-		}
-		return ExcelFiles;
-	}
-
-	@Override
-	public List<SheetData> readExcel(InputFile file) throws IOException {
+	public List<SheetData> readExcel(String file) throws IOException {
 		List<SheetData> allSheetsData = new ArrayList<>();
-
-		File readFile = new File("./src/main/resources/static/upload-resources/" + file.getFileName());
+		Path filePath = Paths.get(inputFilePath + file).normalize();
+		File readFile = filePath.toFile();
 		FileInputStream readFileInputStream = new FileInputStream(readFile);
 		Workbook workbook = new XSSFWorkbook(readFileInputStream);
 		FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
@@ -353,7 +318,8 @@ public class InputFileServiceImpl implements InputFileService {
 		createSheetsWithCoursePerformanceData(workbook, sheetName,reportData);
 		// Write the workbook to a file
 		String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-mmss").format(new Date());
-        try (FileOutputStream fileOut = new FileOutputStream(("Course_Performance_Report_"+timestamp+".xlsx"))) {
+		Path filePath = Paths.get(reportFilePath + "Course_Performance_Report_"+timestamp+".xlsx");
+        try (FileOutputStream fileOut = new FileOutputStream(filePath.toFile())) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();

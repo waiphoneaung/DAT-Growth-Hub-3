@@ -9,65 +9,12 @@
 	<meta name="author" content="diracetechnology.com">
 	<meta name="description" content="DAT - Elearning Hub">
 
-	<!-- Dark mode -->
-	<script>
-		const storedTheme = localStorage.getItem('theme')
- 
-		const getPreferredTheme = () => {
-			if (storedTheme) {
-				return storedTheme
-			}
-			return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light'
-		}
 
-		const setTheme = function (theme) {
-			if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				document.documentElement.setAttribute('data-bs-theme', 'dark')
-			} else {
-				document.documentElement.setAttribute('data-bs-theme', theme)
-			}
-		}
-
-		setTheme(getPreferredTheme())
-
-		window.addEventListener('DOMContentLoaded', () => {
-		    var el = document.querySelector('.theme-icon-active');
-			if(el != 'undefined' && el != null) {
-				const showActiveTheme = theme => {
-				const activeThemeIcon = document.querySelector('.theme-icon-active use')
-				const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-				const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
-
-				document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-					element.classList.remove('active')
-				})
-
-				btnToActive.classList.add('active')
-				activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-			}
-
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-				if (storedTheme !== 'light' || storedTheme !== 'dark') {
-					setTheme(getPreferredTheme())
-				}
-			})
-
-			showActiveTheme(getPreferredTheme())
-
-			document.querySelectorAll('[data-bs-theme-value]')
-				.forEach(toggle => {
-					toggle.addEventListener('click', () => {
-						const theme = toggle.getAttribute('data-bs-theme-value')
-						localStorage.setItem('theme', theme)
-						setTheme(theme)
-						showActiveTheme(theme)
-					})
-				})
-
-			}
-		})
-		
-	</script>
+ <!-- Stylesheets -->
+    <th:block th:replace="fragments/stylesheets :: stylesheets"></th:block>
+<!-- Dark Mode Script -->
+    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+    
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
@@ -100,7 +47,7 @@
 					<div class="p-3 p-lg-5 ">
 						<!-- Title -->
 						<div class="text-center">
-							<h2 class="fw-bold">Welcome to our largest community</h2>
+							<h2 class="fw-bold">Welcome to DAT - E-Learning Hub</h2>
 							<p class="mb-0 h6 fw-light">Let's learn something new today!</p>
 						</div>
 						<!-- SVG Image -->
@@ -135,7 +82,13 @@
 									<div class="input-group input-group-lg">
 										<span class="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i class="fas fa-lock"></i></span>
 										<input id="password" name="password" type="password" class="form-control border-0 bg-light rounded-end ps-1" placeholder="Password">
+										<span class="input-group-text p-0 border-0 bg-light"> <i
+											class="far fa-eye cursor-pointer p-2 w-40px" id="toggle-password"></i>
+										</span>
 									</div>
+									<div class="rounded mt-1" id="psw-strength"></div>
+									
+									
 									<div id="passwordHelpBlock" class="form-text">
 										Your password must be 8 characters at least 
 									</div>
@@ -178,5 +131,21 @@
 <!-- Template Functions -->
 <script th:src="@{/public/assets/js/functions.js}"></script>
 
+<script>
+    const togglePassword = document.getElementById('toggle-password');
+    const Password = document.getElementById('password');
+
+    togglePassword.addEventListener('click', () => {
+        if (Password.type === 'password') {
+            Password.type = 'text';
+            togglePassword.classList.remove('fa-eye');
+            togglePassword.classList.add('fa-eye-slash');
+        } else {
+            Password.type = 'password';
+            togglePassword.classList.remove('fa-eye-slash');
+            togglePassword.classList.add('fa-eye');
+        }
+    });
+</script>
 </body>
 </html>
