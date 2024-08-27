@@ -24,6 +24,7 @@
 					</div>
 					<!-- Top bar left END -->
 
+
 					<!-- Top bar right START -->
 					<div class="ms-xl-auto">
 						<ul class="navbar-nav flex-row align-items-center">
@@ -83,11 +84,13 @@
 										<!-- Links -->
 										<li><a class="dropdown-item" th:href="@{/student/student-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
 									<li><a class="dropdown-item"
+
 											th:href="@{/student/student-edit-profile}"><i
 												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
 										<li><a class="dropdown-item bg-danger-soft-hover"
 											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
 												Out</a></li>
+
 										<li>
 											<hr class="dropdown-divider">
 										</li>
@@ -142,6 +145,7 @@
 								</div> <!-- Profile dropdown END -->
 							</li>
 							<!-- Profile dropdown END -->
+
 						</ul>
 					</div>
 					<!-- Top bar right END -->
@@ -157,14 +161,14 @@ Page Banner START -->
 					<div class="row">
 						<div class="col-12">
 							<div class="bg-light p-4 text-center rounded-3">
-								<h1 class="m-0">Course Grid Minimal</h1>
+								<h1 class="m-0">All Courses</h1>
 								<!-- Breadcrumb -->
 								<div class="d-flex justify-content-center">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb breadcrumb-dots mb-0">
-											<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Course
-												minimal</li>
+											<li class="breadcrumb-item"><a href="@{/student/student-dashboard}">Home</a></li>
+											<li class="breadcrumb-item active" aria-current="page">Courses
+												</li>
 										</ol>
 									</nav>
 								</div>

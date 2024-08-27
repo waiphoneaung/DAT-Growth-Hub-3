@@ -43,6 +43,7 @@ public class User {
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 
+
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();
 

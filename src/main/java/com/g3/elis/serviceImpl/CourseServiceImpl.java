@@ -299,7 +299,6 @@ public class CourseServiceImpl implements CourseService {
 		
 		    return courseRepository.findByCourseTitleContainingIgnoreCase(searchQuery);
 		}
-
 	@Override
 	public int getTotalCourseCourseByUser(int userId) {
 		// TODO Auto-generated method stub
@@ -311,5 +310,4 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		return courseRepository.countActivatedCoursesByUserId(userId);
 	} 
-
 }

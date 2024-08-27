@@ -30,7 +30,7 @@ public class InstructorQuizResultController
 	public String instructor_quiz_result(Authentication authentication,Model model) 
 	{
 		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
-		List<QuizPerformance> reports =reportService.generateQuizPerformanceReport(userDetail.getUser().getId());
+		List<QuizPerformance> reports = reportService.generateQuizPerformanceReport(userDetail.getUser().getId());
 		model.addAttribute("reports",reports);
 		model.addAttribute("currentPage", "instructor-quiz-result");
 		model.addAttribute("content", "instructor/instructor-quiz-result");

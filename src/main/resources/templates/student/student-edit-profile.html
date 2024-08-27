@@ -123,32 +123,52 @@
 							<div class="card-body">
 								<!-- Current password -->
 								<div class="mb-3">
-									<label class="form-label">Current password</label> <input
-										class="form-control" type="password" name="current-password"
+									<label class="form-label">Current password</label>
+									<div class="input-group">
+									 <input
+										class="form-control" type="password" id="current-password" name="current-password"
 										placeholder="Enter current password">
+										<span class="input-group-text p-0 bg-transparent"> <i
+											class="far fa-eye cursor-pointer p-2 w-40px" id="toggle-current-password"></i>
+										</span>
+										</div>
+										
+										<div class="rounded mt-1" id="psw-strength"></div>
+								
 								</div>
+								
+								
 								<!-- New password -->
 								<div class="mb-3">
 									<label class="form-label"> Enter new password</label>
 									<div class="input-group">
 										<input class="form-control" type="password"
-											name="new-password" placeholder="Enter new password">
-										<span class="input-group-text p-0 bg-transparent"> <i
-											class="far fa-eye cursor-pointer p-2 w-40px"></i>
+											name="new-password" id="new-password" placeholder="Enter new password">
+										<span class="input-group-text p-0 bg-transparent" > <i
+											class="far fa-eye cursor-pointer p-2 w-40px" id="toggle-new-password"></i>
 										</span>
 									</div>
 									<div class="rounded mt-1" id="psw-strength"></div>
 								</div>
 								<!-- Confirm password -->
 								<div>
-									<label class="form-label">Confirm new password</label> <input
-										class="form-control" type="password" name="confirm-password"
+									<label class="form-label">Confirm new password</label> 
+									<div class="input-group">
+									<input
+										class="form-control" type="password" id="confirm-password" name="confirm-password"
 										placeholder="Enter new password">
+										<span class="input-group-text p-0 bg-transparent"> <i
+											class="far fa-eye cursor-pointer p-2 w-40px" id="toggle-confirm-password"></i>
+										</span>
+									</div>
+									<div class="rounded mt-1" id="psw-strength"></div>
+								</div>
 								</div>
 								<!-- Button -->
 								<div class="d-flex justify-content-end mt-4">
 									<button type="submit" class="btn btn-primary mb-0">Change
 										password</button>
+										
 								</div>
 							</div>
 							<!-- Card body END -->
@@ -157,7 +177,42 @@
 					<!-- Password change end -->
 				</form>
 			</div>
-		</div>
+<script>
+    const toggleCurrentPassword = document.getElementById('toggle-current-password');
+    const currentPassword = document.getElementById('current-password');
+
+    toggleCurrentPassword.addEventListener('click', () => {
+        togglePasswordType(currentPassword, toggleCurrentPassword);
+    });
+
+    const toggleNewPassword = document.getElementById('toggle-new-password');
+    const newPassword = document.getElementById('new-password');
+
+    toggleNewPassword.addEventListener('click', () => {
+        togglePasswordType(newPassword, toggleNewPassword);
+    });
+
+    const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+    const confirmPassword = document.getElementById('confirm-password');   
+
+
+    toggleConfirmPassword.addEventListener('click', () => {
+        togglePasswordType(confirmPassword, toggleConfirmPassword);
+    });
+
+    function togglePasswordType(passwordInput, toggleIcon) {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');   
+
+        }
+    }
+</script>
 		<!-- Main content END -->
 
 	</th:block>

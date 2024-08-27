@@ -39,15 +39,10 @@
 				</div>
 			</div>
 			<hr>
-			<div th:if="${action} == 'edit'">
-				<!-- Second Form -->
+			<div class="container" th:if="${action} == 'add'">
+				<!-- First Form -->
 				<form
-					th:action="@{|/${map}/edit-course-detail/edit-material|
-								 (
-								 	courseId=${courseId}, 
-								 	courseModuleId=${courseModuleId},
-								 	courseMaterialId=${courseMaterialId}
-								 )}"
+					th:action="@{|/${map}/edit-course-detail/add-material|(courseId=${courseId}, courseModuleId=${courseModuleId})}"
 					th:object="${courseMaterialDto}" method="POST" id="addMaterial"
 					enctype="multipart/form-data">
 					<div>

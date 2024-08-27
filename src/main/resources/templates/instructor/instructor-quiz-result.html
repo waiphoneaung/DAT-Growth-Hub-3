@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>DAT - Growth Hub</title>
+<meta charset="UTF-8">
+<title>DAT - Growth Hub</title>
 
 </head>
 
@@ -17,7 +17,11 @@
 				<!-- Card header START -->
 				<div class="card-header bg-transparent border-bottom">
 					<h3 class="mb-0">Quiz result</h3>
-					<a th:href="@{/instructor/instructor-quiz-result/generate-quiz-result}" class="btn btn-info">Export Data</a>
+					<a
+						th:href="@{/instructor/instructor-quiz-result/generate-quiz-result}"
+						class="btn btn-info">Export Data As Excel</a>
+					<button class="btn btn-info" onclick="downloadReport()">Export
+						Data As .PDF</button>
 				</div>
 				<!-- Card header END -->
 
@@ -29,8 +33,9 @@
 					<!-- Search and select END -->
 
 					<!-- Student list table START -->
-					<div class="table-responsive border-0">
-						<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+					<div class="table-responsive border-0" id="report">
+						<table
+							class="table table-dark-gray align-middle p-4 mb-0 table-hover">
 							<!-- Table head -->
 							<thead>
 								<tr>
@@ -59,16 +64,20 @@
 									<!-- Table data -->
 									<td th:text="${report.timesTakenQuiz}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.highestScore,1,2) + '%'}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.highestScore,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.lowestScore,1,2) + '%'}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.lowestScore,1,2) + '%'}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.passRate,1,2) + '%'}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.passRate,1,2) + '%'}"></td>
 									<!-- Table data -->
 									<td th:text="${report.grade}"></td>
-									
+
 								</tr>
 
 							</tbody>
@@ -77,24 +86,7 @@
 					</div>
 					<!-- Student list table END -->
 
-					<!-- Pagination START -->
-					<div class="d-sm-flex justify-content-sm-center align-items-sm-center mt-4 mt-sm-3">
-						<!-- Content -->
-						<!-- Pagination -->
-						<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-							<ul
-								class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-								<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-											class="fas fa-angle-left"></i></a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-								<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-								<li class="page-item mb-0"><a class="page-link" href="#"><i
-											class="fas fa-angle-right"></i></a></li>
-							</ul>
-						</nav>
-					</div>
-					<!-- Pagination END -->
+					
 				</div>
 				<!-- Card body START -->
 			</div>
@@ -102,6 +94,43 @@
 		</div>
 
 	</th:block>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script>
+	function downloadReport() {
+        const certificateElement = document.getElementById('report');
+
+        html2canvas(certificateElement).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Set the heading
+            pdf.setFontSize(18);
+            pdf.text("Quiz Result Report", pdf.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+            const imgWidth = 210; // Width of A4 in mm
+            const pageHeight = 295; // Height of A4 in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 30; // Start position for table after heading
+
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 30; // Adjust position for subsequent pages
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save("Quiz Result Report.pdf");
+        });
+    }
+    </script>
 </body>
 
 </html>

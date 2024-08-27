@@ -1,7 +1,6 @@
 package com.g3.elis.controller.admin;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,6 @@ import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.ForumCommentService;
 import com.g3.elis.service.ForumService;
-import com.g3.elis.service.UserService;
 
 @Controller
 @RequestMapping({ "/admin", "/student", "/instructor" })
@@ -35,8 +33,8 @@ public class ForumController {
 	@Autowired
 	private ForumCommentService forumCommentService;
 
-	@Autowired
-	private UserService userService;
+//	@Autowired
+//	private UserService userService;
 	
 	@GetMapping("/forum")
 	public String adminForum(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -59,7 +57,7 @@ public class ForumController {
 		
 		Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		Page<Forum> forumPage = forumService.getAllForums(pageable);
-		List<User> users = userService.getAllUsers();
+		//List<User> users = userService.getAllUsers();
 	
 		ForumDto forumDto = new ForumDto();
 		ForumCommentDto forumCommentDto = new ForumCommentDto();
@@ -99,7 +97,7 @@ public class ForumController {
 		// List<Forum> title = forumService.searchPosts(query);
 		ForumCommentDto forumCommentDto = new ForumCommentDto();
 
-		Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+	//	Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		Page<Forum> title = forumService.searchPosts(query, page, size);
 
 		// Page<Forum> forumPage = forumService.getAllForums(pageable);
