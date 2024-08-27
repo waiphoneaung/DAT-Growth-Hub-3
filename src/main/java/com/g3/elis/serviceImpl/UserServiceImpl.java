@@ -116,17 +116,18 @@ public class UserServiceImpl implements UserService {
 	public Page<User> getAllStudents(Pageable pageable) {
 		return userRepository.findByRole("ROLE_STUDENT", pageable);
 	}
+	
+	@Override
+	public Page<User> getAllInstructors(Pageable pageable) {
+		
+        return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
+	}
 
 	@Override
 	public Page<User> searchUsersByName(String name, Pageable pageable) {
 		return userRepository.findByNameContainingIgnoreCaseAndRole(name, "ROLE_STUDENT", pageable);
 	}
 
-	@Override
-	public Page<User> getAllInstructors(Pageable pageable) {
-		
-        return userRepository.findByRole("ROLE_INSTRUCTOR", pageable);
-	}
 
 	@Override
 	public Page<User> searchInstructors(String name, String staffId, String dept, String division, Pageable pageable) {

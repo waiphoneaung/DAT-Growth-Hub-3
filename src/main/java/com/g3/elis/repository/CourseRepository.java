@@ -31,4 +31,6 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Query("SELECT Count(c) FROM Course c WHERE c.users.id = :userId AND c.status = 'Activated'")
 	int countActivatedCoursesByUserId(@Param("userId") int userId);
 
+	Long countByUsers(User user);
+
 }

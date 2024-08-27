@@ -1,5 +1,8 @@
 package com.g3.elis.controller.admin;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.g3.elis.model.Role;
 import com.g3.elis.model.User;
+import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.service.RoleService;
 import com.g3.elis.service.UserService;
 
@@ -28,21 +32,36 @@ public class AdminInstructorListController {
 	@Autowired
 	private RoleService roleService;
 	
+	@Autowired
+	private CourseRepository courseRepository;
+	
 	
 
 	@GetMapping("/admin-instructor-list")
-    public String adminInstructorList(Model model, 
-                                      @RequestParam(value = "page", defaultValue = "0") int page,
-                                      @RequestParam(value = "size", defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, 10);
-        Page<User> userPage = userService.getAllInstructors(pageable);
+	public String adminInstructorList(Model model, 
+	                                  @RequestParam(value = "page", defaultValue = "0") int page,
+	                                  @RequestParam(value = "size", defaultValue = "10") int size) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    Page<User> userPage = userService.getAllInstructors(pageable);
 
-        model.addAttribute("users", userPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", userPage.getTotalPages());
-        model.addAttribute("content", "admin/admin-instructor-list");
-        return "/admin/admin-layout";
-    }
+	    // Get the list of users
+	    List<User> users = userPage.getContent();
+	    
+	    // Create a map to hold the total course count for each user
+	    Map<Integer, Long> userCourseCountMap = new HashMap<>();
+	    
+	    for (User user : users) {
+	        Long courseCount = courseRepository.countByUsers(user); // Assuming `courseRepository` has the method `countByUsers`
+	        userCourseCountMap.put(user.getId(), courseCount);
+	    }
+	    
+	    model.addAttribute("users", users);
+	    model.addAttribute("userCourseCountMap", userCourseCountMap);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", userPage.getTotalPages());
+	    model.addAttribute("content", "admin/admin-instructor-list");
+	    return "/admin/admin-layout";
+	}
 
     @GetMapping("/admin-instructor-list/search")
     public String searchInstructors(@RequestParam(value = "name", required = false) String name,
