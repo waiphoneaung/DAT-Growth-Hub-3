@@ -37,11 +37,16 @@
 				<div class="page-content-wrapper border">
 
 					<!-- Table START -->
-					<div class="table-responsive border-0 mt-5 mb-3">
-						<h2 th:if="${reports.size != 0}" th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
-						<h2 th:unless="${reports.size != 0}">This course doesn't have enrolled students yet.</h2>
-						<a th:href="@{/admin/admin-report/generate-course-progress-report(courseId=${courseId})}"
-									class="btn btn-info">Export Data</a>
+					<div class="table-responsive border-0 mt-5 mb-3" id="report">
+						<h2 th:if="${reports.size != 0}"
+							th:text="${reports[__0__].courseTitle} + ' Course Progress Report'"></h2>
+						<h2 th:unless="${reports.size != 0}">This course doesn't have
+							enrolled students yet.</h2>
+						<a
+							th:href="@{/admin/admin-report/generate-course-progress-report(courseId=${courseId})}"
+							class="btn btn-info">Export Data As Excel</a>
+						<button class="btn btn-info" onclick="downloadReport()">Export
+							Data As .PDF</button>
 						<table
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
@@ -87,11 +92,13 @@
 									<!-- Table data -->
 									<td th:text="${report.staffId}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.progress,1,2) +'%'}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.progress,1,2) +'%'}"></td>
 									<!-- Table data -->
 									<td th:text="${#strings.substring(report.enrolledDate,0 , 10)}"></td>
 									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
+									<td
+										th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
 									<!-- Table data -->
 									<td th:text="${report.grade}"></td>
 
@@ -130,5 +137,42 @@
 
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script>
+	function downloadReport() {
+        const certificateElement = document.getElementById('report');
+
+        html2canvas(certificateElement).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Set the heading
+            pdf.setFontSize(18);
+            pdf.text("Course Progress Report", pdf.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+            const imgWidth = 210; // Width of A4 in mm
+            const pageHeight = 295; // Height of A4 in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 30; // Start position for table after heading
+
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 30; // Adjust position for subsequent pages
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save("Course Progress Report.pdf");
+        });
+    }
+    </script>
 </body>
 </html>

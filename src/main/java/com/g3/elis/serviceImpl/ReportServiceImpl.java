@@ -157,7 +157,8 @@ public class ReportServiceImpl implements ReportService {
 					quizPerformance.setPassRate(((double) assignmentCompleteCount)/ ((double)enrolledModle.getEnrolledAssignment().size()) * 100);
 					quizPerformance.setStudentName(enrolledCourse.getUsers().getName());
 					quizPerformance.setStudent(enrolledCourse.getUsers());
-					quizPerformance.setStudentName(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
+					quizPerformance.setCourseTitle(enrolledCourse.getCourses().getCourseTitle());
+					quizPerformance.setStudentProfileImage(enrolledCourse.getUsers().getProfile() == null ? null : enrolledCourse.getUsers().getProfile().getProfileImg());
 					
 					quizPerformance.setGrade(( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 100 ? "S"
 							  		  	   : ( (double) totalScore ) / ( (double) enrolledAssignment.getGrades().size()) >= 80 ? "A"
