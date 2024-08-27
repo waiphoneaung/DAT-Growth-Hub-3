@@ -175,11 +175,11 @@
 															<li>
 																<a
 															th:href="@{/admin/change-student-status(id=${user.id}, enabled=${user.enabled ? 0 : 1})}"
-															class="btn"
+															class="btn" 
 															th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
 															th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
 																<i class="bi"
-																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'">Status</i>
 														</a> 
 															</li>
 														</ul>
@@ -300,11 +300,11 @@
 														<td>
 															 <a
 															th:href="@{/admin/change-student-status(id=${user.id}, enabled=${user.enabled ? 0 : 1})}"
-															class="btn"
+															class="btn" 
 															th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
 															th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
-																<i class="bi"
-																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
+																<i class="bi" 
+																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'">Status</i>
 														</a> 
 														<a th:href="@{/admin/change-role-student(userId=${user.id}, roleName='ROLE_ADMIN')}" 
        class="btn btn-primary" title="Change to Admin Role">

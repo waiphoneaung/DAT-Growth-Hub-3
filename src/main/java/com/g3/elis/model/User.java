@@ -40,8 +40,9 @@ public class User {
 	@Column(nullable = false)
 	private boolean enabled;
 
-	@ManyToMany(mappedBy = "users",  fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
+
 
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 	private Set<Course> courses = new HashSet<>();

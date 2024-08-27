@@ -62,6 +62,7 @@ public class StudentCourseResumeController {
 		EnrolledMaterial enrolledMaterial = enrollMaterialService.getEnrolledMaterialByEnrolledMaterialId(enrollMaterialId);
 		model.addAttribute("enrolledMaterial",enrolledMaterial);
 		model.addAttribute("fileType",inputFileService.determineFileType(enrolledMaterial));
+		if(inputFileService.determineFileType(enrolledMaterial) == null) return "/student/student-course-material";
 		if(inputFileService.determineFileType(enrolledMaterial).equals("excel"))
 		{
 			List<SheetData> allSheetsData = inputFileService.readExcel(enrolledMaterial.getCourseMaterial().getInputFileName());
