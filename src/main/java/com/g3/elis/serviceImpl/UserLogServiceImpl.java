@@ -40,13 +40,13 @@ public class UserLogServiceImpl implements UserLogService{
 	@Override
 	public void logLogout(int userId) {
 		
-		User user = userRepository.findById(userId).orElse(null);
+		//User user = userRepository.findById(userId).orElse(null);
 		//UserLog log = new UserLog();
 		// Find the latest UserLog entry for this user with no logoutTime
        // UserLog log = userLogRepository.findFirstByUserAndLogoutTimeIsNullOrderByLoginTimeDesc(user);
 		UserLog log = userLogRepository.findTopByUserIdOrderByLoginTimeDesc(userId);
         
-        if(log != null && log.getLogoutTime() == null) { // Ensure we only update the latest log without a logout time
+        if(log != null && log.getLogoutTime() == null) { //  only update the latest log without a logout time
         	log.setLogoutTime(LocalDateTime.now());
         	userLogRepository.save(log);
         }
