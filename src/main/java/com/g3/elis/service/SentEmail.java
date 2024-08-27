@@ -1,6 +1,8 @@
 package com.g3.elis.service;
 
 import java.sql.Timestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,9 @@ public class SentEmail {
     private int id;
     private String recipientEmail;
     private String subject;
+   
+    
+    @Column( columnDefinition ="TEXT")
     private String body;
     private Timestamp sentAt;
 

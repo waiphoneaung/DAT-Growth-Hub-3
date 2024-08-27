@@ -1,5 +1,6 @@
-package com.g3.elis.controller.student;
+ package com.g3.elis.controller.student;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.EnrolledMaterialService;
 import com.g3.elis.service.EnrolledModuleService;
+import com.g3.elis.util.InputFileService;
+import com.g3.elis.util.SheetData;
 import com.g3.elis.service.EnrolledCourseService;
 
 @Controller
@@ -32,6 +35,9 @@ public class StudentCourseResumeController {
 
 	@Autowired
 	private EnrolledMaterialService enrollMaterialService;
+	
+	@Autowired
+	private InputFileService inputFileService;
 
 	@GetMapping("/student-course-resume")
 	public String studentCourseResume(Authentication authentication, Model model) {
@@ -51,9 +57,20 @@ public class StudentCourseResumeController {
 	}
 
 	@GetMapping("/student-course-resume/view-material")
-	public String studentViewMaterial(@RequestParam(name = "enrollMaterialId") int enrollMaterialId, Model model) {
-		model.addAttribute("enrolledMaterial",
-				enrollMaterialService.getEnrolledMaterialByEnrolledMaterialId(enrollMaterialId));
+	public String studentViewMaterial(@RequestParam(name = "enrollMaterialId") int enrollMaterialId, Model model) throws IOException 
+	{
+		EnrolledMaterial enrolledMaterial = enrollMaterialService.getEnrolledMaterialByEnrolledMaterialId(enrollMaterialId);
+		model.addAttribute("enrolledMaterial",enrolledMaterial);
+		model.addAttribute("fileType",inputFileService.determineFileType(enrolledMaterial));
+		if(inputFileService.determineFileType(enrolledMaterial).equals("excel"))
+		{
+			List<SheetData> allSheetsData = inputFileService.readExcel(enrolledMaterial.getCourseMaterial().getInputFileName());
+			model.addAttribute("sheetsData",allSheetsData);
+		}
+		else
+		{
+			model.addAttribute(inputFileService.determineFileType(enrolledMaterial),enrolledMaterial.getCourseMaterial().getInputFileName());
+		}
 		return "/student/student-course-material";
 	}
 

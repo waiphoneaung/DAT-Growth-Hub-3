@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.g3.elis.dto.form.AnswerDto;
 import com.g3.elis.dto.form.CourseAssignmentDto;
@@ -163,16 +164,19 @@ public class EditCourseDetailController {
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("courseModuleId", courseModuleId);
 		model.addAttribute("map",determineMapping());
-		return "/authenticated-user/edit-course-material";
+		return "/authenticated-user/add-course-material";
 	}
 
 	@PostMapping("/edit-course-detail/add-material")
 	public String submitAddMaterial(@ModelAttribute("courseMaterialDto") CourseMaterialDto courseMaterialDto,
 									@RequestParam(name = "courseId") int courseId, 
 									@RequestParam(name = "courseModuleId") int courseModuleId,
+									@RequestParam(name = "content")String content,
+									@RequestParam(name = "inputFile")MultipartFile inputFile,
 									Model model) throws IOException 
 	{
-		courseMaterialService.createCourseMaterial(courseMaterialDto, courseModuleId);
+		courseMaterialDto.setContent(content);		
+		courseMaterialService.createCourseMaterial(courseMaterialDto, courseModuleId,inputFile);
 		model.addAttribute("map",determineMapping());
 		return "redirect:/"+ determineMapping() +"/edit-course-detail?courseId=" + courseId;
 	}
@@ -202,9 +206,12 @@ public class EditCourseDetailController {
 									 @RequestParam(name = "courseId") int courseId,
 									 @RequestParam(name = "courseModuleId") int courseModuleId,
 									 @RequestParam(name = "courseMaterialId") int courseMaterialId,
+									 @RequestParam(name = "content")String content,
+									 @RequestParam(name = "inputFile")MultipartFile inputFile,
 									 Model model) throws IOException 
 	{
-		courseMaterialService.editCourseMaterial(courseMaterialDto, courseMaterialId, courseModuleId);
+		courseMaterialDto.setContent(content);
+		courseMaterialService.editCourseMaterial(courseMaterialDto, courseMaterialId, courseModuleId,inputFile);
 		model.addAttribute("map",determineMapping());
 		return "redirect:/"+ determineMapping() +"/edit-course-detail?courseId=" + courseId;
 	}
