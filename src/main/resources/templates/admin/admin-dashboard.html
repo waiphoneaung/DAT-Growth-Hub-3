@@ -181,75 +181,84 @@ Plugins CSS
 					<div class="table-responsive border-0 mt-5 mb-3">
 						<div class="row">
 							<div class="col-6">
-								<h2>Course Performance Report</h2>
+								<a
+									th:href="@{/admin/admin-dashboard/generate-course-performance-report}"
+									class="btn btn-info">Export Data As Excel</a>
 							</div>
 							<div class="col-6">
-								<a th:href="@{/admin/admin-dashboard/generate-course-performance-report}"
-									class="btn btn-info">Export Data</a>
+								<button class="btn btn-info" onclick="downloadReport()">Export
+									Data As .PDF</button>
 							</div>
 						</div>
+						<div>
+							<div class="align-items-center justify-content-center">
+								<center><h2>Course Performance Report</h2></center>
+							</div>
+							<table
+								class="table table-dark-gray align-middle p-4 mt-3 mb-0 me-3 ms-3 table-hover"
+								id="report">
 
-						<table
-							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
-							<!-- Table head -->
-							<thead>
-								<tr>
-									<th scope="col" class="border-0 rounded-start">Course
-										Title</th>
-									<th scope="col" class="border-0">Course Id</th>
-									<th scope="col" class="border-0">Instructor</th>
-									<th scope="col" class="border-0">Created At</th>
-									<th scope="col" class="border-0">Total Enrollment</th>
-									<th scope="col" class="border-0">Monthly Enrollment</th>
-									<th scope="col" class="border-0">Yearly Enrollment</th>
-									<th scope="col" class="border-0">Completion Rate</th>
-									<th scope="col" class="border-0">Average Score</th>
-								</tr>
-							</thead>
+								<!-- Table head -->
+								<thead>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Course
+											Title</th>
+										<th scope="col" class="border-0">Course Id</th>
+										<th scope="col" class="border-0">Instructor</th>
+										<th scope="col" class="border-0">Created At</th>
+										<th scope="col" class="border-0">Total Enrollment</th>
+										<th scope="col" class="border-0">Monthly Enrollment</th>
+										<th scope="col" class="border-0">Yearly Enrollment</th>
+										<th scope="col" class="border-0">Completion Rate</th>
+										<th scope="col" class="border-0">Average Score</th>
+									</tr>
+								</thead>
 
-							<!-- Table body START -->
-							<tbody>
+								<!-- Table body START -->
+								<tbody>
 
-								<!-- Table row -->
-								<tr th:each="report : ${reports}">
-									<td>
-										<div class="d-flex align-items-center position-relative">
-											<!-- Image -->
-											<div class="w-100px">
-												<img
-													th:src="@{'/private/course/course-image-file/' + ${report.courseImage}}"
-													class="rounded">
+									<!-- Table row -->
+									<tr th:each="report : ${reports}">
+										<td>
+											<div class="d-flex align-items-center position-relative">
+												<!-- Image -->
+												<div class="w-100px">
+													<img
+														th:src="@{'/private/course/course-image-file/' + ${report.courseImage}}"
+														class="rounded">
+												</div>
+												<!-- Title -->
+												<h6 class="table-responsive-title mb-0 ms-2">
+													<a
+														th:href="@{/admin/edit-course-detail(courseId=${report.courseId})}"
+														class="stretched-link" th:text="${report.courseTitle}"></a>
+												</h6>
 											</div>
-											<!-- Title -->
-											<h6 class="table-responsive-title mb-0 ms-2">
-												<a
-													th:href="@{/admin/edit-course-detail(courseId=${report.courseId})}"
-													class="stretched-link" th:text="${report.courseTitle}"></a>
-											</h6>
-										</div>
-									</td>
-									<!-- Table data -->
-									<td th:text="${report.courseId}"></td>
-									<!-- Table data -->
-									<td th:text="${report.instructor}"></td>
-									<!-- Table data -->
-									<td th:text="${#strings.substring(report.createdAt,0 ,10)}"></td>
-									<!-- Table data -->
-									<td th:text="${report.enrollment}"></td>
-									<!-- Table data -->
-									<td th:text="${report.monthlyEnrolledUser}"></td>
-									<!-- Table data -->
-									<td th:text="${report.yearlyEnrolledUser}"></td>
-									<!-- Table data -->
-									<td
-										th:text="${#numbers.formatDecimal(report.completionRate,1 ,2) + '%'}"></td>
-									<!-- Table data -->
-									<td th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
-								</tr>
+										</td>
+										<!-- Table data -->
+										<td th:text="${report.courseId}"></td>
+										<!-- Table data -->
+										<td th:text="${report.instructor}"></td>
+										<!-- Table data -->
+										<td th:text="${#strings.substring(report.createdAt,0 ,10)}"></td>
+										<!-- Table data -->
+										<td th:text="${report.enrollment}"></td>
+										<!-- Table data -->
+										<td th:text="${report.monthlyEnrolledUser}"></td>
+										<!-- Table data -->
+										<td th:text="${report.yearlyEnrolledUser}"></td>
+										<!-- Table data -->
+										<td
+											th:text="${#numbers.formatDecimal(report.completionRate,1 ,2) + '%'}"></td>
+										<!-- Table data -->
+										<td
+											th:text="${#numbers.formatDecimal(report.averageScore,1,2)}"></td>
+									</tr>
 
-							</tbody>
-							<!-- Table body END -->
-						</table>
+								</tbody>
+								<!-- Table body END -->
+							</table>
+						</div>
 					</div>
 					<!-- Table END -->
 
@@ -260,7 +269,8 @@ Plugins CSS
 
 
 						<!-- Filter Form START -->
-						<form method="get" action="#" th:action="@{/admin/admin-dashboard}">
+						<form method="get" action="#"
+							th:action="@{/admin/admin-dashboard}">
 							<label for="timeRange">Filter by:</label> <select id="timeRange"
 								name="timeRange" class="form-select w-auto d-inline">
 								<option value="all" th:selected="${timeRange == 'all'}">All
@@ -277,8 +287,6 @@ Plugins CSS
 						<!-- Filter Form END -->
 
 						<table
-
-
 							class="table table-dark-gray align-middle p-4 mt-3 mb-0 table-hover">
 							<!-- Table head -->
 							<thead>
@@ -333,12 +341,12 @@ Plugins CSS
 	</div> -->
 
 	<!-- Bootstrap JS -->
-	
-<!-- 	<script th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
- -->	
-	
 
-<!-- 	<script
+	<!-- 	<script th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+ -->
+
+
+	<!-- 	<script
 		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 		
 		
@@ -353,5 +361,42 @@ Plugins CSS
 
 	Template Functions
 	<script th:src="@{/public/assets/js/functions.js}"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script>
+	function downloadReport() {
+        const certificateElement = document.getElementById('report');
+
+        html2canvas(certificateElement).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Set the heading
+            pdf.setFontSize(18);
+            pdf.text("Course Performance Report", pdf.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+            const imgWidth = 210; // Width of A4 in mm
+            const pageHeight = 295; // Height of A4 in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 30; // Start position for table after heading
+
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight + 30; // Adjust position for subsequent pages
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save("Course_Performance_Report.pdf");
+        });
+    }
+    </script>
 </body>
 </html>
