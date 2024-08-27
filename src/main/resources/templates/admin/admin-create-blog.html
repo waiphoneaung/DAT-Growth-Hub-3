@@ -82,7 +82,11 @@
 										data-bs-display="static" data-bs-toggle="dropdown"
 										aria-expanded="false"> <img
 										class="avatar-img rounded-circle"
-										th:src="@{/public/assets/images/avatar/01.jpg}" alt="avatar">
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img class="avatar-img rounded-circle"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
 									</a>
 
 									<!-- Profile dropdown START -->
@@ -115,9 +119,9 @@
 										<li>
 											<hr class="dropdown-divider">
 										</li>
-
 										<!-- Links -->
-										<li><a class="dropdown-item" th:href="@{/admin/admin-dashboard}"><i class="bi bi-person fa-fw me-2"></i>Dashboard</a></li>
+										<li><a class="dropdown-item" th:href="@{/admin/admin-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2
+										"></i>Dashboard</a></li>
 									<li><a class="dropdown-item"
 											th:href="@{/admin/admin-edit-profile}"><i
 												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>

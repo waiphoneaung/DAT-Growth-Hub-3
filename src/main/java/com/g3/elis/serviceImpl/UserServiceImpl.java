@@ -166,15 +166,4 @@ public class UserServiceImpl implements UserService {
 		return userRepository.count("ROLE_STUDENT");
 	}
 
-	
-	
-	
-	
-
-
-	
-
-
-
-
 }
