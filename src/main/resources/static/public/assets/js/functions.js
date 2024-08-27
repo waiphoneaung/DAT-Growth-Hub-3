@@ -583,7 +583,8 @@ var e = {
         var options = {
           series: [{
             name: 'Payout',
-            data: [2909, 1259, 950, 1563, 1825, 2526, 2010, 3260, 3005, 3860, 4039]
+            //data: [2909, 1259, 950, 1563, 1825, 2526, 2010, 3260, 3005, 3860, 4039]
+            data: payoutData
           }],
           chart: {
             height: 300,
@@ -602,7 +603,8 @@ var e = {
           colors: [ThemeColor.getCssVariableValue('--bs-primary')],
           xaxis: {
             type: 'Payout',
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct ', 'Nov', 'Dec'],
+            //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct ', 'Nov', 'Dec'],
+            categories: categories,
             axisBorder: {
                show: false
             },
@@ -738,8 +740,8 @@ var e = {
       if (e.isVariableDefined(cpv)) {
         // CHART: Page Views
         var options = {
-          series: [70, 15, 10, 5],
-          labels: ['Course-1', 'Course-2', 'Course-3', 'Course-4'],
+          series: trafficChartData,
+          labels: ['Grade S', 'Grade A', 'Grade B', 'Grade C', 'Grade D'],
           chart: {
             height: 200,
             width: 200,
@@ -750,8 +752,9 @@ var e = {
             }
           },
           colors: [
-            ThemeColor.getCssVariableValue('--bs-primary'),
             ThemeColor.getCssVariableValue('--bs-success'),
+            ThemeColor.getCssVariableValue('--bs-primary'),
+            ThemeColor.getCssVariableValue('--bs-info'),
             ThemeColor.getCssVariableValue('--bs-warning'),
             ThemeColor.getCssVariableValue('--bs-danger')
           ],
@@ -784,7 +787,7 @@ var e = {
       var options = {
         series: [{
           name: 'Conversion',
-          data: [200, 290, 500, 500, 430, 316, 478, 700]
+          data: activeChartStudent
         }],
         chart: {
           height: 130,
@@ -802,7 +805,7 @@ var e = {
         colors: [ThemeColor.getCssVariableValue('--bs-success')],
         xaxis: {
           type: 'category',
-          categories: ['Dec 01', 'Dec 02', 'Dec 03', 'Dec 04', 'Dec 05', 'Dec 06', 'Dec 07', 'Dec 08', 'Dec 09 ', 'Dec 10', 'Dec 11']
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
         },
         grid: {
           
@@ -833,7 +836,7 @@ var e = {
       var options = {
         series: [{
           name: 'Conversion',
-          data: [200, 290, 325, 500, 600, 316, 478, 700]
+          data: activeChartStudent2
         }],
         chart: {
           height: 130,
@@ -851,7 +854,7 @@ var e = {
         colors: [ThemeColor.getCssVariableValue('--bs-purple')],
         xaxis: {
           type: 'category',
-          categories: ['Dec 01', 'Dec 02', 'Dec 03', 'Dec 04', 'Dec 05', 'Dec 06', 'Dec 07', 'Dec 08', 'Dec 09 ', 'Dec 10', 'Dec 11']
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
         },
         grid: {
           

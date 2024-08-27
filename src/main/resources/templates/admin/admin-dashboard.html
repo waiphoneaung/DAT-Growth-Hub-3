@@ -117,7 +117,7 @@ Plugins CSS
 							<div class="card shadow h-100">
 								<!-- Card header -->
 								<div class="card-header p-4 border-bottom">
-									<h5 class="card-header-title">Earnings</h5>
+									<h5 class="card-header-title">Enrolled Students This Year</h5>
 								</div>
 
 								<!-- Card body -->
@@ -136,8 +136,7 @@ Plugins CSS
 								<!-- Card header -->
 								<div
 									class="card-header border-bottom d-flex justify-content-between align-items-center p-4">
-									<h5 class="card-header-title">Traffic Sources</h5>
-									<a href="#" class="btn btn-link p-0 mb-0">View all</a>
+									<h5 class="card-header-title">Total Grades</h5>
 								</div>
 
 								<!-- Card body START -->
@@ -150,17 +149,15 @@ Plugins CSS
 									<!-- Content -->
 									<ul class="list-group list-group-borderless mt-3">
 										<li class="list-group-item"><i
-											class="text-primary fas fa-circle me-2"></i>Create a Design
-											System in Figma</li>
+											class="text-success fas fa-circle me-2"></i>Grade S: <span th:text="${trafficChartData[__0__]}"></span></li>
 										<li class="list-group-item"><i
-											class="text-success fas fa-circle me-2"></i>The Complete
-											Digital Marketing Course - 12 Courses in 1</li>
+											class="text-primary fas fa-circle me-2"></i>Grade A: <span th:text="${trafficChartData[__1__]}"></span></li>
 										<li class="list-group-item"><i
-											class="text-warning fas fa-circle me-2"></i>Google Ads
-											Training: Become a PPC Expert</li>
+											class="text-info fas fa-circle me-2"></i>Grade B: <span th:text="${trafficChartData[__2__]}"></span></li>
 										<li class="list-group-item"><i
-											class="text-danger fas fa-circle me-2"></i>Microsoft Excel -
-											Excel from Beginner to Advanced</li>
+											class="text-warning fas fa-circle me-2"></i>Grade C: <span th:text="${trafficChartData[__3__]}"></span></li>
+											<li class="list-group-item"><i
+											class="text-danger fas fa-circle me-2"></i>Grade D: <span th:text="${trafficChartData[__4__]}"></span></li>
 									</ul>
 								</div>
 							</div>
@@ -359,12 +356,17 @@ Plugins CSS
 	<script
 		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
 
-	Template Functions
-	<script th:src="@{/public/assets/js/functions.js}"></script> -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	Template Functions-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+        var payoutData = /*[[${apexChartData}]]*/ [];
+        var categories = /*[[${apexChartMonths}]]*/ [];
+        var trafficChartData = /*[[${trafficChartData}]]*/ [];
+        /*]]>*/
+    </script>
+    <script th:src="@{/public/assets/js/functions.js}"></script> 
 	<script>
 	function downloadReport() {
         const certificateElement = document.getElementById('report');
