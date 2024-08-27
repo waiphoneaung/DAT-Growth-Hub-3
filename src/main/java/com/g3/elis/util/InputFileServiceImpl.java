@@ -69,6 +69,7 @@ public class InputFileServiceImpl implements InputFileService {
 
 	@Override
 	public String determineFileType(EnrolledMaterial enrolledMaterial) {
+		if(enrolledMaterial.getCourseMaterial().getInputFileName() == null) return null;
 		String contentType = enrolledMaterial.getCourseMaterial().getInputFileName();
 		if (contentType.contains(".mp4")) {
 			return "video";
