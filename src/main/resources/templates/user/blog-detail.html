@@ -1,149 +1,154 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Mirrored from diracetechnology.com/blog-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:22:41 GMT -->
 <head>
-	<title>DAT - Blog</title>
+<title>DAT - Blog</title>
 
-	<!-- Meta Tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="diracetechnology.com">
-	<meta name="description" content="DAT - Elearning Hub">
+<!-- Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="diracetechnology.com">
+<meta name="description" content="DAT - Elearning Hub">
+<!-- Dark Mode Script -->
+<th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
 
-	<!-- Dark Mode Script -->
-    <th:block th:replace="fragments/darkmode-script :: darkmode-script"></th:block>
+<!-- Favicon -->
+<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" th:href="@{/public/assets/images/favicon.ico}">
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
-	<!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com/">
-	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
 
-	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/font-awesome/css/all.min.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/tiny-slider/tiny-slider.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/vendor/glightbox/css/glightbox.css}">
-
-	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/public/assets/css/style.css}">
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/public/assets/css/style.css}">
 
 </head>
 
 <body>
-<!-- Include navbar -->
-    <div th:replace="user/navbar :: navbar"></div>
+	<!-- Include navbar -->
+	<div th:replace="user/navbar :: navbar"></div>
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
 
-<!-- **************** MAIN CONTENT START **************** -->
-<main>
-	
-<!-- =======================
+		<!-- =======================
 Main Content START -->
-<section class="pb-0 pt-4 pb-md-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-
-				<!-- Title and Info START -->
+		<section class="pb-0 pt-4 pb-md-5">
+			<div class="container">
 				<div class="row">
+					<div class="col-12">
 
-					<!-- Avatar and Share -->
-					<div class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
-						<div class="text-lg-center">
-							<!-- Author info -->
-							<div class="position-relative">
-								<!-- Avatar -->
-								
-								
-								
+						<!-- Title and Info START -->
+						<div class="row">
+
+							<!-- Avatar and Share -->
+							<div
+								class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
+								<div class="text-lg-center">
+									<!-- Author info -->
+									<div class="position-relative">
+										<!-- Avatar -->
+
+
+
+									</div>
+									<!-- Info -->
+
+								</div>
 							</div>
-							<!-- Info -->
-							
-						</div>
-					</div>
 
 
-					<!-- Content -->
-					<div class="col-lg-12 order-1">
-						<!-- Pre title -->
-						
-
-						<!-- Title -->
-						
-						<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"> </h3>
-						
-
-						<p  class=" mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></p>
-
-						<ul class="list-inline list-unstyled">
-							
-								<span class="small text-warning" th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy')}"></span>
-								<span> || </span><span class="small text-warning" th:text="${timeAgo}" ></span>
-							</ul>
-						
-						<!-- Info -->
-						<!-- Main HTML Content Start -->
-
-				
+							<!-- Content -->
 							<div class="col-lg-12 order-1">
-   									 <div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
+								<!-- Pre title -->
+
+
+								<!-- Title -->
+
+								<h3 class="mt-2 mb-0 " th:text="${blogPost.title}"></h3>
+
+
+								<p class=" mt-2 mb-0 d-block" th:text="${blogPost.users.name}"></p>
+
+								<ul class="list-inline list-unstyled">
+
+									<span class="small text-warning"
+										th:text="${#dates.format(blogPost.createdAt, 'dd MMMM yyyy - hh:mm:ss a')}"></span>
+									<span> 
+								</ul>
+
+								<!-- Info th:text="${timeAgo}" -->
+								<!-- Main HTML Content Start -->
+
+
+								<div class="col-lg-12 order-1">
+									<div id="blog-content" class="border p-3 rounded bg-light mt-2"></div>
+								</div>
+								<!-- Main HTML Content End -->
 							</div>
-							<!-- Main HTML Content End -->
-
 						</div>
+						<!-- Title and Info END -->
+
+						<!-- Main HTML Content End -->
+
+
+
+						<hr>
+						<!-- Divider -->
+
+					</div>
+					<!-- Comment review and form END -->
 				</div>
-				<!-- Title and Info END -->
-		
-<!-- Main HTML Content End -->
-
-
-
-				<hr> <!-- Divider -->
-
-				</div>
-				<!-- Comment review and form END -->
 			</div>
-		</div> <!-- Row END -->
+			<!-- Row END -->
 
-</section>
-<!-- =======================
-Main Content END -->
+		</section>
 
-<!-- =======================
-Related blog START -->
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
 
-<!-- =======================
-Related blog END -->
-
-
-</main>
-<!-- **************** MAIN CONTENT END **************** -->
-
-<!-- =======================
+	<!-- =======================
 Footer START -->
-<!-- Include footer -->
-    <div th:replace="user/footer :: footer"></div>
-<!-- =======================
+	<!-- Include footer -->
+	<div th:replace="user/footer :: footer"></div>
+	<!-- =======================
 Footer END -->
 
-<!-- Back to top -->
-<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+	<!-- Back to top -->
+	<div class="back-top">
+		<i
+			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
+	</div>
 
-<!-- Bootstrap JS -->
-<script th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- Bootstrap JS -->
+	<script
+		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
-<!-- Vendors -->
-<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
-<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
-<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
+	<!-- Vendors -->
+	<script
+		th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+	<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
+	<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
 
-<!-- Template Functions -->
-<script th:src="@{/public/assets/js/functions.js}"></script>
+	<!-- Template Functions -->
+	<script th:src="@{/public/assets/js/functions.js}"></script>
 
- <script th:inline="javascript">
+	<script th:inline="javascript">
         /*<![CDATA[*/
         document.addEventListener("DOMContentLoaded", function() {
             const fileName = /*[[${blogPost.htmlFileName}]]*/ 'default.html';

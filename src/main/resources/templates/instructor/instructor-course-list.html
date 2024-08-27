@@ -47,6 +47,7 @@
 
 					<!-- Course list table START -->
 					<div class="table-responsive border-0">
+					
 						<table
 							class="table table-dark-gray align-middle p-4 mb-0 table-hover">
 							<!-- Table head -->
@@ -131,9 +132,11 @@
 										<div th:if="${course.status == 'Activated'}">
 											<a
 												th:href="@{/instructor/edit-course-detail(courseId=${course.id})}"
-												class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit
-											</a>
-										</div>
+												class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Edit </a>
+										</div> 
+										<a
+										th:href="@{/instructor/instructor-report(courseId=${course.id})}"
+										class="btn btn-sm btn-info me-1 mb-1 mb-md-0">View Analytics</a>
 									</td>
 								</tr>
 							</tbody>

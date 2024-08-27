@@ -41,10 +41,10 @@ Page Banner START -->
 													
 											<ul class="list-inline mb-0">
 												<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
-													class="fas fa-user-graduate text-orange me-2"></i>12k
+													class="fas fa-user-graduate text-orange me-2"></i><span th:text="${enrolledStudentNumber}"></span>
 													Enrolled Students</li>
 												<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i
-													class="fas fa-book text-purple me-2"></i>25 Courses</li>
+													class="fas fa-book text-purple me-2"></i><span th:text="${activatedCount}"></span> Activated Courses</li>
 											</ul>
 										</div>
 
@@ -102,7 +102,7 @@ Page content START -->
 												th:href="@{/instructor/instructor-dashboard}"><i
 												class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a> <a
 												class="list-group-item"
-												th:classappend="${currentPage == 'instructor-manage-course' ? ' active' : ''}"
+												th:classappend="${currentPage == 'instructor-course-list' ? ' active' : ''}"
 												th:href="@{/instructor/instructor-course-list}"><i
 												class="bi bi-basket fa-fw me-2"></i>My Courses</a> <a
 												class="list-group-item"

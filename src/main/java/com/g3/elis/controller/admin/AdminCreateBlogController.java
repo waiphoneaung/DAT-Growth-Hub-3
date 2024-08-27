@@ -55,26 +55,35 @@ public class AdminCreateBlogController {
 	private BlogPostService blogPostService;
 
 	@GetMapping("/admin-view-blog")
+	public String adminViewBlog(
+	        @RequestParam(defaultValue = "0") int page, 
+	        @RequestParam(required = false) String keyword, 
+	        Model model) {
 
+	    int pageSize = 8; // Set the page size to 8
+	    Pageable pageable = PageRequest.of(page, pageSize);
+	    
+	    Page<BlogPost> blogPostsPage;
+	    if (keyword != null && !keyword.isEmpty()) {
+	        // If a keyword is provided, search for blog posts by the keyword
+	        blogPostsPage = blogPostService.searchBlogPostsByKeyword(keyword, pageable);
+	    } else {
+	        // If no keyword is provided, fetch all blog posts
+	        blogPostsPage = blogPostService.getAllBlogPosts(pageable);
+	    }
+	    
+	    int previousPage = (page > 0) ? page - 1 : 0;
+	    int nextPage = (page < blogPostsPage.getTotalPages() - 1) ? page + 1 : blogPostsPage.getTotalPages() - 1;
 
-	public String adminViewBlog(@RequestParam(defaultValue = "0") int page, Model model) {
-		int pageSize = 8; // Set the page size to 8
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<BlogPost> blogPostsPage = blogPostService.getAllBlogPosts(pageable);
-        int previousPage = (page > 0) ? page - 1 : 0;
-        int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
-
-        model.addAttribute("blogPosts", blogPostsPage);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("totalPages", blogPostsPage.getTotalPages());
-		List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-		model.addAttribute("blogPosts", blogPosts);
-
-
-		model.addAttribute("content", "admin/admin-view-blog");
-		return "/admin/admin-layout";
+	    model.addAttribute("blogPosts", blogPostsPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("nextPage", nextPage);
+	    model.addAttribute("previousPage", previousPage);
+	    model.addAttribute("totalPages", blogPostsPage.getTotalPages());
+	    model.addAttribute("keyword", keyword); // To retain the keyword in the search field
+	    
+	    model.addAttribute("content", "admin/admin-view-blog");
+	    return "/admin/admin-layout";
 	}
 
 	@SuppressWarnings("unused")
@@ -94,8 +103,6 @@ public class AdminCreateBlogController {
 			model.addAttribute("timeAgo", timeAgo);
 			// Read HTML file content
 			Path htmlFilePath = Paths.get(htmlUploadDir + blogPost.getHtmlFileName());
-			//String content = Files.readString(htmlFilePath);
-		//	model.addAttribute("content", content);
 			model.addAttribute("blogPost", blogPost);
 			return "/user/blog-detail";
 		}
@@ -110,72 +117,7 @@ public class AdminCreateBlogController {
 		return Files.readString(htmlFilePath);
 	}
 
-//	@GetMapping("/admin-create-blog")
-//	public String adminCreateBlog(Model model) {
-//		model.addAttribute("blogPostDto", new BlogPostDto());
-//		return "/admin/admin-create-blog";
-//	}
 
-	/*
-	@PostMapping("/admin-save-blog")
-	public String adminCreateBlog(@Valid @ModelAttribute("blogPostDto") BlogPostDto blogPostDto,
-			@RequestParam String content, @RequestParam(name = "img-file", required = false) MultipartFile imgFile,
-			BindingResult result, Authentication authentication, Model model) throws IOException {
-		LoginUserDetail userDetail = (LoginUserDetail) authentication.getPrincipal();
-		User user = userDetail.getUser();
-		if (result.hasErrors()) {
-			model.addAttribute("blogPostDto", blogPostDto);
-			return "/admin/admin-create-blog";
-		}
-
-		// Handle image file upload
-		if (!imgFile.isEmpty()) {
-			try {
-				String originalFileName = imgFile.getOriginalFilename();
-				String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
-				String newImageFileName = dateTime + "_" + originalFileName;
-				String imagePath = IMAGE_FILE_PATH + newImageFileName;
-
-				Files.write(Paths.get(imagePath), imgFile.getBytes());
-				blogPostDto.setImageFile(newImageFileName);
-
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "redirect:/admin/admin-view-blog";
-			}
-		}
-
-		// Handle HTML file upload
-		BlogPost blogPost;
-		if (blogPostDto.getId() > 0) {
-			blogPost = blogPostService.findById(blogPostDto.getId());
-			if (blogPost == null) {
-				return "redirect:/edit/{id}";
-			}
-		} else {
-			blogPost = new BlogPost();
-			String fileName = UUID.randomUUID().toString() + ".html";
-			blogPostDto.setHtmlFileName(fileName);
-		}
-
-		String filePath = HTML_FILE_PATH + blogPostDto.getHtmlFileName();
-		if (Files.exists(Paths.get(filePath))) {
-			blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-			Files.write(Paths.get(filePath), content.getBytes());
-		} else {
-			blogPostDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-			blogPostDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-			blogPostDto.setUsers(user);
-
-			Files.write(Paths.get(filePath), content.getBytes());
-		}
-
-		blogPostService.saveBlogPost(blogPostDto, filePath, imgFile);
-
-		return "redirect:/admin/admin-view-blog";
-	}
-	
-	*/
 
 	@GetMapping("/admin-delete-blog/{id}")
 	public String adminDeleteBlog(@PathVariable int id) throws IOException {
@@ -183,16 +125,7 @@ public class AdminCreateBlogController {
 		return "redirect:/admin/admin-view-blog";
 	}
 	
-//	@GetMapping("/admin-edit-blog/{id}")
-//    public String adminEditBlog(@PathVariable("id") int id, Model model) {
-//        BlogPost blogPost = blogPostService.findById(id);
-//        if (blogPost != null) {
-//            model.addAttribute("content", blogPostService.getBlogPostContent(blogPost));
-//            model.addAttribute("blogPost", blogPost);
-//            return "/authenticated-user/blog-detail";
-//        }
-//        return "redirect:/admin/admin-view-blog";
-//    }
+
 
     @GetMapping("/admin-create-blog")
     public String adminCreateBlog(Model model) {
@@ -230,12 +163,6 @@ public class AdminCreateBlogController {
     }
     
     
-//
-//    @GetMapping("/admin-delete-blog/{id}")
-//    public String adminDeleteBlog(@PathVariable int id) throws IOException {
-//        blogPostService.deleteBlogPost(id);
-//        return "redirect:/admin/admin-view-blog";
-//    }
 
     @GetMapping("/admin-edit-blog/{id}")
     public String adminEditBlog(@Valid @PathVariable int id, String content, Model model) throws IOException {
@@ -243,8 +170,7 @@ public class AdminCreateBlogController {
         if (blogPost == null) {
             return "redirect:/admin/admin-view-blog";
         }
-        	//content = Files.readString(Paths.get(htmlUploadDir + blogPost.getHtmlFileName()));
-        // content = new String(Files.readAllBytes(Paths.get(htmlUploadDir + blogPost.getHtmlFileName())));
+        	
          BlogPostDto blogPostDto = new BlogPostDto();
         blogPostDto.setId(blogPost.getId());
         blogPostDto.setTitle(blogPost.getTitle());

@@ -173,20 +173,14 @@
 															class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
 															aria-labelledby="dropdownShare2">
 															<li>
-																<form th:action="@{/admin/change-student-status}"
-																	method="post"
-																	th:onsubmit="${user.enabled} ? 'return confirm(\'Are you sure you want to disable this user?\');' : 'return confirm(\'Are you sure you want to enable this user?\');'">
-																	<input type="hidden" name="id" th:value="${user.id}" />
-																	<input type="hidden" name="enabled"
-																		th:value="${user.enabled} ? 0 : 1" />
-																	<button type="submit" class="btn"
-																		th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
-																		th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
-																		<i class="bi"
-																			th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
-																		<a>Status</a>
-																	</button>
-																</form>
+																<a
+															th:href="@{/admin/change-student-status(id=${user.id}, enabled=${user.enabled ? 0 : 1})}"
+															class="btn" 
+															th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
+															th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
+																<i class="bi"
+																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'">Status</i>
+														</a> 
 															</li>
 														</ul>
 													</div>
@@ -221,20 +215,7 @@
 													</div>
 
 												</div>
-
-												<!-- Card footer -->
-												<div class="card-footer bg-transparent border-top">
-													<div
-														class="d-sm-flex justify-content-between align-items-center">
-														<!-- Rating star -->
-														<h6 class="mb-2 mb-sm-0">
-															<i class="bi bi-calendar fa-fw text-orange me-2"></i><span
-																class="text-body" th:text{@/user.}>Join at:</span> 29 Aug 2021
-														</h6>
-
-													</div>
-												</div>
-											</div>
+                                            </div>
 										</div>
 										<!-- Card item END -->
 
@@ -316,20 +297,23 @@
 														<td th:text="${user.status}"></td>
 
 														<!-- Table data -->
-														<td th:if="${action} != 'enroll'">
-															<!-- 														<form th:action="@{/admin/change-student-status}"
-															method="post"
-															th:onsubmit="${user.enabled} ? 'return confirm('Are you sure you want to disable this user?');' : 'return confirm('Are you sure you want to enable this user?');'">
-															<input type="hidden" name="id" th:value="${user.id}" />
-															<input type="hidden" name="enabled"
-																th:value="${user.enabled} ? 0 : 1" /> --> <a
+														<td>
+															 <a
 															th:href="@{/admin/change-student-status(id=${user.id}, enabled=${user.enabled ? 0 : 1})}"
-															class="btn"
+															class="btn" 
 															th:classappend="${user.enabled} ? 'btn-danger-soft' : 'btn-success-soft'"
 															th:title="${user.enabled} ? 'Disable User' : 'Enable User'">
-																<i class="bi"
-																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
-														</a> <!-- </form> -->
+																<i class="bi" 
+																th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'">Status</i>
+														</a> 
+														<a th:href="@{/admin/change-role-student(userId=${user.id}, roleName='ROLE_ADMIN')}" 
+       class="btn btn-primary" title="Change to Admin Role">
+        Change to Admin
+    </a>
+    <a th:href="@{/admin/change-role-student(userId=${user.id}, roleName='ROLE_INSTRUCTOR')}" 
+       class="btn btn-secondary" title="Change to Instructor Role">
+        Change to Instructor
+    </a>
 														</td>
 														<td th:unless="${action} != 'enroll'"><input
 															th:field="*{userList}" th:value=${user.id}

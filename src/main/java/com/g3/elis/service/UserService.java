@@ -39,4 +39,10 @@ public interface UserService {
 	public long countAllInstructor();
 	
 	public long countAllStudent();
+	
+	 public void save(User user);
+	 
+	 public User findById(int id);
+
+	   
 }

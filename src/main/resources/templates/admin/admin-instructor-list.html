@@ -177,24 +177,13 @@
 															</div>
 															<h6 class="mb-0 ms-2 fw-light">Total Course</h6>
 														</div>
-														<span class="mb-0 fw-bold">21</span>
+														<span class="mb-0 fw-bold" th:text="${userCourseCountMap[user.id]}"></span>
+
 													</div>
 
 												</div>
 
-												<!-- Card footer -->
-												<div class="card-footer bg-transparent border-top">
-													<div
-														class="d-flex justify-content-between align-items-center">
-														<!-- Rating star -->
-														<a th:href="@{/admin/admin-instructor-detail}"
-															class="btn btn-sm btn-warning me-1 mb-1 mb-md-0">Details</a>
-														<!-- Message button -->
-														<a href="#" class="btn btn-link text-body p-0 mb-0"
-															data-bs-toggle="tooltip" data-bs-placement="top" title=""
-															data-bs-original-title="Message" aria-label="Message"></a>
-													</div>
-												</div>
+												
 											</div>
 										</div>
 										<!-- Card item END -->
@@ -215,7 +204,7 @@
 													<th scope="col" class="border-0 rounded-start">Instructor
 														name</th>
 													<th scope="col" class="border-0">Staff-ID</th>
-													<th scope="col" class="border-0">Courses</th>
+													
 													<th scope="col" class="border-0">Department</th>
 													<th scope="col" class="border-0">Team</th>
 													<th scope="col" class="border-0">Email</th>
@@ -255,7 +244,7 @@
 
 
 													<td th:text="${user.staffId}"></td>
-													<td th:text="${user.courses}"></td>
+													
 
 													<!-- Table data -->
 													<!--<td th:text="${user.doorLogNo}"></td>-->
@@ -287,6 +276,15 @@
 																	th:classappend="${user.enabled} ? 'bi-ban' : 'bi-check-circle'"></i>
 															</button>
 														</form>
+														
+														<a th:href="@{/admin/change-role-instructor(userId=${user.id}, roleName='ROLE_ADMIN')}" 
+       class="btn btn-primary" title="Change to Admin Role">
+        Change to Admin
+    </a>
+    <a th:href="@{/admin/change-role-instructor(userId=${user.id}, roleName='ROLE_STUDENT')}" 
+       class="btn btn-secondary" title="Change to Student Role">
+        Change to Student
+    </a>
 													</td>
 
 												</tr>

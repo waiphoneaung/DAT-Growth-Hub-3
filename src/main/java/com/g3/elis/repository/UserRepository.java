@@ -1,5 +1,6 @@
 package com.g3.elis.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,17 +14,15 @@ import org.springframework.stereotype.Repository;
 import com.g3.elis.model.Course;
 import com.g3.elis.model.CourseCategory;
 import com.g3.elis.model.User;
+import com.g3.elis.model.UserLog;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
 
 	User findByEmail(String email);
-	User findById(Long userId);
 	
 	public Optional<User> findByStaffId(String staffId);
 	
-//	@Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = 'ROLE_STUDENT'")
-//	public List<User> findByNameContainingIgnoreCase(String name);
 
 	@Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = :role AND LOWER(u.name) LIKE LOWER(CONCAT('%', :name, '%'))")
 	Page<User> findByNameContainingIgnoreCaseAndRole(@Param("name") String name, @Param("role") String role, Pageable pageable);
@@ -57,5 +56,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	long count(String role);
 
 	
+	User findByName(String username);
+
 	
 }

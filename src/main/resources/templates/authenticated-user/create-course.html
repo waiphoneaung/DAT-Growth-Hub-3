@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!-- Bootstrap JS -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <head>
 
@@ -170,7 +167,7 @@ Steps START -->
 														id="courseTitle" th:field="*{courseDto.courseTitle}"
 														th:value="${superDto.courseDto.courseTitle}"
 														placeholder="Enter course title" required>
-											    <!-- <div th:if="${#fields.hasErrors('courseTitle')}" th:errors="*{courseTitle}"></div> -->
+													<!-- <div th:if="${#fields.hasErrors('courseTitle')}" th:errors="*{courseTitle}"></div> -->
 												</div>
 
 												<!-- Short description -->
@@ -220,14 +217,19 @@ Steps START -->
 												</div>
 
 												<!-- Step 1 button -->
-												<div class="d-flex justify-content-between mt-3">
-													<a class="btn btn-warning next-btn mb-0"
-														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> <a
-														class="btn btn-primary next-btn mb-0">Next</a>
+								
+													<!-- <a class="btn btn-warning next-btn mb-0"
+														th:href="@{|/${map}/admin-dashboard|}">Dashboard</a> -->
+													<div sec:authorize="hasRole('ROLE_ADMIN')" class="d-flex justify-content-between mt-3">
+														<a class="btn btn-warning next-btn mb-0"
+															th:href="@{|/${map}/admin-dashboard|}">Dashboard</a>
+														<a class="btn btn-primary next-btn mb-0">Next</a>
 
-												</div>
+
+													</div>
+
+												<!-- Basic information START -->
 											</div>
-											<!-- Basic information START -->
 										</div>
 										<!-- Step 1 content END -->
 
@@ -403,7 +405,6 @@ Steps START -->
 											</div>
 										</div>
 										<!-- Step 3 content END -->
-
 									</form>
 								</div>
 							</div>
@@ -441,8 +442,9 @@ Steps END -->
 								</div>
 
 								<input type="hidden" id="courseTitleField1" name="courseTitle">
-								<input type="hidden" id="courseDescriptionField1" name="courseDescription"> 
-								<input type="number" class="d-none" id="durationHourField1" name="durationHour">
+								<input type="hidden" id="courseDescriptionField1"
+									name="courseDescription"> <input type="number"
+									class="d-none" id="durationHourField1" name="durationHour">
 								<textarea class="d-none" id="courseInfoField1" name="courseInfo"></textarea>
 								<input type="hidden" id="imageField1" name="image">
 
@@ -478,10 +480,11 @@ Steps END -->
 							<div class="modal-body">
 
 								<input type="hidden" id="index" name="courseModuleIndex">
-								<input type="hidden" id="action" name="action"> 
-								<input type="hidden" id="courseTitleField2" name="courseTitle">
-								<input type="hidden" id="courseDescriptionField2" name="courseDescription"> 
-								<input type="number" id="durationHourField2" name="durationHour" class="d-none">
+								<input type="hidden" id="action" name="action"> <input
+									type="hidden" id="courseTitleField2" name="courseTitle">
+								<input type="hidden" id="courseDescriptionField2"
+									name="courseDescription"> <input type="number"
+									id="durationHourField2" name="durationHour" class="d-none">
 								<textarea class="d-none" id="courseInfoField2" name="courseInfo"></textarea>
 
 								<input type="hidden" id="imageField" name="image">
@@ -726,7 +729,8 @@ Steps END -->
     };
     
 </script>
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

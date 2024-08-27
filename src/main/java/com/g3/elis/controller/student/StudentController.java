@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.Authentication;
@@ -22,10 +23,10 @@ import com.g3.elis.model.User;
 import com.g3.elis.security.LoginUserDetail;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
+import com.g3.elis.service.EnrolledMaterialService;
+import com.g3.elis.service.EnrolledModuleService;
 import com.g3.elis.service.UserService;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Controller
 @RequestMapping("/student")
@@ -40,8 +41,47 @@ public class StudentController {
 	@Autowired
 	private EnrolledCourseService enrolledCourseService;
 	
+    
+    @Autowired
+    private EnrolledModuleService enrolledModuleService;
+    
+    @Autowired
+    private EnrolledMaterialService enrollMaterialService;
+	
 	@GetMapping("/student-dashboard")
-	public String home(Model model) {
+	public String home(@RequestParam(value = "page", defaultValue = "0") int page,
+	        @RequestParam(value = "keyword", required = false) String keyword,
+	        Authentication authentication,
+	        Model model) {
+		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+	    User user = loginUser.getUser();
+
+	    Pageable pageable = PageRequest.of(page, 5); // Page size of 5, adjust as needed
+	    Page<EnrolledCourse> enrolledCoursesPage;
+
+	    if (keyword != null && !keyword.isEmpty()) {
+	        enrolledCoursesPage = enrolledCourseService.searchEnrolledCoursesByUser(keyword, pageable);
+	    } else {
+	        enrolledCoursesPage = enrolledCourseService.getEnrolledCoursesByUser(user, pageable);
+	    }
+
+	    // Calculate progress for each enrolled course
+	    List<EnrolledCourse> enrolledCourses = enrolledCoursesPage.getContent();
+	    for (EnrolledCourse enrolledCourse : enrolledCourses) {
+	        int totalModules = enrolledCourse.getEnrolledModules().size();
+	        int completedModules = (int) enrolledCourse.getEnrolledModules().stream()
+	                                    .filter(EnrolledModule::isCompleteStatus)
+	                                    .count();
+	        // Calculate progress percentage
+	        int progress = (totalModules > 0) ? (completedModules * 100) / totalModules : 0;
+	        enrolledCourse.setProgress(progress);
+	    }
+	    
+	    model.addAttribute("enrolledCourses", enrolledCourses);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", enrolledCoursesPage.getTotalPages());
+	    model.addAttribute("keyword", keyword);
+	    
 		model.addAttribute("content","student/student-dashboard");
 		return "/student/student-layout";
 	}
@@ -64,8 +104,14 @@ public class StudentController {
 	    User user = loginUser.getUser();
 
 	    Pageable pageable = PageRequest.of(page, 5); // Page size of 5, adjust as needed
-	    Page<EnrolledCourse> enrolledCoursesPage = enrolledCourseService.getEnrolledCoursesByUser(user, pageable);
-	    
+	    Page<EnrolledCourse> enrolledCoursesPage;
+
+	    if (keyword != null && !keyword.isEmpty()) {
+	        enrolledCoursesPage = enrolledCourseService.searchEnrolledCoursesByUser(keyword, pageable);
+	    } else {
+	        enrolledCoursesPage = enrolledCourseService.getEnrolledCoursesByUser(user, pageable);
+	    }
+
 	    // Calculate progress for each enrolled course
 	    List<EnrolledCourse> enrolledCourses = enrolledCoursesPage.getContent();
 	    for (EnrolledCourse enrolledCourse : enrolledCourses) {
@@ -86,6 +132,8 @@ public class StudentController {
 	    model.addAttribute("content", "student/student-course-list");
 	    return "/student/student-layout";
 	}
+
+	
 
 	@GetMapping("/student-view-allcourses")
 	public String studentCourseList(Model model,
@@ -130,17 +178,10 @@ public class StudentController {
 	    model.addAttribute("content", "student/instructor-list");
 	    return "/student/student-layout";
 	}
-	
-	@GetMapping("/student-grade")
-	public String studentGrade(Model model) {
-		model.addAttribute("content","student/student-grade");
-		return "/student/student-layout";
-	}
-	
+
 	@GetMapping("/blog_detail")
 	public String BlogDetail(Model model) {
 		
 		return "/authenticated-user/blog-detail";
 	}
-	
 }

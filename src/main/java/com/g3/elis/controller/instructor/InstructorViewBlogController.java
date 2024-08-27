@@ -64,20 +64,16 @@ public class InstructorViewBlogController {
         } else {
             blogPostsPage = blogPostService.getAllBlogPosts(pageable);
         }
-//        Page<BlogPost> blogPostsPage = blogPostService.getAllBlogPosts(pageable);
-//        
-//        List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-        int previousPage = (page > 0) ? page - 1 : 0;
+     int previousPage = (page > 0) ? page - 1 : 0;
         int nextPage = (page < blogPostsPage.getTotalPages() - 1)? page + 1 : blogPostsPage.getTotalPages() - 1;
 
         model.addAttribute("blogPosts", blogPostsPage);
-        model.addAttribute("currentPage", page);
+        model.addAttribute("Page", page);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("totalPages", blogPostsPage.getTotalPages());
-//        List<BlogPost> blogPosts = blogPostService.getAllBlogPosts();
-//        model.addAttribute("blogPosts", blogPosts);
-        model.addAttribute("content", "instructor/instructor-view-blog");
+        model.addAttribute("currentPage","instructor-view-blog");
+     model.addAttribute("content", "instructor/instructor-view-blog");
         return "/instructor/instructor-layout";
     }
 
@@ -163,4 +159,5 @@ public class InstructorViewBlogController {
             return "redirect:/instructor/instructor-view-blog";
         }
     }
+    
 }

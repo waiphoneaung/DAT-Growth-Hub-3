@@ -39,7 +39,12 @@
 			<hr>
 			<div class="container" th:if="${action} == 'add'">
 				<form
-					th:action="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-answer|(courseId=${courseId}, courseModuleId=${courseModuleId}, courseAssignmentId=${courseAssignmentId})}"
+					th:action="@{|/${map}/edit-course-detail/edit-assignment/add-question/add-answer|
+								 (  
+								 	courseId=${courseId}, 
+								 	courseModuleId=${courseModuleId}, 
+								 	courseAssignmentId=${courseAssignmentId}
+								 	)}"
 					th:object="${superDto}" method="POST" enctype="multipart/form-data"
 					id="answerForm">
 					<!-- Step 1 content START -->
@@ -70,7 +75,7 @@
 									required>
 							</div>
 							<hr>
-							<h5>Select the checkbox for correct answer.:</h5>
+							<h5>Select the checkbox for correct answer:</h5>
 							<!-- Answer fields -->
 							<div th:each="answerDto,iterStat : ${superDto.answerDtoList}"
 								class="col-12">
@@ -106,6 +111,7 @@
 								       action=${action}
 								   )}"
 									onclick="addAnswer(event)">Add Answer</a>
+									
 								<button class="btn btn-primary next-btn mb-0" type="submit" onclick="validateForm(event)">Confirm</button>
 							</div>
 						</div>
@@ -152,7 +158,7 @@
 			event.preventDefault(); // Prevent the default action of the anchor tag
 
 			// Get the value from the input field
-			var answerCount = document.getElementById('numberInput').value;
+ 			var answerCount = document.getElementById('numberInput').value;
 			//add code
 			var questionTitle = document.getElementById('questionTitle').value;	
 
@@ -215,6 +221,7 @@
 
 	<!-- Template Functions -->
 	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Scripts -->
 	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 </body>

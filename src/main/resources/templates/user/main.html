@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	
 <head >
     <meta charset="UTF-8">
     <title>Home</title>
@@ -339,469 +341,91 @@ Counter END -->
 <!-- =======================
 Popular course START -->
 <section>
-	<div class="container">
-		<!-- Title -->
-		<div class="row mb-4">
-			<div class="col-lg-8 mx-auto text-center">
-				<h2 class="fs-1">Most Popular Courses</h2>
-				<p class="mb-0">Choose from hundreds of courses from specialist organizations</p>
-			</div>
-		</div>
+    <div class="container">
+        <!-- Title -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fs-1">Most Popular Courses</h2>
+                <p class="mb-0">Choose from hundreds of courses from specialist organizations</p>
+            </div>
+        </div>
 
-		<!-- Tabs START -->
-		<ul class="nav nav-pills nav-pills-bg-soft justify-content-sm-center mb-4 px-3" id="course-pills-tab" role="tablist">
-			<!-- Tab item -->
-			<li class="nav-item me-2 me-sm-5">
-				<button class="nav-link mb-2 mb-md-0 active" id="course-pills-tab-1" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1" aria-selected="false">Web Design</button>
-			</li>
-			<!-- Tab item -->
-			<li class="nav-item me-2 me-sm-5">
-				<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2"	aria-selected="false">Development</button>
-			</li>
-			<!-- Tab item -->
-			<li class="nav-item me-2 me-sm-5">
-				<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Graphic Design</button>
-			</li>
-			<!-- Tab item -->
-			<li class="nav-item me-2 me-sm-5">
-				<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-4" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-4" type="button" role="tab" aria-controls="course-pills-tabs-4" aria-selected="false">Marketing</button>
-			</li>
-			<!-- Tab item -->
-			<li class="nav-item me-2 me-sm-5">
-				<button class="nav-link mb-2 mb-md-0" id="course-pills-tab-5" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-5" type="button" role="tab" aria-controls="course-pills-tabs-5"	aria-selected="false">Finance</button>
-			</li>
-		</ul>
-		<!-- Tabs END -->
+        <!-- Tabs START -->
+        <ul class="nav nav-pills nav-pills-bg-soft justify-content-sm-center mb-4 px-3" id="course-pills-tab" role="tablist">
+            <li th:each="category, iterStat : ${top3Categories}" class="nav-item me-2 me-sm-5">
+                <button class="nav-link mb-2 mb-md-0"
+                    th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                    th:text="${category.categoryName}"
+                    th:id="'course-pills-tab-' + ${iterStat.index + 1}"
+                    th:data-bs-target="'#course-pills-tabs-' + ${iterStat.index + 1}"
+                    type="button"
+                    role="tab"
+                    th:aria-controls="'course-pills-tab-' + ${iterStat.index + 1}"
+                    th:aria-selected="${iterStat.index == 0} ? 'true' : 'false'">
+                </button>
+            </li>
+        </ul>
+        <!-- Tabs END -->
 
-		<!-- Tabs content START -->
-		<div class="tab-content" id="course-pills-tabContent">
-			<!-- Content START -->
-			<div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
-				<div class="row g-4">
+        <!-- Tabs content START -->
+        <div class="tab-content" id="course-pills-tabContent">
+            <div th:each="category, iterStat : ${top3Categories}"
+                th:id="'course-pills-tab-' + ${iterStat.index + 1}"
+                th:classappend="${iterStat.index == 0} ? 'show active' : 'fade'"
+                class="tab-pane"
+                role="tabpanel"
+                th:aria-labelledby="'course-pills-tab-' + ${iterStat.index + 1}">
+                
+                <div class="row g-4">
+                    <div th:each="course : ${coursesByCategory.get(category.id)}" class="col-sm-6 col-lg-4 col-xl-3">
+                        <div class="card shadow h-100">
+                            <!-- Image -->
+                            <img class="card-img-top"
+                                th:if="${course != null && course.courseImageFileName != null}"
+                                th:src="@{'/private/course/course-image-file/' + ${course.courseImageFileName}}"
+                                alt="course image" style="height: 200px; object-fit: cover;">
 
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
-							<!-- Card body -->
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								<div class="d-flex justify-content-between mb-2">
-									
-									<a href="#" class="h6 mb-0"> </a>
-								</div>
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a th:href="@{/user/user-course-detail}">Sketch from A to Z: for app designer</a></h5>
-								<p class="mb-2 text-truncate-2">Proposal indulged no do sociable he throwing settling.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Graphic Design Masterclass</a></h5>
-								<p class="mb-2 text-truncate-2">Rooms oh fully taken by worse do Points afraid but may end Rooms Points afraid but may end Rooms</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between ">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>9h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>65 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/03.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Create a Design System in Figma</a></h5>
-								<p class="mb-2 text-truncate-2">Rooms oh fully taken by worse do. Points afraid but may end afraid but may end.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>5h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>32 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Deep Learning with React-Native </a></h5>
-								<p class="mb-2 text-truncate-2">Far advanced settling say finished raillery. Offered chiefly farther</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>18h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>99 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/11.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Build Responsive Websites with HTML</a></h5>
-								<p class="mb-2 text-truncate-2">Far advanced settling say finished raillery. Offered chiefly farther</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>15h 30m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>68 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-			</div> 
-			<!-- Row END -->
-			</div>
-			<!-- Content END -->
-
-			<!-- Content START -->
-			<div class="tab-pane fade" id="course-pills-tabs-2" role="tabpanel" aria-labelledby="course-pills-tab-2">
-				<div class="row g-4">
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/05.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">The Complete Web Development in python</a></h5>
-								<p class="text-truncate-2 mb-2">Mention Mr manners opinion if garrets enabled.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between mt-2">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>10h 00m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>26 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/GUEST.png}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Angular – The Complete Guider</a></h5>
-								<p class="text-truncate-2 mb-2">Rooms oh fully taken by worse do. Points afraid but may end.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between mt-2">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>9h 32m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>42 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/07.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Deep Learning with React-Native</a></h5>
-								<p class="text-truncate-2 mb-2">Far advanced settling say finished raillery. Offered chiefly farther</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>18h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>99 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-				</div>
-			</div>
-			<!-- Content END -->
-
-			<!-- Content START -->
-			<div class="tab-pane fade" id="course-pills-tabs-3" role="tabpanel" aria-labelledby="course-pills-tab-3">
-				<div class="row g-4">
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Sketch from A to Z: for app designer</a></h5>
-								<p class="text-truncate-2 mb-2">Proposal indulged no do sociable he throwing settling</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Learn Invision</a></h5>
-								<p class="mb-2">Arrived off she elderly beloved him Course regard to up he hardly.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between mt-2">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>82 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/02.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Graphic Design Masterclass</a></h5>
-								<p class="text-truncate-2 mb-2">Rooms oh fully taken by worse do. Points afraid but may end.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>9h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>65 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					
-				</div>
-			</div>
-			<!-- Content END -->
-
-			<!-- Content START -->
-			<div class="tab-pane fade" id="course-pills-tabs-4" role="tabpanel" aria-labelledby="course-pills-tab-4">
-				<div class="row g-4">
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/01.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Digital Marketing Masterclass</a></h5>
-								<p class="text-truncate-2 mb-2">Delivered dejection necessary objection do Mr prevailed.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>82 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/08.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Sketch from A to Z: for app designer</a></h5>
-								<p class="text-truncate-2 mb-2">Proposal indulged no do sociable he throwing settling.</p>
-								
-							</div>	
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-				</div>
-			</div>
-			<!-- Content END -->
-
-			<!-- Content START -->
-			<div class="tab-pane fade" id="course-pills-tabs-5" role="tabpanel" aria-labelledby="course-pills-tab-5">
-				<div class="row g-4">
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/04.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">Learn Invision</a></h5>
-								<p class="text-truncate-2 mb-2">Arrived off she elderly beloved him Course regard to up he hardly.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>82 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-
-					<!-- Card item START -->
-					<div class="col-sm-6 col-lg-4 col-xl-3">
-						<div class="card shadow h-100">
-							<!-- Image -->
-							<img th:src="@{/public/assets/images/courses/4by3/09.jpg}" class="card-img-top" alt="course image">
-							<div class="card-body pb-0">
-								<!-- Badge and favorite -->
-								
-								<!-- Title -->
-								<h5 class="card-title fw-normal"><a href="#">JavaScript: Full Understanding</a></h5>
-								<p class="text-truncate-2 mb-2">Far advanced settling say finished raillery. Offered chiefly farther.</p>
-								
-							</div>
-							<!-- Card footer -->
-							<div class="card-footer pt-0 pb-3">
-								<hr>
-								<div class="d-flex justify-content-between">
-									<span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>35h 20m</span>
-									<span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>89 lectures</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card item END -->
-				</div>
-			</div>
-			<!-- Content END -->
-		</div>
-		<!-- Tabs content END -->
-	</div>
+                            <img class="card-img-top"
+                                th:unless="${course != null && course.courseImageFileName != null}"
+                                th:src="@{'/public/assets/images/avatar/GUEST.png'}"
+                                alt="default image" style="height: 200px; object-fit: cover;">
+                            <!-- Card body -->
+                            <div class="card-body pb-0">
+                                <!-- Title -->
+                                <h5 class="card-title fw-normal">
+                                    <a th:href="@{/user/courses/course-detail(courseId=${course.id})}" th:text="${course.courseTitle}"></a>
+                                </h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row END -->
+            </div>
+        </div>
+        <!-- Tabs content END -->
+    </div>
 </section>
-<!-- =======================
-Popular course END -->
-
 </main>
-<!-- **************** MAIN CONTENT END **************** -->
 
-<script th:src="@{/public/assets/vendor/tiny-slider/tiny-slider.js}"></script>
-<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.js}"></script>
-<script th:src="@{/public/assets/vendor/purecounterjs/dist/purecounter_vanilla.js}"></script>
+<!-- =======================
+
+<!-- Back to top -->
+<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.js"></script>
+<script src="assets/vendor/purecounterjs/dist/purecounter_vanilla.js"></script>
+
+<!-- Template Functions -->
+<script src="assets/js/functions.js"></script>
 
 </th:block>
 </body>
+
+<!-- Mirrored from eduport.webestica.com/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Jul 2024 03:21:41 GMT -->
 </html>

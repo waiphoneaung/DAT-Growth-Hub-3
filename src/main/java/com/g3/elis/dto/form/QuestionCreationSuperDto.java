@@ -27,4 +27,9 @@ public class QuestionCreationSuperDto {
 	{
 		
 	}
+	@Override
+	public String toString() {
+		return "AnswerDtoList=" + answerDtoList + "]";
+	}
+	
 }

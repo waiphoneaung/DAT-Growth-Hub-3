@@ -1,3 +1,4 @@
+
 package com.g3.elis.controller.admin;
 
 import java.io.IOException;
@@ -61,25 +62,29 @@ public class AdminEditProfileController {
 		model.addAttribute("content", "admin/admin-edit-profile");
 		return "/admin/admin-layout";
 	}
+	
+	
 
 	@PostMapping("/admin-edit-profile")
 	public String adminEditProfile(@ModelAttribute("profileDto") ProfileDto profileDto,
-			@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
+			@RequestParam(name = "profileImage",required = false) MultipartFile profileImage,
 			Authentication authentication, BindingResult result, Model model) throws IOException {
-
+		
+		
 		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
 		User user = loginUser.getUser();
-
+		
 		if (profileImage.isEmpty()) {
-
+			
 			result.addError(new FieldError("profileDto", "profileImage", "The image file is required"));
 		}
-		if (result.hasErrors()) {
+		if(result.hasErrors())
+		{
 			model.addAttribute("user", user);
 			model.addAttribute("content", "admin/admin-edit-profile");
 			return "/admin/admin-layout";
 		}
-		profileDto.setProfileImg(profileImage);
+		profileDto.setProfileImg(profileImage);		
 		if (profileService.getProfileByUser(user) == null) {
 			profileService.createProfile(user, profileDto);
 		} else {
@@ -87,7 +92,7 @@ public class AdminEditProfileController {
 		}
 		String imageName = profileService.getProfileByUser(user).getProfileImg();
 		model.addAttribute("user", user);
-		model.addAttribute("profileImg", imageName);
+		model.addAttribute("profileImg",imageName);
 		model.addAttribute("content", "admin/admin-edit-profile");
 		return "redirect:/admin/admin-edit-profile";
 	}
@@ -107,4 +112,7 @@ public class AdminEditProfileController {
 		userService.changePassword(user, newPassword);
 		return "redirect:/sign-out";
 	}
+
+	
+	
 }
