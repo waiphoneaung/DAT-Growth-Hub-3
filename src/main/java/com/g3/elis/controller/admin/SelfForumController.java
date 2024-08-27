@@ -60,7 +60,7 @@ public class SelfForumController {
 
 	//	List<Forum> forums = forumService.getAllForums();
 		List<Forum> forums = forumService.getAllForumsSortedByCreatedAtDesc();
-		List<User> users = userService.getAllUsers();
+	//	List<User> users = userService.getAllUsers();
 
 		ForumDto forumDto = new ForumDto();
 		ForumCommentDto forumCommentDto = new ForumCommentDto();

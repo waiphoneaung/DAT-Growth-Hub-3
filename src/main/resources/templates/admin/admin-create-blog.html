@@ -68,6 +68,28 @@
 
 
 
+							<!-- Profile dropdown START -->
+							<li class="nav-item ms-2 ms-md-3 dropdown">
+								<!-- Sign In Button for Unauthenticated Users -->
+								<div th:if="${#authentication == null}">
+									<a class="btn btn-primary" th:href="@{/auth/sign-in}">Sign
+										In</a>
+								</div> <!-- Profile Dropdown for Authenticated Users -->
+								<div th:if="${#authentication != null}">
+									<!-- Avatar -->
+									<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
+										role="button" data-bs-auto-close="outside"
+										data-bs-display="static" data-bs-toggle="dropdown"
+										aria-expanded="false"> <img
+										class="avatar-img rounded-circle"
+										th:if="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
+										alt="avatar"> <img class="avatar-img rounded-circle"
+										th:unless="${user.profile != null && user.profile.profileImg != null}"
+										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
+									</a>
+
+
 						<!-- Profile START -->
 						<div class="dropdown ms-1 ms-lg-0">
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
@@ -192,17 +214,34 @@
 									<hr class="dropdown-divider">
 								</li>
 
+										</li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+										<!-- Links -->
+										<li><a class="dropdown-item" th:href="@{/admin/admin-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2
+										"></i>Dashboard</a></li>
+									<li><a class="dropdown-item"
+											th:href="@{/admin/admin-edit-profile}"><i
+												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+										<li><a class="dropdown-item bg-danger-soft-hover"
+											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
+												Out</a></li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
 
-								<!-- Dark mode options START -->
-								<li>
-									<div
-										class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
-										<!-- <span>Mode:</span> -->
-										<button type="button" class="btn btn-sm mb-0"
-											data-bs-theme-value="light">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16"
-												height="16" fill="currentColor"
-												class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+										<!-- Dark mode options START -->
+										<li>
+											<div
+												class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+												<!-- <span>Mode:</span> -->
+												<button type="button" class="btn btn-sm mb-0"
+													data-bs-theme-value="light">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16"
+														height="16" fill="currentColor"
+														class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+=
 												<path
 													d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
 												<use href="#"></use>

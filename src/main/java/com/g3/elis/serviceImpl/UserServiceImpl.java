@@ -167,6 +167,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.count("ROLE_STUDENT");
 	}
 
+
 	@Override
 	public void save(User user) {
 		userRepository.save(user);
