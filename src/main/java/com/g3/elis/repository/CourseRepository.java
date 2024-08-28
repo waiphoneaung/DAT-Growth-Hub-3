@@ -32,5 +32,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	int countActivatedCoursesByUserId(@Param("userId") int userId);
 
 	Long countByUsers(User user);
+	
+	
 
 }

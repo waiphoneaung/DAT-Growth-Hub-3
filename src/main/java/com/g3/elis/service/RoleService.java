@@ -18,9 +18,7 @@ public interface RoleService {
 
 	Role getRoleByUserId(int userId);
 
-	
-
-    public Role findById(int id);
+	public Role findById(int id);
     
     public Optional<Role> findByName(String roleName);
 }

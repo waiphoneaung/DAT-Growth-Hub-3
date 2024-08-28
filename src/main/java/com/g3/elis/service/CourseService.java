@@ -50,5 +50,7 @@ public interface CourseService {
 
 	int getTotalActivatedCourseCountByUser(int userId);
 
+	
+
 
 }
