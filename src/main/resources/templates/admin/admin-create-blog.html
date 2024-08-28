@@ -68,26 +68,7 @@
 
 
 
-							<!-- Profile dropdown START -->
-							<li class="nav-item ms-2 ms-md-3 dropdown">
-								<!-- Sign In Button for Unauthenticated Users -->
-								<div th:if="${#authentication == null}">
-									<a class="btn btn-primary" th:href="@{/auth/sign-in}">Sign
-										In</a>
-								</div> <!-- Profile Dropdown for Authenticated Users -->
-								<div th:if="${#authentication != null}">
-									<!-- Avatar -->
-									<a class="avatar avatar-sm p-0" href="#" id="profileDropdown"
-										role="button" data-bs-auto-close="outside"
-										data-bs-display="static" data-bs-toggle="dropdown"
-										aria-expanded="false"> <img
-										class="avatar-img rounded-circle"
-										th:if="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/private/profile/user-profile/' + ${user.profile.profileImg}}"
-										alt="avatar"> <img class="avatar-img rounded-circle"
-										th:unless="${user.profile != null && user.profile.profileImg != null}"
-										th:src="@{'/public/assets/images/avatar/GUEST.png'}" alt="avatar">
-									</a>
+							
 
 
 						<!-- Profile START -->
@@ -218,18 +199,7 @@
 										<li>
 											<hr class="dropdown-divider">
 										</li>
-										<!-- Links -->
-										<li><a class="dropdown-item" th:href="@{/admin/admin-dashboard}"><i class="bi bi-ui-checks-grid fa-fw me-2
-										"></i>Dashboard</a></li>
-									<li><a class="dropdown-item"
-											th:href="@{/admin/admin-edit-profile}"><i
-												class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-										<li><a class="dropdown-item bg-danger-soft-hover"
-											th:href="@{/sign-out}"><i class="bi bi-power fa-fw me-2"></i>Sign
-												Out</a></li>
-										<li>
-											<hr class="dropdown-divider">
-										</li>
+										
 
 										<!-- Dark mode options START -->
 										<li>
