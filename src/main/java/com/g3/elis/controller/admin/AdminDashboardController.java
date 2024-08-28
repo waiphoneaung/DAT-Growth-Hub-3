@@ -1,7 +1,9 @@
 package com.g3.elis.controller.admin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +51,20 @@ public class AdminDashboardController
 	{
 		int completeCourses = 0;
 		int courseInProgress = 0;
+		
+		
 		for(EnrolledCourse enrolledCourse : enrolledCourseService.getAllEnrolledCourse())
 		{
 			if(enrolledCourse.isCompleteStatus() == true) completeCourses++;
 			else courseInProgress++;
-		}
 			
+		}
+		List<Integer> apexChartData = reportService.generateEnrolledUserByMonthDataForApexChart();
+		List<String> apexChartMonths = new ArrayList<String>(Arrays.asList("Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+		List<Integer> trafficChartData = reportService.generateGradesResultsForTrafficChart();
 		List<CoursePerformance> reports = reportService.generateCoursePerformanceReport();
-		List<UserLog> logs ;
-//		= userLogService.getUserLogs();
+		List<UserLog> logs;
+		
 		
 		switch(timeRange) {
 		case "week" :
@@ -72,10 +79,11 @@ public class AdminDashboardController
 			default:
 				logs = userLogService.getUserLogs();
 		}
-
-//		List<CourseProgress> reports1 = reportService.generateCourseProgressReport(userDetail.getUser().getId()); 
+		
+		model.addAttribute("trafficChartData",trafficChartData);
+		model.addAttribute("apexChartData",apexChartData);
+		model.addAttribute("apexChartMonths",apexChartMonths);
 		model.addAttribute("reports",reports);
-//		model.addAttribute("reports1",reports1);
 		model.addAttribute("enrolledCourses",enrolledCourseService.getAllEnrolledCourse().size());
 		model.addAttribute("completeCourses",completeCourses);
 		model.addAttribute("courseInProgress",courseInProgress);

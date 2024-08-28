@@ -48,44 +48,55 @@ public class StudentController {
     @Autowired
     private EnrolledMaterialService enrollMaterialService;
 	
-	@GetMapping("/student-dashboard")
-	public String home(@RequestParam(value = "page", defaultValue = "0") int page,
-	        @RequestParam(value = "keyword", required = false) String keyword,
-	        Authentication authentication,
-	        Model model) {
-		LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
-	    User user = loginUser.getUser();
+    @GetMapping("/student-dashboard")
+    public String home(@RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "keyword", required = false) String keyword,
+                       Authentication authentication,
+                       Model model) {
+        LoginUserDetail loginUser = (LoginUserDetail) authentication.getPrincipal();
+        User user = loginUser.getUser();
 
-	    Pageable pageable = PageRequest.of(page, 5); // Page size of 5, adjust as needed
-	    Page<EnrolledCourse> enrolledCoursesPage;
+        Pageable pageable = PageRequest.of(page, 5); // Page size of 5, adjust as needed
+        Page<EnrolledCourse> enrolledCoursesPage;
 
-	    if (keyword != null && !keyword.isEmpty()) {
-	        enrolledCoursesPage = enrolledCourseService.searchEnrolledCoursesByUser(keyword, pageable);
-	    } else {
-	        enrolledCoursesPage = enrolledCourseService.getEnrolledCoursesByUser(user, pageable);
-	    }
+        if (keyword != null && !keyword.isEmpty()) {
+            enrolledCoursesPage = enrolledCourseService.searchEnrolledCoursesByUser(keyword, pageable);
+        } else {
+            enrolledCoursesPage = enrolledCourseService.getEnrolledCoursesByUser(user, pageable);
+        }
 
-	    // Calculate progress for each enrolled course
-	    List<EnrolledCourse> enrolledCourses = enrolledCoursesPage.getContent();
-	    for (EnrolledCourse enrolledCourse : enrolledCourses) {
-	        int totalModules = enrolledCourse.getEnrolledModules().size();
-	        int completedModules = (int) enrolledCourse.getEnrolledModules().stream()
-	                                    .filter(EnrolledModule::isCompleteStatus)
-	                                    .count();
-	        // Calculate progress percentage
-	        int progress = (totalModules > 0) ? (completedModules * 100) / totalModules : 0;
-	        enrolledCourse.setProgress(progress);
-	    }
-	    
-	    model.addAttribute("enrolledCourses", enrolledCourses);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPages", enrolledCoursesPage.getTotalPages());
-	    model.addAttribute("keyword", keyword);
-	    
-		model.addAttribute("content","student/student-dashboard");
-		return "/student/student-layout";
-	}
-	
+        List<EnrolledCourse> enrolledCourses = enrolledCoursesPage.getContent();
+        
+
+        // Filter and count completed courses
+        long completedCoursesCount = enrolledCourses.stream()
+                                                    .filter(EnrolledCourse::isCompleteStatus)
+                                                    .count();
+        
+        for (EnrolledCourse enrolledCourse : enrolledCourses) {
+            int totalModules = enrolledCourse.getEnrolledModules().size();
+            int completedModules = (int) enrolledCourse.getEnrolledModules().stream()
+                                    .filter(EnrolledModule::isCompleteStatus)
+                                    .count();
+            
+            int progress = (totalModules > 0) ? (completedModules * 100) / totalModules : 0;
+            enrolledCourse.setProgress(progress);
+        }
+        
+        int totalEnrolledCourses = enrolledCourses.size();
+        int achievementCount = user.getAchievement().size();
+        model.addAttribute("achievementCount", achievementCount); 
+        model.addAttribute("totalEnrolledCourses", totalEnrolledCourses);
+        model.addAttribute("completedCoursesCount", completedCoursesCount);
+        model.addAttribute("enrolledCourses", enrolledCourses);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", enrolledCoursesPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+        
+        model.addAttribute("content", "student/student-dashboard");
+        return "/student/student-layout";
+    }
+
 	@GetMapping("/blog-detail")
 	public String blogDetail()
 	{

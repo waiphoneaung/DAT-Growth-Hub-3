@@ -43,22 +43,9 @@ public class AdminInstructorListController {
 	                                  @RequestParam(value = "size", defaultValue = "10") int size) {
 	    Pageable pageable = PageRequest.of(page, size);
 	    Page<User> userPage = userService.getAllInstructors(pageable);
-
-	    // Get the list of users
-	    List<User> users = userPage.getContent();
-	    
-	    // Create a map to hold the total course count for each user
-	    Map<Integer, Long> userCourseCountMap = new HashMap<>();
-	    
-	    for (User user : users) {
-	        Long courseCount = courseRepository.countByUsers(user); // Assuming `courseRepository` has the method `countByUsers`
-	        userCourseCountMap.put(user.getId(), courseCount);
-	    }
-	    
-	    model.addAttribute("users", users);
-	    model.addAttribute("userCourseCountMap", userCourseCountMap);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userPage.getTotalPages());
 	    model.addAttribute("content", "admin/admin-instructor-list");
 	    return "/admin/admin-layout";
 	}

@@ -82,9 +82,10 @@ public class CourseCategoryController {
 
 	@PostMapping("/admin-course-category/delete/{id}")
 	public String deleteCourseCategory(@PathVariable("id") Long id) {
-		courseCategoryService.deleteCourseCategoryById(id);
-		return "redirect:/admin/admin-course-category";
+	    courseCategoryService.deleteCourseCategoryById(id);
+	    return "redirect:/admin/admin-course-category";
 	}
+
 
 	@GetMapping("/admin-course-category/search")
 	public String getCourseCategories(@RequestParam(value = "search", required = false) String search,

@@ -13,7 +13,7 @@
 <body>
 	<!-- Sidebar -->
 	<div th:replace="~{admin/admin-sidebar :: admin-sidebar}"></div>
-	
+
 	<!-- Include navbar -->
 
 	<div th:replace="~{admin/admin-navbar :: admin-navbar}"></div>
@@ -30,7 +30,7 @@
 					<!-- Row START -->
 					<div class="row g-4 mb-5">
 						<!-- Course information START -->
-						<div class="col-xxl-6">
+						<div class="col-xxl-12">
 							<div class="card bg-transparent border rounded-3 h-100">
 
 								<!-- Catd header -->
@@ -120,25 +120,20 @@
 						<!-- Course information END -->
 
 						<!-- Chart START -->
-						<div class="col-xxl-6">
+						<div class="col-xxl-12">
 							<div class="row g-4">
 
 								<!-- Active student START -->
-								<div class="col-md-6 col-xxl-12">
+								<div class="col-md-6 col-xxl-6">
 									<div class="card bg-transparent border overflow-hidden">
 										<!-- Card header -->
 										<div class="card-header bg-light border-bottom">
-											<h5 class="card-header-title mb-0">Course Completed This
-												Month</h5>
+											<h5 class="card-header-title mb-0">Course Completed This Year</h5>
 										</div>
 										<!-- Card body -->
 										<div class="card-body p-0">
 											<div class="d-sm-flex justify-content-between p-4">
-												<h4 class="text-blue mb-0">$12,586</h4>
-												<p class="mb-0">
-													<span class="text-success me-1">0.20%<i
-														class="bi bi-arrow-up"></i></span>vs last Week
-												</p>
+												<h4 class="text-blue mb-0">Total Completed: <span th:text="${totalCourseComplete}"></span></h4>
 											</div>
 											<!-- Apex chart -->
 											<div id="activeChartstudent"></div>
@@ -148,21 +143,16 @@
 								<!-- Active student END -->
 
 								<!-- Enrolled START -->
-								<div class="col-md-6 col-xxl-12">
+								<div class="col-md-6 col-xxl-6">
 									<div class="card bg-transparent border overflow-hidden">
 										<!-- Card header -->
 										<div class="card-header bg-light border-bottom">
-											<h5 class="card-header-title mb-0">New Enrollment This
-												Month</h5>
+											<h5 class="card-header-title mb-0">Enrollment This Year</h5>
 										</div>
 										<!-- Card body -->
 										<div class="card-body p-0">
 											<div class="d-sm-flex justify-content-between p-4">
-												<h4 class="text-blue mb-0">186</h4>
-												<p class="mb-0">
-													<span class="text-success me-1">0.35%<i
-														class="bi bi-arrow-up"></i></span>vs last Week
-												</p>
+												<h4 class="text-blue mb-0">Total Enrollment: <span th:text="${totalEnrolled}"></span></h4>
 											</div>
 											<!-- Apex chart -->
 											<div id="activeChartstudent2"></div>
@@ -260,7 +250,8 @@
 															<a
 																th:href="@{|/${map}/edit-course-detail/edit-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-warning mb-0"><i
-																class="bi fa-fw bi-pencil-square me-2"></i>Add Question</a> <a
+																class="bi fa-fw bi-pencil-square me-2"></i>Add Question</a>
+															<a
 																th:href="@{|/${map}/edit-course-detail/delete-assignment|(courseId=${courseId}, courseModuleId=${courseModule.id}, courseAssignmentId=${courseAssignment.id})}"
 																class="btn btn-xs btn-danger mb-0">Delete</a>
 															<hr class="mb-0">
@@ -294,7 +285,8 @@
 						</div>
 
 						<div class="mt-2">
-							<a th:href="@{|/${map}/${map}-course-list|}" class="btn btn-warning">Back to course list</a>
+							<a th:href="@{|/${map}/${map}-course-list|}"
+								class="btn btn-warning">Back to course list</a>
 						</div>
 
 						<!-- Course item END -->
@@ -304,31 +296,40 @@
 
 			<!-- Main content END -->
 			<!-- Page main content END -->
+		</th:block>
 	</main>
-	</th:block>
+
 	<!-- Popup modal for reviwe END -->
 
-	<!-- Back to top -->
+	<!-- Back to top
 	<div class="back-top">
 		<i
 			class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i>
 	</div>
 
-	<!-- Bootstrap JS -->
+	<!-- Bootstrap JS 
 	<script
 		th:src="@{/public/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
-	<!-- Vendors -->
+	<!-- Vendors 
 	<script th:src="@{/public/assets/vendor/choices/js/choices.min.js}"></script>
-	<script
-		th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
+	
 	<script
 		th:src="@{/public/assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js}"></script>
 
-	<!-- Template Functions  -->
-	<script th:src="@{/public/assets/js/functions.js}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Scripts -->
+	<!-- Template Functions -->
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+        var activeChartStudent = /*[[${activeChartStudent}]]*/ [];
+        var activeChartStudent2 = /*[[${activeChartStudent2}]]*/ [];
+        /*]]>*/
+    </script>
+	<script th:src="@{/public/assets/js/functions.js}"></script>
+	<script th:src="@{/public/assets/vendor/apexcharts/js/apexcharts.min.js}"></script>
 	<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
 
 </body>

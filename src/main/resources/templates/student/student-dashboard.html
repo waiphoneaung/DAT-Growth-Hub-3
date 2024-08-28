@@ -16,8 +16,8 @@
 							<span class="display-6 lh-1 text-orange mb-0"><i class="fas fa-tv fa-fw"></i></span>
 							<div class="ms-4">
 								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="9"	data-purecounter-delay="200">0</h5>
-								</div>
+                          <h5 class=" mb-0 fw-bold" th:text="${totalEnrolledCourses}"></h5></div>
+
 								<p class="mb-0 h6 fw-light">Total Courses</p>
 							</div>
 						</div>
@@ -28,9 +28,9 @@
 							<span class="display-6 lh-1 text-purple mb-0"><i class="fas fa-clipboard-check fa-fw"></i></span>
 							<div class="ms-4">
 								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="52"	data-purecounter-delay="200">0</h5>
+									<h5 class=" mb-0 fw-bold" th:text="${completedCoursesCount}"></h5>
 								</div>
-								<p class="mb-0 h6 fw-light">Complete lessons</p>
+								<p class="mb-0 h6 fw-light">Complete Courses</p>
 							</div>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 							<span class="display-6 lh-1 text-success mb-0"><i class="fas fa-medal fa-fw"></i></span>
 							<div class="ms-4">
 								<div class="d-flex">
-									<h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="8" data-purecounter-delay="300">0</h5>
+									<h5 class=" mb-0 fw-bold" th:text="${achievementCount}"></h5>
 								</div>
 								<p class="mb-0 h6 fw-light">Achieved Certificates</p>
 							</div>
@@ -139,9 +139,9 @@
 												class="btn btn-sm btn-success me-1 mb-1 mb-md-0 disabled">
 												<i class="bi bi-check me-1"></i>Complete
 											</button>
-											<a href="#" class="btn btn-sm btn-light me-1"> <i
+										<!-- 	<a href="#" class="btn btn-sm btn-light me-1"> <i
 												class="bi bi-arrow-repeat me-1"></i>Restart
-											</a>
+											</a>-->
 										</div> <!-- Check if total enrolled modules is less than completed modules -->
 										<div
 											th:if="${#lists.size(enrolledCourse.enrolledModules) > #lists.size(enrolledCourse.enrolledModules.?[completeStatus == true])}">
