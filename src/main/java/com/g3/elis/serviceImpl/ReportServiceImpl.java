@@ -21,6 +21,7 @@ import com.g3.elis.model.Grade;
 import com.g3.elis.model.Report;
 import com.g3.elis.repository.CourseRepository;
 import com.g3.elis.repository.EnrolledCourseRepository;
+import com.g3.elis.repository.GradeRepository;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.ReportService;
 
@@ -32,6 +33,9 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private GradeRepository gradeRepository;
 
 	@Override
 	public List<CoursePerformance> generateCoursePerformanceReport() {
@@ -173,4 +177,109 @@ public class ReportServiceImpl implements ReportService {
 		return report;
 	}
 
+	@Override
+	public List<Integer> generateEnrolledUserByMonthDataForApexChart() {
+		List<EnrolledCourse> enrolledCourses = enrolledCourseService.getAllEnrolledCourse();
+		List<Integer> apexChartData = new ArrayList<>();
+		for(int i = 1; i <=12;i++)
+		{
+			int singleData = 0;
+			for(EnrolledCourse enrolledCourse : enrolledCourses)
+			{
+				if(enrolledCourse.getEnrolledAt().toString().substring(5,7).contains(String.valueOf(i)) && 
+				   enrolledCourse.getEnrolledAt().toString().substring(0,4).equals(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,4)))
+				{
+					singleData++;
+				}
+			}
+			apexChartData.add(singleData);
+		}
+		
+		return apexChartData;
+	}
+	
+	@Override
+	public List<Integer> generateEnrolledUserByMonthDataForApexChart(int instructorId) {
+		List<EnrolledCourse> enrolledCourses = enrolledCourseService.getAllEnrolledCourseByInstructorId(instructorId);
+		List<Integer> apexChartData = new ArrayList<>();
+		for(int i = 1; i <=12;i++)
+		{
+			int singleData = 0;
+			for(EnrolledCourse enrolledCourse : enrolledCourses)
+			{
+				if(enrolledCourse.getEnrolledAt().toString().substring(5,7).contains(String.valueOf(i)) && 
+				   enrolledCourse.getEnrolledAt().toString().substring(0,4).equals(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,4)))
+				{
+					singleData++;
+				}
+			}
+			apexChartData.add(singleData);
+		}
+		
+		return apexChartData;
+	}
+
+	@Override
+	public List<Integer> generateGradesResultsForTrafficChart() {
+		List<Grade> grades = gradeRepository.findAll();
+		List<Integer> dataForTrafficChart = new ArrayList<Integer>();
+		int gradeS = 0,gradeA = 0,gradeB = 0,gradeC = 0,gradeD = 0;
+		
+		for(Grade grade : grades)
+		{
+			if(grade.getGrade().equals("S")) gradeS++;
+			if(grade.getGrade().equals("A")) gradeA++;
+			if(grade.getGrade().equals("B")) gradeB++;
+			if(grade.getGrade().equals("C")) gradeC++;
+			if(grade.getGrade().equals("D")) gradeD++;
+		}
+		dataForTrafficChart.add(gradeS);
+		dataForTrafficChart.add(gradeA);
+		dataForTrafficChart.add(gradeB);
+		dataForTrafficChart.add(gradeC);
+		dataForTrafficChart.add(gradeD);
+		return dataForTrafficChart;
+	}
+
+	@Override
+	public List<Integer> generateYearlyTotalCourseCompletedForActiveChartStudent(int courseId) 
+	{
+		List<EnrolledCourse> enrolledCourses = enrolledCourseService.getAllEnrolledCourseByCourseId(courseId);
+		List<Integer> activeChartStudent = new ArrayList<>();
+		for(int i = 1; i <=12;i++)
+		{
+			int singleData = 0;
+			for(EnrolledCourse enrolledCourse : enrolledCourses)
+			{
+				if(enrolledCourse.getEnrolledAt().toString().substring(5,7).contains(String.valueOf(i)) && 
+				   enrolledCourse.getEnrolledAt().toString().substring(0,4).equals(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,4)) && 
+				   enrolledCourse.isCompleteStatus() == true)
+				{
+					singleData++;
+				}
+			}
+			activeChartStudent.add(singleData);
+		}
+		return activeChartStudent;
+	}
+
+	@Override
+	public List<Integer> generateYearlyTotalEnrolledForActiveChartStudent(int courseId) {
+		List<EnrolledCourse> enrolledCourses = enrolledCourseService.getAllEnrolledCourseByCourseId(courseId);
+		List<Integer> activeChartStudent = new ArrayList<>();
+		for(int i = 1; i <=12;i++)
+		{
+			int singleData = 0;
+			for(EnrolledCourse enrolledCourse : enrolledCourses)
+			{
+				if(enrolledCourse.getEnrolledAt().toString().substring(5,7).contains(String.valueOf(i)) && 
+				   enrolledCourse.getEnrolledAt().toString().substring(0,4).equals(Timestamp.valueOf(LocalDateTime.now()).toString().substring(0,4)))
+				{
+					singleData++;
+				}
+			}
+			activeChartStudent.add(singleData);
+		}
+		return activeChartStudent;
+	}
 }

@@ -12,4 +12,9 @@ public interface ReportService {
 	List<CoursePerformance> generateCoursePerformanceReport();
 	List<CourseProgress> generateCourseProgressReport(int courseId);
 	List<QuizPerformance> generateQuizPerformanceReport(int instructorId);
+	List<Integer> generateEnrolledUserByMonthDataForApexChart();                 // For Admin
+	List<Integer> generateEnrolledUserByMonthDataForApexChart(int instructorId); // For Instructor
+	List<Integer> generateGradesResultsForTrafficChart();
+	List<Integer> generateYearlyTotalCourseCompletedForActiveChartStudent(int courseId);
+	List<Integer> generateYearlyTotalEnrolledForActiveChartStudent(int courseId);
 }

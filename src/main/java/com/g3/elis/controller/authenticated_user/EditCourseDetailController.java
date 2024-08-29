@@ -2,6 +2,7 @@ package com.g3.elis.controller.authenticated_user;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,6 +39,7 @@ import com.g3.elis.service.CourseModuleService;
 import com.g3.elis.service.CourseService;
 import com.g3.elis.service.EnrolledCourseService;
 import com.g3.elis.service.QuestionService;
+import com.g3.elis.service.ReportService;
 
 @Controller
 @RequestMapping({"/admin","/instructor"})
@@ -64,6 +66,9 @@ public class EditCourseDetailController {
 	@Autowired
 	private AnswerService answerService;
 	
+	@Autowired
+	private ReportService reportService;
+	
 	@ModelAttribute("superDto")
     public QuestionCreationSuperDto populatesuperDto() {
 		QuestionCreationSuperDto superDto = new QuestionCreationSuperDto();
@@ -80,13 +85,23 @@ public class EditCourseDetailController {
 		for (int i = 0; i < course.getCourseModule().size(); i++)
 			totalModules++;
 		for (EnrolledCourse enrolledCourse : enrolledCourseService.getAllEnrolledCourse()) {
-			if (enrolledCourse.getCourses().getId() == course.getId()) {
-				totalEnrolled++;
+			if (enrolledCourse.getCourses().getId() == course.getId()) 
+			{
+				totalEnrolled++;	
 			}
 		}
+		List<Integer> activeChartStudent = reportService.generateYearlyTotalCourseCompletedForActiveChartStudent(courseId);
+		int totalCourseComplete = 0;
+		for(int i = 0; i < activeChartStudent.size();i++)
+		{
+			totalCourseComplete+= activeChartStudent.get(i);
+		}
+		model.addAttribute("activeChartStudent",reportService.generateYearlyTotalCourseCompletedForActiveChartStudent(courseId));
+		model.addAttribute("activeChartStudent2",reportService.generateYearlyTotalEnrolledForActiveChartStudent(courseId));
 		model.addAttribute("courseId", courseId);
 		model.addAttribute("totalModules", totalModules);
 		model.addAttribute("totalEnrolled", totalEnrolled);
+		model.addAttribute("totalCourseComplete",totalCourseComplete);
 		model.addAttribute("course", course);
 		model.addAttribute("map",determineMapping());
 		
